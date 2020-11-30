@@ -94,7 +94,7 @@ public final class CustomItem {
         }
 
         public Builder description(String description) {
-            this.description = ensureMaxLength(id, "id", 32 * 1024);
+            this.description = ensureMaxLength(description, "description", 32 * 1024);
             return this;
         }
 
