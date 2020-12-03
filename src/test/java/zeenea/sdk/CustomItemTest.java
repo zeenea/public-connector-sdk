@@ -3,18 +3,19 @@ package zeenea.sdk;
 import org.junit.jupiter.api.Test;
 
 import java.time.Instant;
+import java.util.Collections;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 public class CustomItemTest {
 
     static final String DEFAULT_NAME = "custom-item-name";
-    static final String LONG_NAME = "a".repeat(1024 + 1);
+    static final String LONG_NAME = longString(1024 + 1);
     static final String DEFAULT_ID = "custom-item-id";
-    static final String LONG_ID = "b".repeat(1024 + 1);
+    static final String LONG_ID = longString(1024 + 1);
     static final String DEFAULT_CODE = "custom-item-code";
     static final String DEFAULT_DESCRIPTION = "custom-item-description";
-    static final String LONG_DESCRIPTION = "c".repeat(32 * 1024 + 1);
+    static final String LONG_DESCRIPTION = longString(32 * 1024 + 1);
     static final String DEFAULT_METADATA_KEY = "custom-item-metadata-key";
     static final Metadata DEFAULT_METADATA = new Metadata();
     static final ContactRelation DEFAULT_CONTACT_RELATION = new ContactRelation() {};
@@ -70,5 +71,9 @@ public class CustomItemTest {
                 .addContactRelation(DEFAULT_CONTACT_RELATION)
                 .updateTime(DEFAULT_UPDATE_TIME)
                 .build());
+    }
+
+    private static String longString(int count) {
+        return String.join("", Collections.nCopies(count, "a"));
     }
 }
