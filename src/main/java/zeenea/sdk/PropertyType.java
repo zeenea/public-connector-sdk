@@ -1,4 +1,5 @@
 package zeenea.sdk;
 
-public interface PropertyType {
+public enum PropertyType {
+    STRING, Number, URL, Instant
 }

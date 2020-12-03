@@ -2,6 +2,7 @@ package zeenea.sdk;
 
 import java.util.Map;
 import java.util.Optional;
+import java.util.Set;
 
 public interface CustomItemConnector extends AutoCloseable {
 
@@ -15,7 +16,7 @@ public interface CustomItemConnector extends AutoCloseable {
     // sinon synchronize incrémental
     // dictionnaire indexé par un code UNIQUE et une valeur typée
     //  exemple : String, BigDecimal, Instant, (URI + lien) et d'autres à venir...
-    Map<String, PropertyType> getTechnicalMetadata();
+    Set<Metadata> getTechnicalMetadata();
 
     // scanner appelle cette méthode
     // connector send all custom items, with a long for tagging last call to synchronize

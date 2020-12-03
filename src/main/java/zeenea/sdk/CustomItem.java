@@ -29,7 +29,7 @@ public final class CustomItem {
     private final String description;
 
     // nécessaire pour exploiter dans le moteur de recherche
-    private final Map<String, Metadata> metadata;
+    private final Map<Metadata, PropertyValue> metadata;
 
     // last update time
     private final Instant updateTime;
@@ -39,7 +39,7 @@ public final class CustomItem {
     // no schemaVersion because no inventory
 
 
-    private CustomItem(String name, String id, String code, String description, Map<String, Metadata> metadata, Instant updateTime, Collection<ContactRelation> contactRelations) {
+    private CustomItem(String name, String id, String code, String description, Map<Metadata, PropertyValue> metadata, Instant updateTime, Collection<ContactRelation> contactRelations) {
         this.name = name;
         this.id = id;
         this.code = code;
@@ -65,7 +65,7 @@ public final class CustomItem {
         return Optional.ofNullable(description);
     }
 
-    public Map<String, Metadata> getMetadata() {
+    public Map<Metadata, PropertyValue> getMetadata() {
         return Collections.unmodifiableMap(metadata);
     }
 
@@ -82,7 +82,7 @@ public final class CustomItem {
         private final String name;
         private final String id;
         private final String code;
-        private final Map<String, Metadata> metadata = new HashMap<>();
+        private final Map<Metadata, PropertyValue> metadata = new HashMap<>();
         private final List<ContactRelation> contactRelations = new ArrayList<>();
         private String description;
         private Instant updateTime;
@@ -98,8 +98,9 @@ public final class CustomItem {
             return this;
         }
 
-        public Builder addMetadata(String key, Metadata metadata) {
-            this.metadata.put(key, metadata);
+        // TODO ajouter autant de addMetadata que de types pour garantir que le propriétés respectent le schéma
+        public Builder addMetadata(Metadata metadata, PropertyValue value) {
+            this.metadata.put(metadata, value);
             return this;
         }
 
