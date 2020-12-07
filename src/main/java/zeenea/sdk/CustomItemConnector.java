@@ -1,5 +1,7 @@
 package zeenea.sdk;
 
+import zeenea.sdk.property.Metadata;
+
 import java.util.Map;
 import java.util.Optional;
 import java.util.Set;

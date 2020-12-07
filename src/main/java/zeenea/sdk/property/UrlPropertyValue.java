@@ -1,7 +1,6 @@
-package zeenea.sdk;
+package zeenea.sdk.property;
 
 import java.net.URI;
-import java.net.URL;
 import java.util.Optional;
 
 public class UrlPropertyValue implements PropertyValue {

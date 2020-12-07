@@ -1,4 +1,4 @@
-package zeenea.sdk;
+package zeenea.sdk.property;
 
 import java.time.Instant;
 

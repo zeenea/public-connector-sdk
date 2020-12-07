@@ -1,6 +1,7 @@
 package zeenea.sdk;
 
 import org.junit.jupiter.api.Test;
+import zeenea.sdk.property.*;
 
 import java.math.BigDecimal;
 import java.net.URI;
@@ -18,8 +19,8 @@ public class CustomItemTest {
     static final String DEFAULT_CODE = "custom-item-code";
     static final String DEFAULT_DESCRIPTION = "custom-item-description";
     static final String LONG_DESCRIPTION = longString(32 * 1024 + 1);
-    static final Metadata DEFAULT_METADATA_KEY = new Metadata("test", "custom-item-property-key", PropertyType.STRING);
-    static final PropertyValue DEFAULT_PROPERTY_VALUE = new StringPropertyValue("some-value");
+    static final StringMetadata DEFAULT_METADATA_KEY = new StringMetadata("test", "custom-item-property-key");
+    static final StringPropertyValue DEFAULT_PROPERTY_VALUE = new StringPropertyValue("some-value");
     static final ContactRelation DEFAULT_CONTACT_RELATION = new ContactRelation() {};
     static final Instant DEFAULT_UPDATE_TIME = Instant.now();
 
@@ -28,7 +29,7 @@ public class CustomItemTest {
 
         CustomItem customItem = new CustomItem.Builder(DEFAULT_NAME, DEFAULT_ID, DEFAULT_CODE)
                 .description(DEFAULT_DESCRIPTION)
-                .addMetadata(DEFAULT_METADATA_KEY, DEFAULT_PROPERTY_VALUE)
+                .addStringMetadata(DEFAULT_METADATA_KEY, DEFAULT_PROPERTY_VALUE)
                 .addContactRelation(DEFAULT_CONTACT_RELATION)
                 .updateTime(DEFAULT_UPDATE_TIME)
                 .build();
@@ -37,7 +38,7 @@ public class CustomItemTest {
         assertEquals(DEFAULT_ID, customItem.getId());
         assertEquals(DEFAULT_CODE, customItem.getCode());
         assertEquals(DEFAULT_DESCRIPTION, customItem.getDescription().get());
-        assertTrue(customItem.getMetadata().containsKey(DEFAULT_METADATA_KEY));
+        assertTrue(customItem.getMetadata().containsKey(DEFAULT_METADATA_KEY.getId()));
         assertTrue(customItem.getMetadata().containsValue(DEFAULT_PROPERTY_VALUE));
         assertSame(DEFAULT_CONTACT_RELATION, customItem.getContactRelations().iterator().next());
         assertEquals(DEFAULT_UPDATE_TIME, customItem.getUpdateTime().get());
@@ -45,30 +46,30 @@ public class CustomItemTest {
 
     @Test
     public void customItemBuilderShouldAddProperties() {
-        Metadata metadata1 = new Metadata("test", "property1", PropertyType.STRING);
+        StringMetadata stringMetadata = new StringMetadata("test", "property1");
         StringPropertyValue stringValue = new StringPropertyValue("a string value");
-        Metadata metadata2 = new Metadata("test", "property2", PropertyType.Number);
+        NumberMetadata numberMetadata = new NumberMetadata("test", "property2");
         NumberPropertyValue numberValue = new NumberPropertyValue(new BigDecimal("42.01"));
-        Metadata metadata3 = new Metadata("test", "property3", PropertyType.Instant);
+        InstantMetadata instantMetadata = new InstantMetadata("test", "property3");
         InstantPropertyValue instantValue = new InstantPropertyValue(Instant.now());
-        Metadata metadata4 = new Metadata("test", "property4", PropertyType.URL);
+        UrlMetadata urlMetadataWithoutLabel = new UrlMetadata("test", "property4");
         UrlPropertyValue urlValueWithoutLabel = new UrlPropertyValue(URI.create("http://localhost:9000"));
-        Metadata metadata5 = new Metadata("test", "property5", PropertyType.URL);
+        UrlMetadata urlMetadataWithLabel = new UrlMetadata("test", "property5");
         UrlPropertyValue urlValueWithLabel = new UrlPropertyValue(URI.create("http://localhost:9000"), "zeenea");
 
         CustomItem customItem = new CustomItem.Builder(DEFAULT_NAME, DEFAULT_ID, DEFAULT_CODE)
-                .addMetadata(metadata1, stringValue)
-                .addMetadata(metadata2, numberValue)
-                .addMetadata(metadata3, instantValue)
-                .addMetadata(metadata4, urlValueWithoutLabel)
-                .addMetadata(metadata5, urlValueWithLabel)
+                .addStringMetadata(stringMetadata, stringValue)
+                .addNumberMetadata(numberMetadata, numberValue)
+                .addInstantMetadata(instantMetadata, instantValue)
+                .addUrlMetadata(urlMetadataWithoutLabel, urlValueWithoutLabel)
+                .addUrlMetadata(urlMetadataWithLabel, urlValueWithLabel)
                 .build();
 
-        assertEquals(stringValue, customItem.getMetadata().get(metadata1));
-        assertEquals(numberValue, customItem.getMetadata().get(metadata2));
-        assertEquals(instantValue, customItem.getMetadata().get(metadata3));
-        assertEquals(urlValueWithoutLabel, customItem.getMetadata().get(metadata4));
-        assertEquals(urlValueWithLabel, customItem.getMetadata().get(metadata5));
+        assertEquals(stringValue, customItem.getMetadata().get(stringMetadata.getId()));
+        assertEquals(numberValue, customItem.getMetadata().get(numberMetadata.getId()));
+        assertEquals(instantValue, customItem.getMetadata().get(instantMetadata.getId()));
+        assertEquals(urlValueWithoutLabel, customItem.getMetadata().get(urlMetadataWithoutLabel.getId()));
+        assertEquals(urlValueWithLabel, customItem.getMetadata().get(urlMetadataWithLabel.getId()));
     }
 
     @Test
