@@ -1,6 +1,8 @@
-package zeenea.sdk;
+package zeenea.sdk.customitem;
 
 import org.junit.jupiter.api.Test;
+import zeenea.sdk.ContactRelation;
+import zeenea.sdk.customitem.CustomItem;
 import zeenea.sdk.property.*;
 
 import java.math.BigDecimal;
@@ -9,6 +11,7 @@ import java.time.Instant;
 import java.util.Collections;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static zeenea.sdk.TestUtils.longString;
 
 public class CustomItemTest {
 
@@ -100,9 +103,5 @@ public class CustomItemTest {
                 .addContactRelation(DEFAULT_CONTACT_RELATION)
                 .updateTime(DEFAULT_UPDATE_TIME)
                 .build());
-    }
-
-    private static String longString(int count) {
-        return String.join("", Collections.nCopies(count, "a"));
     }
 }

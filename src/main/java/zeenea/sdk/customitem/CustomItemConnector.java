@@ -1,5 +1,7 @@
-package zeenea.sdk;
+package zeenea.sdk.customitem;
 
+import zeenea.sdk.ConfigurationValidationResult;
+import zeenea.sdk.SynchronizationResult;
 import zeenea.sdk.property.Metadata;
 
 import java.util.Map;
@@ -23,7 +25,7 @@ public interface CustomItemConnector extends AutoCloseable {
     // scanner appelle cette méthode
     // connector send all custom items, with a long for tagging last call to synchronize
     // scanner must consume all custom item
-    SynchronizationResult synchronize(Optional<Long> lastSuccessfulVersion);
+    SynchronizationResult<CustomItem> synchronize(Optional<Long> lastSuccessfulVersion);
 
 }
 

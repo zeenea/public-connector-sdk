@@ -1,5 +1,7 @@
-package zeenea.sdk;
+package zeenea.sdk.customitem;
 
+import zeenea.sdk.ConfigurationValidationResult;
+import zeenea.sdk.SynchronizationResult;
 import zeenea.sdk.property.Metadata;
 
 import java.util.Map;
