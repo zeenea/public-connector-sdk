@@ -1,7 +1,10 @@
 package zeenea.sdk;
 
+import zeenea.sdk.property.Metadata;
+
 import java.util.Map;
 import java.util.Optional;
+import java.util.Set;
 
 // not need to be thread safe because instantiated at each synchronization
 public class CustomItemConnectorImpl implements CustomItemConnector {
@@ -26,7 +29,7 @@ public class CustomItemConnectorImpl implements CustomItemConnector {
     }
 
     @Override
-    public Map<String, PropertyType> getTechnicalMetadata() {
+    public Set<Metadata> getTechnicalMetadata() {
         return null;
     }
 

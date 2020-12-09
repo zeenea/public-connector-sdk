@@ -1,5 +1,7 @@
 package zeenea.sdk;
 
+import zeenea.sdk.property.*;
+
 import java.time.Instant;
 import java.util.*;
 
@@ -29,7 +31,7 @@ public final class CustomItem {
     private final String description;
 
     // nécessaire pour exploiter dans le moteur de recherche
-    private final Map<String, Metadata> metadata;
+    private final Map<UUID, PropertyValue> metadata;
 
     // last update time
     private final Instant updateTime;
@@ -39,7 +41,7 @@ public final class CustomItem {
     // no schemaVersion because no inventory
 
 
-    private CustomItem(String name, String id, String code, String description, Map<String, Metadata> metadata, Instant updateTime, Collection<ContactRelation> contactRelations) {
+    private CustomItem(String name, String id, String code, String description, Map<UUID, PropertyValue> metadata, Instant updateTime, Collection<ContactRelation> contactRelations) {
         this.name = name;
         this.id = id;
         this.code = code;
@@ -65,7 +67,7 @@ public final class CustomItem {
         return Optional.ofNullable(description);
     }
 
-    public Map<String, Metadata> getMetadata() {
+    public Map<UUID, PropertyValue> getMetadata() {
         return Collections.unmodifiableMap(metadata);
     }
 
@@ -82,7 +84,7 @@ public final class CustomItem {
         private final String name;
         private final String id;
         private final String code;
-        private final Map<String, Metadata> metadata = new HashMap<>();
+        private final Map<UUID, PropertyValue> metadata = new HashMap<>();
         private final List<ContactRelation> contactRelations = new ArrayList<>();
         private String description;
         private Instant updateTime;
@@ -98,8 +100,24 @@ public final class CustomItem {
             return this;
         }
 
-        public Builder addMetadata(String key, Metadata metadata) {
-            this.metadata.put(key, metadata);
+        public Builder addStringMetadata(StringMetadata metadata, StringPropertyValue value) {
+            return addMetadata(metadata, value);
+        }
+
+        public Builder addNumberMetadata(NumberMetadata metadata, NumberPropertyValue value) {
+            return addMetadata(metadata, value);
+        }
+
+        public Builder addUrlMetadata(UrlMetadata metadata, UrlPropertyValue value) {
+            return addMetadata(metadata, value);
+        }
+
+        public Builder addInstantMetadata(InstantMetadata metadata, InstantPropertyValue value) {
+            return addMetadata(metadata, value);
+        }
+
+        private Builder addMetadata(Metadata metadata, PropertyValue value) {
+            this.metadata.put(metadata.getId(), value);
             return this;
         }
 
