@@ -1,6 +1,8 @@
-package zeenea.sdk;
+package zeenea.sdk.customitem;
 
-import zeenea.sdk.property.*;
+import zeenea.sdk.BaseBuilder;
+import zeenea.sdk.ContactRelation;
+import zeenea.sdk.property.PropertyValue;
 
 import java.time.Instant;
 import java.util.*;
@@ -79,66 +81,18 @@ public final class CustomItem {
         return Collections.unmodifiableCollection(contactRelations);
     }
 
-    public static class Builder {
+    public static class Builder extends BaseBuilder<CustomItem, Builder> {
 
-        private final String name;
-        private final String id;
         private final String code;
-        private final Map<UUID, PropertyValue> metadata = new HashMap<>();
-        private final List<ContactRelation> contactRelations = new ArrayList<>();
-        private String description;
-        private Instant updateTime;
 
         public Builder(String name, String id, String code) {
-            this.name = ensureMaxLength(name, "name", 1024);
-            this.id = ensureMaxLength(id, "id", 1024);
+            super(name, id);
             this.code = code;
         }
 
-        public Builder description(String description) {
-            this.description = ensureMaxLength(description, "description", 32 * 1024);
-            return this;
-        }
-
-        public Builder addStringMetadata(StringMetadata metadata, StringPropertyValue value) {
-            return addMetadata(metadata, value);
-        }
-
-        public Builder addNumberMetadata(NumberMetadata metadata, NumberPropertyValue value) {
-            return addMetadata(metadata, value);
-        }
-
-        public Builder addUrlMetadata(UrlMetadata metadata, UrlPropertyValue value) {
-            return addMetadata(metadata, value);
-        }
-
-        public Builder addInstantMetadata(InstantMetadata metadata, InstantPropertyValue value) {
-            return addMetadata(metadata, value);
-        }
-
-        private Builder addMetadata(Metadata metadata, PropertyValue value) {
-            this.metadata.put(metadata.getId(), value);
-            return this;
-        }
-
-        public Builder updateTime(Instant updateTime) {
-            this.updateTime = updateTime;
-            return this;
-        }
-
-        public Builder addContactRelation(ContactRelation contactRelation) {
-            this.contactRelations.add(contactRelation);
-            return this;
-        }
-
-        public CustomItem build() {
+        @Override
+        protected CustomItem performBuild(String name, String id, Map<UUID, PropertyValue> metadata, List<ContactRelation> contactRelations, String description, Instant updateTime) {
             return new CustomItem(name, id, code, description, metadata, updateTime, contactRelations);
-        }
-
-        private static String ensureMaxLength(String value, String name, int maxLength) {
-            if (value.length() > maxLength)
-                throw new IllegalArgumentException("Attribute \"" + name + "\" cannot be more than " + maxLength + " characters long");
-            return value;
         }
     }
 
