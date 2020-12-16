@@ -1,0 +1,28 @@
+# sequencediagram.org source file
+title Item Connector lifecycle
+==1st pass==
+Scanner->Connector:new
+activate Connector
+Scanner->Connector:validateConfig("url"->"connection","user"->"john")
+Connector-->Connector:validate config values
+database "Datasource"
+Connector<-->"Datasource":check connection
+Connector->Scanner:ConfigurationValidationResult.ok()
+Scanner->Connector:getTechnicalMetadata()
+Connector<-->Connector:get current item schema
+Connector->Scanner:Set(Metadata("name", STRING))
+Scanner->Connector:synchronize(null)
+Connector<-->"Datasource":fetch all
+Connector->Scanner:SynchronizationResult(items, 1608135872L)
+Scanner->Connector:close()
+deactivate Connector
+==2nd pass==
+Scanner->Connector:new
+activate Connector
+Scanner<->Connector:validateConfig("url"->"connection","user"->"john")
+Scanner<->Connector:getTechnicalMetadata()
+Scanner->Connector:synchronize(1608135872L)
+Connector<-->"Datasource":fetch since 1608135872
+Connector->Scanner:SynchronizationResult(items, 1608149543L)
+Scanner->Connector:close()
+deactivate Connector

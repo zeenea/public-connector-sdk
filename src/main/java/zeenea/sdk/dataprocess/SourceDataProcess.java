@@ -2,12 +2,13 @@ package zeenea.sdk.dataprocess;
 
 import zeenea.sdk.BaseBuilder;
 import zeenea.sdk.ContactRelation;
+import zeenea.sdk.SourceItem;
 import zeenea.sdk.property.*;
 
 import java.time.Instant;
 import java.util.*;
 
-public final class DataProcess {
+public final class SourceDataProcess implements SourceItem {
 
     private final String name;
 
@@ -31,7 +32,7 @@ public final class DataProcess {
 
     private final Collection<ContactRelation> contactRelations;
 
-    private DataProcess(String name, String id, String externalId, String description, Map<UUID, PropertyValue> metadata, Instant updateTime, Collection<DatasetReference> inputs, Collection<DatasetReference> outputs, Collection<ContactRelation> contactRelations) {
+    private SourceDataProcess(String name, String id, String externalId, String description, Map<UUID, PropertyValue> metadata, Instant updateTime, Collection<DatasetReference> inputs, Collection<DatasetReference> outputs, Collection<ContactRelation> contactRelations) {
         this.name = name;
         this.id = id;
         this.externalId = externalId;
@@ -79,7 +80,7 @@ public final class DataProcess {
         return Collections.unmodifiableCollection(outputs);
     }
 
-    public static class Builder extends BaseBuilder<DataProcess, Builder> {
+    public static class Builder extends BaseBuilder<SourceDataProcess, Builder> {
 
         private final String externalId;
         private final List<DatasetReference> inputs = new ArrayList<>();
@@ -101,8 +102,8 @@ public final class DataProcess {
         }
 
         @Override
-        protected DataProcess performBuild(String name, String id, Map<UUID, PropertyValue> metadata, List<ContactRelation> contactRelations, String description, Instant updateTime) {
-            return new DataProcess(name, id, externalId, description, metadata, updateTime, inputs, outputs, contactRelations);
+        protected SourceDataProcess performBuild(String name, String id, Map<UUID, PropertyValue> metadata, List<ContactRelation> contactRelations, String description, Instant updateTime) {
+            return new SourceDataProcess(name, id, externalId, description, metadata, updateTime, inputs, outputs, contactRelations);
         }
     }
 }

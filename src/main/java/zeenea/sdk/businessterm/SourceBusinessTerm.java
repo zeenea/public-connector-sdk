@@ -1,7 +1,8 @@
-package zeenea.sdk.customitem;
+package zeenea.sdk.businessterm;
 
 import zeenea.sdk.BaseBuilder;
 import zeenea.sdk.ContactRelation;
+import zeenea.sdk.SourceItem;
 import zeenea.sdk.property.PropertyValue;
 
 import java.time.Instant;
@@ -13,7 +14,7 @@ import java.util.*;
  *
  * @since 1.0.0
  */
-public final class CustomItem {
+public final class SourceBusinessTerm implements SourceItem {
 
     // max 1024 exemple : Application
     // obligatoire
@@ -24,10 +25,6 @@ public final class CustomItem {
     // identifiant externe du custom item
     // nécessite une unicité sinon écrasement :fearful:
     private final String id;
-
-    // ancien custom item type = code (example: APP for Application)
-    // obligatoire
-    private final String code;
 
     // max 32 * 1024
     private final String description;
@@ -43,10 +40,9 @@ public final class CustomItem {
     // no schemaVersion because no inventory
 
 
-    private CustomItem(String name, String id, String code, String description, Map<UUID, PropertyValue> metadata, Instant updateTime, Collection<ContactRelation> contactRelations) {
+    private SourceBusinessTerm(String name, String id, String description, Map<UUID, PropertyValue> metadata, Instant updateTime, Collection<ContactRelation> contactRelations) {
         this.name = name;
         this.id = id;
-        this.code = code;
         this.description = description;
         this.metadata = metadata;
         this.updateTime = updateTime;
@@ -59,10 +55,6 @@ public final class CustomItem {
 
     public String getId() {
         return id;
-    }
-
-    public String getCode() {
-        return code;
     }
 
     public Optional<String> getDescription() {
@@ -81,18 +73,15 @@ public final class CustomItem {
         return Collections.unmodifiableCollection(contactRelations);
     }
 
-    public static class Builder extends BaseBuilder<CustomItem, Builder> {
+    public static class Builder extends BaseBuilder<SourceBusinessTerm, Builder> {
 
-        private final String code;
-
-        public Builder(String name, String id, String code) {
+        public Builder(String name, String id) {
             super(name, id);
-            this.code = code;
         }
 
         @Override
-        protected CustomItem performBuild(String name, String id, Map<UUID, PropertyValue> metadata, List<ContactRelation> contactRelations, String description, Instant updateTime) {
-            return new CustomItem(name, id, code, description, metadata, updateTime, contactRelations);
+        protected SourceBusinessTerm performBuild(String name, String id, Map<UUID, PropertyValue> metadata, List<ContactRelation> contactRelations, String description, Instant updateTime) {
+            return new SourceBusinessTerm(name, id, description, metadata, updateTime, contactRelations);
         }
     }
 

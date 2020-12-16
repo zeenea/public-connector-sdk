@@ -8,12 +8,11 @@ import zeenea.sdk.property.*;
 import java.math.BigDecimal;
 import java.net.URI;
 import java.time.Instant;
-import java.util.Arrays;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static zeenea.sdk.TestUtils.longString;
 
-public class DataProcessTest {
+public class SourceDataProcessTest {
 
     static final String DEFAULT_NAME = "dataprocess-name";
     static final String LONG_NAME = longString(1024 + 1);
@@ -32,7 +31,7 @@ public class DataProcessTest {
     @Test
     public void dataProcessBuilderShouldReturnAProperDataProcess() {
 
-        DataProcess dataProcess = new DataProcess.Builder(DEFAULT_NAME, DEFAULT_ID, DEFAULT_EXTERNAL_ID)
+        SourceDataProcess sourceDataProcess = new SourceDataProcess.Builder(DEFAULT_NAME, DEFAULT_ID, DEFAULT_EXTERNAL_ID)
                 .description(DEFAULT_DESCRIPTION)
                 .addStringMetadata(DEFAULT_METADATA_KEY, DEFAULT_PROPERTY_VALUE)
                 .addContactRelation(DEFAULT_CONTACT_RELATION)
@@ -41,16 +40,16 @@ public class DataProcessTest {
                 .addOutput(DEFAULT_OUTPUT)
                 .build();
 
-        assertEquals(DEFAULT_NAME, dataProcess.getName());
-        assertEquals(DEFAULT_ID, dataProcess.getId());
-        assertEquals(DEFAULT_EXTERNAL_ID, dataProcess.getExternalId());
-        assertEquals(DEFAULT_DESCRIPTION, dataProcess.getDescription().get());
-        assertTrue(dataProcess.getMetadata().containsKey(DEFAULT_METADATA_KEY.getId()));
-        assertTrue(dataProcess.getMetadata().containsValue(DEFAULT_PROPERTY_VALUE));
-        assertSame(DEFAULT_CONTACT_RELATION, dataProcess.getContactRelations().iterator().next());
-        assertEquals(DEFAULT_UPDATE_TIME, dataProcess.getUpdateTime().get());
-        assertEquals(DEFAULT_INPUT, dataProcess.getInputs().iterator().next());
-        assertEquals(DEFAULT_OUTPUT, dataProcess.getOutputs().iterator().next());
+        assertEquals(DEFAULT_NAME, sourceDataProcess.getName());
+        assertEquals(DEFAULT_ID, sourceDataProcess.getId());
+        assertEquals(DEFAULT_EXTERNAL_ID, sourceDataProcess.getExternalId());
+        assertEquals(DEFAULT_DESCRIPTION, sourceDataProcess.getDescription().get());
+        assertTrue(sourceDataProcess.getMetadata().containsKey(DEFAULT_METADATA_KEY.getId()));
+        assertTrue(sourceDataProcess.getMetadata().containsValue(DEFAULT_PROPERTY_VALUE));
+        assertSame(DEFAULT_CONTACT_RELATION, sourceDataProcess.getContactRelations().iterator().next());
+        assertEquals(DEFAULT_UPDATE_TIME, sourceDataProcess.getUpdateTime().get());
+        assertEquals(DEFAULT_INPUT, sourceDataProcess.getInputs().iterator().next());
+        assertEquals(DEFAULT_OUTPUT, sourceDataProcess.getOutputs().iterator().next());
     }
 
     @Test
@@ -66,7 +65,7 @@ public class DataProcessTest {
         UrlMetadata urlMetadataWithLabel = new UrlMetadata("test", "property5");
         UrlPropertyValue urlValueWithLabel = new UrlPropertyValue(URI.create("http://localhost:9000"), "zeenea");
 
-        DataProcess dataProcess = new DataProcess.Builder(DEFAULT_NAME, DEFAULT_ID, DEFAULT_EXTERNAL_ID)
+        SourceDataProcess sourceDataProcess = new SourceDataProcess.Builder(DEFAULT_NAME, DEFAULT_ID, DEFAULT_EXTERNAL_ID)
                 .addStringMetadata(stringMetadata, stringValue)
                 .addNumberMetadata(numberMetadata, numberValue)
                 .addInstantMetadata(instantMetadata, instantValue)
@@ -74,17 +73,17 @@ public class DataProcessTest {
                 .addUrlMetadata(urlMetadataWithLabel, urlValueWithLabel)
                 .build();
 
-        assertEquals(stringValue, dataProcess.getMetadata().get(stringMetadata.getId()));
-        assertEquals(numberValue, dataProcess.getMetadata().get(numberMetadata.getId()));
-        assertEquals(instantValue, dataProcess.getMetadata().get(instantMetadata.getId()));
-        assertEquals(urlValueWithoutLabel, dataProcess.getMetadata().get(urlMetadataWithoutLabel.getId()));
-        assertEquals(urlValueWithLabel, dataProcess.getMetadata().get(urlMetadataWithLabel.getId()));
+        assertEquals(stringValue, sourceDataProcess.getMetadata().get(stringMetadata.getId()));
+        assertEquals(numberValue, sourceDataProcess.getMetadata().get(numberMetadata.getId()));
+        assertEquals(instantValue, sourceDataProcess.getMetadata().get(instantMetadata.getId()));
+        assertEquals(urlValueWithoutLabel, sourceDataProcess.getMetadata().get(urlMetadataWithoutLabel.getId()));
+        assertEquals(urlValueWithLabel, sourceDataProcess.getMetadata().get(urlMetadataWithLabel.getId()));
     }
 
     @Test
     public void dataProcessBuilderShouldForbidLongName() {
 
-        assertThrows(IllegalArgumentException.class, () -> new DataProcess.Builder(LONG_NAME, DEFAULT_ID, DEFAULT_EXTERNAL_ID)
+        assertThrows(IllegalArgumentException.class, () -> new SourceDataProcess.Builder(LONG_NAME, DEFAULT_ID, DEFAULT_EXTERNAL_ID)
                 .description(DEFAULT_DESCRIPTION)
                 .addContactRelation(DEFAULT_CONTACT_RELATION)
                 .updateTime(DEFAULT_UPDATE_TIME)
@@ -94,7 +93,7 @@ public class DataProcessTest {
     @Test
     public void dataProcessBuilderShouldForbidLongId() {
 
-        assertThrows(IllegalArgumentException.class, () -> new DataProcess.Builder(DEFAULT_NAME, LONG_ID, DEFAULT_EXTERNAL_ID)
+        assertThrows(IllegalArgumentException.class, () -> new SourceDataProcess.Builder(DEFAULT_NAME, LONG_ID, DEFAULT_EXTERNAL_ID)
                 .description(DEFAULT_DESCRIPTION)
                 .addContactRelation(DEFAULT_CONTACT_RELATION)
                 .updateTime(DEFAULT_UPDATE_TIME)
@@ -104,7 +103,7 @@ public class DataProcessTest {
     @Test
     public void dataProcessBuilderShouldForbidLongDescription() {
 
-        assertThrows(IllegalArgumentException.class, () -> new DataProcess.Builder(DEFAULT_NAME, DEFAULT_ID, DEFAULT_EXTERNAL_ID)
+        assertThrows(IllegalArgumentException.class, () -> new SourceDataProcess.Builder(DEFAULT_NAME, DEFAULT_ID, DEFAULT_EXTERNAL_ID)
                 .description(LONG_DESCRIPTION)
                 .addContactRelation(DEFAULT_CONTACT_RELATION)
                 .updateTime(DEFAULT_UPDATE_TIME)
