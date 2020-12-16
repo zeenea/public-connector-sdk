@@ -25,7 +25,7 @@ public interface CustomItemConnector extends AutoCloseable {
     // scanner appelle cette méthode
     // connector send all custom items, with a long for tagging last call to synchronize
     // scanner must consume all custom item
-    SynchronizationResult<CustomItem> synchronize(Optional<Long> lastSuccessfulVersion);
+    SynchronizationResult<SourceCustomItem> synchronize(Optional<Long> lastSuccessfulVersion);
 
 }
 

@@ -1,7 +1,5 @@
 package zeenea.sdk.property;
 
-import zeenea.sdk.property.PropertyType;
-
 import java.util.UUID;
 
 public abstract class Metadata {
