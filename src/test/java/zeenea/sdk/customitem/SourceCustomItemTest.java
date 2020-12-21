@@ -30,7 +30,7 @@ public class SourceCustomItemTest {
 
         SourceCustomItem sourceCustomItem = new SourceCustomItem.Builder(DEFAULT_NAME, DEFAULT_ID, DEFAULT_CODE)
                 .description(DEFAULT_DESCRIPTION)
-                .addStringMetadata(DEFAULT_METADATA_KEY, DEFAULT_PROPERTY_VALUE)
+                .addMetadata(DEFAULT_METADATA_KEY, DEFAULT_PROPERTY_VALUE)
                 .addContactRelation(DEFAULT_CONTACT_RELATION)
                 .updateTime(DEFAULT_UPDATE_TIME)
                 .build();
@@ -59,11 +59,11 @@ public class SourceCustomItemTest {
         UrlPropertyValue urlValueWithLabel = new UrlPropertyValue(URI.create("http://localhost:9000"), "zeenea");
 
         SourceCustomItem sourceCustomItem = new SourceCustomItem.Builder(DEFAULT_NAME, DEFAULT_ID, DEFAULT_CODE)
-                .addStringMetadata(stringMetadata, stringValue)
-                .addNumberMetadata(numberMetadata, numberValue)
-                .addInstantMetadata(instantMetadata, instantValue)
-                .addUrlMetadata(urlMetadataWithoutLabel, urlValueWithoutLabel)
-                .addUrlMetadata(urlMetadataWithLabel, urlValueWithLabel)
+                .addMetadata(stringMetadata, stringValue)
+                .addMetadata(numberMetadata, numberValue)
+                .addMetadata(instantMetadata, instantValue)
+                .addMetadata(urlMetadataWithoutLabel, urlValueWithoutLabel)
+                .addMetadata(urlMetadataWithLabel, urlValueWithLabel)
                 .build();
 
         assertEquals(stringValue, sourceCustomItem.getMetadata().get(stringMetadata.getId()));
