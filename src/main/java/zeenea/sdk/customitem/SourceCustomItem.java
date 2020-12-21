@@ -1,6 +1,6 @@
 package zeenea.sdk.customitem;
 
-import zeenea.sdk.BaseBuilder;
+import zeenea.sdk.BaseSourceItemBuilder;
 import zeenea.sdk.ContactRelation;
 import zeenea.sdk.SourceItem;
 import zeenea.sdk.property.PropertyValue;
@@ -82,13 +82,17 @@ public final class SourceCustomItem implements SourceItem {
         return Collections.unmodifiableCollection(contactRelations);
     }
 
-    public static class Builder extends BaseBuilder<SourceCustomItem, Builder> {
+    public static Builder builder() {
+        return new Builder();
+    }
 
-        private final String code;
+    public static class Builder extends BaseSourceItemBuilder<SourceCustomItem, Builder> {
 
-        public Builder(String name, String id, String code) {
-            super(name, id);
+        private String code;
+
+        public Builder code(String code) {
             this.code = code;
+            return this;
         }
 
         @Override

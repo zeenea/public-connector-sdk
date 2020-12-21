@@ -1,6 +1,6 @@
 package zeenea.sdk.businessterm;
 
-import zeenea.sdk.BaseBuilder;
+import zeenea.sdk.BaseSourceItemBuilder;
 import zeenea.sdk.ContactRelation;
 import zeenea.sdk.SourceItem;
 import zeenea.sdk.property.PropertyValue;
@@ -73,11 +73,11 @@ public final class SourceBusinessTerm implements SourceItem {
         return Collections.unmodifiableCollection(contactRelations);
     }
 
-    public static class Builder extends BaseBuilder<SourceBusinessTerm, Builder> {
+    public static Builder builder() {
+        return new Builder();
+    }
 
-        public Builder(String name, String id) {
-            super(name, id);
-        }
+    public static class Builder extends BaseSourceItemBuilder<SourceBusinessTerm, Builder> {
 
         @Override
         protected SourceBusinessTerm performBuild(String name, String id, Map<UUID, PropertyValue> metadata, List<ContactRelation> contactRelations, String description, Instant updateTime) {

@@ -28,7 +28,10 @@ public class SourceCustomItemTest {
     @Test
     public void customItemBuilderShouldReturnAProperCustomItem() {
 
-        SourceCustomItem sourceCustomItem = new SourceCustomItem.Builder(DEFAULT_NAME, DEFAULT_ID, DEFAULT_CODE)
+        SourceCustomItem sourceCustomItem = SourceCustomItem.builder()
+                .name(DEFAULT_NAME)
+                .id(DEFAULT_ID)
+                .code(DEFAULT_CODE)
                 .description(DEFAULT_DESCRIPTION)
                 .addMetadata(DEFAULT_METADATA_KEY, DEFAULT_PROPERTY_VALUE)
                 .addContactRelation(DEFAULT_CONTACT_RELATION)
@@ -58,7 +61,10 @@ public class SourceCustomItemTest {
         UrlMetadata urlMetadataWithLabel = new UrlMetadata("test", "property5");
         UrlPropertyValue urlValueWithLabel = new UrlPropertyValue(URI.create("http://localhost:9000"), "zeenea");
 
-        SourceCustomItem sourceCustomItem = new SourceCustomItem.Builder(DEFAULT_NAME, DEFAULT_ID, DEFAULT_CODE)
+        SourceCustomItem sourceCustomItem = SourceCustomItem.builder()
+                .name(DEFAULT_NAME)
+                .id(DEFAULT_ID)
+                .code(DEFAULT_CODE)
                 .addMetadata(stringMetadata, stringValue)
                 .addMetadata(numberMetadata, numberValue)
                 .addMetadata(instantMetadata, instantValue)
@@ -76,7 +82,10 @@ public class SourceCustomItemTest {
     @Test
     public void customItemBuilderShouldForbidLongName() {
 
-        assertThrows(IllegalArgumentException.class, () -> new SourceCustomItem.Builder(LONG_NAME, DEFAULT_ID, DEFAULT_CODE)
+        assertThrows(IllegalArgumentException.class, () -> SourceCustomItem.builder()
+                .name(LONG_NAME)
+                .id(DEFAULT_ID)
+                .code(DEFAULT_CODE)
                 .description(DEFAULT_DESCRIPTION)
                 .addContactRelation(DEFAULT_CONTACT_RELATION)
                 .updateTime(DEFAULT_UPDATE_TIME)
@@ -86,7 +95,10 @@ public class SourceCustomItemTest {
     @Test
     public void customItemBuilderShouldForbidLongId() {
 
-        assertThrows(IllegalArgumentException.class, () -> new SourceCustomItem.Builder(DEFAULT_NAME, LONG_ID, DEFAULT_CODE)
+        assertThrows(IllegalArgumentException.class, () -> SourceCustomItem.builder()
+                .name(DEFAULT_NAME)
+                .id(LONG_ID)
+                .code(DEFAULT_CODE)
                 .description(DEFAULT_DESCRIPTION)
                 .addContactRelation(DEFAULT_CONTACT_RELATION)
                 .updateTime(DEFAULT_UPDATE_TIME)
@@ -96,7 +108,10 @@ public class SourceCustomItemTest {
     @Test
     public void customItemBuilderShouldForbidLongDescription() {
 
-        assertThrows(IllegalArgumentException.class, () -> new SourceCustomItem.Builder(DEFAULT_NAME, DEFAULT_ID, DEFAULT_CODE)
+        assertThrows(IllegalArgumentException.class, () -> SourceCustomItem.builder()
+                .name(DEFAULT_NAME)
+                .id(DEFAULT_ID)
+                .code(DEFAULT_CODE)
                 .description(LONG_DESCRIPTION)
                 .addContactRelation(DEFAULT_CONTACT_RELATION)
                 .updateTime(DEFAULT_UPDATE_TIME)
