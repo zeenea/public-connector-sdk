@@ -29,7 +29,7 @@ public class SourceBusinessTermTest {
 
         SourceBusinessTerm sourceBusinessTerm = new SourceBusinessTerm.Builder(DEFAULT_NAME, DEFAULT_ID)
                 .description(DEFAULT_DESCRIPTION)
-                .addStringMetadata(DEFAULT_METADATA_KEY, DEFAULT_PROPERTY_VALUE)
+                .addMetadata(DEFAULT_METADATA_KEY, DEFAULT_PROPERTY_VALUE)
                 .addContactRelation(DEFAULT_CONTACT_RELATION)
                 .updateTime(DEFAULT_UPDATE_TIME)
                 .build();
@@ -57,11 +57,11 @@ public class SourceBusinessTermTest {
         UrlPropertyValue urlValueWithLabel = new UrlPropertyValue(URI.create("http://localhost:9000"), "zeenea");
 
         SourceBusinessTerm sourceBusinessTerm = new SourceBusinessTerm.Builder(DEFAULT_NAME, DEFAULT_ID)
-                .addStringMetadata(stringMetadata, stringValue)
-                .addNumberMetadata(numberMetadata, numberValue)
-                .addInstantMetadata(instantMetadata, instantValue)
-                .addUrlMetadata(urlMetadataWithoutLabel, urlValueWithoutLabel)
-                .addUrlMetadata(urlMetadataWithLabel, urlValueWithLabel)
+                .addMetadata(stringMetadata, stringValue)
+                .addMetadata(numberMetadata, numberValue)
+                .addMetadata(instantMetadata, instantValue)
+                .addMetadata(urlMetadataWithoutLabel, urlValueWithoutLabel)
+                .addMetadata(urlMetadataWithLabel, urlValueWithLabel)
                 .build();
 
         assertEquals(stringValue, sourceBusinessTerm.getMetadata().get(stringMetadata.getId()));

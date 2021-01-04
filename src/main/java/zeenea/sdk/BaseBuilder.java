@@ -24,23 +24,23 @@ public abstract class BaseBuilder<T, SELF extends BaseBuilder<T, ?>> {
         return self();
     }
 
-    public SELF addStringMetadata(StringMetadata metadata, StringPropertyValue value) {
-        return addMetadata(metadata, value);
+    public SELF addMetadata(StringMetadata metadata, StringPropertyValue value) {
+        return putMetadata(metadata, value);
     }
 
-    public SELF addNumberMetadata(NumberMetadata metadata, NumberPropertyValue value) {
-        return addMetadata(metadata, value);
+    public SELF addMetadata(NumberMetadata metadata, NumberPropertyValue value) {
+        return putMetadata(metadata, value);
     }
 
-    public SELF addUrlMetadata(UrlMetadata metadata, UrlPropertyValue value) {
-        return addMetadata(metadata, value);
+    public SELF addMetadata(UrlMetadata metadata, UrlPropertyValue value) {
+        return putMetadata(metadata, value);
     }
 
-    public SELF addInstantMetadata(InstantMetadata metadata, InstantPropertyValue value) {
-        return addMetadata(metadata, value);
+    public SELF addMetadata(InstantMetadata metadata, InstantPropertyValue value) {
+        return putMetadata(metadata, value);
     }
 
-    private SELF addMetadata(Metadata metadata, PropertyValue value) {
+    private SELF putMetadata(Metadata metadata, PropertyValue value) {
         this.metadata.put(metadata.getId(), value);
         return self();
     }
