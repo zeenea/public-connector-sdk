@@ -27,7 +27,9 @@ public class SourceBusinessTermTest {
     @Test
     public void businessTermBuilderShouldReturnAProperBusinessTerm() {
 
-        SourceBusinessTerm sourceBusinessTerm = new SourceBusinessTerm.Builder(DEFAULT_NAME, DEFAULT_ID)
+        SourceBusinessTerm sourceBusinessTerm = SourceBusinessTerm.builder()
+                .name(DEFAULT_NAME)
+                .id(DEFAULT_ID)
                 .description(DEFAULT_DESCRIPTION)
                 .addMetadata(DEFAULT_METADATA_KEY, DEFAULT_PROPERTY_VALUE)
                 .addContactRelation(DEFAULT_CONTACT_RELATION)
@@ -56,7 +58,9 @@ public class SourceBusinessTermTest {
         UrlMetadata urlMetadataWithLabel = new UrlMetadata("test", "property5");
         UrlPropertyValue urlValueWithLabel = new UrlPropertyValue(URI.create("http://localhost:9000"), "zeenea");
 
-        SourceBusinessTerm sourceBusinessTerm = new SourceBusinessTerm.Builder(DEFAULT_NAME, DEFAULT_ID)
+        SourceBusinessTerm sourceBusinessTerm = SourceBusinessTerm.builder()
+                .name(DEFAULT_NAME)
+                .id(DEFAULT_ID)
                 .addMetadata(stringMetadata, stringValue)
                 .addMetadata(numberMetadata, numberValue)
                 .addMetadata(instantMetadata, instantValue)
@@ -74,7 +78,9 @@ public class SourceBusinessTermTest {
     @Test
     public void businessTermBuilderShouldForbidLongName() {
 
-        assertThrows(IllegalArgumentException.class, () -> new SourceBusinessTerm.Builder(LONG_NAME, DEFAULT_ID)
+        assertThrows(IllegalArgumentException.class, () -> SourceBusinessTerm.builder()
+                .name(LONG_NAME)
+                .id(DEFAULT_ID)
                 .description(DEFAULT_DESCRIPTION)
                 .addContactRelation(DEFAULT_CONTACT_RELATION)
                 .updateTime(DEFAULT_UPDATE_TIME)
@@ -84,7 +90,9 @@ public class SourceBusinessTermTest {
     @Test
     public void businessTermBuilderShouldForbidLongId() {
 
-        assertThrows(IllegalArgumentException.class, () -> new SourceBusinessTerm.Builder(DEFAULT_NAME, LONG_ID)
+        assertThrows(IllegalArgumentException.class, () -> SourceBusinessTerm.builder()
+                .name(DEFAULT_NAME)
+                .id(LONG_ID)
                 .description(DEFAULT_DESCRIPTION)
                 .addContactRelation(DEFAULT_CONTACT_RELATION)
                 .updateTime(DEFAULT_UPDATE_TIME)
@@ -94,7 +102,9 @@ public class SourceBusinessTermTest {
     @Test
     public void businessTermBuilderShouldForbidLongDescription() {
 
-        assertThrows(IllegalArgumentException.class, () -> new SourceBusinessTerm.Builder(DEFAULT_NAME, DEFAULT_ID)
+        assertThrows(IllegalArgumentException.class, () -> SourceBusinessTerm.builder()
+                .name(DEFAULT_NAME)
+                .id(DEFAULT_ID)
                 .description(LONG_DESCRIPTION)
                 .addContactRelation(DEFAULT_CONTACT_RELATION)
                 .updateTime(DEFAULT_UPDATE_TIME)

@@ -5,22 +5,27 @@ import zeenea.sdk.property.*;
 import java.time.Instant;
 import java.util.*;
 
-public abstract class BaseBuilder<T, SELF extends BaseBuilder<T, ?>> {
+public abstract class BaseSourceItemBuilder<T, SELF extends BaseSourceItemBuilder<T, ?>> {
 
-    private final String name;
-    private final String id;
     private final Map<UUID, PropertyValue> metadata = new HashMap<>();
     private final List<ContactRelation> contactRelations = new ArrayList<>();
+    private String name;
+    private String id;
     private String description;
     private Instant updateTime;
 
-    public BaseBuilder(String name, String id) {
-        this.name = ensureAttributeMaxLength("name", name, 1024);
-        this.id = ensureAttributeMaxLength("id", id, 1024);
+    public SELF name(String name) {
+        this.name = name;
+        return self();
+    }
+
+    public SELF id(String id) {
+        this.id = id;
+        return self();
     }
 
     public SELF description(String description) {
-        this.description = ensureAttributeMaxLength("description", description, 32 * 1024);
+        this.description = description;
         return self();
     }
 
@@ -56,15 +61,24 @@ public abstract class BaseBuilder<T, SELF extends BaseBuilder<T, ?>> {
     }
 
     public final T build() {
+        throwIfNull("name", name);
+        throwIfInvalidLength("name", name, 1024);
+        throwIfNull("id", id);
+        throwIfInvalidLength("id", id, 1024);
+        throwIfInvalidLength("description", description, 32 * 1024);
         return performBuild(name, id, metadata, contactRelations, description, updateTime);
     }
 
     protected abstract T performBuild(String name, String id, Map<UUID, PropertyValue> metadata, List<ContactRelation> contactRelations, String description, Instant updateTime);
 
-    protected static String ensureAttributeMaxLength(String attributeName, String attributeValue, int maxLength) {
-        if (attributeValue.length() > maxLength)
+    protected static void throwIfNull(String attributeName, String attributeValue) {
+        if (attributeValue == null)
+            throw new NullPointerException("Attribute \"" + attributeName + "\" cannot be null");
+    }
+
+    protected static void throwIfInvalidLength(String attributeName, String attributeValue, int maxLength) {
+        if (attributeValue != null && attributeValue.length() > maxLength)
             throw new IllegalArgumentException("Attribute \"" + attributeName + "\" cannot be more than " + maxLength + " characters long");
-        return attributeValue;
     }
 
     private SELF self() {

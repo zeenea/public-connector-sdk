@@ -1,9 +1,9 @@
 package zeenea.sdk.dataprocess;
 
-import zeenea.sdk.BaseBuilder;
+import zeenea.sdk.BaseSourceItemBuilder;
 import zeenea.sdk.ContactRelation;
 import zeenea.sdk.SourceItem;
-import zeenea.sdk.property.*;
+import zeenea.sdk.property.PropertyValue;
 
 import java.time.Instant;
 import java.util.*;
@@ -80,15 +80,19 @@ public final class SourceDataProcess implements SourceItem {
         return Collections.unmodifiableCollection(outputs);
     }
 
-    public static class Builder extends BaseBuilder<SourceDataProcess, Builder> {
+    public static Builder builder() {
+        return new Builder();
+    }
 
-        private final String externalId;
+    public static class Builder extends BaseSourceItemBuilder<SourceDataProcess, Builder> {
+
         private final List<DatasetReference> inputs = new ArrayList<>();
         private final List<DatasetReference> outputs = new ArrayList<>();
+        private String externalId;
 
-        public Builder(String name, String id, String externalId) {
-            super(name, id);
+        public Builder externalId(String externalId) {
             this.externalId = externalId;
+            return this;
         }
 
         public Builder addInput(DatasetReference datasetReference) {
@@ -103,6 +107,7 @@ public final class SourceDataProcess implements SourceItem {
 
         @Override
         protected SourceDataProcess performBuild(String name, String id, Map<UUID, PropertyValue> metadata, List<ContactRelation> contactRelations, String description, Instant updateTime) {
+            throwIfNull("externalId", externalId);
             return new SourceDataProcess(name, id, externalId, description, metadata, updateTime, inputs, outputs, contactRelations);
         }
     }

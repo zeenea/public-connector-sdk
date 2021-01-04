@@ -31,7 +31,10 @@ public class SourceDataProcessTest {
     @Test
     public void dataProcessBuilderShouldReturnAProperDataProcess() {
 
-        SourceDataProcess sourceDataProcess = new SourceDataProcess.Builder(DEFAULT_NAME, DEFAULT_ID, DEFAULT_EXTERNAL_ID)
+        SourceDataProcess sourceDataProcess = SourceDataProcess.builder()
+                .name(DEFAULT_NAME)
+                .id(DEFAULT_ID)
+                .externalId(DEFAULT_EXTERNAL_ID)
                 .description(DEFAULT_DESCRIPTION)
                 .addMetadata(DEFAULT_METADATA_KEY, DEFAULT_PROPERTY_VALUE)
                 .addContactRelation(DEFAULT_CONTACT_RELATION)
@@ -65,7 +68,10 @@ public class SourceDataProcessTest {
         UrlMetadata urlMetadataWithLabel = new UrlMetadata("test", "property5");
         UrlPropertyValue urlValueWithLabel = new UrlPropertyValue(URI.create("http://localhost:9000"), "zeenea");
 
-        SourceDataProcess sourceDataProcess = new SourceDataProcess.Builder(DEFAULT_NAME, DEFAULT_ID, DEFAULT_EXTERNAL_ID)
+        SourceDataProcess sourceDataProcess = SourceDataProcess.builder()
+                .name(DEFAULT_NAME)
+                .id(DEFAULT_ID)
+                .externalId(DEFAULT_EXTERNAL_ID)
                 .addMetadata(stringMetadata, stringValue)
                 .addMetadata(numberMetadata, numberValue)
                 .addMetadata(instantMetadata, instantValue)
@@ -83,7 +89,10 @@ public class SourceDataProcessTest {
     @Test
     public void dataProcessBuilderShouldForbidLongName() {
 
-        assertThrows(IllegalArgumentException.class, () -> new SourceDataProcess.Builder(LONG_NAME, DEFAULT_ID, DEFAULT_EXTERNAL_ID)
+        assertThrows(IllegalArgumentException.class, () -> SourceDataProcess.builder()
+                .name(LONG_NAME)
+                .id(DEFAULT_ID)
+                .externalId(DEFAULT_EXTERNAL_ID)
                 .description(DEFAULT_DESCRIPTION)
                 .addContactRelation(DEFAULT_CONTACT_RELATION)
                 .updateTime(DEFAULT_UPDATE_TIME)
@@ -93,7 +102,10 @@ public class SourceDataProcessTest {
     @Test
     public void dataProcessBuilderShouldForbidLongId() {
 
-        assertThrows(IllegalArgumentException.class, () -> new SourceDataProcess.Builder(DEFAULT_NAME, LONG_ID, DEFAULT_EXTERNAL_ID)
+        assertThrows(IllegalArgumentException.class, () -> SourceDataProcess.builder()
+                .name(DEFAULT_NAME)
+                .id(LONG_ID)
+                .externalId(DEFAULT_EXTERNAL_ID)
                 .description(DEFAULT_DESCRIPTION)
                 .addContactRelation(DEFAULT_CONTACT_RELATION)
                 .updateTime(DEFAULT_UPDATE_TIME)
@@ -103,7 +115,10 @@ public class SourceDataProcessTest {
     @Test
     public void dataProcessBuilderShouldForbidLongDescription() {
 
-        assertThrows(IllegalArgumentException.class, () -> new SourceDataProcess.Builder(DEFAULT_NAME, DEFAULT_ID, DEFAULT_EXTERNAL_ID)
+        assertThrows(IllegalArgumentException.class, () -> SourceDataProcess.builder()
+                .name(DEFAULT_NAME)
+                .id(DEFAULT_ID)
+                .externalId(DEFAULT_EXTERNAL_ID)
                 .description(LONG_DESCRIPTION)
                 .addContactRelation(DEFAULT_CONTACT_RELATION)
                 .updateTime(DEFAULT_UPDATE_TIME)
