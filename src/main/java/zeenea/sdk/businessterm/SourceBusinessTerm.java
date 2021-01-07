@@ -22,7 +22,7 @@ public final class SourceBusinessTerm extends SourceItem {
 
     public static class Builder extends SourceItem.Builder<SourceBusinessTerm, Builder> {
         @Override
-        protected SourceBusinessTerm performBuild(Builder builder) {
+        protected SourceBusinessTerm performBuild() {
             return new SourceBusinessTerm(this);
         }
     }

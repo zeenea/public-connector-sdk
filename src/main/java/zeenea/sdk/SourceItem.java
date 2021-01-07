@@ -7,23 +7,14 @@ import java.util.*;
 
 public abstract class SourceItem {
 
-    // max 1024 exemple : Application
-    // obligatoire
     private final String name;
 
-    // obligatoire
-    // max 1024
-    // identifiant externe du custom item
-    // nécessite une unicité sinon écrasement :fearful:
     private final String id;
 
-    // max 32 * 1024
     private final String description;
 
-    // nécessaire pour exploiter dans le moteur de recherche
     private final Map<UUID, PropertyValue> metadata;
 
-    // last update time
     private final Instant updateTime;
 
     private final Collection<ContactRelation> contactRelations;
@@ -70,33 +61,86 @@ public abstract class SourceItem {
         private String description;
         private Instant updateTime;
 
+        /**
+         * Set the name of the source item.
+         * This is required to build a SourceItem.
+         *
+         * @param name The name of the source item, cannot be longer than 1024 characters
+         * @return This builder
+         */
         public SELF name(String name) {
             this.name = name;
             return self();
         }
 
+        /**
+         * Set the id of the source item.
+         * Must be unique to the source item.
+         * This is required to build a SourceItem.
+         *
+         * @param id The id of the source item, cannot be longer than 1024 characters
+         * @return This builder
+         */
         public SELF id(String id) {
             this.id = id;
             return self();
         }
 
+        /**
+         * Set the description of the source item.
+         *
+         * @param description The description of the source item, cannot be longer than 32768 (32x1024) characters
+         * @return This builder
+         */
         public SELF description(String description) {
             this.description = description;
             return self();
         }
 
+        /**
+         * Add a StringMetadata and its value to the source item.
+         * Metadata are necessary for search engine usage.
+         *
+         * @param metadata the metadata
+         * @param value the value for this metadata
+         * @return This builder
+         */
         public SELF addMetadata(StringMetadata metadata, StringPropertyValue value) {
             return putMetadata(metadata, value);
         }
 
+        /**
+         * Add a NumberMetadata and its value to the source item.
+         * Metadata are necessary for search engine usage.
+         *
+         * @param metadata the metadata
+         * @param value the value for this metadata
+         * @return This builder
+         */
         public SELF addMetadata(NumberMetadata metadata, NumberPropertyValue value) {
             return putMetadata(metadata, value);
         }
 
+        /**
+         * Add an UrlMetadata and its value to the source item.
+         * Metadata are necessary for search engine usage.
+         *
+         * @param metadata the metadata
+         * @param value the value for this metadata
+         * @return This builder
+         */
         public SELF addMetadata(UrlMetadata metadata, UrlPropertyValue value) {
             return putMetadata(metadata, value);
         }
 
+        /**
+         * Add an InstantMetadata and its value to the source item.
+         * Metadata are necessary for search engine usage.
+         *
+         * @param metadata the metadata
+         * @param value the value for this metadata
+         * @return This builder
+         */
         public SELF addMetadata(InstantMetadata metadata, InstantPropertyValue value) {
             return putMetadata(metadata, value);
         }
@@ -106,26 +150,43 @@ public abstract class SourceItem {
             return self();
         }
 
+        /**
+         * Set the last update time of the source item.
+         *
+         * @param updateTime The last update time of the source item
+         * @return This builder
+         */
         public SELF updateTime(Instant updateTime) {
             this.updateTime = updateTime;
             return self();
         }
 
+        /**
+         * Add a ContactRelation to the source item.
+         *
+         * @param contactRelation the ContactRelation to add
+         * @return This builder
+         */
         public SELF addContactRelation(ContactRelation contactRelation) {
             this.contactRelations.add(contactRelation);
             return self();
         }
 
+        /**
+         * Build the source item.
+         *
+         * @return The source item
+         */
         public final T build() {
             throwIfNull("name", name);
             throwIfInvalidLength("name", name, 1024);
             throwIfNull("id", id);
             throwIfInvalidLength("id", id, 1024);
             throwIfInvalidLength("description", description, 32 * 1024);
-            return performBuild(self());
+            return performBuild();
         }
 
-        protected abstract T performBuild(SELF self);
+        protected abstract T performBuild();
 
         protected static void throwIfNull(String attributeName, String attributeValue) {
             if (attributeValue == null)

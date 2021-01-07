@@ -59,9 +59,9 @@ public final class SourceDataProcess extends SourceItem {
         }
 
         @Override
-        protected SourceDataProcess performBuild(Builder builder) {
+        protected SourceDataProcess performBuild() {
             throwIfNull("externalId", externalId);
-            return new SourceDataProcess(builder);
+            return new SourceDataProcess(this);
         }
     }
 }

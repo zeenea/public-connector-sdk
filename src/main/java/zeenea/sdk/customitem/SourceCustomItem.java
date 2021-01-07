@@ -39,9 +39,9 @@ public final class SourceCustomItem extends SourceItem {
         }
 
         @Override
-        protected SourceCustomItem performBuild(Builder builder) {
+        protected SourceCustomItem performBuild() {
             throwIfNull("code", code);
-            return new SourceCustomItem(builder);
+            return new SourceCustomItem(this);
         }
     }
 
