@@ -23,9 +23,9 @@ public abstract class SourceItem {
         this.name = builder.name;
         this.id = builder.id;
         this.description = builder.description;
-        this.metadata = builder.metadata;
+        this.metadata = new HashMap<>(builder.metadata);
         this.updateTime = builder.updateTime;
-        this.contactRelations = builder.contactRelations;
+        this.contactRelations = new ArrayList<>(builder.contactRelations);
     }
 
     public String getName() {

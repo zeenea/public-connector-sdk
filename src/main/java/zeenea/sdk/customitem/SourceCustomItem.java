@@ -10,8 +10,6 @@ import zeenea.sdk.SourceItem;
  */
 public final class SourceCustomItem extends SourceItem {
 
-    // ancien custom item type = code (example: APP for Application)
-    // obligatoire
     private final String code;
 
     // no schemaVersion because no inventory
@@ -33,6 +31,13 @@ public final class SourceCustomItem extends SourceItem {
 
         private String code;
 
+        /**
+         * Set the code of the custom item.
+         * This is required.
+         *
+         * @param code The code of the custom item
+         * @return This builder
+         */
         public Builder code(String code) {
             this.code = code;
             return this;
