@@ -61,6 +61,10 @@ public abstract class SourceItem {
         private String description;
         private Instant updateTime;
 
+        public String getName() {
+            return name;
+        }
+
         /**
          * Set the name of the source item.
          * This is required to build a SourceItem.
@@ -71,6 +75,10 @@ public abstract class SourceItem {
         public SELF name(String name) {
             this.name = name;
             return self();
+        }
+
+        public String getId() {
+            return id;
         }
 
         /**
@@ -86,6 +94,10 @@ public abstract class SourceItem {
             return self();
         }
 
+        public String getDescription() {
+            return description;
+        }
+
         /**
          * Set the description of the source item.
          *
@@ -95,6 +107,10 @@ public abstract class SourceItem {
         public SELF description(String description) {
             this.description = description;
             return self();
+        }
+
+        public Map<UUID, PropertyValue> getMetadata() {
+            return metadata;
         }
 
         /**
@@ -150,6 +166,10 @@ public abstract class SourceItem {
             return self();
         }
 
+        public Instant getUpdateTime() {
+            return updateTime;
+        }
+
         /**
          * Set the last update time of the source item.
          *
@@ -159,6 +179,10 @@ public abstract class SourceItem {
         public SELF updateTime(Instant updateTime) {
             this.updateTime = updateTime;
             return self();
+        }
+
+        public List<ContactRelation> getContactRelations() {
+            return contactRelations;
         }
 
         /**
