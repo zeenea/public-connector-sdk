@@ -2,12 +2,14 @@ package zeenea.sdk.customitem;
 
 import zeenea.sdk.ConfigurationValidationResult;
 import zeenea.sdk.SynchronizationResult;
+import zeenea.sdk.annotations.Beta;
 import zeenea.sdk.property.Metadata;
 
 import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
 
+@Beta
 public interface CustomItemConnector extends AutoCloseable {
 
     // TODO la config est simplifiée mais du coup les valeurs secrètes ne sont plus identifiables

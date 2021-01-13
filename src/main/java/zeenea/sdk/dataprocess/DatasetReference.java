@@ -1,7 +1,9 @@
 package zeenea.sdk.dataprocess;
 
 import zeenea.sdk.ConnectionCode;
+import zeenea.sdk.annotations.Beta;
 
+@Beta
 class DatasetReference {
     // connection MUST exist
     // Mapping between ConnectionCode and connection id is to be performed by Scanner

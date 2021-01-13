@@ -1,6 +1,7 @@
 package zeenea.sdk.businessterm;
 
 import zeenea.sdk.SourceItem;
+import zeenea.sdk.annotations.Beta;
 
 /**
  * Synchronized or manually created Item corresponding to a business or technical concept used in the enterprise.
@@ -8,6 +9,7 @@ import zeenea.sdk.SourceItem;
  *
  * @since 1.0.0
  */
+@Beta
 public final class SourceBusinessTerm extends SourceItem {
 
     // no schemaVersion because no inventory

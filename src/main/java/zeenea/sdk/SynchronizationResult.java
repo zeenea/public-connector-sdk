@@ -1,8 +1,11 @@
 package zeenea.sdk;
 
+import zeenea.sdk.annotations.Beta;
+
 import java.util.Optional;
 import java.util.stream.Stream;
 
+@Beta
 public class SynchronizationResult<T extends SourceItem> {
 
     private final Long lastSuccessfulVersion;

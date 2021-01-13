@@ -1,5 +1,7 @@
 package zeenea.sdk;
 
+import zeenea.sdk.annotations.Beta;
+
 import java.util.Collection;
 import java.util.Collections;
 
@@ -8,6 +10,7 @@ enum ConfigurationValidationResultStatus {
     KO
 }
 
+@Beta
 public final class ConfigurationValidationResult {
 
     private final ConfigurationValidationResultStatus status;

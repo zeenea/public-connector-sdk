@@ -1,12 +1,14 @@
 package zeenea.sdk.dataprocess;
 
 import zeenea.sdk.SourceItem;
+import zeenea.sdk.annotations.Beta;
 
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
+@Beta
 public final class SourceDataProcess extends SourceItem {
 
     private final String externalId;
