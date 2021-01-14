@@ -1,10 +1,12 @@
 package zeenea.sdk;
 
+import zeenea.sdk.annotations.Beta;
 import zeenea.sdk.property.*;
 
 import java.time.Instant;
 import java.util.*;
 
+@Beta
 public abstract class SourceItem {
 
     private final String name;

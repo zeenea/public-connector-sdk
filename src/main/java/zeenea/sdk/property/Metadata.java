@@ -1,7 +1,10 @@
 package zeenea.sdk.property;
 
+import zeenea.sdk.annotations.Beta;
+
 import java.util.UUID;
 
+@Beta
 public abstract class Metadata {
 
     private final String code;

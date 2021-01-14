@@ -1,5 +1,6 @@
 package zeenea.sdk;
 
+import zeenea.sdk.annotations.Beta;
 import zeenea.sdk.property.Metadata;
 
 import java.util.Map;
@@ -9,6 +10,7 @@ import java.util.Set;
  * documentation
  * <img src="/doc-files/connector-sequence-diagram.png">
  */
+@Beta
 public interface ItemConnector<T extends SourceItem> extends AutoCloseable {
 
     /**
