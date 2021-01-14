@@ -1,5 +1,3 @@
-apply(from = "buildtools/ColoredOutput.gradle")
-project.extra["GITHUB_ACTIONS_FOLDING"] = true
 plugins {
     // Apply the java-library plugin for API and implementation separation.
     `java-library`
@@ -15,6 +13,9 @@ java {
     sourceCompatibility = JavaVersion.VERSION_1_8
     targetCompatibility = JavaVersion.VERSION_1_8
 }
+
+apply(from = "buildtools/ColoredOutput.gradle")
+project.extra["GITHUB_ACTIONS_FOLDING"] = true
 
 tasks.withType<JavaCompile> {
     with(options) {
