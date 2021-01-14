@@ -37,6 +37,7 @@ repositories {
 }
 
 dependencies {
+    api(group = "org.pf4j", name = "pf4j", version = "3.0.1")
     testImplementation(platform("org.junit:junit-bom:5.7.0"))
     testImplementation(group = "org.junit.jupiter", name = "junit-jupiter-api")
     testImplementation(group = "org.slf4j", name = "slf4j-api", version = "1.7.30")

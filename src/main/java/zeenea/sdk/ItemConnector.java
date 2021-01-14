@@ -8,7 +8,7 @@ import java.util.Set;
 
 /**
  * documentation
- * <img src="/doc-files/connector-sequence-diagram.png" alt="">
+ * <img alt="Connector sequence diagram" src="/doc-files/connector-sequence-diagram.png">
  */
 @Beta
 public interface ItemConnector<T extends SourceItem> extends AutoCloseable {
@@ -24,9 +24,9 @@ public interface ItemConnector<T extends SourceItem> extends AutoCloseable {
      * <li>a connection to some backend fails given provided configuration</li>
      * </ul>
      *
-     * @param config the connection configuration as a property map
-     * @return ConfigurationValidationResult.ok() if everything fine; ConfigurationValidationResult.ko(...) if something
-     * is wrong
+     * @param config The connector configuration, as a simple key-value map
+     * @return ConfigurationValidationResult.ok() if everything is fine; ConfigurationValidationResult.ko(...) if
+     * something is wrong
      */
     default ConfigurationValidationResult validateConfig(Map<String, String> config) {
         return ConfigurationValidationResult.ok();
