@@ -14,8 +14,7 @@ java {
     targetCompatibility = JavaVersion.VERSION_1_8
 }
 
-apply(from = "buildtools/ColoredOutput.gradle")
-project.extra["GITHUB_ACTIONS_FOLDING"] = true
+apply(from = "gradle/colored-output.gradle")
 
 tasks.withType<JavaCompile> {
     with(options) {
