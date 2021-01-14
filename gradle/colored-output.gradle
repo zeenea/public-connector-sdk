@@ -18,9 +18,11 @@ tasks.withType(Test) {
     beforeSuite { suite ->
         if (suite.name.startsWith("Test Run") || suite.name.startsWith("Gradle Worker")) return
 
-        if(suite.parent != null && suite.className != null){
-            if(GITHUB_ACTIONS_FOLDING){ out.println("##[group]" + suite.name +"\r") }
-            out.println(ANSI_BOLD_WHITE + suite.name + ANSI_RESET )
+        if (suite.parent != null && suite.className != null) {
+            if (GITHUB_ACTIONS_FOLDING) {
+                out.println("##[group]" + suite.name + "\r")
+            }
+            out.println(ANSI_BOLD_WHITE + suite.name + ANSI_RESET)
         }
 
     }
@@ -33,14 +35,18 @@ tasks.withType(Test) {
 
         out.println('    ' + indicator + ANSI_RESET + " " + descriptor.name)
 
-        if (result.failedTestCount > 0) { out.println(' ') }
+        if (result.failedTestCount > 0) {
+            out.println(' ')
+        }
 
     }
 
     afterSuite { desc, result ->
-        if(desc.parent != null && desc.className != null){
+        if (desc.parent != null && desc.className != null) {
 
-            if(GITHUB_ACTIONS_FOLDING && result.failedTestCount==0) { out.println("##[endgroup]\r") }
+            if (GITHUB_ACTIONS_FOLDING && result.failedTestCount == 0) {
+                out.println("##[endgroup]\r")
+            }
             out.println("")
         }
 
@@ -49,10 +55,14 @@ tasks.withType(Test) {
             def failStyle = ANSI_RED
             def skipStyle = ANSI_YELLOW
             def summaryStyle = ANSI_WHITE
-            if(result.failedTestCount>0){ failStyle = ANSI_RED }
-            if(result.skippedTestCount > 0) { skipStyle = ANSI_YELLOW }
+            if (result.failedTestCount > 0) {
+                failStyle = ANSI_RED
+            }
+            if (result.skippedTestCount > 0) {
+                skipStyle = ANSI_YELLOW
+            }
 
-            switch(result.resultType){
+            switch (result.resultType) {
                 case TestResult.ResultType.SUCCESS:
                     summaryStyle = ANSI_GREEN
                     break
@@ -61,14 +71,14 @@ tasks.withType(Test) {
                     break
             }
 
-            out.println( "--------------------------------------------------------------------------")
-            out.println( "Results: " + summaryStyle + "${result.resultType}" + ANSI_RESET
+            out.println("--------------------------------------------------------------------------")
+            out.println("Results: " + summaryStyle + "${result.resultType}" + ANSI_RESET
                     + " (${result.testCount} tests, "
                     + ANSI_GREEN + "${result.successfulTestCount} passed" + ANSI_RESET
                     + ", " + failStyle + "${result.failedTestCount} failed" + ANSI_RESET
                     + ", " + skipStyle + "${result.skippedTestCount} skipped" + ANSI_RESET
                     + ")")
-            out.println( "--------------------------------------------------------------------------")
+            out.println("--------------------------------------------------------------------------")
         }
     }
 
