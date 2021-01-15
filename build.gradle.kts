@@ -14,6 +14,8 @@ java {
     targetCompatibility = JavaVersion.VERSION_1_8
 }
 
+apply(from = "gradle/colored-output.gradle.kts")
+
 tasks.withType<JavaCompile> {
     with(options) {
         encoding = "UTF-8"
