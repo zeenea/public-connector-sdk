@@ -53,8 +53,8 @@ tasks.withType<Test> {
 
 
             if (desc.parent == null) { // will match the outermost suite
-                var failStyle = ANSI_RED
-                var skipStyle = ANSI_YELLOW
+                var failStyle = ANSI_WHITE
+                var skipStyle = ANSI_WHITE
                 var summaryStyle = ANSI_WHITE
                 if (result.failedTestCount > 0) {
                     failStyle = ANSI_RED
