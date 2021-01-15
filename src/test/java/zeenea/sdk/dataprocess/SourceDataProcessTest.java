@@ -3,7 +3,7 @@ package zeenea.sdk.dataprocess;
 import org.junit.jupiter.api.Test;
 import zeenea.sdk.ConnectionCode;
 import zeenea.sdk.ContactRelation;
-import zeenea.sdk.property.*;
+import zeenea.sdk.metadata.*;
 
 import java.math.BigDecimal;
 import java.net.URI;
@@ -22,7 +22,7 @@ public class SourceDataProcessTest {
     static final String DEFAULT_DESCRIPTION = "dataprocess-description";
     static final String LONG_DESCRIPTION = longString(32 * 1024 + 1);
     static final StringMetadata DEFAULT_METADATA_KEY = new StringMetadata("test", "dataprocess-property-key");
-    static final StringPropertyValue DEFAULT_PROPERTY_VALUE = new StringPropertyValue("some-value");
+    static final StringMetadataValue DEFAULT_PROPERTY_VALUE = new StringMetadataValue("some-value");
     static final DatasetReference DEFAULT_INPUT = new DatasetReference(new ConnectionCode("my-connection"), "external-id");
     static final DatasetReference DEFAULT_OUTPUT = new DatasetReference(new ConnectionCode("my-other-connection"), "other-external-id");
     static final ContactRelation DEFAULT_CONTACT_RELATION = new ContactRelation() {};
@@ -58,15 +58,15 @@ public class SourceDataProcessTest {
     @Test
     public void dataProcessBuilderShouldAddProperties() {
         StringMetadata stringMetadata = new StringMetadata("test", "property1");
-        StringPropertyValue stringValue = new StringPropertyValue("a string value");
+        StringMetadataValue stringValue = new StringMetadataValue("a string value");
         NumberMetadata numberMetadata = new NumberMetadata("test", "property2");
-        NumberPropertyValue numberValue = new NumberPropertyValue(new BigDecimal("42.01"));
+        NumberMetadataValue numberValue = new NumberMetadataValue(new BigDecimal("42.01"));
         InstantMetadata instantMetadata = new InstantMetadata("test", "property3");
-        InstantPropertyValue instantValue = new InstantPropertyValue(Instant.now());
+        InstantMetadataValue instantValue = new InstantMetadataValue(Instant.now());
         UrlMetadata urlMetadataWithoutLabel = new UrlMetadata("test", "property4");
-        UrlPropertyValue urlValueWithoutLabel = new UrlPropertyValue(URI.create("http://localhost:9000"));
+        UrlMetadataValue urlValueWithoutLabel = new UrlMetadataValue(URI.create("http://localhost:9000"));
         UrlMetadata urlMetadataWithLabel = new UrlMetadata("test", "property5");
-        UrlPropertyValue urlValueWithLabel = new UrlPropertyValue(URI.create("http://localhost:9000"), "zeenea");
+        UrlMetadataValue urlValueWithLabel = new UrlMetadataValue(URI.create("http://localhost:9000"), "zeenea");
 
         SourceDataProcess sourceDataProcess = SourceDataProcess.builder()
                 .name(DEFAULT_NAME)

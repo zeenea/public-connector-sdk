@@ -1,9 +1,9 @@
-package zeenea.sdk.property;
+package zeenea.sdk.metadata;
 
 public class NumberMetadata extends Metadata {
 
     public NumberMetadata(String connectorId, String code) {
-        super(connectorId, code, PropertyType.NUMBER);
+        super(connectorId, code, MetadataType.NUMBER);
     }
 
 }

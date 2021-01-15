@@ -2,7 +2,7 @@ package zeenea.sdk.customitem;
 
 import org.junit.jupiter.api.Test;
 import zeenea.sdk.ContactRelation;
-import zeenea.sdk.property.*;
+import zeenea.sdk.metadata.*;
 
 import java.math.BigDecimal;
 import java.net.URI;
@@ -21,7 +21,7 @@ public class SourceCustomItemTest {
     static final String DEFAULT_DESCRIPTION = "custom-item-description";
     static final String LONG_DESCRIPTION = longString(32 * 1024 + 1);
     static final StringMetadata DEFAULT_METADATA_KEY = new StringMetadata("test", "custom-item-property-key");
-    static final StringPropertyValue DEFAULT_PROPERTY_VALUE = new StringPropertyValue("some-value");
+    static final StringMetadataValue DEFAULT_PROPERTY_VALUE = new StringMetadataValue("some-value");
     static final ContactRelation DEFAULT_CONTACT_RELATION = new ContactRelation() {};
     static final Instant DEFAULT_UPDATE_TIME = Instant.now();
 
@@ -51,15 +51,15 @@ public class SourceCustomItemTest {
     @Test
     public void customItemBuilderShouldAddProperties() {
         StringMetadata stringMetadata = new StringMetadata("test", "property1");
-        StringPropertyValue stringValue = new StringPropertyValue("a string value");
+        StringMetadataValue stringValue = new StringMetadataValue("a string value");
         NumberMetadata numberMetadata = new NumberMetadata("test", "property2");
-        NumberPropertyValue numberValue = new NumberPropertyValue(new BigDecimal("42.01"));
+        NumberMetadataValue numberValue = new NumberMetadataValue(new BigDecimal("42.01"));
         InstantMetadata instantMetadata = new InstantMetadata("test", "property3");
-        InstantPropertyValue instantValue = new InstantPropertyValue(Instant.now());
+        InstantMetadataValue instantValue = new InstantMetadataValue(Instant.now());
         UrlMetadata urlMetadataWithoutLabel = new UrlMetadata("test", "property4");
-        UrlPropertyValue urlValueWithoutLabel = new UrlPropertyValue(URI.create("http://localhost:9000"));
+        UrlMetadataValue urlValueWithoutLabel = new UrlMetadataValue(URI.create("http://localhost:9000"));
         UrlMetadata urlMetadataWithLabel = new UrlMetadata("test", "property5");
-        UrlPropertyValue urlValueWithLabel = new UrlPropertyValue(URI.create("http://localhost:9000"), "zeenea");
+        UrlMetadataValue urlValueWithLabel = new UrlMetadataValue(URI.create("http://localhost:9000"), "zeenea");
 
         SourceCustomItem sourceCustomItem = SourceCustomItem.builder()
                 .name(DEFAULT_NAME)

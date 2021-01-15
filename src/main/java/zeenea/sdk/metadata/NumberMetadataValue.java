@@ -1,12 +1,12 @@
-package zeenea.sdk.property;
+package zeenea.sdk.metadata;
 
 import java.math.BigDecimal;
 
-public class NumberPropertyValue implements PropertyValue {
+public class NumberMetadataValue implements MetadataValue {
 
     private final BigDecimal value;
 
-    public NumberPropertyValue(BigDecimal value) {
+    public NumberMetadataValue(BigDecimal value) {
         this.value = value;
     }
 
