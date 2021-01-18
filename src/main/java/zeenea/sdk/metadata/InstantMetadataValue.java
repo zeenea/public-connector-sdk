@@ -1,12 +1,12 @@
-package zeenea.sdk.property;
+package zeenea.sdk.metadata;
 
 import java.time.Instant;
 
-public class InstantPropertyValue implements PropertyValue {
+public class InstantMetadataValue implements MetadataValue {
 
     private final Instant value;
 
-    public InstantPropertyValue(Instant value) {
+    public InstantMetadataValue(Instant value) {
         this.value = value;
     }
 

@@ -1,9 +1,9 @@
-package zeenea.sdk.property;
+package zeenea.sdk.metadata;
 
 public class UrlMetadata extends Metadata {
 
     public UrlMetadata(String connectorId, String code) {
-        super(connectorId, code, PropertyType.URL);
+        super(connectorId, code, MetadataType.URL);
     }
 
 }

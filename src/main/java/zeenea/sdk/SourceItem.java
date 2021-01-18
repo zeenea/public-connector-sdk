@@ -1,8 +1,10 @@
 package zeenea.sdk;
 
 import zeenea.sdk.annotations.Beta;
-import zeenea.sdk.property.*;
+import zeenea.sdk.metadata.*;
 
+import java.math.BigDecimal;
+import java.net.URI;
 import java.time.Instant;
 import java.util.*;
 
@@ -15,7 +17,7 @@ public abstract class SourceItem {
 
     private final String description;
 
-    private final Map<UUID, PropertyValue> metadata;
+    private final Map<UUID, MetadataValue> metadata;
 
     private final Instant updateTime;
 
@@ -42,7 +44,7 @@ public abstract class SourceItem {
         return Optional.ofNullable(description);
     }
 
-    public Map<UUID, PropertyValue> getMetadata() {
+    public Map<UUID, MetadataValue> getMetadata() {
         return Collections.unmodifiableMap(metadata);
     }
 
@@ -56,7 +58,7 @@ public abstract class SourceItem {
 
     public static abstract class Builder<T, SELF extends Builder<T, ?>> {
 
-        private final Map<UUID, PropertyValue> metadata = new HashMap<>();
+        private final Map<UUID, MetadataValue> metadata = new HashMap<>();
         private final List<ContactRelation> contactRelations = new ArrayList<>();
         private String name;
         private String id;
@@ -111,7 +113,7 @@ public abstract class SourceItem {
             return self();
         }
 
-        public Map<UUID, PropertyValue> getMetadata() {
+        public Map<UUID, MetadataValue> getMetadata() {
             return metadata;
         }
 
@@ -123,7 +125,19 @@ public abstract class SourceItem {
          * @param value the value for this metadata
          * @return This builder
          */
-        public SELF addMetadata(StringMetadata metadata, StringPropertyValue value) {
+        public SELF addMetadata(StringMetadata metadata, String value) {
+            return addMetadata(metadata, new StringMetadataValue(value));
+        }
+
+        /**
+         * Add a StringMetadata and its value to the source item.
+         * Metadata are necessary for search engine usage.
+         *
+         * @param metadata the metadata
+         * @param value the value for this metadata
+         * @return This builder
+         */
+        public SELF addMetadata(StringMetadata metadata, StringMetadataValue value) {
             return putMetadata(metadata, value);
         }
 
@@ -135,7 +149,43 @@ public abstract class SourceItem {
          * @param value the value for this metadata
          * @return This builder
          */
-        public SELF addMetadata(NumberMetadata metadata, NumberPropertyValue value) {
+        public SELF addMetadata(NumberMetadata metadata, long value) {
+            return addMetadata(metadata, BigDecimal.valueOf(value));
+        }
+
+        /**
+         * Add a NumberMetadata and its value to the source item.
+         * Metadata are necessary for search engine usage.
+         *
+         * @param metadata the metadata
+         * @param value the value for this metadata
+         * @return This builder
+         */
+        public SELF addMetadata(NumberMetadata metadata, double value) {
+            return addMetadata(metadata, BigDecimal.valueOf(value));
+        }
+
+        /**
+         * Add a NumberMetadata and its value to the source item.
+         * Metadata are necessary for search engine usage.
+         *
+         * @param metadata the metadata
+         * @param value the value for this metadata
+         * @return This builder
+         */
+        public SELF addMetadata(NumberMetadata metadata, BigDecimal value) {
+            return addMetadata(metadata, new NumberMetadataValue(value));
+        }
+
+        /**
+         * Add a NumberMetadata and its value to the source item.
+         * Metadata are necessary for search engine usage.
+         *
+         * @param metadata the metadata
+         * @param value the value for this metadata
+         * @return This builder
+         */
+        public SELF addMetadata(NumberMetadata metadata, NumberMetadataValue value) {
             return putMetadata(metadata, value);
         }
 
@@ -147,7 +197,32 @@ public abstract class SourceItem {
          * @param value the value for this metadata
          * @return This builder
          */
-        public SELF addMetadata(UrlMetadata metadata, UrlPropertyValue value) {
+        public SELF addMetadata(UrlMetadata metadata, URI value) {
+            return addMetadata(metadata, new UrlMetadataValue(value));
+        }
+
+        /**
+         * Add an UrlMetadata and its value to the source item.
+         * Metadata are necessary for search engine usage.
+         *
+         * @param metadata the metadata
+         * @param uri the uri value for this metadata
+         * @param label the label value for this metadata
+         * @return This builder
+         */
+        public SELF addMetadata(UrlMetadata metadata, URI uri, String label) {
+            return addMetadata(metadata, new UrlMetadataValue(uri, label));
+        }
+
+        /**
+         * Add an UrlMetadata and its value to the source item.
+         * Metadata are necessary for search engine usage.
+         *
+         * @param metadata the metadata
+         * @param value the value for this metadata
+         * @return This builder
+         */
+        public SELF addMetadata(UrlMetadata metadata, UrlMetadataValue value) {
             return putMetadata(metadata, value);
         }
 
@@ -159,11 +234,23 @@ public abstract class SourceItem {
          * @param value the value for this metadata
          * @return This builder
          */
-        public SELF addMetadata(InstantMetadata metadata, InstantPropertyValue value) {
+        public SELF addMetadata(InstantMetadata metadata, Instant value) {
+            return addMetadata(metadata, new InstantMetadataValue(value));
+        }
+
+        /**
+         * Add an InstantMetadata and its value to the source item.
+         * Metadata are necessary for search engine usage.
+         *
+         * @param metadata the metadata
+         * @param value the value for this metadata
+         * @return This builder
+         */
+        public SELF addMetadata(InstantMetadata metadata, InstantMetadataValue value) {
             return putMetadata(metadata, value);
         }
 
-        private SELF putMetadata(Metadata metadata, PropertyValue value) {
+        private SELF putMetadata(Metadata metadata, MetadataValue value) {
             this.metadata.put(metadata.getId(), value);
             return self();
         }

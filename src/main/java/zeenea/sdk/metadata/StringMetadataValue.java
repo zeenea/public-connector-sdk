@@ -1,10 +1,10 @@
-package zeenea.sdk.property;
+package zeenea.sdk.metadata;
 
-public class StringPropertyValue implements PropertyValue {
+public class StringMetadataValue implements MetadataValue {
 
     private final String value;
 
-    public StringPropertyValue(String value) {
+    public StringMetadataValue(String value) {
         this.value = value;
     }
 

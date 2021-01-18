@@ -7,7 +7,7 @@ import zeenea.sdk.SynchronizationResult;
 import zeenea.sdk.businessterm.BusinessTermConnector;
 import zeenea.sdk.businessterm.SourceBusinessTerm;
 import zeenea.sdk.example.movies.catalog.MovieTerms;
-import zeenea.sdk.property.Metadata;
+import zeenea.sdk.metadata.Metadata;
 
 import java.util.Arrays;
 import java.util.HashSet;
