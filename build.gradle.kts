@@ -6,7 +6,7 @@ plugins {
 
 
 group = "zeenea"
-version = file("version.txt").readText().trim() + "." + System.getenv("GITHUB_RUN_NUMBER")
+version = file("version.txt").readText().trim() + "+" + System.getenv("GITHUB_RUN_NUMBER")
 description = "public-connector-sdk"
 
 java {
