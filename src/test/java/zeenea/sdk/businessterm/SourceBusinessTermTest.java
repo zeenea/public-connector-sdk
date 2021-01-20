@@ -1,7 +1,9 @@
 package zeenea.sdk.businessterm;
 
 import org.junit.jupiter.api.Test;
-import zeenea.sdk.ContactRelation;
+import zeenea.sdk.contact.SourceContact;
+import zeenea.sdk.contact.SourceContactRelation;
+import zeenea.sdk.contact.SourceRole;
 import zeenea.sdk.metadata.*;
 
 import java.math.BigDecimal;
@@ -21,7 +23,7 @@ public class SourceBusinessTermTest {
     static final String LONG_DESCRIPTION = longString(32 * 1024 + 1);
     static final StringMetadata DEFAULT_METADATA_KEY = new StringMetadata("test", "business-term-property-key");
     static final StringMetadataValue DEFAULT_PROPERTY_VALUE = new StringMetadataValue("some-value");
-    static final ContactRelation DEFAULT_CONTACT_RELATION = new ContactRelation() {};
+    static final SourceContactRelation DEFAULT_CONTACT_RELATION = new SourceContactRelation(SourceContact.builder().email("foobar@example.com").build(), new SourceRole("user"));
     static final Instant DEFAULT_UPDATE_TIME = Instant.now();
 
     @Test

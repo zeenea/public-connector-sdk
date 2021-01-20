@@ -1,6 +1,9 @@
 package zeenea.sdk;
 
 import zeenea.sdk.annotations.Beta;
+import zeenea.sdk.contact.SourceContact;
+import zeenea.sdk.contact.SourceContactRelation;
+import zeenea.sdk.contact.SourceRole;
 import zeenea.sdk.metadata.*;
 
 import java.math.BigDecimal;
@@ -21,7 +24,7 @@ public abstract class SourceItem {
 
     private final Instant updateTime;
 
-    private final Collection<ContactRelation> contactRelations;
+    private final Collection<SourceContactRelation> contactRelations;
 
     protected SourceItem(Builder<?, ?> builder) {
         this.name = builder.name;
@@ -52,14 +55,14 @@ public abstract class SourceItem {
         return Optional.ofNullable(updateTime);
     }
 
-    public Collection<ContactRelation> getContactRelations() {
+    public Collection<SourceContactRelation> getContactRelations() {
         return Collections.unmodifiableCollection(contactRelations);
     }
 
     public static abstract class Builder<T, SELF extends Builder<T, ?>> {
 
         private final Map<UUID, MetadataValue> metadata = new HashMap<>();
-        private final List<ContactRelation> contactRelations = new ArrayList<>();
+        private final List<SourceContactRelation> contactRelations = new ArrayList<>();
         private String name;
         private String id;
         private String description;
@@ -270,8 +273,19 @@ public abstract class SourceItem {
             return self();
         }
 
-        public List<ContactRelation> getContactRelations() {
+        public List<SourceContactRelation> getContactRelations() {
             return contactRelations;
+        }
+
+        /**
+         * Add a ContactRelation to the source item.
+         *
+         * @param contact the Contact to add
+         * @param role the Role of the Contact to add
+         * @return This builder
+         */
+        public SELF addContactRelation(SourceContact contact, SourceRole role) {
+            return addContactRelation(new SourceContactRelation(contact, role));
         }
 
         /**
@@ -280,7 +294,7 @@ public abstract class SourceItem {
          * @param contactRelation the ContactRelation to add
          * @return This builder
          */
-        public SELF addContactRelation(ContactRelation contactRelation) {
+        public SELF addContactRelation(SourceContactRelation contactRelation) {
             this.contactRelations.add(contactRelation);
             return self();
         }
