@@ -3,7 +3,7 @@ package zeenea.sdk.contact;
 public class SourceRole {
     private final String name;
 
-    public SourceRole(String name) {
+    SourceRole(String name) {
         this.name = name;
     }
 
