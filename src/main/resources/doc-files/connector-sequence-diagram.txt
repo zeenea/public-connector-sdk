@@ -1,7 +1,8 @@
 # sequencediagram.org source file
 title Item Connector lifecycle
 ==1st pass==
-Scanner->Connector:new
+Scanner->ConnectorFactory:getConnectorFactory("my-connector")
+ConnectorFactory->Connector:new
 activate Connector
 Scanner->Connector:validateConfig("url"->"connection","user"->"john")
 Connector-->Connector:validate config values
@@ -17,7 +18,8 @@ Connector->Scanner:SynchronizationResult(items, 1608135872L)
 Scanner->Connector:close()
 deactivate Connector
 ==2nd pass==
-Scanner->Connector:new
+Scanner->ConnectorFactory:getConnectorFactory("my-connector")
+ConnectorFactory->Connector:new
 activate Connector
 Scanner<->Connector:validateConfig("url"->"connection","user"->"john")
 Scanner<->Connector:getTechnicalMetadata()
