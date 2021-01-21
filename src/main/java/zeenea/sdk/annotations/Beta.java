@@ -10,10 +10,10 @@ import static java.lang.annotation.ElementType.*;
 
 /**
  * Signifies that a public API (public class, method or field) is subject to incompatible changes, or even removal, in a future release.
- * <p></p>
+ * <br>
  * An API bearing this annotation is exempt from any compatibility guarantees made by its containing library.
  * Note that the presence of this annotation implies nothing about the quality or performance of the API in question, only the fact that it is not "API-frozen."
- * <p></p>
+ * <br>
  * It is generally safe for applications to depend on beta APIs, at the cost of some extra work during upgrades.
  */
 @Retention(value = RetentionPolicy.SOURCE)

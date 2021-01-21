@@ -2,10 +2,10 @@ package zeenea.sdk.example.movies;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import zeenea.sdk.ContactRelation;
 import zeenea.sdk.SynchronizationResult;
 import zeenea.sdk.businessterm.BusinessTermConnector;
 import zeenea.sdk.businessterm.SourceBusinessTerm;
+import zeenea.sdk.contact.SourceContactRelation;
 import zeenea.sdk.example.movies.catalog.MovieTerms;
 import zeenea.sdk.metadata.Metadata;
 
@@ -20,8 +20,10 @@ public class MovieTermsConnector implements BusinessTermConnector {
     private static final Logger LOGGER = LoggerFactory.getLogger(MovieTermsConnector.class);
     public static final String CONNECTOR_ID = "movie-terms-connector";
 
-    public static final ContactRelation DEFAULT_CONTACT = new ContactRelation() {
-    };
+    public static final SourceContactRelation DEFAULT_CONTACT = SourceContactRelation.builder()
+            .email("foobar@example.com")
+            .role("user")
+            .build();
 
     @Override
     public Set<Metadata> getTechnicalMetadata() {

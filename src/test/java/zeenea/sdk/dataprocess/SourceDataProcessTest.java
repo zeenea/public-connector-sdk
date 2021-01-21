@@ -2,7 +2,7 @@ package zeenea.sdk.dataprocess;
 
 import org.junit.jupiter.api.Test;
 import zeenea.sdk.ConnectionCode;
-import zeenea.sdk.ContactRelation;
+import zeenea.sdk.contact.SourceContactRelation;
 import zeenea.sdk.metadata.*;
 
 import java.math.BigDecimal;
@@ -25,7 +25,10 @@ public class SourceDataProcessTest {
     static final StringMetadataValue DEFAULT_PROPERTY_VALUE = new StringMetadataValue("some-value");
     static final DatasetReference DEFAULT_INPUT = new DatasetReference(new ConnectionCode("my-connection"), "external-id");
     static final DatasetReference DEFAULT_OUTPUT = new DatasetReference(new ConnectionCode("my-other-connection"), "other-external-id");
-    static final ContactRelation DEFAULT_CONTACT_RELATION = new ContactRelation() {};
+    public static final SourceContactRelation DEFAULT_CONTACT_RELATION = SourceContactRelation.builder()
+            .email("foobar@example.com")
+            .role("user")
+            .build();
     static final Instant DEFAULT_UPDATE_TIME = Instant.now();
 
     @Test
