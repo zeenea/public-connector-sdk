@@ -9,19 +9,19 @@ import java.util.stream.Stream;
 public class SynchronizationResult {
 
     private final Long lastSuccessfulVersion;
-    private final Stream<? extends SourceItem> items;
+    private final Stream<SourceItemAction> items;
 
-    public SynchronizationResult(Stream<? extends SourceItem> items) {
+    public SynchronizationResult(Stream<SourceItemAction> items) {
         this.items = items;
         this.lastSuccessfulVersion = null;
     }
 
-    public SynchronizationResult(Stream<? extends SourceItem> items, long lastSuccessfulVersion) {
+    public SynchronizationResult(Stream<SourceItemAction> items, long lastSuccessfulVersion) {
         this.items = items;
         this.lastSuccessfulVersion = lastSuccessfulVersion;
     }
 
-    public Stream<? extends SourceItem> getItems() {
+    public Stream<SourceItemAction> getItems() {
         return items;
     }
 
