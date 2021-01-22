@@ -3,6 +3,7 @@ package zeenea.sdk.example.movies;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import zeenea.sdk.Connector;
+import zeenea.sdk.SourceItemAction;
 import zeenea.sdk.SynchronizationResult;
 import zeenea.sdk.contact.SourceContactRelation;
 import zeenea.sdk.example.movies.catalog.MovieTerms;
@@ -36,10 +37,10 @@ public class MovieTermsConnector implements Connector {
     public SynchronizationResult synchronize(Long lastSuccessfulVersion) {
         LOGGER.debug("synchronize({})", lastSuccessfulVersion);
         return new SynchronizationResult(Arrays.asList(
-                MovieTerms.MOVIE,
-                MovieTerms.CASTING,
-                MovieTerms.RATING,
-                MovieTerms.ADVERTISEMENT
+                SourceItemAction.upsert(MovieTerms.MOVIE),
+                SourceItemAction.upsert(MovieTerms.CASTING),
+                SourceItemAction.upsert(MovieTerms.RATING),
+                SourceItemAction.upsert(MovieTerms.ADVERTISEMENT)
         ).stream());
     }
 
