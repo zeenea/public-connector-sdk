@@ -11,7 +11,7 @@ import java.util.Set;
  * <img alt="Connector sequence diagram" src="/doc-files/connector-sequence-diagram.png">
  */
 @Beta
-public interface ItemConnector<T extends SourceItem> extends AutoCloseable {
+public interface Connector extends AutoCloseable {
 
     /**
      * Called on start to get configuration from scanner and return a validation result. Configuration values are
@@ -31,6 +31,7 @@ public interface ItemConnector<T extends SourceItem> extends AutoCloseable {
     default ConfigurationValidationResult validateConfig(Map<String, String> config) {
         return ConfigurationValidationResult.ok();
     }
+
 
     /**
      * Called before synchronization to get list of all properties that describes items this connector is able to
@@ -55,6 +56,7 @@ public interface ItemConnector<T extends SourceItem> extends AutoCloseable {
      * @return a stream of items guaranteed to be consumed by scanner and some optional lastSuccessfulVersion if
      * incremental synchronization is supported by this connector. This stream must terminate.
      */
-    SynchronizationResult<T> synchronize(Long lastSuccessfulVersion);
+    SynchronizationResult synchronize(Long lastSuccessfulVersion);
+
 
 }

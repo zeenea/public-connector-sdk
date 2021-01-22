@@ -2,9 +2,8 @@ package zeenea.sdk.example.movies;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import zeenea.sdk.Connector;
 import zeenea.sdk.SynchronizationResult;
-import zeenea.sdk.businessterm.BusinessTermConnector;
-import zeenea.sdk.businessterm.SourceBusinessTerm;
 import zeenea.sdk.contact.SourceContactRelation;
 import zeenea.sdk.example.movies.catalog.MovieTerms;
 import zeenea.sdk.metadata.Metadata;
@@ -16,7 +15,7 @@ import java.util.Set;
 /**
  *
  */
-public class MovieTermsConnector implements BusinessTermConnector {
+public class MovieTermsConnector implements Connector {
     private static final Logger LOGGER = LoggerFactory.getLogger(MovieTermsConnector.class);
     public static final String CONNECTOR_ID = "movie-terms-connector";
 
@@ -34,9 +33,9 @@ public class MovieTermsConnector implements BusinessTermConnector {
     }
 
     @Override
-    public SynchronizationResult<SourceBusinessTerm> synchronize(Long lastSuccessfulVersion) {
+    public SynchronizationResult synchronize(Long lastSuccessfulVersion) {
         LOGGER.debug("synchronize({})", lastSuccessfulVersion);
-        return new SynchronizationResult<>(Arrays.asList(
+        return new SynchronizationResult(Arrays.asList(
                 MovieTerms.MOVIE,
                 MovieTerms.CASTING,
                 MovieTerms.RATING,
