@@ -2,10 +2,10 @@ package zeenea.sdk;
 
 import org.pf4j.ExtensionPoint;
 
-public interface ConnectorFactory<T extends SourceItem> extends ExtensionPoint {
+public interface ConnectorFactory extends ExtensionPoint {
 
     String getConnectorId();
 
-    Connector<T> newConnector();
+    Connector newConnector();
 
 }

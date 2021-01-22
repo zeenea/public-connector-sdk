@@ -6,22 +6,22 @@ import java.util.Optional;
 import java.util.stream.Stream;
 
 @Beta
-public class SynchronizationResult<T extends SourceItem> {
+public class SynchronizationResult {
 
     private final Long lastSuccessfulVersion;
-    private final Stream<T> items;
+    private final Stream<? extends SourceItem> items;
 
-    public SynchronizationResult(Stream<T> items) {
+    public SynchronizationResult(Stream<? extends SourceItem> items) {
         this.items = items;
         this.lastSuccessfulVersion = null;
     }
 
-    public SynchronizationResult(Stream<T> items, long lastSuccessfulVersion) {
+    public SynchronizationResult(Stream<? extends SourceItem> items, long lastSuccessfulVersion) {
         this.items = items;
         this.lastSuccessfulVersion = lastSuccessfulVersion;
     }
 
-    public Stream<T> getItems() {
+    public Stream<? extends SourceItem> getItems() {
         return items;
     }
 
