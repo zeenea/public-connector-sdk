@@ -1,9 +1,9 @@
 package zeenea.sdk.dataprocess;
 
-import zeenea.sdk.ItemConnector;
+import zeenea.sdk.Connector;
 import zeenea.sdk.annotations.Beta;
 
 @Beta
-public interface DataProcessConnector extends ItemConnector<SourceDataProcess> {
+public interface DataProcessConnector extends Connector<SourceDataProcess> {
 }
 
