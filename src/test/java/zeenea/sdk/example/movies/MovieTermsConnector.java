@@ -18,7 +18,7 @@ import java.util.Set;
  */
 public class MovieTermsConnector implements Connector {
     private static final Logger LOGGER = LoggerFactory.getLogger(MovieTermsConnector.class);
-    public static final String CONNECTOR_ID = "movie-terms-connector";
+    private static final String CONNECTOR_ID = "movie-terms-connector";
 
     public static final SourceContactRelation DEFAULT_CONTACT = SourceContactRelation.builder()
             .email("foobar@example.com")

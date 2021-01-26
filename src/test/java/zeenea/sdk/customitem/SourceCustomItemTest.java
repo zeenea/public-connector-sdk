@@ -20,7 +20,7 @@ public class SourceCustomItemTest {
     static final String DEFAULT_CODE = "custom-item-code";
     static final String DEFAULT_DESCRIPTION = "custom-item-description";
     static final String LONG_DESCRIPTION = longString(32 * 1024 + 1);
-    static final StringMetadata DEFAULT_METADATA_KEY = new StringMetadata("test", "custom-item-property-key");
+    static final StringMetadata DEFAULT_METADATA_KEY = new StringMetadata("custom-item-property-key");
     static final StringMetadataValue DEFAULT_PROPERTY_VALUE = new StringMetadataValue("some-value");
     public static final SourceContactRelation DEFAULT_CONTACT_RELATION = SourceContactRelation.builder()
             .email("foobar@example.com")
@@ -45,7 +45,7 @@ public class SourceCustomItemTest {
         assertEquals(DEFAULT_ID, sourceCustomItem.getId());
         assertEquals(DEFAULT_CODE, sourceCustomItem.getCode());
         assertEquals(DEFAULT_DESCRIPTION, sourceCustomItem.getDescription().get());
-        assertTrue(sourceCustomItem.getMetadata().containsKey(DEFAULT_METADATA_KEY.getId()));
+        assertTrue(sourceCustomItem.getMetadata().containsKey(DEFAULT_METADATA_KEY.getCode()));
         assertTrue(sourceCustomItem.getMetadata().containsValue(DEFAULT_PROPERTY_VALUE));
         assertSame(DEFAULT_CONTACT_RELATION, sourceCustomItem.getContactRelations().iterator().next());
         assertEquals(DEFAULT_UPDATE_TIME, sourceCustomItem.getUpdateTime().get());
@@ -53,15 +53,15 @@ public class SourceCustomItemTest {
 
     @Test
     public void customItemBuilderShouldAddProperties() {
-        StringMetadata stringMetadata = new StringMetadata("test", "property1");
+        StringMetadata stringMetadata = new StringMetadata("property1");
         StringMetadataValue stringValue = new StringMetadataValue("a string value");
-        NumberMetadata numberMetadata = new NumberMetadata("test", "property2");
+        NumberMetadata numberMetadata = new NumberMetadata("property2");
         NumberMetadataValue numberValue = new NumberMetadataValue(new BigDecimal("42.01"));
-        InstantMetadata instantMetadata = new InstantMetadata("test", "property3");
+        InstantMetadata instantMetadata = new InstantMetadata("property3");
         InstantMetadataValue instantValue = new InstantMetadataValue(Instant.now());
-        UrlMetadata urlMetadataWithoutLabel = new UrlMetadata("test", "property4");
+        UrlMetadata urlMetadataWithoutLabel = new UrlMetadata("property4");
         UrlMetadataValue urlValueWithoutLabel = new UrlMetadataValue(URI.create("http://localhost:9000"));
-        UrlMetadata urlMetadataWithLabel = new UrlMetadata("test", "property5");
+        UrlMetadata urlMetadataWithLabel = new UrlMetadata("property5");
         UrlMetadataValue urlValueWithLabel = new UrlMetadataValue(URI.create("http://localhost:9000"), "zeenea");
 
         SourceCustomItem sourceCustomItem = SourceCustomItem.builder()
@@ -75,11 +75,11 @@ public class SourceCustomItemTest {
                 .addMetadata(urlMetadataWithLabel, urlValueWithLabel)
                 .build();
 
-        assertEquals(stringValue, sourceCustomItem.getMetadata().get(stringMetadata.getId()));
-        assertEquals(numberValue, sourceCustomItem.getMetadata().get(numberMetadata.getId()));
-        assertEquals(instantValue, sourceCustomItem.getMetadata().get(instantMetadata.getId()));
-        assertEquals(urlValueWithoutLabel, sourceCustomItem.getMetadata().get(urlMetadataWithoutLabel.getId()));
-        assertEquals(urlValueWithLabel, sourceCustomItem.getMetadata().get(urlMetadataWithLabel.getId()));
+        assertEquals(stringValue, sourceCustomItem.getMetadata().get(stringMetadata.getCode()));
+        assertEquals(numberValue, sourceCustomItem.getMetadata().get(numberMetadata.getCode()));
+        assertEquals(instantValue, sourceCustomItem.getMetadata().get(instantMetadata.getCode()));
+        assertEquals(urlValueWithoutLabel, sourceCustomItem.getMetadata().get(urlMetadataWithoutLabel.getCode()));
+        assertEquals(urlValueWithLabel, sourceCustomItem.getMetadata().get(urlMetadataWithLabel.getCode()));
     }
 
     @Test
