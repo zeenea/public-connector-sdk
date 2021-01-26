@@ -1,9 +1,9 @@
 package zeenea.sdk.example.movies.catalog;
 
 import zeenea.sdk.businessterm.SourceBusinessTerm;
+import zeenea.sdk.contact.SourceContactRelation;
 import zeenea.sdk.example.movies.MovieTermsConnector;
 import zeenea.sdk.metadata.StringMetadata;
-import zeenea.sdk.metadata.StringMetadataValue;
 
 import java.time.Instant;
 
@@ -18,6 +18,12 @@ public class MovieTerms {
             .description("A film shown in a cinema or on television and often telling a story.")
             .updateTime(UPDATE_TIME)
             .addMetadata(ORIGIN, HARD_CODED)
+            .addContactRelation(SourceContactRelation.builder()
+                    .email("john.doe@example.com")
+                    .name("John Doe")
+                    .phoneNumber("+33 6 00 00 00 00")
+                    .role("Data owner")
+                    .build())
             .build();
 
     public static SourceBusinessTerm CASTING = SourceBusinessTerm.builder()

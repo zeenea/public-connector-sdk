@@ -3,25 +3,19 @@ package zeenea.sdk.contact;
 import java.util.Optional;
 
 public class SourceContact {
-    private final String firstName;
-    private final String lastName;
+    private final String name;
     private final String email;
     private final String phoneNumber;
 
-    SourceContact(String firstName, String lastName, String email, String phoneNumber) {
-        this.firstName = firstName;
-        this.lastName = lastName;
+    SourceContact(String name, String email, String phoneNumber) {
+        this.name = name;
         this.email = email;
         this.phoneNumber = phoneNumber;
     }
 
 
-    public Optional<String> getFirstName() {
-        return Optional.ofNullable(firstName);
-    }
-
-    public Optional<String> getLastName() {
-        return Optional.ofNullable(lastName);
+    public Optional<String> getName() {
+        return Optional.ofNullable(name);
     }
 
     public String getEmail() {
