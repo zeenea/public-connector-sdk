@@ -2,20 +2,24 @@ package zeenea.sdk;
 
 import zeenea.sdk.annotations.Beta;
 
-import java.util.Collection;
-import java.util.Collections;
-
 @Beta
 public final class InvalidConfigurationException extends Exception {
-
-    private final Collection<String> errors;
-
-    private InvalidConfigurationException(Collection<String> errors) {
-        super(String.join(" - ", errors));
-        this.errors = errors;
+    public InvalidConfigurationException() {
     }
 
-    public Collection<String> getErrors() {
-        return Collections.unmodifiableCollection(errors);
+    public InvalidConfigurationException(String message) {
+        super(message);
+    }
+
+    public InvalidConfigurationException(String message, Throwable cause) {
+        super(message, cause);
+    }
+
+    public InvalidConfigurationException(Throwable cause) {
+        super(cause);
+    }
+
+    public InvalidConfigurationException(String message, Throwable cause, boolean enableSuppression, boolean writableStackTrace) {
+        super(message, cause, enableSuppression, writableStackTrace);
     }
 }
