@@ -18,7 +18,7 @@ public abstract class SourceItem {
 
     private final String description;
 
-    private final Map<UUID, MetadataValue> metadata;
+    private final Map<String, MetadataValue> metadata;
 
     private final Instant updateTime;
 
@@ -45,7 +45,7 @@ public abstract class SourceItem {
         return Optional.ofNullable(description);
     }
 
-    public Map<UUID, MetadataValue> getMetadata() {
+    public Map<String, MetadataValue> getMetadata() {
         return Collections.unmodifiableMap(metadata);
     }
 
@@ -59,7 +59,7 @@ public abstract class SourceItem {
 
     public static abstract class Builder<T, SELF extends Builder<T, ?>> {
 
-        private final Map<UUID, MetadataValue> metadata = new HashMap<>();
+        private final Map<String, MetadataValue> metadata = new HashMap<>();
         private final List<SourceContactRelation> contactRelations = new ArrayList<>();
         private String name;
         private String id;
@@ -114,7 +114,7 @@ public abstract class SourceItem {
             return self();
         }
 
-        public Map<UUID, MetadataValue> getMetadata() {
+        public Map<String, MetadataValue> getMetadata() {
             return metadata;
         }
 
@@ -252,7 +252,7 @@ public abstract class SourceItem {
         }
 
         private SELF putMetadata(Metadata metadata, MetadataValue value) {
-            this.metadata.put(metadata.getId(), value);
+            this.metadata.put(metadata.getCode(), value);
             return self();
         }
 

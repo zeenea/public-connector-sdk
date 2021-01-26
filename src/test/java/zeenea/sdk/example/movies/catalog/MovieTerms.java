@@ -2,13 +2,12 @@ package zeenea.sdk.example.movies.catalog;
 
 import zeenea.sdk.businessterm.SourceBusinessTerm;
 import zeenea.sdk.contact.SourceContactRelation;
-import zeenea.sdk.example.movies.MovieTermsConnector;
 import zeenea.sdk.metadata.StringMetadata;
 
 import java.time.Instant;
 
 public class MovieTerms {
-    public static final StringMetadata ORIGIN = new StringMetadata(MovieTermsConnector.CONNECTOR_ID, "origin");
+    public static final StringMetadata ORIGIN = new StringMetadata("origin");
     public static final String HARD_CODED = "hard-coded";
 
     private static final Instant UPDATE_TIME = Instant.parse("2021-01-14T11:00:37+00:00");

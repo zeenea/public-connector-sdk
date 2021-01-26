@@ -21,7 +21,7 @@ public class SourceDataProcessTest {
     static final String DEFAULT_EXTERNAL_ID = "dataprocess-external-id";
     static final String DEFAULT_DESCRIPTION = "dataprocess-description";
     static final String LONG_DESCRIPTION = longString(32 * 1024 + 1);
-    static final StringMetadata DEFAULT_METADATA_KEY = new StringMetadata("test", "dataprocess-property-key");
+    static final StringMetadata DEFAULT_METADATA_KEY = new StringMetadata("dataprocess-property-key");
     static final StringMetadataValue DEFAULT_PROPERTY_VALUE = new StringMetadataValue("some-value");
     static final DatasetReference DEFAULT_INPUT = new DatasetReference(new ConnectionCode("my-connection"), "external-id");
     static final DatasetReference DEFAULT_OUTPUT = new DatasetReference(new ConnectionCode("my-other-connection"), "other-external-id");
@@ -50,7 +50,7 @@ public class SourceDataProcessTest {
         assertEquals(DEFAULT_ID, sourceDataProcess.getId());
         assertEquals(DEFAULT_EXTERNAL_ID, sourceDataProcess.getExternalId());
         assertEquals(DEFAULT_DESCRIPTION, sourceDataProcess.getDescription().get());
-        assertTrue(sourceDataProcess.getMetadata().containsKey(DEFAULT_METADATA_KEY.getId()));
+        assertTrue(sourceDataProcess.getMetadata().containsKey(DEFAULT_METADATA_KEY.getCode()));
         assertTrue(sourceDataProcess.getMetadata().containsValue(DEFAULT_PROPERTY_VALUE));
         assertSame(DEFAULT_CONTACT_RELATION, sourceDataProcess.getContactRelations().iterator().next());
         assertEquals(DEFAULT_UPDATE_TIME, sourceDataProcess.getUpdateTime().get());
@@ -60,15 +60,15 @@ public class SourceDataProcessTest {
 
     @Test
     public void dataProcessBuilderShouldAddProperties() {
-        StringMetadata stringMetadata = new StringMetadata("test", "property1");
+        StringMetadata stringMetadata = new StringMetadata("property1");
         StringMetadataValue stringValue = new StringMetadataValue("a string value");
-        NumberMetadata numberMetadata = new NumberMetadata("test", "property2");
+        NumberMetadata numberMetadata = new NumberMetadata("property2");
         NumberMetadataValue numberValue = new NumberMetadataValue(new BigDecimal("42.01"));
-        InstantMetadata instantMetadata = new InstantMetadata("test", "property3");
+        InstantMetadata instantMetadata = new InstantMetadata("property3");
         InstantMetadataValue instantValue = new InstantMetadataValue(Instant.now());
-        UrlMetadata urlMetadataWithoutLabel = new UrlMetadata("test", "property4");
+        UrlMetadata urlMetadataWithoutLabel = new UrlMetadata("property4");
         UrlMetadataValue urlValueWithoutLabel = new UrlMetadataValue(URI.create("http://localhost:9000"));
-        UrlMetadata urlMetadataWithLabel = new UrlMetadata("test", "property5");
+        UrlMetadata urlMetadataWithLabel = new UrlMetadata("property5");
         UrlMetadataValue urlValueWithLabel = new UrlMetadataValue(URI.create("http://localhost:9000"), "zeenea");
 
         SourceDataProcess sourceDataProcess = SourceDataProcess.builder()
@@ -82,11 +82,11 @@ public class SourceDataProcessTest {
                 .addMetadata(urlMetadataWithLabel, urlValueWithLabel)
                 .build();
 
-        assertEquals(stringValue, sourceDataProcess.getMetadata().get(stringMetadata.getId()));
-        assertEquals(numberValue, sourceDataProcess.getMetadata().get(numberMetadata.getId()));
-        assertEquals(instantValue, sourceDataProcess.getMetadata().get(instantMetadata.getId()));
-        assertEquals(urlValueWithoutLabel, sourceDataProcess.getMetadata().get(urlMetadataWithoutLabel.getId()));
-        assertEquals(urlValueWithLabel, sourceDataProcess.getMetadata().get(urlMetadataWithLabel.getId()));
+        assertEquals(stringValue, sourceDataProcess.getMetadata().get(stringMetadata.getCode()));
+        assertEquals(numberValue, sourceDataProcess.getMetadata().get(numberMetadata.getCode()));
+        assertEquals(instantValue, sourceDataProcess.getMetadata().get(instantMetadata.getCode()));
+        assertEquals(urlValueWithoutLabel, sourceDataProcess.getMetadata().get(urlMetadataWithoutLabel.getCode()));
+        assertEquals(urlValueWithLabel, sourceDataProcess.getMetadata().get(urlMetadataWithLabel.getCode()));
     }
 
     @Test
