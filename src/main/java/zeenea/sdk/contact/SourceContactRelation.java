@@ -5,7 +5,7 @@ public class SourceContactRelation {
     private final SourceRole role;
 
     private SourceContactRelation(Builder builder) {
-        this.contact = new SourceContact(builder.firstName, builder.lastName, builder.email, builder.phoneNumber);
+        this.contact = new SourceContact(builder.name, builder.email, builder.phoneNumber);
         this.role = new SourceRole(builder.role);
     }
 
@@ -24,21 +24,15 @@ public class SourceContactRelation {
     public static final class Builder {
 
         private String role;
-        private String firstName;
-        private String lastName;
+        private String name;
         private String email;
         private String phoneNumber;
 
         private Builder() {
         }
 
-        public Builder firstName(String firstName) {
-            this.firstName = firstName;
-            return this;
-        }
-
-        public Builder lastName(String lastName) {
-            this.lastName = lastName;
+        public Builder name(String name) {
+            this.name = name;
             return this;
         }
 
