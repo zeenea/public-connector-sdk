@@ -14,26 +14,6 @@ import java.util.Set;
 public interface Connector extends AutoCloseable {
 
     /**
-     * Called on start to get configuration from scanner and return a validation result. Configuration values are
-     * guaranteed to be immutable during ItemConnector lifetime.
-     * <p>
-     * Cases where configuration is not valid could be:
-     * <ul>
-     * <li>some configuration key is missing</li>
-     * <li>some configuration value is invalid</li>
-     * <li>a connection to some backend fails given provided configuration</li>
-     * </ul>
-     *
-     * @param config The connector configuration, as a simple key-value map
-     * @return ConfigurationValidationResult.ok() if everything is fine; ConfigurationValidationResult.ko(...) if
-     * something is wrong
-     */
-    default ConfigurationValidationResult validateConfig(Map<String, String> config) {
-        return ConfigurationValidationResult.ok();
-    }
-
-
-    /**
      * Called before synchronization to get list of all properties that describes items this connector is able to
      * synchronize.
      * <p>
