@@ -30,7 +30,7 @@ public abstract class SourceItem {
         this.description = builder.description;
         this.metadata = new HashMap<>(builder.metadata);
         this.updateTime = builder.updateTime;
-        this.contactRelations = new ArrayList<>(builder.contactRelations);
+        this.contactRelations = Collections.unmodifiableList(new ArrayList<>(builder.contactRelations));
     }
 
     public String getName() {
@@ -54,7 +54,7 @@ public abstract class SourceItem {
     }
 
     public Collection<SourceContactRelation> getContactRelations() {
-        return Collections.unmodifiableCollection(contactRelations);
+        return contactRelations;
     }
 
     public static abstract class Builder<T, SELF extends Builder<T, ?>> {

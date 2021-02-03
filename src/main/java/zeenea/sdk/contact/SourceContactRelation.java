@@ -1,5 +1,8 @@
 package zeenea.sdk.contact;
 
+import java.util.Objects;
+import java.util.StringJoiner;
+
 public class SourceContactRelation {
     private final SourceContact contact;
     private final SourceRole role;
@@ -19,6 +22,27 @@ public class SourceContactRelation {
 
     public SourceRole getRole() {
         return role;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        SourceContactRelation that = (SourceContactRelation) o;
+        return Objects.equals(contact, that.contact) && Objects.equals(role, that.role);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(contact, role);
+    }
+
+    @Override
+    public String toString() {
+        return new StringJoiner(", ", SourceContactRelation.class.getSimpleName() + "[", "]")
+                .add("contact=" + contact)
+                .add("role=" + role)
+                .toString();
     }
 
     public static final class Builder {
@@ -59,4 +83,5 @@ public class SourceContactRelation {
             return new SourceContactRelation(this);
         }
     }
+
 }
