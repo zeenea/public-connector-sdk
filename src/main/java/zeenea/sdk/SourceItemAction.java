@@ -1,5 +1,8 @@
 package zeenea.sdk;
 
+import java.util.Objects;
+import java.util.StringJoiner;
+
 public class SourceItemAction {
 
     private final Action action;
@@ -41,5 +44,26 @@ public class SourceItemAction {
      */
     public static SourceItemAction delete(SourceItem item) {
         return new SourceItemAction(Action.DELETE, item);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        SourceItemAction that = (SourceItemAction) o;
+        return action == that.action && Objects.equals(item, that.item);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(action, item);
+    }
+
+    @Override
+    public String toString() {
+        return new StringJoiner(", ", SourceItemAction.class.getSimpleName() + "[", "]")
+                .add("action=" + action)
+                .add("item=" + item)
+                .toString();
     }
 }
