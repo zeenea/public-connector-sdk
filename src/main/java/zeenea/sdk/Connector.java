@@ -3,7 +3,6 @@ package zeenea.sdk;
 import zeenea.sdk.annotations.Beta;
 import zeenea.sdk.metadata.Metadata;
 
-import java.util.Map;
 import java.util.Set;
 
 /**
@@ -11,7 +10,7 @@ import java.util.Set;
  * <img alt="Connector sequence diagram" src="/doc-files/connector-sequence-diagram.png">
  */
 @Beta
-public interface Connector extends AutoCloseable {
+public interface Connector extends Synchronizable, AutoCloseable {
 
     /**
      * Called before synchronization to get list of all properties that describes items this connector is able to
@@ -24,19 +23,5 @@ public interface Connector extends AutoCloseable {
      * @return a set of Metadata
      */
     Set<Metadata> getTechnicalMetadata();
-
-    /**
-     * Called by scanner after getTechnicalMetadata to get <em>all</em> available items.
-     *
-     * @param lastSuccessfulVersion If already called at least once with some lastSuccessfulVersion, then it is
-     *                              guaranteed that scanner send the same lastSuccessfulVersion afterwards. It enables
-     *                              the incremental synchronization process.
-     *                              If synchronize was never called before or technical metadata returned by
-     *                              {@link #getTechnicalMetadata} have changed since last call, value is null.
-     * @return a stream of items guaranteed to be consumed by scanner and some optional lastSuccessfulVersion if
-     * incremental synchronization is supported by this connector. This stream must terminate.
-     */
-    SynchronizationResult synchronize(Long lastSuccessfulVersion);
-
 
 }
