@@ -21,10 +21,10 @@ public interface ConnectorFactory extends ExtensionPoint {
      * <li>a connection to some backend fails given provided configuration</li>
      * </ul>
      *
-     * @param config The connector configuration, as a simple key-value map
+     * @param configuration The connector configuration
      * @throws InvalidConfigurationException if configuration is somehow wrong
      * @return a new connector instance
      */
-    Connector newConnector(Map<String, String> config) throws InvalidConfigurationException;
+    Connector newConnector(ConnectorConfiguration configuration) throws InvalidConfigurationException;
 
 }
