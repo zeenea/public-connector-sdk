@@ -3,11 +3,11 @@ package zeenea.sdk.example.movies;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import zeenea.sdk.Connector;
-import zeenea.sdk.synchronization.SourceItemAction;
-import zeenea.sdk.synchronization.SynchronizationResult;
 import zeenea.sdk.contact.SourceContactRelation;
 import zeenea.sdk.example.movies.catalog.MovieTerms;
 import zeenea.sdk.metadata.Metadata;
+import zeenea.sdk.synchronization.SourceItemAction;
+import zeenea.sdk.synchronization.SynchronizationResult;
 
 import java.util.Arrays;
 import java.util.HashSet;
@@ -34,8 +34,8 @@ public class MovieTermsConnector implements Connector {
     }
 
     @Override
-    public SynchronizationResult synchronize(Long lastSuccessfulVersion) {
-        LOGGER.debug("synchronize({})", lastSuccessfulVersion);
+    public SynchronizationResult synchronize() {
+        LOGGER.debug("synchronize()");
         return new SynchronizationResult(Arrays.asList(
                 SourceItemAction.upsert(MovieTerms.MOVIE),
                 SourceItemAction.upsert(MovieTerms.CASTING),
