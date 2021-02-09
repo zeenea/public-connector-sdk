@@ -1,5 +1,6 @@
-package zeenea.sdk;
+package zeenea.sdk.synchronization;
 
+import zeenea.sdk.Connector;
 import zeenea.sdk.annotations.Beta;
 
 @Beta
