@@ -1,0 +1,39 @@
+package zeenea.sdk.synchronization;
+
+import zeenea.sdk.SourceItem;
+
+import java.util.Objects;
+import java.util.StringJoiner;
+
+public class UpsertAction implements SourceItemAction {
+
+    private final SourceItem item;
+
+    UpsertAction(SourceItem item) {
+        this.item = item;
+    }
+
+    public SourceItem getItem() {
+        return item;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        UpsertAction that = (UpsertAction) o;
+        return Objects.equals(item, that.item);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(item);
+    }
+
+    @Override
+    public String toString() {
+        return new StringJoiner(", ", UpsertAction.class.getSimpleName() + "[", "]")
+                .add("item=" + item)
+                .toString();
+    }
+}

@@ -2,6 +2,7 @@ package zeenea.sdk;
 
 import zeenea.sdk.annotations.Beta;
 import zeenea.sdk.metadata.Metadata;
+import zeenea.sdk.synchronization.Synchronizable;
 
 import java.util.Set;
 
