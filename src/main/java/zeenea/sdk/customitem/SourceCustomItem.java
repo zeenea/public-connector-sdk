@@ -7,7 +7,7 @@ import java.util.Objects;
 import java.util.StringJoiner;
 
 /**
- * Synchronized or manually created Item corresponding to a business or technical concept used in the enterprise.
+ * Synchronized or manually created SourceItem corresponding to a business or technical concept used in the enterprise.
  * Custom items are used in the catalog to bring context to technical assets.
  *
  * @since 1.0.0
@@ -17,44 +17,32 @@ public final class SourceCustomItem extends SourceItem {
 
     private final String code;
 
-    // no schemaVersion because no inventory
-
     private SourceCustomItem(Builder builder) {
         super(builder);
         this.code = builder.code;
     }
 
-    public String getCode() {
-        return code;
-    }
-
+    /**
+     * Create a new {@link SourceCustomItem} builder.
+     *
+     * @return a custom item builder
+     */
     public static Builder builder() {
         return new Builder();
     }
 
-    public static class Builder extends SourceItem.Builder<SourceCustomItem, Builder> {
-
-        private String code;
-
-        /**
-         * Set the code of the custom item.
-         * This is required.
-         *
-         * @param code The code of the custom item
-         * @return This builder
-         */
-        public Builder code(String code) {
-            this.code = code;
-            return this;
-        }
-
-        @Override
-        protected SourceCustomItem performBuild() {
-            throwIfNull("code", code);
-            return new SourceCustomItem(this);
-        }
+    /**
+     * Get the code of the custom item.
+     *
+     * @return The code of the custom item
+     */
+    public String getCode() {
+        return code;
     }
 
+    /**
+     * @hidden Common overrides are better off the Javadoc.
+     */
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -69,6 +57,9 @@ public final class SourceCustomItem extends SourceItem {
                 Objects.equals(this.code, that.code);
     }
 
+    /**
+     * @hidden Common overrides are better off the Javadoc.
+     */
     @Override
     public int hashCode() {
         return Objects.hash(
@@ -81,6 +72,9 @@ public final class SourceCustomItem extends SourceItem {
                 code);
     }
 
+    /**
+     * @hidden Common overrides are better off the Javadoc.
+     */
     @Override
     public String toString() {
         return new StringJoiner(", ", SourceCustomItem.class.getSimpleName() + "[", "]")
@@ -92,6 +86,32 @@ public final class SourceCustomItem extends SourceItem {
                 .add("contactRelations='" + getContactRelations() + "'")
                 .add("code='" + code + "'")
                 .toString();
+    }
+
+    public static class Builder extends SourceItem.Builder<SourceCustomItem, Builder> {
+        private String code;
+
+        private Builder() {
+        }
+
+        /**
+         * Set the code of the custom item.
+         * This is required to build a SourceCustomItem.
+         * Example: APP for Application.
+         *
+         * @param code The code of the custom item
+         * @return This builder
+         */
+        public Builder code(String code) {
+            this.code = code;
+            return this;
+        }
+
+        @Override
+        protected SourceCustomItem performBuild() {
+            throwIfNull("code", code);
+            return new SourceCustomItem(this);
+        }
     }
 }
 

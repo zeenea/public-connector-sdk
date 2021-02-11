@@ -2,6 +2,16 @@ package zeenea.sdk.synchronization;
 
 import zeenea.sdk.SourceItem;
 
+/**
+ * An action to perform on the catalog, scoped to a single {@link SourceItem}.
+ * <p>
+ * Currently available actions are Upsert and Delete.
+ *
+ * @see SourceItem
+ * @see UpsertAction
+ * @see DeleteAction
+ * @since 1.0.0
+ */
 public interface SourceItemAction {
 
     /**

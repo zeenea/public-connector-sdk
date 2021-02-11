@@ -27,6 +27,15 @@ tasks.test {
     useJUnitPlatform()
 }
 
+tasks.withType<Javadoc> {
+    options {
+
+        memberLevel = JavadocMemberLevel.PUBLIC
+
+        this as StandardJavadocDocletOptions
+        noQualifiers = listOf("java.lang", "java.util", "java.time")
+    }
+}
 
 tasks.register<Jar>("javadocJar") {
     archiveClassifier.set("javadoc")

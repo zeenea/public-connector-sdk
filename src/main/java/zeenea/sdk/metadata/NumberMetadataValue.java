@@ -4,18 +4,38 @@ import java.math.BigDecimal;
 import java.util.Objects;
 import java.util.StringJoiner;
 
+/**
+ * Sub-class of {@link MetadataValue} containing a value of type {@code BigDecimal}.
+ *
+ * @see MetadataValue
+ * @see NumberMetadata
+ * @since 1.0.0
+ */
 public class NumberMetadataValue implements MetadataValue {
 
     private final BigDecimal value;
 
+    /**
+     * Create a new instance of NumberMetadataValue, containing a value of type {@code BigDecimal}.
+     *
+     * @param value The metadata value
+     */
     public NumberMetadataValue(BigDecimal value) {
         this.value = value;
     }
 
+    /**
+     * Get the {@code BigDecimal} value of the metadata.
+     *
+     * @return The {@code BigDecimal} value of the metadata
+     */
     public BigDecimal getValue() {
         return this.value;
     }
 
+    /**
+     * @hidden Common overrides are better off the Javadoc.
+     */
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -24,11 +44,17 @@ public class NumberMetadataValue implements MetadataValue {
         return Objects.equals(value, that.value);
     }
 
+    /**
+     * @hidden Common overrides are better off the Javadoc.
+     */
     @Override
     public int hashCode() {
         return Objects.hash(value);
     }
 
+    /**
+     * @hidden Common overrides are better off the Javadoc.
+     */
     @Override
     public String toString() {
         return new StringJoiner(", ", NumberMetadataValue.class.getSimpleName() + "[", "]")
