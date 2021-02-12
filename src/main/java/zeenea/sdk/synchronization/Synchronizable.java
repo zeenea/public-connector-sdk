@@ -17,7 +17,7 @@ public interface Synchronizable {
     /**
      * Called by scanner after {@link Connector#getTechnicalMetadata()} to get <em>all</em> available items.
      *
-     * @return A stream of items guaranteed to be consumed by scanner. This stream must terminate.
+     * @return The result of the synchronization
      */
     SynchronizationResult synchronize();
 

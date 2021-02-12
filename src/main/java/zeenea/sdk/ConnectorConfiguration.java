@@ -5,7 +5,8 @@ import zeenea.sdk.annotations.Beta;
 import java.nio.file.Path;
 
 /**
- * The configuration provided to create a {@link Connector}.
+ * The configuration used to create a {@link Connector}.
+ * Configuration data is populated from mandatory <em>connection configuration files</em> provided to the Scanner.
  * Provides basic property access and validation.
  *
  * @see ConnectorFactory

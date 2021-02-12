@@ -19,6 +19,7 @@ public class SynchronizationResult {
     /**
      * Create a new SynchronizationResult with a {@code Stream} of item actions to perform on the catalog.
      * The Stream must terminate.
+     * Method {@link Stream#onClose(Runnable)} can be used to hook onto actual consumption ending.
      *
      * @param items The stream of item actions to perform
      */
@@ -28,6 +29,7 @@ public class SynchronizationResult {
 
     /**
      * Get the stream of item actions to perform on the catalog.
+     * Method {@link Stream#onClose(Runnable)} can be used to hook onto actual consumption ending.
      *
      * @return The stream of item actions to perform on the catalog
      */

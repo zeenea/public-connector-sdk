@@ -6,31 +6,11 @@ This project allows the development of a Connector that can be loaded into Zeene
 
 This project mainly consists in various interfaces that a Connector must comply to in order to be properly loaded and operable from Zeenea Scanner.
 
-Connector loading and classpath isolation are powered by [pf4j](https://pf4j.org/).
-
-## How it works
-
-### Lifecycle
-
-On Zeenea Scanner startup, instances of `ConnectorFactory` discovered in the *plugins* folder are created.
-
-Their configuration is then immediately validated by creating an instance of `Connector` for every factory, followed by successive calls to `connector.getMetadata()` and `connector.close()`. `Connector` instances are then discarded.
-
-`Metadata` collected this way are then submitted to Zeenea Datacatalog and made accessible to operators in the Admin interface.
-
-### Synchronization
-
-A click on the **Synchronize** button in Zeenea Datacatalog's Admin interface triggers the creation of a new `Connector` from the factory and the retrieval, through the Connector, of items located in the datasource.
-
-The following diagram exposes the chaining of method calls leading to the actual sync.
-
-![](src/main/resources/doc-files/connector-sequence-diagram.png)
-
-After a successful synchronization, items should be visible in Zeenea Datacatalog's Studio interface.
-
-## How to implement
+## Getting started
 
 ### `Plugin`
+
+Connector loading and classpath isolation are powered by [pf4j](https://pf4j.org/).
 
 A requirement for proper discoverability is to create an implementation of `org.pf4j.Plugin`.
 
@@ -167,6 +147,26 @@ lib/
 Copy the zip archive into the *plugins* folder of the Scanner, then restart the Scanner.
 
 The Connector Id should be visible in Scanner logs.
+
+## How it works
+
+### Lifecycle
+
+On Zeenea Scanner startup, instances of `ConnectorFactory` discovered in the *plugins* folder are created.
+
+Their configuration is then immediately validated by creating an instance of `Connector` for every factory, followed by successive calls to `connector.getMetadata()` and `connector.close()`. `Connector` instances are then discarded.
+
+`Metadata` collected this way are then submitted to Zeenea Datacatalog and made accessible to operators in the Admin interface.
+
+### Synchronization
+
+A click on the **Synchronize** button in Zeenea Datacatalog's Admin interface triggers the creation of a new `Connector` from the factory and the retrieval, through the Connector, of items located in the datasource.
+
+The following diagram exposes the chaining of method calls leading to the actual sync.
+
+![](src/main/resources/doc-files/connector-sequence-diagram.png)
+
+After a successful synchronization, items should be visible in Zeenea Datacatalog's Studio interface.
 
 ## Side notes
 

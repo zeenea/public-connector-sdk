@@ -1,6 +1,7 @@
 package zeenea.sdk.synchronization;
 
 import zeenea.sdk.SourceItem;
+import zeenea.sdk.annotations.Beta;
 
 import java.util.Objects;
 import java.util.StringJoiner;
@@ -11,6 +12,7 @@ import java.util.StringJoiner;
  * @see SourceItemAction
  * @since 1.0.0
  */
+@Beta
 public class UpsertAction implements SourceItemAction {
 
     private final SourceItem item;
