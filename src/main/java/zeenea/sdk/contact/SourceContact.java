@@ -53,9 +53,6 @@ public class SourceContact {
         return Optional.ofNullable(phoneNumber);
     }
 
-    /**
-     * @hidden Common overrides are better off the Javadoc.
-     */
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -64,17 +61,11 @@ public class SourceContact {
         return Objects.equals(name, that.name) && Objects.equals(email, that.email) && Objects.equals(phoneNumber, that.phoneNumber);
     }
 
-    /**
-     * @hidden Common overrides are better off the Javadoc.
-     */
     @Override
     public int hashCode() {
         return Objects.hash(name, email, phoneNumber);
     }
 
-    /**
-     * @hidden Common overrides are better off the Javadoc.
-     */
     @Override
     public String toString() {
         return new StringJoiner(", ", SourceContact.class.getSimpleName() + "[", "]")

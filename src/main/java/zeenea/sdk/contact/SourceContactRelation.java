@@ -48,9 +48,6 @@ public class SourceContactRelation {
         return role;
     }
 
-    /**
-     * @hidden Common overrides are better off the Javadoc.
-     */
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -59,17 +56,11 @@ public class SourceContactRelation {
         return Objects.equals(contact, that.contact) && Objects.equals(role, that.role);
     }
 
-    /**
-     * @hidden Common overrides are better off the Javadoc.
-     */
     @Override
     public int hashCode() {
         return Objects.hash(contact, role);
     }
 
-    /**
-     * @hidden Common overrides are better off the Javadoc.
-     */
     @Override
     public String toString() {
         return new StringJoiner(", ", SourceContactRelation.class.getSimpleName() + "[", "]")

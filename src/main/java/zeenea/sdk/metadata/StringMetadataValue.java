@@ -32,9 +32,6 @@ public class StringMetadataValue implements MetadataValue {
         return this.value;
     }
 
-    /**
-     * @hidden Common overrides are better off the Javadoc.
-     */
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -43,17 +40,11 @@ public class StringMetadataValue implements MetadataValue {
         return Objects.equals(value, that.value);
     }
 
-    /**
-     * @hidden Common overrides are better off the Javadoc.
-     */
     @Override
     public int hashCode() {
         return Objects.hash(value);
     }
 
-    /**
-     * @hidden Common overrides are better off the Javadoc.
-     */
     @Override
     public String toString() {
         return new StringJoiner(", ", StringMetadataValue.class.getSimpleName() + "[", "]")

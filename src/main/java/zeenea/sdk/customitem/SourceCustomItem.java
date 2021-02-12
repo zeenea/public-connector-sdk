@@ -40,9 +40,6 @@ public final class SourceCustomItem extends SourceItem {
         return code;
     }
 
-    /**
-     * @hidden Common overrides are better off the Javadoc.
-     */
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -57,9 +54,6 @@ public final class SourceCustomItem extends SourceItem {
                 Objects.equals(this.code, that.code);
     }
 
-    /**
-     * @hidden Common overrides are better off the Javadoc.
-     */
     @Override
     public int hashCode() {
         return Objects.hash(
@@ -72,9 +66,6 @@ public final class SourceCustomItem extends SourceItem {
                 code);
     }
 
-    /**
-     * @hidden Common overrides are better off the Javadoc.
-     */
     @Override
     public String toString() {
         return new StringJoiner(", ", SourceCustomItem.class.getSimpleName() + "[", "]")

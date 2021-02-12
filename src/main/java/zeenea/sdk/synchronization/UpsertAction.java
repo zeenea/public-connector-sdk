@@ -30,9 +30,6 @@ public class UpsertAction implements SourceItemAction {
         return item;
     }
 
-    /**
-     * @hidden Common overrides are better off the Javadoc.
-     */
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -41,17 +38,11 @@ public class UpsertAction implements SourceItemAction {
         return Objects.equals(item, that.item);
     }
 
-    /**
-     * @hidden Common overrides are better off the Javadoc.
-     */
     @Override
     public int hashCode() {
         return Objects.hash(item);
     }
 
-    /**
-     * @hidden Common overrides are better off the Javadoc.
-     */
     @Override
     public String toString() {
         return new StringJoiner(", ", UpsertAction.class.getSimpleName() + "[", "]")

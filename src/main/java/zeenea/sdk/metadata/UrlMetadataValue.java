@@ -56,9 +56,6 @@ public class UrlMetadataValue implements MetadataValue {
         return Optional.ofNullable(this.label);
     }
 
-    /**
-     * @hidden Common overrides are better off the Javadoc.
-     */
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -67,17 +64,11 @@ public class UrlMetadataValue implements MetadataValue {
         return Objects.equals(value, that.value) && Objects.equals(label, that.label);
     }
 
-    /**
-     * @hidden Common overrides are better off the Javadoc.
-     */
     @Override
     public int hashCode() {
         return Objects.hash(value, label);
     }
 
-    /**
-     * @hidden Common overrides are better off the Javadoc.
-     */
     @Override
     public String toString() {
         return new StringJoiner(", ", UrlMetadataValue.class.getSimpleName() + "[", "]")

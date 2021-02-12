@@ -29,9 +29,6 @@ public class DeleteAction implements SourceItemAction {
         return itemId;
     }
 
-    /**
-     * @hidden Common overrides are better off the Javadoc.
-     */
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -40,17 +37,11 @@ public class DeleteAction implements SourceItemAction {
         return Objects.equals(itemId, that.itemId);
     }
 
-    /**
-     * @hidden Common overrides are better off the Javadoc.
-     */
     @Override
     public int hashCode() {
         return Objects.hash(itemId);
     }
 
-    /**
-     * @hidden Common overrides are better off the Javadoc.
-     */
     @Override
     public String toString() {
         return new StringJoiner(", ", DeleteAction.class.getSimpleName() + "[", "]")
