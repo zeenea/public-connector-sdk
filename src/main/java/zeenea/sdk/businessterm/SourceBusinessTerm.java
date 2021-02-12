@@ -3,36 +3,34 @@ package zeenea.sdk.businessterm;
 import zeenea.sdk.SourceItem;
 import zeenea.sdk.annotations.Beta;
 
-import java.util.Collections;
 import java.util.Objects;
 import java.util.StringJoiner;
 
 /**
- * Synchronized or manually created Item corresponding to a business or technical concept used in the enterprise.
- * Custom items are used in the catalog to bring context to technical assets.
+ * An entry in a Glossary that documents a business concept.
  *
+ * @see SourceItem
  * @since 1.0.0
  */
 @Beta
 public final class SourceBusinessTerm extends SourceItem {
 
-    // no schemaVersion because no inventory
-
     private SourceBusinessTerm(Builder builder) {
         super(builder);
     }
 
+    /**
+     * Create a new {@link SourceBusinessTerm} builder.
+     *
+     * @return A business term builder
+     */
     public static Builder builder() {
         return new Builder();
     }
 
-    public static class Builder extends SourceItem.Builder<SourceBusinessTerm, Builder> {
-        @Override
-        protected SourceBusinessTerm performBuild() {
-            return new SourceBusinessTerm(this);
-        }
-    }
-
+    /**
+     * @hidden Common overrides are better off the Javadoc.
+     */
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -46,6 +44,9 @@ public final class SourceBusinessTerm extends SourceItem {
                 Objects.equals(this.getContactRelations(), that.getContactRelations());
     }
 
+    /**
+     * @hidden Common overrides are better off the Javadoc.
+     */
     @Override
     public int hashCode() {
         return Objects.hash(
@@ -57,6 +58,9 @@ public final class SourceBusinessTerm extends SourceItem {
                 getContactRelations());
     }
 
+    /**
+     * @hidden Common overrides are better off the Javadoc.
+     */
     @Override
     public String toString() {
         return new StringJoiner(", ", SourceBusinessTerm.class.getSimpleName() + "[", "]")
@@ -67,6 +71,19 @@ public final class SourceBusinessTerm extends SourceItem {
                 .add("updateTime='" + getUpdateTime() + "'")
                 .add("contactRelations='" + getContactRelations() + "'")
                 .toString();
+    }
+
+    /**
+     * A utility class to create {@link SourceBusinessTerm} instances following the <em>Builder</em> design pattern.
+     */
+    public static class Builder extends SourceItem.Builder<SourceBusinessTerm, Builder> {
+        private Builder() {
+        }
+
+        @Override
+        protected SourceBusinessTerm performBuild() {
+            return new SourceBusinessTerm(this);
+        }
     }
 
 }

@@ -11,9 +11,9 @@ database "Datasource"
 Scanner->Connector:getTechnicalMetadata()
 Connector<-->Connector:get current item schema
 Connector->Scanner:Set(Metadata("name", STRING))
-Scanner->Connector:synchronize(null)
+Scanner->Connector:synchronize()
 Connector<-->"Datasource":fetch all
-Connector->Scanner:SynchronizationResult(items, 1608135872L)
+Connector->Scanner:SynchronizationResult(items)
 Scanner->Connector:close()
 deactivate Connector
 ==2nd pass==
@@ -22,8 +22,8 @@ ConnectorFactory->Connector:newConnector("url"->"connection","user"->"john")
 activate Connector
 Connector->Scanner:Connector
 Scanner<->Connector:getTechnicalMetadata()
-Scanner->Connector:synchronize(1608135872L)
-Connector<-->"Datasource":fetch since 1608135872
-Connector->Scanner:SynchronizationResult(items, 1608149543L)
+Scanner->Connector:synchronize()
+Connector<-->"Datasource":fetch all
+Connector->Scanner:SynchronizationResult(items)
 Scanner->Connector:close()
 deactivate Connector

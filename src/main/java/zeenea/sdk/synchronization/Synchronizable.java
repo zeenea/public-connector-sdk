@@ -3,21 +3,22 @@ package zeenea.sdk.synchronization;
 import zeenea.sdk.Connector;
 import zeenea.sdk.annotations.Beta;
 
+/**
+ * An interface specifying the {@link Connector} is able to perform synchronizations, as specified in diagram:
+ * <img alt="Connector sequence diagram" src="/doc-files/connector-sequence-diagram.png">
+ *
+ * @see Connector
+ * @see SynchronizationResult
+ * @since 1.0.0
+ */
 @Beta
 public interface Synchronizable {
 
     /**
-     * Called by scanner after getTechnicalMetadata to get <em>all</em> available items.
+     * Called by scanner after {@link Connector#getTechnicalMetadata()} to get <em>all</em> available items.
      *
-     * @param lastSuccessfulVersion If already called at least once with some lastSuccessfulVersion, then it is
-     *                              guaranteed that scanner send the same lastSuccessfulVersion afterwards. It enables
-     *                              the incremental synchronization process.
-     *                              If synchronize was never called before or technical metadata returned by
-     *                              {@link Connector#getTechnicalMetadata} have changed since last call, value is null.
-     * @return a stream of items guaranteed to be consumed by scanner and some optional lastSuccessfulVersion if
-     * incremental synchronization is supported by this connector. This stream must terminate.
+     * @return The result of the synchronization
      */
-    SynchronizationResult synchronize(Long lastSuccessfulVersion);
-
+    SynchronizationResult synchronize();
 
 }

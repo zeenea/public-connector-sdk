@@ -1,9 +1,18 @@
 package zeenea.sdk.contact;
 
+import zeenea.sdk.SourceItem;
+
 import java.util.Objects;
 import java.util.Optional;
 import java.util.StringJoiner;
 
+/**
+ * A physical individual, team, entity, or moral person that can be linked to a SourceItem.
+ *
+ * @see SourceContactRelation
+ * @see SourceItem
+ * @since 1.0.0
+ */
 public class SourceContact {
     private final String name;
     private final String email;
@@ -15,20 +24,38 @@ public class SourceContact {
         this.phoneNumber = phoneNumber;
     }
 
-
+    /**
+     * Get the name of the source contact.
+     * This is an optional property.
+     *
+     * @return The name of the source contact, or {@code Optional.empty()} if absent
+     */
     public Optional<String> getName() {
         return Optional.ofNullable(name);
     }
 
+    /**
+     * Get the email address of the source contact.
+     *
+     * @return The email address of the source contact
+     */
     public String getEmail() {
         return email;
     }
 
+    /**
+     * Get the phone number of the source contact.
+     * This is an optional property.
+     *
+     * @return The phone number of the source contact, or {@code Optional.empty()} if absent
+     */
     public Optional<String> getPhoneNumber() {
         return Optional.ofNullable(phoneNumber);
     }
 
-
+    /**
+     * @hidden Common overrides are better off the Javadoc.
+     */
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -37,11 +64,17 @@ public class SourceContact {
         return Objects.equals(name, that.name) && Objects.equals(email, that.email) && Objects.equals(phoneNumber, that.phoneNumber);
     }
 
+    /**
+     * @hidden Common overrides are better off the Javadoc.
+     */
     @Override
     public int hashCode() {
         return Objects.hash(name, email, phoneNumber);
     }
 
+    /**
+     * @hidden Common overrides are better off the Javadoc.
+     */
     @Override
     public String toString() {
         return new StringJoiner(", ", SourceContact.class.getSimpleName() + "[", "]")

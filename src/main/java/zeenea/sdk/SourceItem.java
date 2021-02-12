@@ -1,7 +1,9 @@
 package zeenea.sdk;
 
 import zeenea.sdk.annotations.Beta;
+import zeenea.sdk.businessterm.SourceBusinessTerm;
 import zeenea.sdk.contact.SourceContactRelation;
+import zeenea.sdk.customitem.SourceCustomItem;
 import zeenea.sdk.metadata.*;
 
 import java.math.BigDecimal;
@@ -9,6 +11,14 @@ import java.net.URI;
 import java.time.Instant;
 import java.util.*;
 
+/**
+ * Base class for all kinds of source items.
+ * An item is something that is managed and searchable in Zeenea Data Catalog.
+ *
+ * @see SourceBusinessTerm
+ * @see SourceCustomItem
+ * @since 1.0.0
+ */
 @Beta
 public abstract class SourceItem {
 
@@ -33,30 +43,69 @@ public abstract class SourceItem {
         this.contactRelations = Collections.unmodifiableList(new ArrayList<>(builder.contactRelations));
     }
 
+    /**
+     * Get the name of the source item.
+     *
+     * @return The name of the source item, cannot be longer than 1024 characters
+     */
     public String getName() {
         return name;
     }
 
+    /**
+     * Get the id of the source item.
+     * This is unique to the source item.
+     *
+     * @return The id of the source item, cannot be longer than 1024 characters
+     */
     public String getId() {
         return id;
     }
 
+    /**
+     * Get the description of the source item.
+     * This is an optional property.
+     *
+     * @return The description of the source item, cannot be longer than 32768 (32x1024) characters, or {@code Optional.empty()} if absent
+     */
     public Optional<String> getDescription() {
         return Optional.ofNullable(description);
     }
 
+    /**
+     * Get the technical metadata of the source item.
+     * Metadata are necessary for search engine usage.
+     * The collection cannot be modified.
+     *
+     * @return The technical metadata of the source item
+     */
     public Map<String, MetadataValue> getMetadata() {
         return Collections.unmodifiableMap(metadata);
     }
 
+    /**
+     * Get the last update time of the source item.
+     * This is an optional property.
+     *
+     * @return The last update time of the source item, or {@code Optional.empty()} if absent
+     */
     public Optional<Instant> getUpdateTime() {
         return Optional.ofNullable(updateTime);
     }
 
+    /**
+     * Get the contact relations of the source item.
+     * The collection cannot be modified.
+     *
+     * @return The contact relations of the source item
+     */
     public Collection<SourceContactRelation> getContactRelations() {
         return contactRelations;
     }
 
+    /**
+     * A utility class to create {@link SourceItem}-subclass instances following the <em>Builder</em> design pattern (abstract base class).
+     */
     public static abstract class Builder<T, SELF extends Builder<T, ?>> {
 
         private final Map<String, MetadataValue> metadata = new HashMap<>();
@@ -66,6 +115,25 @@ public abstract class SourceItem {
         private String description;
         private Instant updateTime;
 
+        protected Builder() {
+        }
+
+        protected static void throwIfNull(String attributeName, String attributeValue) {
+            if (attributeValue == null)
+                throw new NullPointerException("Attribute \"" + attributeName + "\" cannot be null");
+        }
+
+        protected static void throwIfInvalidLength(String attributeName, String attributeValue, int maxLength) {
+            if (attributeValue != null && attributeValue.length() > maxLength)
+                throw new IllegalArgumentException("Attribute \"" + attributeName + "\" cannot be more than " + maxLength + " characters long");
+        }
+
+        /**
+         * Get the name of the source item.
+         * This is required to build a SourceItem.
+         *
+         * @return The name of the source item, cannot be longer than 1024 characters
+         */
         public String getName() {
             return name;
         }
@@ -82,6 +150,13 @@ public abstract class SourceItem {
             return self();
         }
 
+        /**
+         * Get the id of the source item.
+         * Must be unique to the source item.
+         * This is required to build a SourceItem.
+         *
+         * @return The id of the source item, cannot be longer than 1024 characters
+         */
         public String getId() {
             return id;
         }
@@ -99,6 +174,11 @@ public abstract class SourceItem {
             return self();
         }
 
+        /**
+         * Get the description of the source item.
+         *
+         * @return The description of the source item, cannot be longer than 32768 (32x1024) characters
+         */
         public String getDescription() {
             return description;
         }
@@ -114,6 +194,11 @@ public abstract class SourceItem {
             return self();
         }
 
+        /**
+         * Get the technical metadata of the source item.
+         *
+         * @return The technical metadata of the source item
+         */
         public Map<String, MetadataValue> getMetadata() {
             return metadata;
         }
@@ -123,7 +208,7 @@ public abstract class SourceItem {
          * Metadata are necessary for search engine usage.
          *
          * @param metadata the metadata
-         * @param value the value for this metadata
+         * @param value    the value for this metadata
          * @return This builder
          */
         public SELF addMetadata(StringMetadata metadata, String value) {
@@ -135,7 +220,7 @@ public abstract class SourceItem {
          * Metadata are necessary for search engine usage.
          *
          * @param metadata the metadata
-         * @param value the value for this metadata
+         * @param value    the value for this metadata
          * @return This builder
          */
         public SELF addMetadata(StringMetadata metadata, StringMetadataValue value) {
@@ -147,7 +232,7 @@ public abstract class SourceItem {
          * Metadata are necessary for search engine usage.
          *
          * @param metadata the metadata
-         * @param value the value for this metadata
+         * @param value    the value for this metadata
          * @return This builder
          */
         public SELF addMetadata(NumberMetadata metadata, long value) {
@@ -159,7 +244,7 @@ public abstract class SourceItem {
          * Metadata are necessary for search engine usage.
          *
          * @param metadata the metadata
-         * @param value the value for this metadata
+         * @param value    the value for this metadata
          * @return This builder
          */
         public SELF addMetadata(NumberMetadata metadata, double value) {
@@ -171,7 +256,7 @@ public abstract class SourceItem {
          * Metadata are necessary for search engine usage.
          *
          * @param metadata the metadata
-         * @param value the value for this metadata
+         * @param value    the value for this metadata
          * @return This builder
          */
         public SELF addMetadata(NumberMetadata metadata, BigDecimal value) {
@@ -183,7 +268,7 @@ public abstract class SourceItem {
          * Metadata are necessary for search engine usage.
          *
          * @param metadata the metadata
-         * @param value the value for this metadata
+         * @param value    the value for this metadata
          * @return This builder
          */
         public SELF addMetadata(NumberMetadata metadata, NumberMetadataValue value) {
@@ -195,7 +280,7 @@ public abstract class SourceItem {
          * Metadata are necessary for search engine usage.
          *
          * @param metadata the metadata
-         * @param value the value for this metadata
+         * @param value    the value for this metadata
          * @return This builder
          */
         public SELF addMetadata(UrlMetadata metadata, URI value) {
@@ -207,8 +292,8 @@ public abstract class SourceItem {
          * Metadata are necessary for search engine usage.
          *
          * @param metadata the metadata
-         * @param uri the uri value for this metadata
-         * @param label the label value for this metadata
+         * @param uri      the uri value for this metadata
+         * @param label    the label value for this metadata
          * @return This builder
          */
         public SELF addMetadata(UrlMetadata metadata, URI uri, String label) {
@@ -220,7 +305,7 @@ public abstract class SourceItem {
          * Metadata are necessary for search engine usage.
          *
          * @param metadata the metadata
-         * @param value the value for this metadata
+         * @param value    the value for this metadata
          * @return This builder
          */
         public SELF addMetadata(UrlMetadata metadata, UrlMetadataValue value) {
@@ -232,7 +317,7 @@ public abstract class SourceItem {
          * Metadata are necessary for search engine usage.
          *
          * @param metadata the metadata
-         * @param value the value for this metadata
+         * @param value    the value for this metadata
          * @return This builder
          */
         public SELF addMetadata(InstantMetadata metadata, Instant value) {
@@ -244,7 +329,7 @@ public abstract class SourceItem {
          * Metadata are necessary for search engine usage.
          *
          * @param metadata the metadata
-         * @param value the value for this metadata
+         * @param value    the value for this metadata
          * @return This builder
          */
         public SELF addMetadata(InstantMetadata metadata, InstantMetadataValue value) {
@@ -256,6 +341,11 @@ public abstract class SourceItem {
             return self();
         }
 
+        /**
+         * Get the last update time of the source item.
+         *
+         * @return The last update time of the source item
+         */
         public Instant getUpdateTime() {
             return updateTime;
         }
@@ -271,6 +361,11 @@ public abstract class SourceItem {
             return self();
         }
 
+        /**
+         * Get the contact relations of the source item.
+         *
+         * @return The contact relations of the source item
+         */
         public List<SourceContactRelation> getContactRelations() {
             return contactRelations;
         }
@@ -290,6 +385,8 @@ public abstract class SourceItem {
          * Build the source item.
          *
          * @return The source item
+         * @throws NullPointerException     if one or more mandatory attributes are not set
+         * @throws IllegalArgumentException if one or more attributes set are not valid
          */
         public final T build() {
             throwIfNull("name", name);
@@ -301,16 +398,6 @@ public abstract class SourceItem {
         }
 
         protected abstract T performBuild();
-
-        protected static void throwIfNull(String attributeName, String attributeValue) {
-            if (attributeValue == null)
-                throw new NullPointerException("Attribute \"" + attributeName + "\" cannot be null");
-        }
-
-        protected static void throwIfInvalidLength(String attributeName, String attributeValue, int maxLength) {
-            if (attributeValue != null && attributeValue.length() > maxLength)
-                throw new IllegalArgumentException("Attribute \"" + attributeName + "\" cannot be more than " + maxLength + " characters long");
-        }
 
         private SELF self() {
             return (SELF) this;

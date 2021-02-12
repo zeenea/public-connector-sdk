@@ -3,15 +3,16 @@ package zeenea.sdk.example.movies;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import zeenea.sdk.Connector;
-import zeenea.sdk.synchronization.SourceItemAction;
-import zeenea.sdk.synchronization.SynchronizationResult;
 import zeenea.sdk.contact.SourceContactRelation;
 import zeenea.sdk.example.movies.catalog.MovieTerms;
 import zeenea.sdk.metadata.Metadata;
+import zeenea.sdk.synchronization.SourceItemAction;
+import zeenea.sdk.synchronization.SynchronizationResult;
 
-import java.util.Arrays;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.stream.Stream;
 
 /**
  *
@@ -28,24 +29,24 @@ public class MovieTermsConnector implements Connector {
     @Override
     public Set<Metadata> getTechnicalMetadata() {
         LOGGER.debug("getTechnicalMetadata()");
-        return new HashSet<>(Arrays.asList(
+        return new HashSet<>(Collections.singletonList(
                 MovieTerms.ORIGIN
         ));
     }
 
     @Override
-    public SynchronizationResult synchronize(Long lastSuccessfulVersion) {
-        LOGGER.debug("synchronize({})", lastSuccessfulVersion);
-        return new SynchronizationResult(Arrays.asList(
+    public SynchronizationResult synchronize() {
+        LOGGER.debug("synchronize()");
+        return new SynchronizationResult(Stream.of(
                 SourceItemAction.upsert(MovieTerms.MOVIE),
                 SourceItemAction.upsert(MovieTerms.CASTING),
                 SourceItemAction.upsert(MovieTerms.RATING),
                 SourceItemAction.upsert(MovieTerms.ADVERTISEMENT)
-        ).stream());
+        ));
     }
 
     @Override
-    public void close() throws Exception {
+    public void close() {
         LOGGER.debug("close(): no-op");
         //no op : there is no open connection
     }
