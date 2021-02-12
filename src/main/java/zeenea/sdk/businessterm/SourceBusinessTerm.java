@@ -28,9 +28,7 @@ public final class SourceBusinessTerm extends SourceItem {
         return new Builder();
     }
 
-    /**
-     * @hidden Common overrides are better off the Javadoc.
-     */
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -44,9 +42,6 @@ public final class SourceBusinessTerm extends SourceItem {
                 Objects.equals(this.getContactRelations(), that.getContactRelations());
     }
 
-    /**
-     * @hidden Common overrides are better off the Javadoc.
-     */
     @Override
     public int hashCode() {
         return Objects.hash(
@@ -58,9 +53,6 @@ public final class SourceBusinessTerm extends SourceItem {
                 getContactRelations());
     }
 
-    /**
-     * @hidden Common overrides are better off the Javadoc.
-     */
     @Override
     public String toString() {
         return new StringJoiner(", ", SourceBusinessTerm.class.getSimpleName() + "[", "]")

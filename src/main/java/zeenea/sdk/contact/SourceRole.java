@@ -29,9 +29,6 @@ public class SourceRole {
         return name;
     }
 
-    /**
-     * @hidden Common overrides are better off the Javadoc.
-     */
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -40,17 +37,11 @@ public class SourceRole {
         return Objects.equals(name, that.name);
     }
 
-    /**
-     * @hidden Common overrides are better off the Javadoc.
-     */
     @Override
     public int hashCode() {
         return Objects.hash(name);
     }
 
-    /**
-     * @hidden Common overrides are better off the Javadoc.
-     */
     @Override
     public String toString() {
         return new StringJoiner(", ", SourceRole.class.getSimpleName() + "[", "]")

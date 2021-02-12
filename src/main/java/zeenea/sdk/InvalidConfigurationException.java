@@ -22,47 +22,47 @@ public final class InvalidConfigurationException extends Exception {
     }
 
     /**
+     * @param message the detail message. The detail message is saved for
+     *                later retrieval by the {@link #getMessage()} method.
      * @see Exception#Exception(String)
-     * @param   message   the detail message. The detail message is saved for
-     *          later retrieval by the {@link #getMessage()} method.
      */
     public InvalidConfigurationException(String message) {
         super(message);
     }
 
     /**
+     * @param message the detail message (which is saved for later retrieval
+     *                by the {@link #getMessage()} method).
+     * @param cause   the cause (which is saved for later retrieval by the
+     *                {@link #getCause()} method).  (A {@code null} value is
+     *                permitted, and indicates that the cause is nonexistent or
+     *                unknown.)
      * @see Exception#Exception(String, Throwable)
-     * @param  message the detail message (which is saved for later retrieval
-     *         by the {@link #getMessage()} method).
-     * @param  cause the cause (which is saved for later retrieval by the
-     *         {@link #getCause()} method).  (A {@code null} value is
-     *         permitted, and indicates that the cause is nonexistent or
-     *         unknown.)
      */
     public InvalidConfigurationException(String message, Throwable cause) {
         super(message, cause);
     }
 
     /**
+     * @param cause the cause (which is saved for later retrieval by the
+     *              {@link #getCause()} method).  (A {@code null} value is
+     *              permitted, and indicates that the cause is nonexistent or
+     *              unknown.)
      * @see Exception#Exception(Throwable)
-     * @param  cause the cause (which is saved for later retrieval by the
-     *         {@link #getCause()} method).  (A {@code null} value is
-     *         permitted, and indicates that the cause is nonexistent or
-     *         unknown.)
      */
     public InvalidConfigurationException(Throwable cause) {
         super(cause);
     }
 
     /**
-     * @see Exception#Exception(String, Throwable, boolean, boolean)
-     * @param  message the detail message.
-     * @param cause the cause.  (A {@code null} value is permitted,
-     * and indicates that the cause is nonexistent or unknown.)
-     * @param enableSuppression whether or not suppression is enabled
-     *                          or disabled
+     * @param message            the detail message.
+     * @param cause              the cause.  (A {@code null} value is permitted,
+     *                           and indicates that the cause is nonexistent or unknown.)
+     * @param enableSuppression  whether or not suppression is enabled
+     *                           or disabled
      * @param writableStackTrace whether or not the stack trace should
      *                           be writable
+     * @see Exception#Exception(String, Throwable, boolean, boolean)
      */
     public InvalidConfigurationException(String message, Throwable cause, boolean enableSuppression, boolean writableStackTrace) {
         super(message, cause, enableSuppression, writableStackTrace);

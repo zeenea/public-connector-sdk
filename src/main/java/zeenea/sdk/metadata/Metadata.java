@@ -43,9 +43,6 @@ public abstract class Metadata {
         return type;
     }
 
-    /**
-     * @hidden Common overrides are better off the Javadoc.
-     */
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -54,17 +51,11 @@ public abstract class Metadata {
         return Objects.equals(code, metadata.code) && type == metadata.type;
     }
 
-    /**
-     * @hidden Common overrides are better off the Javadoc.
-     */
     @Override
     public int hashCode() {
         return Objects.hash(code, type);
     }
 
-    /**
-     * @hidden Common overrides are better off the Javadoc.
-     */
     @Override
     public String toString() {
         return new StringJoiner(", ", Metadata.class.getSimpleName() + "[", "]")

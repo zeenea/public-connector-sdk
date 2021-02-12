@@ -17,7 +17,7 @@ import zeenea.sdk.annotations.Beta;
 public interface SourceItemAction {
 
     /**
-     * Convenient factory to upsert an item
+     * Convenient factory to upsert an item.
      *
      * @param item the item to upsert
      * @return the new instance of SourceItemAction describing an item to be upserted
@@ -27,7 +27,7 @@ public interface SourceItemAction {
     }
 
     /**
-     * Convenient factory to delete an item
+     * Convenient factory to delete an item.
      *
      * @param itemId id of the item to delete
      * @return the new instance of SourceItemAction describing an item to be deleted

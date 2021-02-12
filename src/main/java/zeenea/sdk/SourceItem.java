@@ -399,6 +399,7 @@ public abstract class SourceItem {
 
         protected abstract T performBuild();
 
+        @SuppressWarnings("unchecked")
         private SELF self() {
             return (SELF) this;
         }
