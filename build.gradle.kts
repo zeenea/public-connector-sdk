@@ -6,8 +6,7 @@ plugins {
 
 
 group = "zeenea"
-val versionBuildSuffix = if (System.getenv("GITHUB_RUN_NUMBER") == null) "" else ("+" + System.getenv("GITHUB_RUN_NUMBER"))
-version = file("version.txt").readText().trim() + versionBuildSuffix
+version = file("version.txt").readText().trim()
 description = "public-connector-sdk"
 
 java {
