@@ -3,6 +3,7 @@ package zeenea.sdk.example.movies;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import zeenea.sdk.Connector;
+import zeenea.sdk.ConnectorType;
 import zeenea.sdk.contact.SourceContactRelation;
 import zeenea.sdk.example.movies.catalog.MovieTerms;
 import zeenea.sdk.metadata.Metadata;
@@ -32,6 +33,11 @@ public class MovieTermsConnector implements Connector {
         return new HashSet<>(Collections.singletonList(
                 MovieTerms.ORIGIN
         ));
+    }
+
+    @Override
+    public ConnectorType getType() {
+        return ConnectorType.BusinessTerm;
     }
 
     @Override

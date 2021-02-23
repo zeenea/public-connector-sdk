@@ -26,4 +26,12 @@ public interface Connector extends Synchronizable, AutoCloseable {
      */
     Set<Metadata> getTechnicalMetadata();
 
+    /**
+     * The main type of {@link SourceItem}s returned by this connector.
+     *
+     * @see SourceItem
+     * @see ConnectorType
+     * @since 1.0.0
+     */
+    ConnectorType getType();
 }
