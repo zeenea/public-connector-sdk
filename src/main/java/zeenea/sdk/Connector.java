@@ -1,6 +1,6 @@
 package zeenea.sdk;
 
-import zeenea.sdk.annotations.Beta;
+
 import zeenea.sdk.metadata.Metadata;
 import zeenea.sdk.synchronization.Synchronizable;
 
@@ -13,7 +13,6 @@ import java.util.Set;
  * @see Synchronizable
  * @since 1.0.0
  */
-@Beta
 public interface Connector extends Synchronizable, AutoCloseable {
 
     /**

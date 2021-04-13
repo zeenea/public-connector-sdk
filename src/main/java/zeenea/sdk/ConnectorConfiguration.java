@@ -1,7 +1,5 @@
 package zeenea.sdk;
 
-import zeenea.sdk.annotations.Beta;
-
 import java.nio.file.Path;
 
 /**
@@ -13,7 +11,6 @@ import java.nio.file.Path;
  * @see Connector
  * @since 1.0.0
  */
-@Beta
 public interface ConnectorConfiguration {
 
     /**

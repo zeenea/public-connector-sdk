@@ -1,7 +1,6 @@
 package zeenea.sdk.businessterm;
 
 import zeenea.sdk.SourceItem;
-import zeenea.sdk.annotations.Beta;
 
 import java.util.Objects;
 import java.util.StringJoiner;
@@ -12,7 +11,6 @@ import java.util.StringJoiner;
  * @see SourceItem
  * @since 1.0.0
  */
-@Beta
 public final class SourceBusinessTerm extends SourceItem {
 
     private SourceBusinessTerm(Builder builder) {

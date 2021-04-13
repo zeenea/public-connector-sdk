@@ -1,6 +1,5 @@
 package zeenea.sdk;
 
-import zeenea.sdk.annotations.Beta;
 import zeenea.sdk.businessterm.SourceBusinessTerm;
 import zeenea.sdk.contact.SourceContactRelation;
 import zeenea.sdk.customitem.SourceCustomItem;
@@ -19,7 +18,6 @@ import java.util.*;
  * @see SourceCustomItem
  * @since 1.0.0
  */
-@Beta
 public abstract class SourceItem {
 
     private final String name;

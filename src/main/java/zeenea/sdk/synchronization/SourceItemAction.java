@@ -1,8 +1,6 @@
 package zeenea.sdk.synchronization;
 
 import zeenea.sdk.SourceItem;
-import zeenea.sdk.annotations.Beta;
-
 /**
  * An action to perform on the catalog, scoped to a single {@link SourceItem}.
  * <p>
@@ -13,7 +11,6 @@ import zeenea.sdk.annotations.Beta;
  * @see DeleteAction
  * @since 1.0.0
  */
-@Beta
 public interface SourceItemAction {
 
     /**
