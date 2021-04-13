@@ -1,7 +1,5 @@
 package zeenea.sdk;
 
-import zeenea.sdk.annotations.Beta;
-
 /**
  * A checked {@code Exception} expressing invalid configuration.
  * <p>
@@ -13,7 +11,6 @@ import zeenea.sdk.annotations.Beta;
  *
  * @since 1.0.0
  */
-@Beta
 public final class InvalidConfigurationException extends Exception {
     /**
      * @see Exception#Exception()

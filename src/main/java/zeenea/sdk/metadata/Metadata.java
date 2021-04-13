@@ -1,6 +1,6 @@
 package zeenea.sdk.metadata;
 
-import zeenea.sdk.annotations.Beta;
+
 
 import java.util.Objects;
 import java.util.StringJoiner;
@@ -14,7 +14,6 @@ import java.util.StringJoiner;
  * @see MetadataValue
  * @since 1.0.0
  */
-@Beta
 public abstract class Metadata {
 
     private final String code;

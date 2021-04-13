@@ -1,7 +1,5 @@
 package zeenea.sdk.synchronization;
 
-import zeenea.sdk.annotations.Beta;
-
 import java.util.stream.Stream;
 
 /**
@@ -11,7 +9,6 @@ import java.util.stream.Stream;
  * @see SourceItemAction
  * @since 1.0.0
  */
-@Beta
 public class SynchronizationResult {
 
     private final Stream<SourceItemAction> items;
