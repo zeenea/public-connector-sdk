@@ -9,7 +9,12 @@ package zeenea.sdk.metadata;
  * @see UrlMetadataValue
  * @see InstantMetadataValue
  * @since 1.0.0
+ * @deprecated since 2.0.0, see 'zeenea.connector' package
  */
+@Deprecated
 public enum MetadataType {
-    STRING, NUMBER, URL, INSTANT
+  STRING,
+  NUMBER,
+  URL,
+  INSTANT
 }

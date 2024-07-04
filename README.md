@@ -1,10 +1,12 @@
 # public-connector-sdk
 
-This project allows the development of a Connector that can be loaded into Zeenea Scanner for use with Zeenea Datacatalog. 
+This project allows the development of a Connector that can be loaded into Zeenea Scanner for use with Zeenea
+Datacatalog.
 
 ## Overview
 
-This project mainly consists in various interfaces that a Connector must comply to in order to be properly loaded and operable from Zeenea Scanner.
+This project mainly consists in various interfaces that a Connector must comply to in order to be properly loaded and
+operable from Zeenea Scanner.
 
 ## Getting started
 
@@ -14,7 +16,8 @@ Connector loading and classpath isolation are powered by [pf4j](https://pf4j.org
 
 A requirement for proper discoverability is to create an implementation of `org.pf4j.Plugin`.
 
-Implementing a `Plugin` brings the additional advantage of providing hooks to the _plugin_ lifecycle (loading, unloading).
+Implementing a `Plugin` brings the additional advantage of providing hooks to the _plugin_ lifecycle (loading,
+unloading).
 
 ```java
 package com.acme.connector;
@@ -42,7 +45,8 @@ More information on the subject can be found on [pf4j's website](https://pf4j.or
 
 ### `ConnectorFactory`
 
-Next in line is the implementation of `ConnectorFactory`, which is used to identify and create instances of the Connector.
+Next in line is the implementation of `ConnectorFactory`, which is used to identify and create instances of the
+Connector.
 
 ```java
 package com.acme.connector;
@@ -65,7 +69,8 @@ public class AcmeConnectorFactory implements ConnectorFactory {
 }
 ```
 
-In order to be discoverable by the Scanner, the Fully Qualified Name of this class must be added to file *META-INF/extensions.idx*.
+In order to be discoverable by the Scanner, the Fully Qualified Name of this class must be added to file
+*META-INF/extensions.idx*.
 
 ```
 com.acme.connector.AcmeConnectorFactory
@@ -81,7 +86,7 @@ package com.acme.connector;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import zeenea.sdk.Connector;
-import zeenea.sdk.businessterm.SourceBusinessTerm;
+import zeenea.connector.businessterm.SourceBusinessTerm;
 import zeenea.sdk.contact.SourceContactRelation;
 import zeenea.sdk.metadata.Metadata;
 import zeenea.sdk.metadata.StringMetadata;
@@ -102,7 +107,7 @@ public class AcmeConnector implements Connector {
         // Value returned here can be dynamic and change over successive calls
         return new HashSet<>(Collections.singletonList(TYPE_METADATA));
     }
-    
+
     public SynchronizationResult synchronize() {
         // Return a SynchronizationResult containing a Stream to item actions
         // Item actions can be upsert or delete
@@ -123,7 +128,7 @@ public class AcmeConnector implements Connector {
                 // Delete
                 SourceItemAction.delete("deleted-item-id")));
     }
-    
+
     public void close() {
         // Resources previously opened can be closed here
     }
@@ -148,19 +153,30 @@ Copy the zip archive into the *plugins* folder of the Scanner, then restart the 
 
 The Connector Id should be visible in Scanner logs.
 
+### Local publication
+
+In order to reference this package locally from other repositories (like [scanner][scanner]), one can run:
+
+```shell
+./gradelw publishToMavenLocal
+```
+
 ## How it works
 
 ### Lifecycle
 
 On Zeenea Scanner startup, instances of `ConnectorFactory` discovered in the *plugins* folder are created.
 
-Their configuration is then immediately validated by creating an instance of `Connector` for every factory, followed by successive calls to `connector.getMetadata()` and `connector.close()`. `Connector` instances are then discarded.
+Their configuration is then immediately validated by creating an instance of `Connector` for every factory, followed by
+successive calls to `connector.getMetadata()` and `connector.close()`. `Connector` instances are then discarded.
 
-`Metadata` collected this way are then submitted to Zeenea Datacatalog and made accessible to operators in the Admin interface.
+`Metadata` collected this way are then submitted to Zeenea Datacatalog and made accessible to operators in the Admin
+interface.
 
 ### Synchronization
 
-A click on the **Synchronize** button in Zeenea Datacatalog's Admin interface triggers the creation of a new `Connector` from the factory and the retrieval, through the Connector, of items located in the datasource.
+A click on the **Synchronize** button in Zeenea Datacatalog's Admin interface triggers the creation of a new `Connector`
+from the factory and the retrieval, through the Connector, of items located in the datasource.
 
 The following diagram exposes the chaining of method calls leading to the actual sync.
 
@@ -170,4 +186,7 @@ After a successful synchronization, items should be visible in Zeenea Datacatalo
 
 ## Side notes
 
-* A `Plugin` may contain multiple different `ConnectorFactory` implementations. It is thus possible to create a single plugin to handle more than one Connector, just be sure to add all appropriate FQNs to file `META-INF/extensions.idx`.
+* A `Plugin` may contain multiple different `ConnectorFactory` implementations. It is thus possible to create a single
+  plugin to handle more than one Connector, just be sure to add all appropriate FQNs to file `META-INF/extensions.idx`.
+
+[scanner]: https://github.com/zeenea/scanner

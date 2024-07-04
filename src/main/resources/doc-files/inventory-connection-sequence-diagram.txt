@@ -1,0 +1,33 @@
+title Inventory Connection Lifecycle
+==Scanner start-up==
+Scanner->Connector:getConnection("my-Connection")
+Connector->Connection:newConnection("url"->"connection","user"->"john")
+activate Connection
+Connection-->Connection:Validate configuration values
+Connection<-->DataSource:Check connection
+Connection->Scanner:Connection
+database DataSource
+Scanner->Connection:getProperties()
+Connection<-->Connection:Get item metadata
+Connection->Scanner:Set(Metadata("name", STRING))
+deactivate Connection
+==Inventory event==
+Scanner->Connector:getConnection("my-Connection")
+Connector->Connection:newConnection("url"->"connection","user"->"john")
+activate Connection
+Connection->Scanner:Connection
+Scanner->Connection:inventory()
+Connection<-->DataSource:Inventory all items
+Connection->Scanner:Stream<ItemInventory>
+Scanner->Connection:close()
+deactivate Connection
+==Extract items event==
+Scanner->Connector:getConnection("my-Connection")
+Connector->Connection:newConnection("url"->"connection","user"->"john")
+activate Connection
+Connection->Scanner:Connection
+Scanner->Connection:extractItems(Stream<ItemIdentifier>)
+Connection<-->DataSource:Fetch all items
+Connection->Scanner:Stream<Item>
+Scanner->Connection:close()
+deactivate Connection
