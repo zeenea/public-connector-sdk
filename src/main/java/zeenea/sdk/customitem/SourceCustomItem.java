@@ -1,16 +1,17 @@
 package zeenea.sdk.customitem;
 
-import zeenea.sdk.SourceItem;
-
 import java.util.Objects;
 import java.util.StringJoiner;
+import zeenea.sdk.SourceItem;
 
 /**
  * Synchronized or manually created SourceItem corresponding to a business or technical concept used in the enterprise.
  * Custom items are used in the catalog to bring context to technical assets.
  *
  * @since 1.0.0
+ * @deprecated since 2.0.0, see 'zeenea.connector' package
  */
+@Deprecated
 public final class SourceCustomItem extends SourceItem {
 
     private final String code;

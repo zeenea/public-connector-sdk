@@ -1,9 +1,8 @@
 package zeenea.sdk.contact;
 
-import zeenea.sdk.SourceItem;
-
 import java.util.Objects;
 import java.util.StringJoiner;
+import zeenea.sdk.SourceItem;
 
 /**
  * The qualifier of the relationship between a SourceContact and a SourceItem.
@@ -12,7 +11,9 @@ import java.util.StringJoiner;
  * @see SourceContact
  * @see SourceItem
  * @since 1.0.0
+ * @deprecated since 2.0.0, see 'zeenea.connector' package
  */
+@Deprecated
 public class SourceRole {
     private final String name;
 

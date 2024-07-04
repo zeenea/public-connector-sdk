@@ -67,18 +67,26 @@ tasks.withType<Test> {
                     TestResult.ResultType.SUCCESS -> {
                         summaryStyle = ANSI_GREEN
                     }
+
                     TestResult.ResultType.FAILURE -> {
                         summaryStyle = ANSI_RED
                     }
+
+                    TestResult.ResultType.SKIPPED -> {
+                        summaryStyle = ANSI_YELLOW
+                    }
                 }
 
+
                 println("--------------------------------------------------------------------------")
-                println("Results: ${summaryStyle}${result.resultType}${ANSI_RESET}"
-                        + " (${result.testCount} tests,"
-                        + " ${ANSI_GREEN}${result.successfulTestCount} passed${ANSI_RESET}"
-                        + ", ${failStyle}${result.failedTestCount} failed${ANSI_RESET}"
-                        + ", ${skipStyle}${result.skippedTestCount} skipped${ANSI_RESET}"
-                        + ")")
+                println(
+                    "Results: ${summaryStyle}${result.resultType}${ANSI_RESET}"
+                            + " (${result.testCount} tests,"
+                            + " ${ANSI_GREEN}${result.successfulTestCount} passed${ANSI_RESET}"
+                            + ", ${failStyle}${result.failedTestCount} failed${ANSI_RESET}"
+                            + ", ${skipStyle}${result.skippedTestCount} skipped${ANSI_RESET}"
+                            + ")"
+                )
                 println("--------------------------------------------------------------------------")
             }
         }

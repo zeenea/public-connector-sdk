@@ -1,10 +1,9 @@
 package zeenea.sdk.contact;
 
-import zeenea.sdk.SourceItem;
-
 import java.util.Objects;
 import java.util.Optional;
 import java.util.StringJoiner;
+import zeenea.sdk.SourceItem;
 
 /**
  * A physical individual, team, entity, or moral person that can be linked to a SourceItem.
@@ -12,7 +11,9 @@ import java.util.StringJoiner;
  * @see SourceContactRelation
  * @see SourceItem
  * @since 1.0.0
+ * @deprecated since 2.0.0, see 'zeenea.connector' package
  */
+@Deprecated
 public class SourceContact {
     private final String name;
     private final String email;

@@ -1,16 +1,17 @@
 package zeenea.sdk.businessterm;
 
-import zeenea.sdk.SourceItem;
-
 import java.util.Objects;
 import java.util.StringJoiner;
+import zeenea.sdk.SourceItem;
 
 /**
  * An entry in a Glossary that documents a business concept.
  *
  * @see SourceItem
  * @since 1.0.0
+ * @deprecated since 2.0.0, see 'zeenea.connector' package
  */
+@Deprecated
 public final class SourceBusinessTerm extends SourceItem {
 
     private SourceBusinessTerm(Builder builder) {
