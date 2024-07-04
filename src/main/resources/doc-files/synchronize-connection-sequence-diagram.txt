@@ -1,0 +1,23 @@
+title Synchronize Connection Lifecycle
+==Scanner start-up==
+Scanner->Connector:getConnection("my-Connection")
+Connector->Connection:newConnection("url"->"connection","user"->"john")
+activate Connection
+Connection-->Connection:Validate configuration values
+Connection<-->DataSource:Check connection
+Connection->Scanner:Connection
+database DataSource
+Scanner->Connection:getProperties()
+Connection<-->Connection:Get item metadata
+Connection->Scanner:Set(Metadata("name", STRING))
+deactivate Connection
+==Synchronize event==
+Scanner->Connector:getConnector("my-Connection")
+Connector->Connection:newConnection("url"->"connection","user"->"john")
+activate Connection
+Connection->Scanner:Connection
+Scanner->Connection:synchronize()
+Connection<-->DataSource:Fetch all
+Connection->Scanner:Stream<Item>
+Scanner->Connection:close()
+deactivate Connection

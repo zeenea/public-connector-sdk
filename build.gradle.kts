@@ -2,6 +2,8 @@ plugins {
     // Apply the java-library plugin for API and implementation separation.
     `java-library`
     `maven-publish`
+    id("com.diffplug.spotless") version "6.25.0"
+    id("com.github.spotbugs") version "6.0.14"
 }
 
 
@@ -10,8 +12,21 @@ version = file("version.txt").readText().trim()
 description = "public-connector-sdk"
 
 java {
-    sourceCompatibility = JavaVersion.VERSION_1_8
-    targetCompatibility = JavaVersion.VERSION_1_8
+    sourceCompatibility = JavaVersion.VERSION_11
+    targetCompatibility = JavaVersion.VERSION_11
+}
+
+spotless {
+    java {
+        googleJavaFormat()
+    }
+}
+
+spotbugs {
+    val excludeFile = file("${rootDir}/spotbug-exclude.xml")
+    if (excludeFile.exists()) {
+        excludeFilter.set(excludeFile)
+    }
 }
 
 apply(from = "gradle/colored-output.gradle.kts")
@@ -56,17 +71,28 @@ tasks {
 }
 
 repositories {
-    jcenter()
+    mavenCentral()
 }
 
 dependencies {
-    api(group = "org.pf4j", name = "pf4j", version = "3.0.1")
-    testImplementation(platform("org.junit:junit-bom:5.7.0"))
-    testImplementation(group = "org.junit.jupiter", name = "junit-jupiter-api")
-    testImplementation(group = "org.slf4j", name = "slf4j-api", version = "1.7.30")
-    testRuntimeOnly(group = "org.junit.jupiter", name = "junit-jupiter-engine")
-}
+    val pf4jVersion: String by project
+    api(group = "org.pf4j", name = "pf4j", version = pf4jVersion)
 
+    val slf4jVersion: String by project
+    testImplementation(group = "org.slf4j", name = "slf4j-api", version = slf4jVersion)
+
+    val junitVersion: String by project
+    testImplementation(platform("org.junit:junit-bom:${junitVersion}"))
+    testImplementation(group = "org.junit.jupiter", name = "junit-jupiter-api")
+    testRuntimeOnly(group = "org.junit.jupiter", name = "junit-jupiter-engine")
+
+    val jetbrainsAnnotationsVersion: String by project
+    compileOnly(
+        group = "org.jetbrains",
+        name = "annotations",
+        version = jetbrainsAnnotationsVersion
+    )
+}
 
 publishing {
     publications {

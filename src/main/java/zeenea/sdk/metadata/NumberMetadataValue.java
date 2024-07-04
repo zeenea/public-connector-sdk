@@ -10,46 +10,48 @@ import java.util.StringJoiner;
  * @see MetadataValue
  * @see NumberMetadata
  * @since 1.0.0
+ * @deprecated since 2.0.0, see 'zeenea.connector' package
  */
+@Deprecated
 public class NumberMetadataValue implements MetadataValue {
 
-    private final BigDecimal value;
+  private final BigDecimal value;
 
-    /**
-     * Create a new instance of NumberMetadataValue, containing a value of type {@code BigDecimal}.
-     *
-     * @param value The metadata value
-     */
-    public NumberMetadataValue(BigDecimal value) {
-        this.value = value;
-    }
+  /**
+   * Create a new instance of NumberMetadataValue, containing a value of type {@code BigDecimal}.
+   *
+   * @param value The metadata value
+   */
+  public NumberMetadataValue(BigDecimal value) {
+    this.value = value;
+  }
 
-    /**
-     * Get the {@code BigDecimal} value of the metadata.
-     *
-     * @return The {@code BigDecimal} value of the metadata
-     */
-    public BigDecimal getValue() {
-        return this.value;
-    }
+  /**
+   * Get the {@code BigDecimal} value of the metadata.
+   *
+   * @return The {@code BigDecimal} value of the metadata
+   */
+  public BigDecimal getValue() {
+    return this.value;
+  }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        NumberMetadataValue that = (NumberMetadataValue) o;
-        return Objects.equals(value, that.value);
-    }
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    NumberMetadataValue that = (NumberMetadataValue) o;
+    return Objects.equals(value, that.value);
+  }
 
-    @Override
-    public int hashCode() {
-        return Objects.hash(value);
-    }
+  @Override
+  public int hashCode() {
+    return Objects.hash(value);
+  }
 
-    @Override
-    public String toString() {
-        return new StringJoiner(", ", NumberMetadataValue.class.getSimpleName() + "[", "]")
-                .add("value=" + value)
-                .toString();
-    }
+  @Override
+  public String toString() {
+    return new StringJoiner(", ", NumberMetadataValue.class.getSimpleName() + "[", "]")
+        .add("value=" + value)
+        .toString();
+  }
 }
