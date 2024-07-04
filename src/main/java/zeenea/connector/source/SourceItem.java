@@ -111,7 +111,7 @@ public abstract class SourceItem {
 
     protected Builder() {}
 
-    protected static void throwIfNull(String attributeName, String attributeValue) {
+    protected static void throwIfNull(String attributeName, Object attributeValue) {
       if (attributeValue == null)
         throw new NullPointerException("Attribute \"" + attributeName + "\" cannot be null");
     }

@@ -1,9 +1,8 @@
 package zeenea.sdk.synchronization;
 
-import zeenea.sdk.SourceItem;
-
 import java.util.Objects;
 import java.util.StringJoiner;
+import zeenea.sdk.SourceItem;
 
 /**
  * A {@link SourceItemAction} used to create/update an item.

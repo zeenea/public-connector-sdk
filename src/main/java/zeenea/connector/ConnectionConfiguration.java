@@ -4,7 +4,7 @@ import java.nio.file.Path;
 import zeenea.connector.exception.InvalidConfigurationException;
 
 /**
- * The configuration used to create a {@link Connector}. Configuration data is populated from
+ * The configuration used to create a {@link Connection}. Configuration data is populated from
  * mandatory <em>connection configuration files</em> provided to the Scanner. Provides basic
  * property access and validation.
  *

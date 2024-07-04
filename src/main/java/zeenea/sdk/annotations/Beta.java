@@ -1,11 +1,11 @@
 package zeenea.sdk.annotations;
 
+import static java.lang.annotation.ElementType.*;
+
 import java.lang.annotation.Documented;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
-
-import static java.lang.annotation.ElementType.*;
 
 /**
  * Signifies that a public API (public class, method or field) is subject to incompatible changes,

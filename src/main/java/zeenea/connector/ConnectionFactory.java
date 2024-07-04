@@ -8,7 +8,7 @@ import zeenea.connector.exception.InvalidConfigurationException;
  * doubling as an {@link ExtensionPoint} for discoverability from the Scanner.
  *
  * @see Connection
- * @see ConnectorConfiguration
+ * @see ConnectionConfiguration
  * @see ExtensionPoint
  * @since 1.0.0
  */
@@ -39,6 +39,6 @@ public interface ConnectionFactory extends ExtensionPoint {
    * @return The new connector instance
    * @throws InvalidConfigurationException if configuration is somehow wrong
    */
-  Connection newConnector(ConnectorConfiguration configuration)
+  Connection newConnector(ConnectionConfiguration configuration)
       throws InvalidConfigurationException;
 }

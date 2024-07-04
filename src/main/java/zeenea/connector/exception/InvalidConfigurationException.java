@@ -1,6 +1,7 @@
 package zeenea.connector.exception;
 
-import zeenea.connector.ConnectorConfiguration;
+import zeenea.connector.ConnectionConfiguration;
+import zeenea.connector.ConnectionFactory;
 
 /**
  * A checked {@code Exception} expressing invalid configuration.
@@ -10,7 +11,7 @@ import zeenea.connector.ConnectorConfiguration;
  * <ul>
  *   <li>A configuration value cannot be parsed (like Long, Boolean or Path values)
  *   <li>A configuration value is considered invalid on connector creation from {@link
- *       ConnectorFactory#newConnector(ConnectorConfiguration)}
+ *       ConnectionFactory#newConnector(ConnectionConfiguration)}
  * </ul>
  *
  * @since 1.0.0
