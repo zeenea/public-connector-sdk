@@ -2,7 +2,7 @@ package zeenea.connector.action;
 
 import java.util.Objects;
 import java.util.StringJoiner;
-import zeenea.connector.source.SourceItem;
+import zeenea.connector.SourceItem;
 
 /**
  * A {@link ItemAction} used to create/update an item.

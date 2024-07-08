@@ -3,12 +3,6 @@ package zeenea.connector.action;
 import java.util.Objects;
 import java.util.StringJoiner;
 
-/**
- * A {@link ItemAction} used to delete an item.
- *
- * @see ItemAction
- * @since 1.0.0
- */
 public class DeleteAction implements ItemAction {
 
   private final String itemId;
@@ -17,11 +11,6 @@ public class DeleteAction implements ItemAction {
     this.itemId = itemId;
   }
 
-  /**
-   * Get the id of the item to delete.
-   *
-   * @return The id of the item to delete
-   */
   public String getItemId() {
     return itemId;
   }

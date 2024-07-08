@@ -8,7 +8,7 @@ import zeenea.connector.exception.InvalidConfigurationException;
  * mandatory <em>connection configuration files</em> provided to the Scanner. Provides basic
  * property access and validation.
  *
- * @see ConnectionFactory
+ * @see Connector
  * @see Connection
  * @since 1.0.0
  */

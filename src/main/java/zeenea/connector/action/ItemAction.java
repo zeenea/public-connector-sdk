@@ -1,6 +1,6 @@
 package zeenea.connector.action;
 
-import zeenea.connector.source.SourceItem;
+import zeenea.connector.SourceItem;
 
 /**
  * An action to perform on the catalog, scoped to a single {@link SourceItem}.
