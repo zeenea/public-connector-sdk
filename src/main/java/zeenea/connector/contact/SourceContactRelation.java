@@ -16,8 +16,13 @@ public class SourceContactRelation {
   private final SourceRole role;
 
   private SourceContactRelation(Builder builder) {
-    this.contact = new SourceContact(builder.name, builder.email, builder.phoneNumber);
-    this.role = new SourceRole(builder.role);
+    this.contact =
+        SourceContact.builder()
+            .name(builder.name)
+            .email(builder.email)
+            .phoneNumber(builder.phoneNumber)
+            .build();
+    this.role = SourceRole.builder().name(builder.role).build();
   }
 
   /**
@@ -46,27 +51,6 @@ public class SourceContactRelation {
    */
   public SourceRole getRole() {
     return role;
-  }
-
-  @Override
-  public boolean equals(Object o) {
-    if (this == o) return true;
-    if (o == null || getClass() != o.getClass()) return false;
-    SourceContactRelation that = (SourceContactRelation) o;
-    return Objects.equals(contact, that.contact) && Objects.equals(role, that.role);
-  }
-
-  @Override
-  public int hashCode() {
-    return Objects.hash(contact, role);
-  }
-
-  @Override
-  public String toString() {
-    return new StringJoiner(", ", SourceContactRelation.class.getSimpleName() + "[", "]")
-        .add("contact=" + contact)
-        .add("role=" + role)
-        .toString();
   }
 
   /**
@@ -107,5 +91,26 @@ public class SourceContactRelation {
       if (role == null) throw new NullPointerException("role cannot be null");
       return new SourceContactRelation(this);
     }
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    SourceContactRelation that = (SourceContactRelation) o;
+    return Objects.equals(contact, that.contact) && Objects.equals(role, that.role);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(contact, role);
+  }
+
+  @Override
+  public String toString() {
+    return new StringJoiner(", ", SourceContactRelation.class.getSimpleName() + "[", "]")
+        .add("contact=" + contact)
+        .add("role=" + role)
+        .toString();
   }
 }

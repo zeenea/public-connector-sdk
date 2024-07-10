@@ -17,10 +17,10 @@ public class SourceContact {
   private final String email;
   private final String phoneNumber;
 
-  SourceContact(String name, String email, String phoneNumber) {
-    this.name = name;
-    this.email = email;
-    this.phoneNumber = phoneNumber;
+  SourceContact(Builder builder) {
+    this.name = builder.name;
+    this.email = builder.email;
+    this.phoneNumber = builder.phoneNumber;
   }
 
   /**
@@ -48,6 +48,41 @@ public class SourceContact {
    */
   public Optional<String> getPhoneNumber() {
     return Optional.ofNullable(phoneNumber);
+  }
+
+  public static Builder builder() {
+    return new Builder();
+  }
+
+  public static class Builder {
+
+    private String name;
+    private String email;
+    private String phoneNumber;
+
+    private Builder() {}
+
+    public Builder name(String name) {
+      this.name = name;
+      return this;
+    }
+
+    public Builder email(String email) {
+      this.email = email;
+      return this;
+    }
+
+    public Builder phoneNumber(String phoneNumber) {
+      this.phoneNumber = phoneNumber;
+      return this;
+    }
+
+    protected SourceContact build() {
+      if (this.email == null || this.email.isEmpty()) {
+        throw new IllegalArgumentException("email must not be null or empty");
+      }
+      return new SourceContact(this);
+    }
   }
 
   @Override

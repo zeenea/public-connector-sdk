@@ -3,13 +3,9 @@ tasks.withType<Test> {
     val GITHUB_ACTIONS_FOLDING = true
     val ANSI_BOLD_WHITE = "\u001B[0;1m"
     val ANSI_RESET = "\u001B[0m"
-    val ANSI_BLACK = "\u001B[30m"
     val ANSI_RED = "\u001B[31m"
     val ANSI_GREEN = "\u001B[32m"
     val ANSI_YELLOW = "\u001B[33m"
-    val ANSI_BLUE = "\u001B[34m"
-    val ANSI_PURPLE = "\u001B[35m"
-    val ANSI_CYAN = "\u001B[36m"
     val ANSI_WHITE = "\u001B[37m"
     val CHECK_MARK = "\u2713"
     val NEUTRAL_FACE = "\u0CA0_\u0CA0"
@@ -29,11 +25,10 @@ tasks.withType<Test> {
 
         override fun beforeTest(testDescriptor: TestDescriptor) {}
         override fun afterTest(descriptor: TestDescriptor, result: TestResult) {
-            var indicator = ANSI_WHITE
+            var indicator = ANSI_GREEN + CHECK_MARK
 
             if (result.failedTestCount > 0) indicator = ANSI_RED + X_MARK
             else if (result.skippedTestCount > 0) indicator = ANSI_YELLOW + NEUTRAL_FACE
-            else indicator = ANSI_GREEN + CHECK_MARK
 
             println("    " + indicator + ANSI_RESET + " " + descriptor.name)
 

@@ -2,6 +2,8 @@ package zeenea.connector.dataset;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
+import java.util.StringJoiner;
 import zeenea.connector.property.SourcePropertyValue;
 
 public class SourceField {
@@ -136,5 +138,50 @@ public class SourceField {
     private SELF self() {
       return (SELF) this;
     }
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    SourceField that = (SourceField) o;
+    return nativeIndex == that.nativeIndex
+        && nullable == that.nullable
+        && multivalued == that.multivalued
+        && Objects.equals(name, that.name)
+        && dataType == that.dataType
+        && Objects.equals(nativeType, that.nativeType)
+        && Objects.equals(keys, that.keys)
+        && Objects.equals(description, that.description)
+        && Objects.equals(metadata, that.metadata);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(
+        name,
+        dataType,
+        nativeType,
+        nativeIndex,
+        keys,
+        nullable,
+        multivalued,
+        description,
+        metadata);
+  }
+
+  @Override
+  public String toString() {
+    return new StringJoiner(", ", SourceField.class.getSimpleName() + "[", "]")
+        .add("dataType=" + dataType)
+        .add("name='" + name + "'")
+        .add("nativeType='" + nativeType + "'")
+        .add("nativeIndex=" + nativeIndex)
+        .add("keys=" + keys)
+        .add("nullable=" + nullable)
+        .add("multivalued=" + multivalued)
+        .add("description='" + description + "'")
+        .add("metadata=" + metadata)
+        .toString();
   }
 }

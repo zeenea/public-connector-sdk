@@ -1,22 +1,24 @@
 package zeenea.connector.common;
 
 import java.util.List;
+import java.util.Objects;
+import java.util.StringJoiner;
 
 public class SourceItemReference {
-  private final String connectionAlias;
   private final List<IdentificationKey> identificationProperties;
+  private final String connectionAlias;
 
   public SourceItemReference(Builder builder) {
-    this.connectionAlias = builder.connectionAlias;
     this.identificationProperties = builder.identificationProperties;
-  }
-
-  public String getConnectionAlias() {
-    return connectionAlias;
+    this.connectionAlias = builder.connectionAlias;
   }
 
   public List<IdentificationKey> getIdentificationProperties() {
     return identificationProperties;
+  }
+
+  public String getConnectionAlias() {
+    return connectionAlias;
   }
 
   public static Builder builder() {
@@ -25,18 +27,18 @@ public class SourceItemReference {
 
   public static class Builder {
 
-    private String connectionAlias;
     private List<IdentificationKey> identificationProperties;
+    private String connectionAlias;
 
     private Builder() {}
 
-    public Builder connectionAlias(String connectionAlias) {
-      this.connectionAlias = connectionAlias;
+    public Builder identificationProperties(List<IdentificationKey> identificationProperties) {
+      this.identificationProperties = identificationProperties;
       return this;
     }
 
-    public Builder identificationProperties(List<IdentificationKey> identificationProperties) {
-      this.identificationProperties = identificationProperties;
+    public Builder connectionAlias(String connectionAlias) {
+      this.connectionAlias = connectionAlias;
       return this;
     }
 
@@ -46,5 +48,27 @@ public class SourceItemReference {
       }
       return new SourceItemReference(this);
     }
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    SourceItemReference that = (SourceItemReference) o;
+    return Objects.equals(identificationProperties, that.identificationProperties)
+        && Objects.equals(connectionAlias, that.connectionAlias);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(identificationProperties, connectionAlias);
+  }
+
+  @Override
+  public String toString() {
+    return new StringJoiner(", ", SourceItemReference.class.getSimpleName() + "[", "]")
+        .add("connectionAlias='" + connectionAlias + "'")
+        .add("identificationProperties=" + identificationProperties)
+        .toString();
   }
 }

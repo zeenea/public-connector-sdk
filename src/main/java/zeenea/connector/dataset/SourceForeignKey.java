@@ -11,12 +11,11 @@ public class SourceForeignKey {
   private final List<String> targetFields;
   private final String name;
 
-  public SourceForeignKey(
-      String targetDataset, List<String> sourceFields, List<String> targetFields, String name) {
-    this.targetDataset = targetDataset;
-    this.sourceFields = sourceFields;
-    this.targetFields = targetFields;
-    this.name = name;
+  public SourceForeignKey(Builder builder) {
+    this.targetDataset = builder.targetDataset;
+    this.sourceFields = builder.sourceFields;
+    this.targetFields = builder.targetFields;
+    this.name = builder.name;
   }
 
   public String getName() {
@@ -33,6 +32,53 @@ public class SourceForeignKey {
 
   public List<String> getTargetFields() {
     return targetFields;
+  }
+
+  public static Builder builder() {
+    return new Builder();
+  }
+
+  public static class Builder {
+
+    private String targetDataset;
+    private List<String> sourceFields;
+    private List<String> targetFields;
+    private String name;
+
+    private Builder() {}
+
+    public Builder targetDataset(String targetDataset) {
+      this.targetDataset = targetDataset;
+      return this;
+    }
+
+    public Builder sourceFields(List<String> sourceFields) {
+      this.sourceFields = sourceFields;
+      return this;
+    }
+
+    public Builder targetFields(List<String> targetFields) {
+      this.targetFields = targetFields;
+      return this;
+    }
+
+    public Builder name(String name) {
+      this.name = name;
+      return this;
+    }
+
+    protected SourceForeignKey build() {
+      if (this.targetDataset == null || this.targetDataset.isEmpty()) {
+        throw new IllegalArgumentException("targetDataset must not be null or empty");
+      }
+      if (this.sourceFields == null || this.sourceFields.isEmpty()) {
+        throw new IllegalArgumentException("targetDataset must not be null or empty");
+      }
+      if (this.targetFields == null || this.targetFields.isEmpty()) {
+        throw new IllegalArgumentException("targetDataset must not be null or empty");
+      }
+      return new SourceForeignKey(this);
+    }
   }
 
   @Override

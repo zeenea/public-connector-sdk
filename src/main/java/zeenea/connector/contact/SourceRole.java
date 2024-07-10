@@ -15,8 +15,8 @@ import zeenea.connector.SourceItem;
 public class SourceRole {
   private final String name;
 
-  SourceRole(String name) {
-    this.name = name;
+  SourceRole(Builder builder) {
+    this.name = builder.name;
   }
 
   /**
@@ -26,6 +26,29 @@ public class SourceRole {
    */
   public String getName() {
     return name;
+  }
+
+  public static Builder builder() {
+    return new Builder();
+  }
+
+  public static class Builder {
+
+    private String name;
+
+    private Builder() {}
+
+    public Builder name(String name) {
+      this.name = name;
+      return this;
+    }
+
+    protected SourceRole build() {
+      if (this.name == null || this.name.isEmpty()) {
+        throw new IllegalArgumentException("role name must not be null or empty");
+      }
+      return new SourceRole(this);
+    }
   }
 
   @Override

@@ -1,10 +1,12 @@
 package zeenea.connector.visualisation;
 
 import java.util.List;
+import java.util.Objects;
+import java.util.StringJoiner;
 import zeenea.connector.SourceItem;
 import zeenea.connector.common.SourceItemReference;
 
-public class SourceVisualisation extends SourceItem {
+public final class SourceVisualisation extends SourceItem {
 
   private final List<SourceVisualisationField> fields;
   private final List<SourceItemReference> linkedDataset;
@@ -27,8 +29,7 @@ public class SourceVisualisation extends SourceItem {
     return new Builder();
   }
 
-  public static class Builder
-      extends SourceItem.Builder<SourceVisualisation, SourceVisualisation.Builder> {
+  public static class Builder extends SourceItem.Builder<SourceVisualisation, Builder> {
 
     private List<SourceVisualisationField> fields;
     private List<SourceItemReference> linkedDataset;
@@ -51,5 +52,26 @@ public class SourceVisualisation extends SourceItem {
       throwIfNull("linkedDataset", this.linkedDataset);
       return new SourceVisualisation(this);
     }
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    SourceVisualisation that = (SourceVisualisation) o;
+    return Objects.equals(fields, that.fields) && Objects.equals(linkedDataset, that.linkedDataset);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(fields, linkedDataset);
+  }
+
+  @Override
+  public String toString() {
+    return new StringJoiner(", ", SourceVisualisation.class.getSimpleName() + "[", "]")
+        .add("fields=" + fields)
+        .add("linkedDataset=" + linkedDataset)
+        .toString();
   }
 }

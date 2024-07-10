@@ -1,6 +1,8 @@
 package zeenea.connector.visualisation;
 
 import java.util.List;
+import java.util.Objects;
+import java.util.StringJoiner;
 import zeenea.connector.common.SourceItemReference;
 import zeenea.connector.dataset.SourceField;
 
@@ -51,5 +53,28 @@ public class SourceVisualisationField extends SourceField {
       throwIfNull("sourceItemReferenceList", this.sourceItemReferenceList);
       return new SourceVisualisationField(this);
     }
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    if (!super.equals(o)) return false;
+    SourceVisualisationField that = (SourceVisualisationField) o;
+    return fieldType == that.fieldType
+        && Objects.equals(sourceItemReferenceList, that.sourceItemReferenceList);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(super.hashCode(), fieldType, sourceItemReferenceList);
+  }
+
+  @Override
+  public String toString() {
+    return new StringJoiner(", ", SourceVisualisationField.class.getSimpleName() + "[", "]")
+        .add("fieldType=" + fieldType)
+        .add("sourceItemReferenceList=" + sourceItemReferenceList)
+        .toString();
   }
 }

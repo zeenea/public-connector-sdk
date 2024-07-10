@@ -70,9 +70,6 @@ public final class SourceDataset extends SourceItem {
     @Override
     protected SourceDataset performBuild() {
       throwIfNull("fields", this.fields);
-      throwIfNull("primaryKeys", this.primaryKeys);
-      throwIfNull("foreignKeys", this.foreignKeys);
-      throwIfNull("partitions", this.partitions);
       return new SourceDataset(this);
     }
   }

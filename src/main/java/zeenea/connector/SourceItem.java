@@ -4,6 +4,7 @@ import java.math.BigDecimal;
 import java.net.URI;
 import java.time.Instant;
 import java.util.*;
+import zeenea.connector.common.IdentificationKey;
 import zeenea.connector.contact.SourceContactRelation;
 import zeenea.connector.property.*;
 
@@ -17,7 +18,7 @@ public abstract class SourceItem {
 
   private final String name;
 
-  private final String id;
+  private final List<IdentificationKey> id;
 
   private final String description;
 
@@ -50,7 +51,7 @@ public abstract class SourceItem {
    *
    * @return The id of the source item, cannot be longer than 1024 characters
    */
-  public String getId() {
+  public List<IdentificationKey> getId() {
     return id;
   }
 
@@ -101,7 +102,7 @@ public abstract class SourceItem {
     private final Map<String, SourcePropertyValue> metadata = new HashMap<>();
     private final List<SourceContactRelation> contactRelations = new ArrayList<>();
     private String name;
-    private String id;
+    private List<IdentificationKey> id;
     private String description;
     private Instant updateTime;
 
@@ -149,7 +150,7 @@ public abstract class SourceItem {
      *
      * @return The id of the source item, cannot be longer than 1024 characters
      */
-    public String getId() {
+    public List<IdentificationKey> getId() {
       return id;
     }
 
@@ -160,7 +161,7 @@ public abstract class SourceItem {
      * @param id The id of the source item, cannot be longer than 1024 characters
      * @return This builder
      */
-    public SELF id(String id) {
+    public SELF id(List<IdentificationKey> id) {
       this.id = id;
       return self();
     }
@@ -388,7 +389,6 @@ public abstract class SourceItem {
       throwIfNull("name", name);
       throwIfInvalidLength("name", name, 1024);
       throwIfNull("id", id);
-      throwIfInvalidLength("id", id, 1024);
       throwIfInvalidLength("description", description, 32 * 1024);
       return performBuild();
     }
