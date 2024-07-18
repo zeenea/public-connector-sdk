@@ -2,7 +2,7 @@ package zeenea.connector.inventory;
 
 import java.util.stream.Stream;
 import zeenea.connector.action.ItemAction;
-import zeenea.connector.common.SourceItemIdentifier;
+import zeenea.connector.common.ItemInventory;
 
 /**
  * The result of a synchronization operation, as performed by a {@link InventoryConnection} {@link
@@ -14,13 +14,13 @@ import zeenea.connector.common.SourceItemIdentifier;
  */
 public class InventoryResult {
 
-  private final Stream<SourceItemIdentifier> items;
+  private final Stream<ItemInventory> items;
 
-  public InventoryResult(Stream<SourceItemIdentifier> items) {
+  public InventoryResult(Stream<ItemInventory> items) {
     this.items = items;
   }
 
-  public Stream<SourceItemIdentifier> getItems() {
+  public Stream<ItemInventory> getItems() {
     return items;
   }
 }

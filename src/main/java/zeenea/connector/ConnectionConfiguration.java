@@ -1,7 +1,6 @@
 package zeenea.connector;
 
 import java.nio.file.Path;
-import java.util.List;
 import zeenea.connector.exception.InvalidConfigurationException;
 
 /**
@@ -42,13 +41,6 @@ public interface ConnectionConfiguration {
    * @return The unique code that identifies the connection
    */
   String getConnectionCode();
-
-  /**
-   * List of connection feature for declared connection (data sampling, fingerprint)
-   *
-   * @return The list of connection features
-   */
-  List<ConnectionFeature> getConnectionFeatures();
 
   /**
    * Returns the value for the given key, as a String. No value or an empty value will be returned

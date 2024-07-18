@@ -3,12 +3,12 @@ package zeenea.connector.common;
 import java.util.Objects;
 import java.util.StringJoiner;
 
-public class IdentificationKey {
+public class IdentificationProperty {
 
   private final String key;
   private final String value;
 
-  public IdentificationKey(Builder builder) {
+  public IdentificationProperty(Builder builder) {
     this.key = builder.key;
     this.value = builder.value;
   }
@@ -42,14 +42,14 @@ public class IdentificationKey {
       return this;
     }
 
-    protected IdentificationKey build() {
+    public IdentificationProperty build() {
       if (this.key == null || this.key.isEmpty()) {
         throw new IllegalArgumentException("key must not be null or empty");
       }
       if (this.value == null || this.value.isEmpty()) {
         throw new IllegalArgumentException("value must not be null or empty");
       }
-      return new IdentificationKey(this);
+      return new IdentificationProperty(this);
     }
   }
 
@@ -57,7 +57,7 @@ public class IdentificationKey {
   public boolean equals(Object o) {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
-    IdentificationKey that = (IdentificationKey) o;
+    IdentificationProperty that = (IdentificationProperty) o;
     return Objects.equals(key, that.key) && Objects.equals(value, that.value);
   }
 
@@ -68,7 +68,7 @@ public class IdentificationKey {
 
   @Override
   public String toString() {
-    return new StringJoiner(", ", IdentificationKey.class.getSimpleName() + "[", "]")
+    return new StringJoiner(", ", IdentificationProperty.class.getSimpleName() + "[", "]")
         .add("key='" + key + "'")
         .add("value='" + value + "'")
         .toString();

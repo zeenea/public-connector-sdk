@@ -4,7 +4,7 @@ import java.math.BigDecimal;
 import java.net.URI;
 import java.time.Instant;
 import java.util.*;
-import zeenea.connector.common.IdentificationKey;
+import zeenea.connector.common.ItemIdentifier;
 import zeenea.connector.contact.SourceContactRelation;
 import zeenea.connector.property.*;
 
@@ -18,7 +18,7 @@ public abstract class SourceItem {
 
   private final String name;
 
-  private final List<IdentificationKey> id;
+  private final ItemIdentifier id;
 
   private final String description;
 
@@ -51,7 +51,7 @@ public abstract class SourceItem {
    *
    * @return The id of the source item, cannot be longer than 1024 characters
    */
-  public List<IdentificationKey> getId() {
+  public ItemIdentifier getId() {
     return id;
   }
 
@@ -102,7 +102,7 @@ public abstract class SourceItem {
     private final Map<String, SourcePropertyValue> metadata = new HashMap<>();
     private final List<SourceContactRelation> contactRelations = new ArrayList<>();
     private String name;
-    private List<IdentificationKey> id;
+    private ItemIdentifier id;
     private String description;
     private Instant updateTime;
 
@@ -150,7 +150,7 @@ public abstract class SourceItem {
      *
      * @return The id of the source item, cannot be longer than 1024 characters
      */
-    public List<IdentificationKey> getId() {
+    public ItemIdentifier getId() {
       return id;
     }
 
@@ -161,7 +161,7 @@ public abstract class SourceItem {
      * @param id The id of the source item, cannot be longer than 1024 characters
      * @return This builder
      */
-    public SELF id(List<IdentificationKey> id) {
+    public SELF id(ItemIdentifier id) {
       this.id = id;
       return self();
     }

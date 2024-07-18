@@ -72,10 +72,10 @@ public class SourceForeignKey {
         throw new IllegalArgumentException("targetDataset must not be null or empty");
       }
       if (this.sourceFields == null || this.sourceFields.isEmpty()) {
-        throw new IllegalArgumentException("targetDataset must not be null or empty");
+        throw new IllegalArgumentException("sourceFields must not be null or empty");
       }
       if (this.targetFields == null || this.targetFields.isEmpty()) {
-        throw new IllegalArgumentException("targetDataset must not be null or empty");
+        throw new IllegalArgumentException("targetFields must not be null or empty");
       }
       return new SourceForeignKey(this);
     }

@@ -4,12 +4,12 @@ import java.util.List;
 import java.util.Objects;
 import java.util.StringJoiner;
 import zeenea.connector.SourceItem;
-import zeenea.connector.common.SourceItemReference;
+import zeenea.connector.common.ItemReference;
 
 public final class SourceProcess extends SourceItem {
 
-  private final List<SourceItemReference> sourceItemReference;
-  private final List<SourceItemReference> targetItemReference;
+  private final List<ItemReference> sourceItemReference;
+  private final List<ItemReference> targetItemReference;
   private final List<SourceOperation> operations;
 
   private SourceProcess(Builder builder) {
@@ -19,11 +19,11 @@ public final class SourceProcess extends SourceItem {
     this.operations = builder.operations;
   }
 
-  public List<SourceItemReference> getSourceItemReference() {
+  public List<ItemReference> getSourceItemReference() {
     return sourceItemReference;
   }
 
-  public List<SourceItemReference> getTargetItemReference() {
+  public List<ItemReference> getTargetItemReference() {
     return targetItemReference;
   }
 
@@ -37,18 +37,18 @@ public final class SourceProcess extends SourceItem {
 
   public static class Builder extends SourceItem.Builder<SourceProcess, Builder> {
 
-    private List<SourceItemReference> sourceItemReference;
-    private List<SourceItemReference> targetItemReference;
+    private List<ItemReference> sourceItemReference;
+    private List<ItemReference> targetItemReference;
     private List<SourceOperation> operations;
 
     private Builder() {}
 
-    public Builder sourceItemReference(List<SourceItemReference> sourceItemReference) {
+    public Builder sourceItemReference(List<ItemReference> sourceItemReference) {
       this.sourceItemReference = sourceItemReference;
       return this;
     }
 
-    public Builder targetItemReference(List<SourceItemReference> targetItemReference) {
+    public Builder targetItemReference(List<ItemReference> targetItemReference) {
       this.targetItemReference = targetItemReference;
       return this;
     }

@@ -1,27 +1,27 @@
-package zeenea.connector.visualisation;
+package zeenea.connector.visualization;
 
 import java.util.List;
 import java.util.Objects;
 import java.util.StringJoiner;
 import zeenea.connector.SourceItem;
-import zeenea.connector.common.SourceItemReference;
+import zeenea.connector.common.ItemReference;
 
-public final class SourceVisualisation extends SourceItem {
+public final class SourceVisualization extends SourceItem {
 
-  private final List<SourceVisualisationField> fields;
-  private final List<SourceItemReference> linkedDataset;
+  private final List<SourceVisualizationField> fields;
+  private final List<ItemReference> linkedDataset;
 
-  private SourceVisualisation(SourceVisualisation.Builder builder) {
+  private SourceVisualization(SourceVisualization.Builder builder) {
     super(builder);
     this.fields = builder.fields;
     this.linkedDataset = builder.linkedDataset;
   }
 
-  public List<SourceVisualisationField> getFields() {
+  public List<SourceVisualizationField> getFields() {
     return fields;
   }
 
-  public List<SourceItemReference> getLinkedDataset() {
+  public List<ItemReference> getLinkedDataset() {
     return linkedDataset;
   }
 
@@ -29,28 +29,28 @@ public final class SourceVisualisation extends SourceItem {
     return new Builder();
   }
 
-  public static class Builder extends SourceItem.Builder<SourceVisualisation, Builder> {
+  public static class Builder extends SourceItem.Builder<SourceVisualization, Builder> {
 
-    private List<SourceVisualisationField> fields;
-    private List<SourceItemReference> linkedDataset;
+    private List<SourceVisualizationField> fields;
+    private List<ItemReference> linkedDataset;
 
     private Builder() {}
 
-    public SourceVisualisation.Builder fields(List<SourceVisualisationField> fields) {
+    public SourceVisualization.Builder fields(List<SourceVisualizationField> fields) {
       this.fields = fields;
       return this;
     }
 
-    public SourceVisualisation.Builder linkedDataset(List<SourceItemReference> linkedDataset) {
+    public SourceVisualization.Builder linkedDataset(List<ItemReference> linkedDataset) {
       this.linkedDataset = linkedDataset;
       return this;
     }
 
     @Override
-    protected SourceVisualisation performBuild() {
+    protected SourceVisualization performBuild() {
       throwIfNull("fields", this.fields);
       throwIfNull("linkedDataset", this.linkedDataset);
-      return new SourceVisualisation(this);
+      return new SourceVisualization(this);
     }
   }
 
@@ -58,7 +58,7 @@ public final class SourceVisualisation extends SourceItem {
   public boolean equals(Object o) {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
-    SourceVisualisation that = (SourceVisualisation) o;
+    SourceVisualization that = (SourceVisualization) o;
     return Objects.equals(fields, that.fields) && Objects.equals(linkedDataset, that.linkedDataset);
   }
 
@@ -69,7 +69,7 @@ public final class SourceVisualisation extends SourceItem {
 
   @Override
   public String toString() {
-    return new StringJoiner(", ", SourceVisualisation.class.getSimpleName() + "[", "]")
+    return new StringJoiner(", ", SourceVisualization.class.getSimpleName() + "[", "]")
         .add("fields=" + fields)
         .add("linkedDataset=" + linkedDataset)
         .toString();

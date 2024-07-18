@@ -9,7 +9,6 @@ import zeenea.connector.SourceItem;
  *
  * @see SourceItem
  * @see UpsertAction
- * @see DeleteAction
  * @since 1.0.0
  */
 public interface ItemAction {
@@ -22,15 +21,5 @@ public interface ItemAction {
    */
   static ItemAction upsert(SourceItem item) {
     return new UpsertAction(item);
-  }
-
-  /**
-   * Convenient factory to delete an item.
-   *
-   * @param itemId id of the item to delete
-   * @return the new instance of SourceItemAction describing an item to be deleted
-   */
-  static ItemAction delete(String itemId) {
-    return new DeleteAction(itemId);
   }
 }

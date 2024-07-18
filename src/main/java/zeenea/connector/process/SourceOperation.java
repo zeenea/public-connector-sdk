@@ -3,23 +3,23 @@ package zeenea.connector.process;
 import java.util.List;
 import java.util.Objects;
 import java.util.StringJoiner;
-import zeenea.connector.common.SourceItemReference;
+import zeenea.connector.common.ItemReference;
 
 public class SourceOperation {
 
-  private final List<SourceItemReference> inputFields;
-  private final List<SourceItemReference> outputFields;
+  private final List<ItemReference> inputFields;
+  private final List<ItemReference> outputFields;
 
   public SourceOperation(Builder builder) {
     this.inputFields = builder.inputFields;
     this.outputFields = builder.outputFields;
   }
 
-  public List<SourceItemReference> getInputFields() {
+  public List<ItemReference> getInputFields() {
     return inputFields;
   }
 
-  public List<SourceItemReference> getOutputFields() {
+  public List<ItemReference> getOutputFields() {
     return outputFields;
   }
 
@@ -29,17 +29,17 @@ public class SourceOperation {
 
   public static class Builder {
 
-    private List<SourceItemReference> inputFields;
-    private List<SourceItemReference> outputFields;
+    private List<ItemReference> inputFields;
+    private List<ItemReference> outputFields;
 
     private Builder() {}
 
-    public Builder inputFields(List<SourceItemReference> inputFields) {
+    public Builder inputFields(List<ItemReference> inputFields) {
       this.inputFields = inputFields;
       return this;
     }
 
-    public Builder outputFields(List<SourceItemReference> outputFields) {
+    public Builder outputFields(List<ItemReference> outputFields) {
       this.outputFields = outputFields;
       return this;
     }
