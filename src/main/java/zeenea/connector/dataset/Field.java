@@ -80,11 +80,6 @@ public class Field {
 
     protected Builder() {}
 
-    protected static void throwIfNull(String attributeName, Object attributeValue) {
-      if (attributeValue == null)
-        throw new NullPointerException("Attribute \"" + attributeName + "\" cannot be null");
-    }
-
     public SELF name(String name) {
       this.name = name;
       return self();

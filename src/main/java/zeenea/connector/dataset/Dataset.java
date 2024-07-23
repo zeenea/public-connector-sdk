@@ -1,7 +1,11 @@
 package zeenea.connector.dataset;
 
+import static zeenea.connector.exception.ExceptionUtils.throwIfNull;
+
 import java.util.List;
+import org.jetbrains.annotations.NotNull;
 import zeenea.connector.Item;
+import zeenea.connector.common.ItemIdentifier;
 
 public final class Dataset extends Item {
 
@@ -18,8 +22,8 @@ public final class Dataset extends Item {
     this.partitions = builder.partitions;
   }
 
-  public static Builder builder() {
-    return new Builder();
+  public static Builder builder(@NotNull ItemIdentifier id, @NotNull String name) {
+    return new Builder(id, name);
   }
 
   public List<Field> getFields() {
@@ -45,7 +49,9 @@ public final class Dataset extends Item {
     private List<ForeignKey> foreignKeys;
     private List<Partitioning> partitions;
 
-    private Builder() {}
+    private Builder(@NotNull ItemIdentifier id, @NotNull String name) {
+      super(id, name);
+    }
 
     public Dataset.Builder fields(List<Field> fields) {
       this.fields = fields;

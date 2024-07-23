@@ -1,9 +1,13 @@
 package zeenea.connector.visualization;
 
+import static zeenea.connector.exception.ExceptionUtils.throwIfNull;
+
 import java.util.List;
 import java.util.Objects;
 import java.util.StringJoiner;
+import org.jetbrains.annotations.NotNull;
 import zeenea.connector.Item;
+import zeenea.connector.common.ItemIdentifier;
 import zeenea.connector.common.ItemReference;
 
 public final class Visualization extends Item {
@@ -11,7 +15,7 @@ public final class Visualization extends Item {
   private final List<VisualizationField> fields;
   private final List<ItemReference> linkedDataset;
 
-  private Visualization(Visualization.Builder builder) {
+  private Visualization(Builder builder) {
     super(builder);
     this.fields = builder.fields;
     this.linkedDataset = builder.linkedDataset;
@@ -25,8 +29,8 @@ public final class Visualization extends Item {
     return linkedDataset;
   }
 
-  public static Builder builder() {
-    return new Builder();
+  public static Builder builder(@NotNull ItemIdentifier id, @NotNull String name) {
+    return new Builder(id, name);
   }
 
   public static class Builder extends Item.Builder<Visualization, Builder> {
@@ -34,7 +38,9 @@ public final class Visualization extends Item {
     private List<VisualizationField> fields;
     private List<ItemReference> linkedDataset;
 
-    private Builder() {}
+    private Builder(@NotNull ItemIdentifier id, @NotNull String name) {
+      super(id, name);
+    }
 
     public Visualization.Builder fields(List<VisualizationField> fields) {
       this.fields = fields;

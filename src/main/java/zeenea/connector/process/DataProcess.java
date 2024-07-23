@@ -3,16 +3,18 @@ package zeenea.connector.process;
 import java.util.List;
 import java.util.Objects;
 import java.util.StringJoiner;
+import org.jetbrains.annotations.NotNull;
 import zeenea.connector.Item;
+import zeenea.connector.common.ItemIdentifier;
 import zeenea.connector.common.ItemReference;
 
-public final class Process extends Item {
+public final class DataProcess extends Item {
 
   private final List<ItemReference> sourceItemReference;
   private final List<ItemReference> targetItemReference;
   private final List<Operation> operations;
 
-  private Process(Builder builder) {
+  private DataProcess(Builder builder) {
     super(builder);
     this.sourceItemReference = builder.sourceItemReference;
     this.targetItemReference = builder.targetItemReference;
@@ -31,17 +33,19 @@ public final class Process extends Item {
     return operations;
   }
 
-  public static Builder builder() {
-    return new Builder();
+  public static Builder builder(@NotNull ItemIdentifier id, @NotNull String name) {
+    return new Builder(id, name);
   }
 
-  public static class Builder extends Item.Builder<Process, Builder> {
+  public static class Builder extends Item.Builder<DataProcess, Builder> {
 
     private List<ItemReference> sourceItemReference;
     private List<ItemReference> targetItemReference;
     private List<Operation> operations;
 
-    private Builder() {}
+    private Builder(@NotNull ItemIdentifier id, @NotNull String name) {
+      super(id, name);
+    }
 
     public Builder sourceItemReference(List<ItemReference> sourceItemReference) {
       this.sourceItemReference = sourceItemReference;
@@ -59,8 +63,8 @@ public final class Process extends Item {
     }
 
     @Override
-    protected Process performBuild() {
-      return new Process(this);
+    protected DataProcess performBuild() {
+      return new DataProcess(this);
     }
   }
 
@@ -68,7 +72,7 @@ public final class Process extends Item {
   public boolean equals(Object o) {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
-    Process that = (Process) o;
+    DataProcess that = (DataProcess) o;
     return Objects.equals(sourceItemReference, that.sourceItemReference)
         && Objects.equals(targetItemReference, that.targetItemReference)
         && Objects.equals(operations, that.operations);
@@ -81,7 +85,7 @@ public final class Process extends Item {
 
   @Override
   public String toString() {
-    return new StringJoiner(", ", Process.class.getSimpleName() + "[", "]")
+    return new StringJoiner(", ", DataProcess.class.getSimpleName() + "[", "]")
         .add("operations=" + operations)
         .add("sourceItemReference=" + sourceItemReference)
         .add("targetItemReference=" + targetItemReference)

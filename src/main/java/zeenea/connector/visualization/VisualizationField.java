@@ -1,5 +1,7 @@
 package zeenea.connector.visualization;
 
+import static zeenea.connector.exception.ExceptionUtils.throwIfNull;
+
 import java.util.List;
 import java.util.Objects;
 import java.util.StringJoiner;

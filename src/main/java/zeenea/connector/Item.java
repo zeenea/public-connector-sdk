@@ -1,9 +1,13 @@
 package zeenea.connector;
 
+import static zeenea.connector.exception.ExceptionUtils.throwIfInvalidLength;
+import static zeenea.connector.exception.ExceptionUtils.throwIfNull;
+
 import java.math.BigDecimal;
 import java.net.URI;
 import java.time.Instant;
 import java.util.*;
+import org.jetbrains.annotations.NotNull;
 import zeenea.connector.common.ItemIdentifier;
 import zeenea.connector.contact.ContactRelation;
 import zeenea.connector.property.*;
@@ -106,64 +110,10 @@ public abstract class Item {
     private String description;
     private Instant updateTime;
 
-    protected Builder() {}
-
-    protected static void throwIfNull(String attributeName, Object attributeValue) {
-      if (attributeValue == null)
-        throw new NullPointerException("Attribute \"" + attributeName + "\" cannot be null");
-    }
-
-    protected static void throwIfInvalidLength(
-        String attributeName, String attributeValue, int maxLength) {
-      if (attributeValue != null && attributeValue.length() > maxLength)
-        throw new IllegalArgumentException(
-            "Attribute \""
-                + attributeName
-                + "\" cannot be more than "
-                + maxLength
-                + " characters long");
-    }
-
-    /**
-     * Get the name of the source item. This is required to build a SourceItem.
-     *
-     * @return The name of the source item, cannot be longer than 1024 characters
-     */
-    public String getName() {
-      return name;
-    }
-
-    /**
-     * Set the name of the source item. This is required to build a SourceItem.
-     *
-     * @param name The name of the source item, cannot be longer than 1024 characters
-     * @return This builder
-     */
-    public SELF name(String name) {
-      this.name = name;
-      return self();
-    }
-
-    /**
-     * Get the id of the source item. Must be unique to the source item. This is required to build a
-     * SourceItem.
-     *
-     * @return The id of the source item, cannot be longer than 1024 characters
-     */
-    public ItemIdentifier getId() {
-      return id;
-    }
-
-    /**
-     * Set the id of the source item. Must be unique to the source item. This is required to build a
-     * SourceItem.
-     *
-     * @param id The id of the source item, cannot be longer than 1024 characters
-     * @return This builder
-     */
-    public SELF id(ItemIdentifier id) {
-      this.id = id;
-      return self();
+    protected Builder(@NotNull ItemIdentifier id, @NotNull String name) {
+      throwIfNull("id", id);
+      throwIfNull("name", name);
+      throwIfInvalidLength("name", name, 1024);
     }
 
     /**
