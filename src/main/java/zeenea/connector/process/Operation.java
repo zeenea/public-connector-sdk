@@ -5,12 +5,12 @@ import java.util.Objects;
 import java.util.StringJoiner;
 import zeenea.connector.common.ItemReference;
 
-public class SourceOperation {
+public class Operation {
 
   private final List<ItemReference> inputFields;
   private final List<ItemReference> outputFields;
 
-  private SourceOperation(Builder builder) {
+  private Operation(Builder builder) {
     this.inputFields = builder.inputFields;
     this.outputFields = builder.outputFields;
   }
@@ -44,14 +44,14 @@ public class SourceOperation {
       return this;
     }
 
-    protected SourceOperation build() {
+    protected Operation build() {
       if (this.inputFields == null || this.inputFields.isEmpty()) {
         throw new IllegalArgumentException("inputFields must not be null or empty");
       }
       if (this.outputFields == null || this.outputFields.isEmpty()) {
         throw new IllegalArgumentException("targetDataset must not be null or empty");
       }
-      return new SourceOperation(this);
+      return new Operation(this);
     }
   }
 
@@ -59,7 +59,7 @@ public class SourceOperation {
   public boolean equals(Object o) {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
-    SourceOperation that = (SourceOperation) o;
+    Operation that = (Operation) o;
     return Objects.equals(inputFields, that.inputFields)
         && Objects.equals(outputFields, that.outputFields);
   }
@@ -71,7 +71,7 @@ public class SourceOperation {
 
   @Override
   public String toString() {
-    return new StringJoiner(", ", SourceOperation.class.getSimpleName() + "[", "]")
+    return new StringJoiner(", ", Operation.class.getSimpleName() + "[", "]")
         .add("inputFields=" + inputFields)
         .add("outputFields=" + outputFields)
         .toString();

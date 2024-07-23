@@ -6,13 +6,13 @@ import java.util.Optional;
 import java.util.StringJoiner;
 
 /**
- * Sub-class of {@link SourcePropertyValue} containing a value of type {@code URI} and a label.
+ * Sub-class of {@link PropertyValue} containing a value of type {@code URI} and a label.
  *
- * @see SourcePropertyValue
- * @see UrlSourcePropertyDefinition
+ * @see PropertyValue
+ * @see UrlPropertyDefinition
  * @since 1.0.0
  */
-public class UrlSourcePropertyValue implements SourcePropertyValue {
+public class UrlPropertyValue implements PropertyValue {
 
   private final URI value;
   private final String label;
@@ -22,7 +22,7 @@ public class UrlSourcePropertyValue implements SourcePropertyValue {
    *
    * @param value The metadata value
    */
-  public UrlSourcePropertyValue(URI value) {
+  public UrlPropertyValue(URI value) {
     this.value = value;
     this.label = null;
   }
@@ -33,7 +33,7 @@ public class UrlSourcePropertyValue implements SourcePropertyValue {
    * @param value The metadata value
    * @param label The label
    */
-  public UrlSourcePropertyValue(URI value, String label) {
+  public UrlPropertyValue(URI value, String label) {
     this.value = value;
     this.label = label;
   }
@@ -60,7 +60,7 @@ public class UrlSourcePropertyValue implements SourcePropertyValue {
   public boolean equals(Object o) {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
-    UrlSourcePropertyValue that = (UrlSourcePropertyValue) o;
+    UrlPropertyValue that = (UrlPropertyValue) o;
     return Objects.equals(value, that.value) && Objects.equals(label, that.label);
   }
 
@@ -71,7 +71,7 @@ public class UrlSourcePropertyValue implements SourcePropertyValue {
 
   @Override
   public String toString() {
-    return new StringJoiner(", ", UrlSourcePropertyValue.class.getSimpleName() + "[", "]")
+    return new StringJoiner(", ", UrlPropertyValue.class.getSimpleName() + "[", "]")
         .add("value=" + value)
         .add("label='" + label + "'")
         .toString();

@@ -4,20 +4,20 @@ import java.util.List;
 import java.util.Objects;
 import java.util.StringJoiner;
 import zeenea.connector.common.ItemReference;
-import zeenea.connector.dataset.SourceField;
+import zeenea.connector.dataset.Field;
 
-public class SourceVisualizationField extends SourceField {
+public class VisualizationField extends Field {
 
-  private final SourceVisualizationFieldType fieldType;
+  private final VisualizationFieldType fieldType;
   private final List<ItemReference> itemReferenceList;
 
-  private SourceVisualizationField(SourceVisualizationField.Builder builder) {
+  private VisualizationField(VisualizationField.Builder builder) {
     super(builder);
     this.fieldType = builder.fieldType;
     this.itemReferenceList = builder.itemReferenceList;
   }
 
-  public SourceVisualizationFieldType getFieldType() {
+  public VisualizationFieldType getFieldType() {
     return fieldType;
   }
 
@@ -25,33 +25,33 @@ public class SourceVisualizationField extends SourceField {
     return itemReferenceList;
   }
 
-  public static SourceVisualizationField.Builder builder() {
-    return new SourceVisualizationField.Builder();
+  public static VisualizationField.Builder builder() {
+    return new VisualizationField.Builder();
   }
 
-  public static class Builder extends SourceField.Builder<SourceVisualizationField, Builder> {
+  public static class Builder extends Field.Builder<VisualizationField, Builder> {
 
-    private SourceVisualizationFieldType fieldType;
+    private VisualizationFieldType fieldType;
     private List<ItemReference> itemReferenceList;
 
     private Builder() {}
 
-    public SourceVisualizationField.Builder fieldType(SourceVisualizationFieldType fieldType) {
+    public VisualizationField.Builder fieldType(VisualizationFieldType fieldType) {
       this.fieldType = fieldType;
       return this;
     }
 
-    public SourceVisualizationField.Builder sourceItemReferenceList(
+    public VisualizationField.Builder sourceItemReferenceList(
         List<ItemReference> itemReferenceList) {
       this.itemReferenceList = itemReferenceList;
       return this;
     }
 
     @Override
-    protected SourceVisualizationField build() {
+    protected VisualizationField build() {
       throwIfNull("fieldType", this.fieldType);
       throwIfNull("sourceItemReferenceList", this.itemReferenceList);
-      return new SourceVisualizationField(this);
+      return new VisualizationField(this);
     }
   }
 
@@ -60,7 +60,7 @@ public class SourceVisualizationField extends SourceField {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
     if (!super.equals(o)) return false;
-    SourceVisualizationField that = (SourceVisualizationField) o;
+    VisualizationField that = (VisualizationField) o;
     return fieldType == that.fieldType && Objects.equals(itemReferenceList, that.itemReferenceList);
   }
 
@@ -71,7 +71,7 @@ public class SourceVisualizationField extends SourceField {
 
   @Override
   public String toString() {
-    return new StringJoiner(", ", SourceVisualizationField.class.getSimpleName() + "[", "]")
+    return new StringJoiner(", ", VisualizationField.class.getSimpleName() + "[", "]")
         .add("fieldType=" + fieldType)
         .add("sourceItemReferenceList=" + itemReferenceList)
         .toString();

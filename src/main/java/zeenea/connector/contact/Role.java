@@ -2,20 +2,20 @@ package zeenea.connector.contact;
 
 import java.util.Objects;
 import java.util.StringJoiner;
-import zeenea.connector.SourceItem;
+import zeenea.connector.Item;
 
 /**
  * The qualifier of the relationship between a SourceContact and a SourceItem.
  *
- * @see SourceContactRelation
- * @see SourceContact
- * @see SourceItem
+ * @see ContactRelation
+ * @see Contact
+ * @see Item
  * @since 1.0.0
  */
-public class SourceRole {
+public class Role {
   private final String name;
 
-  private SourceRole(Builder builder) {
+  private Role(Builder builder) {
     this.name = builder.name;
   }
 
@@ -43,11 +43,11 @@ public class SourceRole {
       return this;
     }
 
-    protected SourceRole build() {
+    protected Role build() {
       if (this.name == null || this.name.isEmpty()) {
         throw new IllegalArgumentException("role name must not be null or empty");
       }
-      return new SourceRole(this);
+      return new Role(this);
     }
   }
 
@@ -55,7 +55,7 @@ public class SourceRole {
   public boolean equals(Object o) {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
-    SourceRole that = (SourceRole) o;
+    Role that = (Role) o;
     return Objects.equals(name, that.name);
   }
 
@@ -66,7 +66,7 @@ public class SourceRole {
 
   @Override
   public String toString() {
-    return new StringJoiner(", ", SourceRole.class.getSimpleName() + "[", "]")
+    return new StringJoiner(", ", Role.class.getSimpleName() + "[", "]")
         .add("name='" + name + "'")
         .toString();
   }

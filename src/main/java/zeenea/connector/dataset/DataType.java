@@ -3,7 +3,7 @@ package zeenea.connector.dataset;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public enum SourceDataType {
+public enum DataType {
   String,
   Byte,
   Short,
@@ -36,15 +36,14 @@ public enum SourceDataType {
     return this == GeoShape || this == GeoPoint;
   }
 
-  public static SourceDataType moreGenericType(List<SourceDataType> types) {
+  public static DataType moreGenericType(List<DataType> types) {
     return moreGenericType(types, false);
   }
 
-  public static SourceDataType moreGenericType(
-      List<SourceDataType> types, boolean transparentUnknown) {
+  public static DataType moreGenericType(List<DataType> types, boolean transparentUnknown) {
 
     // Remove Null, transparent Unknowns and duplicates
-    List<SourceDataType> preProcessed =
+    List<DataType> preProcessed =
         types.stream()
             .filter(t -> t != Null && (transparentUnknown || t != Unknown))
             .distinct()
@@ -56,13 +55,13 @@ public enum SourceDataType {
     if (preProcessed.size() == 1) {
       return preProcessed.get(0);
     }
-    if (preProcessed.stream().allMatch(SourceDataType::isInteger)) {
+    if (preProcessed.stream().allMatch(DataType::isInteger)) {
       return Long;
     }
-    if (preProcessed.stream().allMatch(SourceDataType::isNumeric)) {
+    if (preProcessed.stream().allMatch(DataType::isNumeric)) {
       return Double;
     }
-    if (preProcessed.stream().allMatch(SourceDataType::isGeo)) {
+    if (preProcessed.stream().allMatch(DataType::isGeo)) {
       return GeoShape;
     }
     if (!preProcessed.contains(Unknown)) {

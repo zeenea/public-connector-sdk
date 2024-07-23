@@ -2,7 +2,7 @@ package zeenea.connector.action;
 
 import java.util.Objects;
 import java.util.StringJoiner;
-import zeenea.connector.SourceItem;
+import zeenea.connector.Item;
 
 /**
  * A {@link ItemAction} used to create/update an item.
@@ -12,9 +12,9 @@ import zeenea.connector.SourceItem;
  */
 public class UpsertAction implements ItemAction {
 
-  private final SourceItem item;
+  private final Item item;
 
-  UpsertAction(SourceItem item) {
+  UpsertAction(Item item) {
     this.item = item;
   }
 
@@ -23,7 +23,7 @@ public class UpsertAction implements ItemAction {
    *
    * @return The item to upsert
    */
-  public SourceItem getItem() {
+  public Item getItem() {
     return item;
   }
 

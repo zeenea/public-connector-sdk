@@ -1,7 +1,7 @@
 package zeenea.connector;
 
 import java.util.Set;
-import zeenea.connector.property.SourcePropertyDefinition;
+import zeenea.connector.property.PropertyDefinition;
 
 public interface Connection extends AutoCloseable {
 
@@ -14,5 +14,5 @@ public interface Connection extends AutoCloseable {
    *
    * @return a set of Metadata
    */
-  Set<SourcePropertyDefinition> getSourceProperties();
+  Set<PropertyDefinition> getProperties();
 }

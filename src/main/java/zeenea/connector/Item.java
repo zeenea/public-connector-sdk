@@ -5,7 +5,7 @@ import java.net.URI;
 import java.time.Instant;
 import java.util.*;
 import zeenea.connector.common.ItemIdentifier;
-import zeenea.connector.contact.SourceContactRelation;
+import zeenea.connector.contact.ContactRelation;
 import zeenea.connector.property.*;
 
 /**
@@ -14,7 +14,7 @@ import zeenea.connector.property.*;
  *
  * @since 1.0.0
  */
-public abstract class SourceItem {
+public abstract class Item {
 
   private final String name;
 
@@ -22,13 +22,13 @@ public abstract class SourceItem {
 
   private final String description;
 
-  private final Map<String, SourcePropertyValue> properties;
+  private final Map<String, PropertyValue> properties;
 
   private final Instant updateTime;
 
-  private final Collection<SourceContactRelation> contactRelations;
+  private final Collection<ContactRelation> contactRelations;
 
-  protected SourceItem(Builder<?, ?> builder) {
+  protected Item(Builder<?, ?> builder) {
     this.name = builder.name;
     this.id = builder.id;
     this.description = builder.description;
@@ -71,7 +71,7 @@ public abstract class SourceItem {
    *
    * @return The technical metadata of the source item
    */
-  public Map<String, SourcePropertyValue> getProperties() {
+  public Map<String, PropertyValue> getProperties() {
     return Collections.unmodifiableMap(properties);
   }
 
@@ -89,18 +89,18 @@ public abstract class SourceItem {
    *
    * @return The contact relations of the source item
    */
-  public Collection<SourceContactRelation> getContactRelations() {
+  public Collection<ContactRelation> getContactRelations() {
     return contactRelations;
   }
 
   /**
-   * A utility class to create {@link SourceItem}-subclass instances following the <em>Builder</em>
-   * design pattern (abstract base class).
+   * A utility class to create {@link Item}-subclass instances following the <em>Builder</em> design
+   * pattern (abstract base class).
    */
   public abstract static class Builder<T, SELF extends Builder<T, ?>> {
 
-    private final Map<String, SourcePropertyValue> properties = new HashMap<>();
-    private final List<SourceContactRelation> contactRelations = new ArrayList<>();
+    private final Map<String, PropertyValue> properties = new HashMap<>();
+    private final List<ContactRelation> contactRelations = new ArrayList<>();
     private String name;
     private ItemIdentifier id;
     private String description;
@@ -192,7 +192,7 @@ public abstract class SourceItem {
      *
      * @return The technical properties of the source item
      */
-    public Map<String, SourcePropertyValue> getProperties() {
+    public Map<String, PropertyValue> getProperties() {
       return properties;
     }
 
@@ -204,8 +204,8 @@ public abstract class SourceItem {
      * @param value the value for this metadata
      * @return This builder
      */
-    public SELF addProperty(StringSourcePropertyDefinition property, String value) {
-      return addProperty(property, new StringSourcePropertyValue(value));
+    public SELF addProperty(StringPropertyDefinition property, String value) {
+      return addProperty(property, new StringPropertyValue(value));
     }
 
     /**
@@ -216,8 +216,7 @@ public abstract class SourceItem {
      * @param value the value for this metadata
      * @return This builder
      */
-    public SELF addProperty(
-        StringSourcePropertyDefinition property, StringSourcePropertyValue value) {
+    public SELF addProperty(StringPropertyDefinition property, StringPropertyValue value) {
       return putMetadata(property, value);
     }
 
@@ -229,7 +228,7 @@ public abstract class SourceItem {
      * @param value the value for this metadata
      * @return This builder
      */
-    public SELF addProperty(NumberSourcePropertyDefinition property, long value) {
+    public SELF addProperty(NumberPropertyDefinition property, long value) {
       return addProperty(property, BigDecimal.valueOf(value));
     }
 
@@ -241,7 +240,7 @@ public abstract class SourceItem {
      * @param value the value for this metadata
      * @return This builder
      */
-    public SELF addProperty(NumberSourcePropertyDefinition property, double value) {
+    public SELF addProperty(NumberPropertyDefinition property, double value) {
       return addProperty(property, BigDecimal.valueOf(value));
     }
 
@@ -253,8 +252,8 @@ public abstract class SourceItem {
      * @param value the value for this metadata
      * @return This builder
      */
-    public SELF addProperty(NumberSourcePropertyDefinition property, BigDecimal value) {
-      return addProperty(property, new NumberSourcePropertyValue(value));
+    public SELF addProperty(NumberPropertyDefinition property, BigDecimal value) {
+      return addProperty(property, new NumberPropertyValue(value));
     }
 
     /**
@@ -265,8 +264,7 @@ public abstract class SourceItem {
      * @param value the value for this metadata
      * @return This builder
      */
-    public SELF addProperty(
-        NumberSourcePropertyDefinition property, NumberSourcePropertyValue value) {
+    public SELF addProperty(NumberPropertyDefinition property, NumberPropertyValue value) {
       return putMetadata(property, value);
     }
 
@@ -278,8 +276,8 @@ public abstract class SourceItem {
      * @param value the value for this metadata
      * @return This builder
      */
-    public SELF addProperty(UrlSourcePropertyDefinition property, URI value) {
-      return addProperty(property, new UrlSourcePropertyValue(value));
+    public SELF addProperty(UrlPropertyDefinition property, URI value) {
+      return addProperty(property, new UrlPropertyValue(value));
     }
 
     /**
@@ -291,8 +289,8 @@ public abstract class SourceItem {
      * @param label the label value for this metadata
      * @return This builder
      */
-    public SELF addProperty(UrlSourcePropertyDefinition property, URI uri, String label) {
-      return addProperty(property, new UrlSourcePropertyValue(uri, label));
+    public SELF addProperty(UrlPropertyDefinition property, URI uri, String label) {
+      return addProperty(property, new UrlPropertyValue(uri, label));
     }
 
     /**
@@ -303,7 +301,7 @@ public abstract class SourceItem {
      * @param value the value for this metadata
      * @return This builder
      */
-    public SELF addProperty(UrlSourcePropertyDefinition property, UrlSourcePropertyValue value) {
+    public SELF addProperty(UrlPropertyDefinition property, UrlPropertyValue value) {
       return putMetadata(property, value);
     }
 
@@ -315,8 +313,8 @@ public abstract class SourceItem {
      * @param value the value for this metadata
      * @return This builder
      */
-    public SELF addProperty(InstantSourcePropertyDefinition property, Instant value) {
-      return addProperty(property, new InstantSourcePropertyValue(value));
+    public SELF addProperty(InstantPropertyDefinition property, Instant value) {
+      return addProperty(property, new InstantPropertyValue(value));
     }
 
     /**
@@ -327,13 +325,11 @@ public abstract class SourceItem {
      * @param value the value for this metadata
      * @return This builder
      */
-    public SELF addProperty(
-        InstantSourcePropertyDefinition metadata, InstantSourcePropertyValue value) {
+    public SELF addProperty(InstantPropertyDefinition metadata, InstantPropertyValue value) {
       return putMetadata(metadata, value);
     }
 
-    private SELF putMetadata(
-        SourcePropertyDefinition sourcePropertyDefinition, SourcePropertyValue value) {
+    private SELF putMetadata(PropertyDefinition sourcePropertyDefinition, PropertyValue value) {
       this.properties.put(sourcePropertyDefinition.getCode(), value);
       return self();
     }
@@ -363,7 +359,7 @@ public abstract class SourceItem {
      *
      * @return The contact relations of the source item
      */
-    public List<SourceContactRelation> getContactRelations() {
+    public List<ContactRelation> getContactRelations() {
       return contactRelations;
     }
 
@@ -373,7 +369,7 @@ public abstract class SourceItem {
      * @param contactRelation the ContactRelation to add
      * @return This builder
      */
-    public SELF addContactRelation(SourceContactRelation contactRelation) {
+    public SELF addContactRelation(ContactRelation contactRelation) {
       this.contactRelations.add(contactRelation);
       return self();
     }

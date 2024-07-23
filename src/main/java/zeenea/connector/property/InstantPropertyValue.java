@@ -5,13 +5,13 @@ import java.util.Objects;
 import java.util.StringJoiner;
 
 /**
- * Sub-class of {@link SourcePropertyValue} containing a value of type {@code Instant}.
+ * Sub-class of {@link PropertyValue} containing a value of type {@code Instant}.
  *
- * @see SourcePropertyValue
- * @see InstantSourcePropertyDefinition
+ * @see PropertyValue
+ * @see InstantPropertyDefinition
  * @since 1.0.0
  */
-public class InstantSourcePropertyValue implements SourcePropertyValue {
+public class InstantPropertyValue implements PropertyValue {
 
   private final Instant value;
 
@@ -20,7 +20,7 @@ public class InstantSourcePropertyValue implements SourcePropertyValue {
    *
    * @param value The metadata value
    */
-  public InstantSourcePropertyValue(Instant value) {
+  public InstantPropertyValue(Instant value) {
     this.value = value;
   }
 
@@ -37,7 +37,7 @@ public class InstantSourcePropertyValue implements SourcePropertyValue {
   public boolean equals(Object o) {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
-    InstantSourcePropertyValue that = (InstantSourcePropertyValue) o;
+    InstantPropertyValue that = (InstantPropertyValue) o;
     return Objects.equals(value, that.value);
   }
 
@@ -48,7 +48,7 @@ public class InstantSourcePropertyValue implements SourcePropertyValue {
 
   @Override
   public String toString() {
-    return new StringJoiner(", ", InstantSourcePropertyValue.class.getSimpleName() + "[", "]")
+    return new StringJoiner(", ", InstantPropertyValue.class.getSimpleName() + "[", "]")
         .add("value=" + value)
         .toString();
   }

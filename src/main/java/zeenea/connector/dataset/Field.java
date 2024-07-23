@@ -4,21 +4,21 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.StringJoiner;
-import zeenea.connector.property.SourcePropertyValue;
+import zeenea.connector.property.PropertyValue;
 
-public class SourceField {
+public class Field {
 
   private final String name;
-  private final SourceDataType dataType;
+  private final DataType dataType;
   private final String nativeType;
   private final int nativeIndex;
   private final List<String> keys;
   private final boolean nullable;
   private final boolean multivalued;
   private final String description;
-  private final Map<String, SourcePropertyValue> metadata;
+  private final Map<String, PropertyValue> metadata;
 
-  public SourceField(SourceField.Builder<?, ?> builder) {
+  public Field(Field.Builder<?, ?> builder) {
     this.name = builder.name;
     this.dataType = builder.dataType;
     this.nativeType = builder.nativeType;
@@ -30,7 +30,7 @@ public class SourceField {
     this.metadata = builder.metadata;
   }
 
-  public SourceDataType getDataType() {
+  public DataType getDataType() {
     return dataType;
   }
 
@@ -42,7 +42,7 @@ public class SourceField {
     return keys;
   }
 
-  public Map<String, SourcePropertyValue> getMetadata() {
+  public Map<String, PropertyValue> getMetadata() {
     return metadata;
   }
 
@@ -66,17 +66,17 @@ public class SourceField {
     return nullable;
   }
 
-  public static class Builder<T, SELF extends SourceField.Builder<T, ?>> {
+  public static class Builder<T, SELF extends Field.Builder<T, ?>> {
 
     private String name;
-    private SourceDataType dataType;
+    private DataType dataType;
     private String nativeType;
     private int nativeIndex;
     private List<String> keys;
     private boolean nullable;
     private boolean multivalued;
     private String description;
-    private Map<String, SourcePropertyValue> metadata;
+    private Map<String, PropertyValue> metadata;
 
     protected Builder() {}
 
@@ -90,7 +90,7 @@ public class SourceField {
       return self();
     }
 
-    public SELF dataType(SourceDataType dataType) {
+    public SELF dataType(DataType dataType) {
       this.dataType = dataType;
       return self();
     }
@@ -125,13 +125,13 @@ public class SourceField {
       return self();
     }
 
-    public SELF metadata(Map<String, SourcePropertyValue> metadata) {
+    public SELF metadata(Map<String, PropertyValue> metadata) {
       this.metadata = metadata;
       return self();
     }
 
-    protected SourceField build() {
-      return new SourceField(this);
+    protected Field build() {
+      return new Field(this);
     }
 
     @SuppressWarnings("unchecked")
@@ -144,7 +144,7 @@ public class SourceField {
   public boolean equals(Object o) {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
-    SourceField that = (SourceField) o;
+    Field that = (Field) o;
     return nativeIndex == that.nativeIndex
         && nullable == that.nullable
         && multivalued == that.multivalued
@@ -172,7 +172,7 @@ public class SourceField {
 
   @Override
   public String toString() {
-    return new StringJoiner(", ", SourceField.class.getSimpleName() + "[", "]")
+    return new StringJoiner(", ", Field.class.getSimpleName() + "[", "]")
         .add("dataType=" + dataType)
         .add("name='" + name + "'")
         .add("nativeType='" + nativeType + "'")

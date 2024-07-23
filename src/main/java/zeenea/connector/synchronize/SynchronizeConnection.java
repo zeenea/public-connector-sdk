@@ -2,7 +2,7 @@ package zeenea.connector.synchronize;
 
 import java.util.stream.Stream;
 import zeenea.connector.Connection;
-import zeenea.connector.SourceItem;
+import zeenea.connector.Item;
 
 /**
  * Base interface for Connectors.
@@ -12,10 +12,10 @@ import zeenea.connector.SourceItem;
 public interface SynchronizeConnection extends Connection {
 
   /**
-   * Called by scanner after {@link SynchronizeConnection#getSourceProperties()} to get <em>all</em>
+   * Called by scanner after {@link SynchronizeConnection#getProperties()} to get <em>all</em>
    * available items.
    *
    * @return The result of the synchronization
    */
-  Stream<SourceItem> synchronize();
+  Stream<Item> synchronize();
 }

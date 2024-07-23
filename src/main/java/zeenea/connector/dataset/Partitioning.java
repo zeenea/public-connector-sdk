@@ -3,11 +3,11 @@ package zeenea.connector.dataset;
 import java.util.Objects;
 import java.util.StringJoiner;
 
-public class SourcePartitioning {
+public class Partitioning {
   private final String column;
   private final String partitionType;
 
-  private SourcePartitioning(Builder builder) {
+  private Partitioning(Builder builder) {
     this.column = builder.column;
     this.partitionType = builder.partitionType;
   }
@@ -41,14 +41,14 @@ public class SourcePartitioning {
       return this;
     }
 
-    protected SourcePartitioning build() {
+    protected Partitioning build() {
       if (this.column == null || this.column.isEmpty()) {
         throw new IllegalArgumentException("column must not be null or empty");
       }
       if (this.partitionType == null || this.partitionType.isEmpty()) {
         throw new IllegalArgumentException("column must not be null or empty");
       }
-      return new SourcePartitioning(this);
+      return new Partitioning(this);
     }
   }
 
@@ -56,7 +56,7 @@ public class SourcePartitioning {
   public boolean equals(Object o) {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
-    SourcePartitioning that = (SourcePartitioning) o;
+    Partitioning that = (Partitioning) o;
     return Objects.equals(column, that.column) && Objects.equals(partitionType, that.partitionType);
   }
 
@@ -67,7 +67,7 @@ public class SourcePartitioning {
 
   @Override
   public String toString() {
-    return new StringJoiner(", ", SourcePartitioning.class.getSimpleName() + "[", "]")
+    return new StringJoiner(", ", Partitioning.class.getSimpleName() + "[", "]")
         .add("column='" + column + "'")
         .add("partitionType='" + partitionType + "'")
         .toString();

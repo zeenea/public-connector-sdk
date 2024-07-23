@@ -3,21 +3,21 @@ package zeenea.connector.contact;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.StringJoiner;
-import zeenea.connector.SourceItem;
+import zeenea.connector.Item;
 
 /**
  * A physical individual, team, entity, or moral person that can be linked to a SourceItem.
  *
- * @see SourceContactRelation
- * @see SourceItem
+ * @see ContactRelation
+ * @see Item
  * @since 1.0.0
  */
-public class SourceContact {
+public class Contact {
   private final String name;
   private final String email;
   private final String phoneNumber;
 
-  private SourceContact(Builder builder) {
+  private Contact(Builder builder) {
     this.name = builder.name;
     this.email = builder.email;
     this.phoneNumber = builder.phoneNumber;
@@ -77,11 +77,11 @@ public class SourceContact {
       return this;
     }
 
-    protected SourceContact build() {
+    protected Contact build() {
       if (this.email == null || this.email.isEmpty()) {
         throw new IllegalArgumentException("email must not be null or empty");
       }
-      return new SourceContact(this);
+      return new Contact(this);
     }
   }
 
@@ -89,7 +89,7 @@ public class SourceContact {
   public boolean equals(Object o) {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
-    SourceContact that = (SourceContact) o;
+    Contact that = (Contact) o;
     return Objects.equals(name, that.name)
         && Objects.equals(email, that.email)
         && Objects.equals(phoneNumber, that.phoneNumber);
@@ -102,7 +102,7 @@ public class SourceContact {
 
   @Override
   public String toString() {
-    return new StringJoiner(", ", SourceContact.class.getSimpleName() + "[", "]")
+    return new StringJoiner(", ", Contact.class.getSimpleName() + "[", "]")
         .add("name='" + name + "'")
         .add("email='" + email + "'")
         .add("phoneNumber='" + phoneNumber + "'")

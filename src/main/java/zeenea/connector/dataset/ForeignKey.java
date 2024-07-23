@@ -4,14 +4,14 @@ import java.util.List;
 import java.util.Objects;
 import java.util.StringJoiner;
 
-public class SourceForeignKey {
+public class ForeignKey {
 
   private final String targetDataset;
   private final List<String> sourceFields;
   private final List<String> targetFields;
   private final String name;
 
-  private SourceForeignKey(Builder builder) {
+  private ForeignKey(Builder builder) {
     this.targetDataset = builder.targetDataset;
     this.sourceFields = builder.sourceFields;
     this.targetFields = builder.targetFields;
@@ -67,7 +67,7 @@ public class SourceForeignKey {
       return this;
     }
 
-    protected SourceForeignKey build() {
+    protected ForeignKey build() {
       if (this.targetDataset == null || this.targetDataset.isEmpty()) {
         throw new IllegalArgumentException("targetDataset must not be null or empty");
       }
@@ -77,7 +77,7 @@ public class SourceForeignKey {
       if (this.targetFields == null || this.targetFields.isEmpty()) {
         throw new IllegalArgumentException("targetFields must not be null or empty");
       }
-      return new SourceForeignKey(this);
+      return new ForeignKey(this);
     }
   }
 
@@ -85,7 +85,7 @@ public class SourceForeignKey {
   public boolean equals(Object o) {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
-    SourceForeignKey that = (SourceForeignKey) o;
+    ForeignKey that = (ForeignKey) o;
     return Objects.equals(targetDataset, that.targetDataset)
         && Objects.equals(sourceFields, that.sourceFields)
         && Objects.equals(targetFields, that.targetFields)
@@ -99,7 +99,7 @@ public class SourceForeignKey {
 
   @Override
   public String toString() {
-    return new StringJoiner(", ", SourceForeignKey.class.getSimpleName() + "[", "]")
+    return new StringJoiner(", ", ForeignKey.class.getSimpleName() + "[", "]")
         .add("name='" + name + "'")
         .add("targetDataset='" + targetDataset + "'")
         .add("sourceFields=" + sourceFields)

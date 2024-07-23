@@ -2,7 +2,7 @@ package zeenea.connector.inventory;
 
 import java.util.stream.Stream;
 import zeenea.connector.Connection;
-import zeenea.connector.SourceItem;
+import zeenea.connector.Item;
 import zeenea.connector.common.ItemIdentifier;
 import zeenea.connector.common.ItemInventory;
 
@@ -15,5 +15,5 @@ public interface InventoryConnection extends Connection {
 
   Stream<ItemInventory> inventory();
 
-  Stream<SourceItem> extractItems(Stream<ItemIdentifier> items);
+  Stream<Item> extractItems(Stream<ItemIdentifier> items);
 }

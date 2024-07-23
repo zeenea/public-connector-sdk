@@ -3,16 +3,16 @@ package zeenea.connector.process;
 import java.util.List;
 import java.util.Objects;
 import java.util.StringJoiner;
-import zeenea.connector.SourceItem;
+import zeenea.connector.Item;
 import zeenea.connector.common.ItemReference;
 
-public final class SourceProcess extends SourceItem {
+public final class Process extends Item {
 
   private final List<ItemReference> sourceItemReference;
   private final List<ItemReference> targetItemReference;
-  private final List<SourceOperation> operations;
+  private final List<Operation> operations;
 
-  private SourceProcess(Builder builder) {
+  private Process(Builder builder) {
     super(builder);
     this.sourceItemReference = builder.sourceItemReference;
     this.targetItemReference = builder.targetItemReference;
@@ -27,7 +27,7 @@ public final class SourceProcess extends SourceItem {
     return targetItemReference;
   }
 
-  public List<SourceOperation> getOperations() {
+  public List<Operation> getOperations() {
     return operations;
   }
 
@@ -35,11 +35,11 @@ public final class SourceProcess extends SourceItem {
     return new Builder();
   }
 
-  public static class Builder extends SourceItem.Builder<SourceProcess, Builder> {
+  public static class Builder extends Item.Builder<Process, Builder> {
 
     private List<ItemReference> sourceItemReference;
     private List<ItemReference> targetItemReference;
-    private List<SourceOperation> operations;
+    private List<Operation> operations;
 
     private Builder() {}
 
@@ -53,14 +53,14 @@ public final class SourceProcess extends SourceItem {
       return this;
     }
 
-    public Builder operations(List<SourceOperation> operations) {
+    public Builder operations(List<Operation> operations) {
       this.operations = operations;
       return this;
     }
 
     @Override
-    protected SourceProcess performBuild() {
-      return new SourceProcess(this);
+    protected Process performBuild() {
+      return new Process(this);
     }
   }
 
@@ -68,7 +68,7 @@ public final class SourceProcess extends SourceItem {
   public boolean equals(Object o) {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
-    SourceProcess that = (SourceProcess) o;
+    Process that = (Process) o;
     return Objects.equals(sourceItemReference, that.sourceItemReference)
         && Objects.equals(targetItemReference, that.targetItemReference)
         && Objects.equals(operations, that.operations);
@@ -81,7 +81,7 @@ public final class SourceProcess extends SourceItem {
 
   @Override
   public String toString() {
-    return new StringJoiner(", ", SourceProcess.class.getSimpleName() + "[", "]")
+    return new StringJoiner(", ", Process.class.getSimpleName() + "[", "]")
         .add("operations=" + operations)
         .add("sourceItemReference=" + sourceItemReference)
         .add("targetItemReference=" + targetItemReference)

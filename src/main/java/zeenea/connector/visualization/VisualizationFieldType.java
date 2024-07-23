@@ -1,6 +1,6 @@
 package zeenea.connector.visualization;
 
-public enum SourceVisualizationFieldType {
+public enum VisualizationFieldType {
   MEASURE,
   DIMENSION
 }

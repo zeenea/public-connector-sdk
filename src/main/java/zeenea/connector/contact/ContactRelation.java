@@ -4,30 +4,30 @@ import java.util.Objects;
 import java.util.StringJoiner;
 
 /**
- * The relationship between a Contact and an Item. The relationship is defined by a {@link
- * SourceContact} and a {@link SourceRole}.
+ * The relationship between a Contact and an Item. The relationship is defined by a {@link Contact}
+ * and a {@link Role}.
  *
- * @see SourceContact
- * @see SourceRole
+ * @see Contact
+ * @see Role
  * @since 1.0.0
  */
-public class SourceContactRelation {
-  private final SourceContact contact;
-  private final SourceRole role;
+public class ContactRelation {
+  private final Contact contact;
+  private final Role role;
 
-  private SourceContactRelation(Builder builder) {
+  private ContactRelation(Builder builder) {
     this.contact =
-        SourceContact.builder()
+        Contact.builder()
             .name(builder.name)
             .email(builder.email)
             .phoneNumber(builder.phoneNumber)
             .build();
-    this.role = SourceRole.builder().name(builder.role).build();
+    this.role = Role.builder().name(builder.role).build();
   }
 
   /**
-   * Create a new {@link SourceContactRelation} builder. This builder is responsible for building
-   * the {@link SourceContact} and {@link SourceRole} attributes of the relation.
+   * Create a new {@link ContactRelation} builder. This builder is responsible for building the
+   * {@link Contact} and {@link Role} attributes of the relation.
    *
    * @return A contact relation builder
    */
@@ -40,7 +40,7 @@ public class SourceContactRelation {
    *
    * @return The contact of the source contact relation
    */
-  public SourceContact getContact() {
+  public Contact getContact() {
     return contact;
   }
 
@@ -49,13 +49,13 @@ public class SourceContactRelation {
    *
    * @return The role of the source contact relation
    */
-  public SourceRole getRole() {
+  public Role getRole() {
     return role;
   }
 
   /**
-   * A utility class to create {@link SourceContactRelation} instances following the
-   * <em>Builder</em> design pattern.
+   * A utility class to create {@link ContactRelation} instances following the <em>Builder</em>
+   * design pattern.
    */
   public static final class Builder {
 
@@ -86,10 +86,10 @@ public class SourceContactRelation {
       return this;
     }
 
-    public SourceContactRelation build() {
+    public ContactRelation build() {
       if (email == null) throw new NullPointerException("email cannot be null");
       if (role == null) throw new NullPointerException("role cannot be null");
-      return new SourceContactRelation(this);
+      return new ContactRelation(this);
     }
   }
 
@@ -97,7 +97,7 @@ public class SourceContactRelation {
   public boolean equals(Object o) {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
-    SourceContactRelation that = (SourceContactRelation) o;
+    ContactRelation that = (ContactRelation) o;
     return Objects.equals(contact, that.contact) && Objects.equals(role, that.role);
   }
 
@@ -108,7 +108,7 @@ public class SourceContactRelation {
 
   @Override
   public String toString() {
-    return new StringJoiner(", ", SourceContactRelation.class.getSimpleName() + "[", "]")
+    return new StringJoiner(", ", ContactRelation.class.getSimpleName() + "[", "]")
         .add("contact=" + contact)
         .add("role=" + role)
         .toString();

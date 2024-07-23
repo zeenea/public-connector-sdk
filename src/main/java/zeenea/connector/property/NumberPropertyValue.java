@@ -5,13 +5,13 @@ import java.util.Objects;
 import java.util.StringJoiner;
 
 /**
- * Sub-class of {@link SourcePropertyValue} containing a value of type {@code BigDecimal}.
+ * Sub-class of {@link PropertyValue} containing a value of type {@code BigDecimal}.
  *
- * @see SourcePropertyValue
- * @see NumberSourcePropertyDefinition
+ * @see PropertyValue
+ * @see NumberPropertyDefinition
  * @since 1.0.0
  */
-public class NumberSourcePropertyValue implements SourcePropertyValue {
+public class NumberPropertyValue implements PropertyValue {
 
   private final BigDecimal value;
 
@@ -20,7 +20,7 @@ public class NumberSourcePropertyValue implements SourcePropertyValue {
    *
    * @param value The metadata value
    */
-  public NumberSourcePropertyValue(BigDecimal value) {
+  public NumberPropertyValue(BigDecimal value) {
     this.value = value;
   }
 
@@ -37,7 +37,7 @@ public class NumberSourcePropertyValue implements SourcePropertyValue {
   public boolean equals(Object o) {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
-    NumberSourcePropertyValue that = (NumberSourcePropertyValue) o;
+    NumberPropertyValue that = (NumberPropertyValue) o;
     return Objects.equals(value, that.value);
   }
 
@@ -48,7 +48,7 @@ public class NumberSourcePropertyValue implements SourcePropertyValue {
 
   @Override
   public String toString() {
-    return new StringJoiner(", ", NumberSourcePropertyValue.class.getSimpleName() + "[", "]")
+    return new StringJoiner(", ", NumberPropertyValue.class.getSimpleName() + "[", "]")
         .add("value=" + value)
         .toString();
   }

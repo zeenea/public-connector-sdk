@@ -7,16 +7,16 @@ import java.util.StringJoiner;
  * Base class for all kinds of metadata. A metadata is a definition of an element of the metamodel
  * valued by the data source, for an item. Metadata is qualified by type and code.
  *
- * @see SourcePropertyType
- * @see SourcePropertyValue
+ * @see PropertyType
+ * @see PropertyValue
  * @since 1.0.0
  */
-public abstract class SourcePropertyDefinition {
+public abstract class PropertyDefinition {
 
   private final String code;
-  private final SourcePropertyType type;
+  private final PropertyType type;
 
-  SourcePropertyDefinition(String code, SourcePropertyType type) {
+  PropertyDefinition(String code, PropertyType type) {
     this.code = code;
     this.type = type;
   }
@@ -35,7 +35,7 @@ public abstract class SourcePropertyDefinition {
    *
    * @return The type of the metadata
    */
-  public SourcePropertyType getType() {
+  public PropertyType getType() {
     return type;
   }
 
@@ -43,7 +43,7 @@ public abstract class SourcePropertyDefinition {
   public boolean equals(Object o) {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
-    SourcePropertyDefinition sourcePropertyDefinition = (SourcePropertyDefinition) o;
+    PropertyDefinition sourcePropertyDefinition = (PropertyDefinition) o;
     return Objects.equals(code, sourcePropertyDefinition.code)
         && type == sourcePropertyDefinition.type;
   }
@@ -55,7 +55,7 @@ public abstract class SourcePropertyDefinition {
 
   @Override
   public String toString() {
-    return new StringJoiner(", ", SourcePropertyDefinition.class.getSimpleName() + "[", "]")
+    return new StringJoiner(", ", PropertyDefinition.class.getSimpleName() + "[", "]")
         .add("code='" + code + "'")
         .add("type=" + type)
         .toString();

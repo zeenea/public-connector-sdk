@@ -12,7 +12,7 @@ public class ItemReference {
     this.connectionAlias = builder.connectionAlias;
   }
 
-  public ItemIdentifier getIdentificationProperties() {
+  public ItemIdentifier getItemIdentifier() {
     return itemIdentifier;
   }
 

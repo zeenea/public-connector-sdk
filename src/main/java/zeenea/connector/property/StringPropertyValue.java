@@ -4,13 +4,13 @@ import java.util.Objects;
 import java.util.StringJoiner;
 
 /**
- * Sub-class of {@link SourcePropertyValue} containing a value of type {@code String}.
+ * Sub-class of {@link PropertyValue} containing a value of type {@code String}.
  *
- * @see SourcePropertyValue
- * @see StringSourcePropertyDefinition
+ * @see PropertyValue
+ * @see StringPropertyDefinition
  * @since 1.0.0
  */
-public class StringSourcePropertyValue implements SourcePropertyValue {
+public class StringPropertyValue implements PropertyValue {
 
   private final String value;
 
@@ -19,7 +19,7 @@ public class StringSourcePropertyValue implements SourcePropertyValue {
    *
    * @param value The metadata value
    */
-  public StringSourcePropertyValue(String value) {
+  public StringPropertyValue(String value) {
     this.value = value;
   }
 
@@ -36,7 +36,7 @@ public class StringSourcePropertyValue implements SourcePropertyValue {
   public boolean equals(Object o) {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
-    StringSourcePropertyValue that = (StringSourcePropertyValue) o;
+    StringPropertyValue that = (StringPropertyValue) o;
     return Objects.equals(value, that.value);
   }
 
@@ -47,7 +47,7 @@ public class StringSourcePropertyValue implements SourcePropertyValue {
 
   @Override
   public String toString() {
-    return new StringJoiner(", ", StringSourcePropertyValue.class.getSimpleName() + "[", "]")
+    return new StringJoiner(", ", StringPropertyValue.class.getSimpleName() + "[", "]")
         .add("value='" + value + "'")
         .toString();
   }
