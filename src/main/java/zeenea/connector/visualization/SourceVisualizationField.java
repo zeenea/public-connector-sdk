@@ -11,7 +11,7 @@ public class SourceVisualizationField extends SourceField {
   private final SourceVisualizationFieldType fieldType;
   private final List<ItemReference> itemReferenceList;
 
-  public SourceVisualizationField(SourceVisualizationField.Builder builder) {
+  private SourceVisualizationField(SourceVisualizationField.Builder builder) {
     super(builder);
     this.fieldType = builder.fieldType;
     this.itemReferenceList = builder.itemReferenceList;

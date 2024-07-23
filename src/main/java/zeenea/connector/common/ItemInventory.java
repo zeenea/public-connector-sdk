@@ -8,7 +8,7 @@ public class ItemInventory {
   private final ItemIdentifier itemIdentifier;
   private final List<String> labelPath;
 
-  public ItemInventory(Builder builder) {
+  private ItemInventory(Builder builder) {
     this.itemIdentifier = builder.itemIdentifier;
     this.labelPath = builder.label;
   }

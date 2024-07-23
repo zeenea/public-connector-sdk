@@ -7,7 +7,7 @@ public class ItemReference {
   private final ItemIdentifier itemIdentifier;
   private final String connectionAlias;
 
-  public ItemReference(Builder builder) {
+  private ItemReference(Builder builder) {
     this.itemIdentifier = builder.itemIdentifier;
     this.connectionAlias = builder.connectionAlias;
   }

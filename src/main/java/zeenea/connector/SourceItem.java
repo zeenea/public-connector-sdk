@@ -22,7 +22,7 @@ public abstract class SourceItem {
 
   private final String description;
 
-  private final Map<String, SourcePropertyValue> metadata;
+  private final Map<String, SourcePropertyValue> properties;
 
   private final Instant updateTime;
 
@@ -32,7 +32,7 @@ public abstract class SourceItem {
     this.name = builder.name;
     this.id = builder.id;
     this.description = builder.description;
-    this.metadata = new HashMap<>(builder.metadata);
+    this.properties = new HashMap<>(builder.properties);
     this.updateTime = builder.updateTime;
     this.contactRelations = List.copyOf(builder.contactRelations);
   }
@@ -71,8 +71,8 @@ public abstract class SourceItem {
    *
    * @return The technical metadata of the source item
    */
-  public Map<String, SourcePropertyValue> getMetadata() {
-    return Collections.unmodifiableMap(metadata);
+  public Map<String, SourcePropertyValue> getProperties() {
+    return Collections.unmodifiableMap(properties);
   }
 
   /**
@@ -99,7 +99,7 @@ public abstract class SourceItem {
    */
   public abstract static class Builder<T, SELF extends Builder<T, ?>> {
 
-    private final Map<String, SourcePropertyValue> metadata = new HashMap<>();
+    private final Map<String, SourcePropertyValue> properties = new HashMap<>();
     private final List<SourceContactRelation> contactRelations = new ArrayList<>();
     private String name;
     private ItemIdentifier id;
@@ -188,123 +188,135 @@ public abstract class SourceItem {
     }
 
     /**
-     * Get the technical metadata of the source item.
+     * Get the technical properties of the source item.
      *
-     * @return The technical metadata of the source item
+     * @return The technical properties of the source item
      */
-    public Map<String, SourcePropertyValue> getMetadata() {
-      return metadata;
+    public Map<String, SourcePropertyValue> getProperties() {
+      return properties;
     }
 
     /**
      * Add a StringMetadata and its value to the source item. Metadata are necessary for search
      * engine usage.
      *
-     * @param metadata the metadata
+     * @param property the property definition
      * @param value the value for this metadata
      * @return This builder
      */
-    public SELF addMetadata(StringSourcePropertyDefinition metadata, String value) {
-      return addMetadata(metadata, new StringSourcePropertyValue(value));
+    public SELF addProperty(StringSourcePropertyDefinition property, String value) {
+      return addProperty(property, new StringSourcePropertyValue(value));
     }
 
     /**
      * Add a StringMetadata and its value to the source item. Metadata are necessary for search
      * engine usage.
      *
-     * @param metadata the metadata
+     * @param property the metadata
      * @param value the value for this metadata
      * @return This builder
      */
-    public SELF addMetadata(
-        StringSourcePropertyDefinition metadata, StringSourcePropertyValue value) {
-      return putMetadata(metadata, value);
+    public SELF addProperty(
+        StringSourcePropertyDefinition property, StringSourcePropertyValue value) {
+      return putMetadata(property, value);
     }
 
     /**
      * Add a NumberMetadata and its value to the source item. Metadata are necessary for search
      * engine usage.
      *
-     * @param metadata the metadata
+     * @param property the metadata
      * @param value the value for this metadata
      * @return This builder
      */
-    public SELF addMetadata(NumberSourcePropertyDefinition metadata, long value) {
-      return addMetadata(metadata, BigDecimal.valueOf(value));
+    public SELF addProperty(NumberSourcePropertyDefinition property, long value) {
+      return addProperty(property, BigDecimal.valueOf(value));
     }
 
     /**
      * Add a NumberMetadata and its value to the source item. Metadata are necessary for search
      * engine usage.
      *
-     * @param metadata the metadata
+     * @param property the metadata
      * @param value the value for this metadata
      * @return This builder
      */
-    public SELF addMetadata(NumberSourcePropertyDefinition metadata, double value) {
-      return addMetadata(metadata, BigDecimal.valueOf(value));
+    public SELF addProperty(NumberSourcePropertyDefinition property, double value) {
+      return addProperty(property, BigDecimal.valueOf(value));
     }
 
     /**
      * Add a NumberMetadata and its value to the source item. Metadata are necessary for search
      * engine usage.
      *
-     * @param metadata the metadata
+     * @param property the metadata
      * @param value the value for this metadata
      * @return This builder
      */
-    public SELF addMetadata(NumberSourcePropertyDefinition metadata, BigDecimal value) {
-      return addMetadata(metadata, new NumberSourcePropertyValue(value));
+    public SELF addProperty(NumberSourcePropertyDefinition property, BigDecimal value) {
+      return addProperty(property, new NumberSourcePropertyValue(value));
     }
 
     /**
      * Add a NumberMetadata and its value to the source item. Metadata are necessary for search
      * engine usage.
      *
-     * @param metadata the metadata
+     * @param property the metadata
      * @param value the value for this metadata
      * @return This builder
      */
-    public SELF addMetadata(
-        NumberSourcePropertyDefinition metadata, NumberSourcePropertyValue value) {
-      return putMetadata(metadata, value);
+    public SELF addProperty(
+        NumberSourcePropertyDefinition property, NumberSourcePropertyValue value) {
+      return putMetadata(property, value);
     }
 
     /**
      * Add an UrlMetadata and its value to the source item. Metadata are necessary for search engine
      * usage.
      *
-     * @param metadata the metadata
+     * @param property the metadata
      * @param value the value for this metadata
      * @return This builder
      */
-    public SELF addMetadata(UrlSourcePropertyDefinition metadata, URI value) {
-      return addMetadata(metadata, new UrlSourcePropertyValue(value));
+    public SELF addProperty(UrlSourcePropertyDefinition property, URI value) {
+      return addProperty(property, new UrlSourcePropertyValue(value));
     }
 
     /**
      * Add an UrlMetadata and its value to the source item. Metadata are necessary for search engine
      * usage.
      *
-     * @param metadata the metadata
+     * @param property the metadata
      * @param uri the uri value for this metadata
      * @param label the label value for this metadata
      * @return This builder
      */
-    public SELF addMetadata(UrlSourcePropertyDefinition metadata, URI uri, String label) {
-      return addMetadata(metadata, new UrlSourcePropertyValue(uri, label));
+    public SELF addProperty(UrlSourcePropertyDefinition property, URI uri, String label) {
+      return addProperty(property, new UrlSourcePropertyValue(uri, label));
     }
 
     /**
      * Add an UrlMetadata and its value to the source item. Metadata are necessary for search engine
      * usage.
      *
-     * @param metadata the metadata
+     * @param property the metadata
      * @param value the value for this metadata
      * @return This builder
      */
-    public SELF addMetadata(UrlSourcePropertyDefinition metadata, UrlSourcePropertyValue value) {
-      return putMetadata(metadata, value);
+    public SELF addProperty(UrlSourcePropertyDefinition property, UrlSourcePropertyValue value) {
+      return putMetadata(property, value);
+    }
+
+    /**
+     * Add an InstantMetadata and its value to the source item. Metadata are necessary for search
+     * engine usage.
+     *
+     * @param property the metadata
+     * @param value the value for this metadata
+     * @return This builder
+     */
+    public SELF addProperty(InstantSourcePropertyDefinition property, Instant value) {
+      return addProperty(property, new InstantSourcePropertyValue(value));
     }
 
     /**
@@ -315,26 +327,14 @@ public abstract class SourceItem {
      * @param value the value for this metadata
      * @return This builder
      */
-    public SELF addMetadata(InstantSourcePropertyDefinition metadata, Instant value) {
-      return addMetadata(metadata, new InstantSourcePropertyValue(value));
-    }
-
-    /**
-     * Add an InstantMetadata and its value to the source item. Metadata are necessary for search
-     * engine usage.
-     *
-     * @param metadata the metadata
-     * @param value the value for this metadata
-     * @return This builder
-     */
-    public SELF addMetadata(
+    public SELF addProperty(
         InstantSourcePropertyDefinition metadata, InstantSourcePropertyValue value) {
       return putMetadata(metadata, value);
     }
 
     private SELF putMetadata(
         SourcePropertyDefinition sourcePropertyDefinition, SourcePropertyValue value) {
-      this.metadata.put(sourcePropertyDefinition.getCode(), value);
+      this.properties.put(sourcePropertyDefinition.getCode(), value);
       return self();
     }
 

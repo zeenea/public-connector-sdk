@@ -17,7 +17,7 @@ public class SourceContact {
   private final String email;
   private final String phoneNumber;
 
-  SourceContact(Builder builder) {
+  private SourceContact(Builder builder) {
     this.name = builder.name;
     this.email = builder.email;
     this.phoneNumber = builder.phoneNumber;

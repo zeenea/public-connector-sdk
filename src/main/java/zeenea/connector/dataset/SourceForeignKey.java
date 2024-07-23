@@ -11,7 +11,7 @@ public class SourceForeignKey {
   private final List<String> targetFields;
   private final String name;
 
-  public SourceForeignKey(Builder builder) {
+  private SourceForeignKey(Builder builder) {
     this.targetDataset = builder.targetDataset;
     this.sourceFields = builder.sourceFields;
     this.targetFields = builder.targetFields;

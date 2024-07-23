@@ -10,7 +10,7 @@ public class SourceOperation {
   private final List<ItemReference> inputFields;
   private final List<ItemReference> outputFields;
 
-  public SourceOperation(Builder builder) {
+  private SourceOperation(Builder builder) {
     this.inputFields = builder.inputFields;
     this.outputFields = builder.outputFields;
   }

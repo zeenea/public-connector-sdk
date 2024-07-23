@@ -7,7 +7,7 @@ public class SourcePartitioning {
   private final String column;
   private final String partitionType;
 
-  public SourcePartitioning(Builder builder) {
+  private SourcePartitioning(Builder builder) {
     this.column = builder.column;
     this.partitionType = builder.partitionType;
   }

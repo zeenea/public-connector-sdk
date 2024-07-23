@@ -3,7 +3,6 @@ plugins {
     `java-library`
     `maven-publish`
     id("com.diffplug.spotless") version "6.25.0"
-    //id("com.github.spotbugs") version "6.0.14"
 }
 
 
@@ -73,9 +72,9 @@ dependencies {
 
     val slf4jVersion: String by project
     testImplementation(group = "org.slf4j", name = "slf4j-api", version = slf4jVersion)
-    
+
     val junitVersion: String by project
-    api(platform("org.junit:junit-bom:${junitVersion}"))
+    testImplementation(platform("org.junit:junit-bom:${junitVersion}"))
     testImplementation(group = "org.junit.jupiter", name = "junit-jupiter-api")
     testRuntimeOnly(group = "org.junit.jupiter", name = "junit-jupiter-engine")
 

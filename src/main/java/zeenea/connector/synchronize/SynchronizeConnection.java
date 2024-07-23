@@ -1,6 +1,8 @@
 package zeenea.connector.synchronize;
 
+import java.util.stream.Stream;
 import zeenea.connector.Connection;
+import zeenea.connector.SourceItem;
 
 /**
  * Base interface for Connectors.
@@ -15,5 +17,5 @@ public interface SynchronizeConnection extends Connection {
    *
    * @return The result of the synchronization
    */
-  SynchronizeResult synchronize();
+  Stream<SourceItem> synchronize();
 }

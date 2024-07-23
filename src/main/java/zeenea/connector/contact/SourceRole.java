@@ -15,7 +15,7 @@ import zeenea.connector.SourceItem;
 public class SourceRole {
   private final String name;
 
-  SourceRole(Builder builder) {
+  private SourceRole(Builder builder) {
     this.name = builder.name;
   }
 

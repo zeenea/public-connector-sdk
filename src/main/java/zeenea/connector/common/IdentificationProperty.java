@@ -8,7 +8,7 @@ public class IdentificationProperty {
   private final String key;
   private final String value;
 
-  public IdentificationProperty(Builder builder) {
+  private IdentificationProperty(Builder builder) {
     this.key = builder.key;
     this.value = builder.value;
   }
