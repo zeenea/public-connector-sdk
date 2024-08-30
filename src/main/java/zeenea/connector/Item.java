@@ -18,6 +18,7 @@ import zeenea.connector.property.*;
  * @see zeenea.connector.dataset.Dataset
  * @see zeenea.connector.visualization.Visualization
  * @see zeenea.connector.process.DataProcess
+ * @see zeenea.connector.dataproduct.DataProduct
  */
 public abstract class Item {
 
