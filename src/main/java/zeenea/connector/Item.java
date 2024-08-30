@@ -43,7 +43,7 @@ public abstract class Item {
    * @param builder the builder used to create the Item instance
    */
   protected Item(Builder<?, ?> builder) {
-    ExceptionUtils.requireNonNullOrEmpty("contactRelations", builder.contactRelations);
+    ExceptionUtils.requireNonNull("contactRelations", builder.contactRelations);
     ExceptionUtils.requireNonNull("propertyDefinition", builder.properties);
     this.name = Objects.requireNonNull(builder.name, "name");
     this.id = Objects.requireNonNull(builder.id, "id");
