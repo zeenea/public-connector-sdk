@@ -162,7 +162,7 @@ public final class ForeignKey {
      * @return the builder instance
      */
     public Builder sourceFields(@NotNull List<String> sourceFields) {
-      this.sourceFields = sourceFields;
+      this.sourceFields = List.copyOf(sourceFields);
       return this;
     }
 
@@ -173,7 +173,7 @@ public final class ForeignKey {
      * @return the builder instance
      */
     public Builder targetFields(@NotNull List<String> targetFields) {
-      this.targetFields = targetFields;
+      this.targetFields = List.copyOf(targetFields);
       return this;
     }
 

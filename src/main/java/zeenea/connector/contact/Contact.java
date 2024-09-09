@@ -31,6 +31,19 @@ public final class Contact {
   }
 
   /**
+   * Creates a Contact instance with the specified email, name, and phone number.
+   *
+   * @param email the email address of the contact
+   * @param name the name of the contact
+   * @param phoneNumber the phone number of the contact
+   * @return a new Contact instance
+   */
+  public static Contact of(
+      @NotNull String email, @NotNull String name, @NotNull String phoneNumber) {
+    return builder().email(email).name(name).phoneNumber(phoneNumber).build();
+  }
+
+  /**
    * Gets the email address of the contact.
    *
    * @return the email address of the contact
@@ -60,11 +73,10 @@ public final class Contact {
   /**
    * Creates a new builder for the Contact class.
    *
-   * @param email the email address of the contact
    * @return a new Builder instance
    */
-  public static Builder builder(@NotNull String email) {
-    return new Builder(email);
+  public static Builder builder() {
+    return new Builder();
   }
 
   /**
@@ -111,7 +123,7 @@ public final class Contact {
   public static class Builder {
 
     /** The email address of the contact. */
-    private final String email;
+    private String email;
 
     /** The name of the contact, if any. */
     private String name;
@@ -120,12 +132,13 @@ public final class Contact {
     private String phoneNumber;
 
     /**
-     * Constructs a Builder instance with the specified email address.
+     * Sets the email of the contact.
      *
      * @param email the email address of the contact
      */
-    private Builder(@NotNull String email) {
+    private Builder email(@NotNull String email) {
       this.email = email;
+      return this;
     }
 
     /**

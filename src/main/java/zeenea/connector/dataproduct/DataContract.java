@@ -30,6 +30,17 @@ public final class DataContract {
   }
 
   /**
+   * Creates a DataContract instance with the specified type and source.
+   *
+   * @param type the type of the data contract
+   * @param source the source of the data contract
+   * @return a new DataContract instance
+   */
+  public static DataContract of(@NotNull Type type, @NotNull String source) {
+    return builder().type(type).source(source).build();
+  }
+
+  /**
    * Gets the type of the data contract.
    *
    * @return the type of the data contract
@@ -87,32 +98,41 @@ public final class DataContract {
   /**
    * Creates a new builder for the DataContract class.
    *
-   * @param type the type of the data contract
-   * @param source the source of the data contract
    * @return a new Builder instance
    */
-  public static Builder builder(@NotNull Type type, @NotNull String source) {
-    return new Builder(type, source);
+  public static Builder builder() {
+    return new Builder();
   }
 
   /** Builder class for creating instances of DataContract. */
   public static class Builder {
 
     /** The type of the data contract. */
-    private final Type type;
+    private Type type;
 
     /** The source of the data contract. */
-    private final String source;
+    private String source;
 
     /**
-     * Constructs a Builder instance with the specified type and source.
+     * Sets the type of the data contract.
      *
      * @param type the type of the data contract
-     * @param source the source of the data contract
+     * @return the builder instance
      */
-    private Builder(@NotNull Type type, @NotNull String source) {
+    public Builder type(@NotNull Type type) {
       this.type = type;
+      return this;
+    }
+
+    /**
+     * Sets the source of the data contract.
+     *
+     * @param source the source of the data contract
+     * @return the builder instance
+     */
+    public Builder source(@NotNull String source) {
       this.source = source;
+      return this;
     }
 
     /**

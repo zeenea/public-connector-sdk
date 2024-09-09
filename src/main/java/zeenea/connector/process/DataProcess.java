@@ -5,7 +5,6 @@ import java.util.Objects;
 import java.util.StringJoiner;
 import org.jetbrains.annotations.NotNull;
 import zeenea.connector.Item;
-import zeenea.connector.common.ItemIdentifier;
 import zeenea.connector.common.ItemReference;
 import zeenea.connector.exception.ExceptionUtils;
 
@@ -90,12 +89,10 @@ public final class DataProcess extends Item {
   /**
    * Creates a new Builder instance for constructing a DataProcess.
    *
-   * @param id the item identifier
-   * @param name the name of the item
    * @return a new Builder instance
    */
-  public static Builder builder(@NotNull ItemIdentifier id, @NotNull String name) {
-    return new Builder(id, name);
+  public static Builder builder() {
+    return new Builder();
   }
 
   /** Builder class for constructing DataProcess instances. */
@@ -108,23 +105,13 @@ public final class DataProcess extends Item {
     private List<ItemReference> targetItemReference;
 
     /**
-     * Constructs a Builder instance with the specified item identifier and name.
-     *
-     * @param id the item identifier
-     * @param name the name of the item
-     */
-    private Builder(@NotNull ItemIdentifier id, @NotNull String name) {
-      super(id, name);
-    }
-
-    /**
      * Sets the source item references for the DataProcess.
      *
      * @param sourceItemReference the source item references
      * @return this Builder instance
      */
     public Builder sourceItemReference(@NotNull List<ItemReference> sourceItemReference) {
-      this.sourceItemReference = sourceItemReference;
+      this.sourceItemReference = List.copyOf(sourceItemReference);
       return this;
     }
 
@@ -135,7 +122,7 @@ public final class DataProcess extends Item {
      * @return this Builder instance
      */
     public Builder targetItemReference(@NotNull List<ItemReference> targetItemReference) {
-      this.targetItemReference = targetItemReference;
+      this.targetItemReference = List.copyOf(targetItemReference);
       return this;
     }
 

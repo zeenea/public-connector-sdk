@@ -6,7 +6,6 @@ import java.util.Objects;
 import java.util.StringJoiner;
 import org.jetbrains.annotations.NotNull;
 import zeenea.connector.Item;
-import zeenea.connector.common.ItemIdentifier;
 import zeenea.connector.common.ItemReference;
 import zeenea.connector.exception.ExceptionUtils;
 
@@ -135,12 +134,10 @@ public final class Dataset extends Item {
   /**
    * Creates a new builder for the Dataset class.
    *
-   * @param id the identifier of the dataset
-   * @param name the name of the dataset
    * @return a new Builder instance
    */
-  public static Builder builder(@NotNull ItemIdentifier id, @NotNull String name) {
-    return new Builder(id, name);
+  public static Builder builder() {
+    return new Builder();
   }
 
   /** Builder class for creating instances of Dataset. */
@@ -162,23 +159,13 @@ public final class Dataset extends Item {
     private List<ItemReference> sourceDatasets = new ArrayList<>();
 
     /**
-     * Constructs a Builder instance with the specified identifier and name.
-     *
-     * @param id the identifier of the dataset
-     * @param name the name of the dataset
-     */
-    private Builder(@NotNull ItemIdentifier id, @NotNull String name) {
-      super(id, name);
-    }
-
-    /**
      * Sets the list of fields in the dataset.
      *
      * @param fields the list of fields
      * @return the builder instance
      */
     public Builder fields(@NotNull List<Field> fields) {
-      this.fields = fields;
+      this.fields = List.copyOf(fields);
       return this;
     }
 
@@ -189,7 +176,7 @@ public final class Dataset extends Item {
      * @return the builder instance
      */
     public Builder primaryKeys(@NotNull List<String> primaryKeys) {
-      this.primaryKeys = primaryKeys;
+      this.primaryKeys = List.copyOf(primaryKeys);
       return this;
     }
 
@@ -200,7 +187,7 @@ public final class Dataset extends Item {
      * @return the builder instance
      */
     public Builder foreignKeys(@NotNull List<ForeignKey> foreignKeys) {
-      this.foreignKeys = foreignKeys;
+      this.foreignKeys = List.copyOf(foreignKeys);
       return this;
     }
 
@@ -211,7 +198,7 @@ public final class Dataset extends Item {
      * @return the builder instance
      */
     public Builder partitions(@NotNull List<Partitioning> partitions) {
-      this.partitions = partitions;
+      this.partitions = List.copyOf(partitions);
       return this;
     }
 
@@ -222,7 +209,7 @@ public final class Dataset extends Item {
      * @return the builder instance
      */
     public Builder sourceDatasets(@NotNull List<ItemReference> sourceDatasets) {
-      this.sourceDatasets = sourceDatasets;
+      this.sourceDatasets = List.copyOf(sourceDatasets);
       return this;
     }
 

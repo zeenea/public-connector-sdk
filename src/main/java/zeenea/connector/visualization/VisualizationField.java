@@ -3,6 +3,7 @@ package zeenea.connector.visualization;
 import java.util.List;
 import java.util.Objects;
 import java.util.StringJoiner;
+import org.jetbrains.annotations.NotNull;
 import zeenea.connector.common.ItemReference;
 import zeenea.connector.dataset.Field;
 import zeenea.connector.exception.ExceptionUtils;
@@ -11,10 +12,10 @@ import zeenea.connector.exception.ExceptionUtils;
 public final class VisualizationField extends Field {
 
   /** The type of the field. */
-  private final VisualizationFieldType fieldType;
+  @NotNull private final VisualizationFieldType fieldType;
 
   /** The list of item references associated with the field. */
-  private final List<ItemReference> itemReferenceList;
+  @NotNull private final List<ItemReference> itemReferenceList;
 
   /**
    * Constructs a VisualizationField instance using the builder.
@@ -33,7 +34,7 @@ public final class VisualizationField extends Field {
    *
    * @return the type of the field
    */
-  public VisualizationFieldType getFieldType() {
+  public @NotNull VisualizationFieldType getFieldType() {
     return fieldType;
   }
 

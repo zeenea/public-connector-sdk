@@ -117,36 +117,30 @@ public final class InputPort {
   /**
    * Creates a new builder for the InputPort class.
    *
-   * @param name the name of the input port
    * @return a new Builder instance
    */
-  public static Builder builder(@NotNull String name) {
-    return new Builder(name);
+  public static Builder builder() {
+    return new Builder();
   }
 
   /** Builder class for creating instances of InputPort. */
   public static class Builder {
 
     /** The name of the input port. */
-    private final String name;
+    private String name;
 
     /** The description of the input port. */
     private String description = null;
 
     /** The list of input references for the input port. */
-    private final List<ItemReference> inputs = new ArrayList<>();
+    private List<ItemReference> inputs;
 
     /** The list of output identifiers for the input port. */
-    private final List<ItemIdentifier> outputs = new ArrayList<>();
+    private List<ItemIdentifier> outputs;
 
-    /**
-     * Constructs a Builder instance with the specified name.
-     *
-     * @param name the name of the input port
-     */
-    private Builder(String name) {
-      ExceptionUtils.requireNonNullOrEmpty("name", name);
+    private Builder name(@NotNull String name) {
       this.name = name;
+      return this;
     }
 
     /**
@@ -161,47 +155,24 @@ public final class InputPort {
     }
 
     /**
-     * Adds an input reference to the input port.
-     *
-     * @param input the input reference to add
-     * @return the builder instance
-     */
-    public Builder addInput(@NotNull ItemReference input) {
-      this.inputs.add(input);
-      return this;
-    }
-
-    /**
-     * Adds a collection of input references to the input port.
+     * Set a collection of input references to the input port.
      *
      * @param inputs the collection of input references to add
      * @return the builder instance
      */
-    public Builder addInputs(@NotNull Collection<ItemReference> inputs) {
-      ExceptionUtils.requireNonNull("inputs", inputs);
-      this.inputs.addAll(inputs);
+    public Builder inputs(@NotNull Collection<ItemReference> inputs) {
+      this.inputs = List.copyOf(inputs);
       return this;
     }
 
     /**
-     * Adds an output identifier to the input port.
-     *
-     * @param output the output identifier to add
-     * @return the builder instance
-     */
-    public Builder addOutput(@NotNull ItemIdentifier output) {
-      this.outputs.add(output);
-      return this;
-    }
-
-    /**
-     * Adds a collection of output identifiers to the input port.
+     * Set a collection of output identifiers to the input port.
      *
      * @param outputs the collection of output identifiers to add
      * @return the builder instance
      */
-    public Builder addOutputs(@NotNull Collection<ItemIdentifier> outputs) {
-      this.outputs.addAll(outputs);
+    public Builder outputs(@NotNull Collection<ItemIdentifier> outputs) {
+      this.outputs = List.copyOf(outputs);
       return this;
     }
 

@@ -1,8 +1,5 @@
 package zeenea.connector.dataproduct;
 
-import java.math.BigDecimal;
-import java.net.URI;
-import java.time.Instant;
 import java.util.*;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -139,41 +136,50 @@ public final class OutputPort {
   /**
    * Creates a new builder for the OutputPort class.
    *
-   * @param name the name of the output port
-   * @param dataContract the data contract associated with the output port
    * @return a new Builder instance
    */
-  public static Builder builder(@NotNull String name, @NotNull DataContract dataContract) {
-    return new Builder(name, dataContract);
+  public static Builder builder() {
+    return new Builder();
   }
 
   /** Builder class for creating instances of OutputPort. */
   public static class Builder {
 
     /** The name of the output port. */
-    private final String name;
+    private String name;
 
     /** The description of the output port. */
     private String description = null;
 
     /** The data contract associated with the output port. */
-    private final DataContract dataContract;
+    private DataContract dataContract;
 
     /** The list of datasets associated with the output port. */
-    private final List<Dataset> datasets = new ArrayList<>();
+    private List<Dataset> datasets;
 
     /** The properties of the output port. */
-    private final Map<String, PropertyValue> properties = new HashMap<>();
+    private Map<String, PropertyValue> properties;
 
     /**
-     * Constructs a Builder instance with the specified name and data contract.
+     * Sets the name of the output port.
      *
      * @param name the name of the output port
-     * @param dataContract the data contract associated with the output port
+     * @return the builder instance
      */
-    private Builder(String name, DataContract dataContract) {
+    public Builder name(String name) {
       this.name = name;
+      return this;
+    }
+
+    /**
+     * Sets the data contract associated with the output port.
+     *
+     * @param dataContract the data contract to set
+     * @return the builder instance
+     */
+    public Builder dataContract(DataContract dataContract) {
       this.dataContract = dataContract;
+      return this;
     }
 
     /**
@@ -188,182 +194,24 @@ public final class OutputPort {
     }
 
     /**
-     * Adds a dataset to the output port.
+     * Set a collection of datasets to the output port.
      *
-     * @param dataset the dataset to add
+     * @param datasets the collection of datasets to set
      * @return the builder instance
      */
-    public Builder addDataset(@NotNull Dataset dataset) {
-      this.datasets.add(dataset);
+    public Builder datasets(@NotNull Collection<Dataset> datasets) {
+      this.datasets = List.copyOf(datasets);
       return this;
     }
 
     /**
-     * Adds a collection of datasets to the output port.
+     * Set the properties map.
      *
-     * @param datasets the collection of datasets to add
+     * @param properties the collection of properties to set
      * @return the builder instance
      */
-    public Builder addDatasets(@NotNull Collection<Dataset> datasets) {
-      this.datasets.addAll(datasets);
-      return this;
-    }
-
-    /**
-     * Adds a string property to the output port.
-     *
-     * @param propertyDefinition the property definition
-     * @param value the property value
-     * @return the builder instance
-     */
-    public Builder addProperty(
-        @NotNull StringPropertyDefinition propertyDefinition, @NotNull String value) {
-      return addProperty(propertyDefinition, new StringPropertyValue(value));
-    }
-
-    /**
-     * Adds a string property value to the output port.
-     *
-     * @param propertyDefinition the property definition
-     * @param value the property value
-     * @return the builder instance
-     */
-    public Builder addProperty(
-        @NotNull StringPropertyDefinition propertyDefinition, @NotNull StringPropertyValue value) {
-      return putProperty(propertyDefinition, value);
-    }
-
-    /**
-     * Adds a long number property to the output port.
-     *
-     * @param propertyDefinition the property definition
-     * @param value the property value
-     * @return the builder instance
-     */
-    public Builder addProperty(@NotNull NumberPropertyDefinition propertyDefinition, long value) {
-      return addProperty(propertyDefinition, BigDecimal.valueOf(value));
-    }
-
-    /**
-     * Adds a double number property to the output port.
-     *
-     * @param propertyDefinition the property definition
-     * @param value the property value
-     * @return the builder instance
-     */
-    public Builder addProperty(@NotNull NumberPropertyDefinition propertyDefinition, double value) {
-      return addProperty(propertyDefinition, BigDecimal.valueOf(value));
-    }
-
-    /**
-     * Adds a BigDecimal number property to the output port.
-     *
-     * @param propertyDefinition the property definition
-     * @param value the property value
-     * @return the builder instance
-     */
-    public Builder addProperty(
-        @NotNull NumberPropertyDefinition propertyDefinition, @NotNull BigDecimal value) {
-      return addProperty(propertyDefinition, new NumberPropertyValue(value));
-    }
-
-    /**
-     * Adds a number property value to the output port.
-     *
-     * @param propertyDefinition the property definition
-     * @param value the property value
-     * @return the builder instance
-     */
-    public Builder addProperty(
-        @NotNull NumberPropertyDefinition propertyDefinition, @NotNull NumberPropertyValue value) {
-      return putProperty(propertyDefinition, value);
-    }
-
-    /**
-     * Adds a URL property to the output port.
-     *
-     * @param propertyDefinition the property definition
-     * @param value the property value
-     * @return the builder instance
-     */
-    public Builder addProperty(
-        @NotNull UrlPropertyDefinition propertyDefinition, @NotNull URI value) {
-      return addProperty(propertyDefinition, new UrlPropertyValue(value));
-    }
-
-    /**
-     * Adds a URL property with a label to the output port.
-     *
-     * @param propertyDefinition the property definition
-     * @param uri the URI value
-     * @param label the label for the URI
-     * @return the builder instance
-     */
-    public Builder addProperty(
-        @NotNull UrlPropertyDefinition propertyDefinition,
-        @NotNull URI uri,
-        @NotNull String label) {
-      return addProperty(propertyDefinition, new UrlPropertyValue(uri, label));
-    }
-
-    /**
-     * Adds a URL property value to the output port.
-     *
-     * @param propertyDefinition the property definition
-     * @param value the property value
-     * @return the builder instance
-     */
-    public Builder addProperty(
-        @NotNull UrlPropertyDefinition propertyDefinition, @NotNull UrlPropertyValue value) {
-      return putProperty(propertyDefinition, value);
-    }
-
-    /**
-     * Adds an instant property to the output port.
-     *
-     * @param propertyDefinition the property definition
-     * @param value the property value
-     * @return the builder instance
-     */
-    public Builder addProperty(
-        @NotNull InstantPropertyDefinition propertyDefinition, @NotNull Instant value) {
-      return addProperty(propertyDefinition, new InstantPropertyValue(value));
-    }
-
-    /**
-     * Adds an instant property value to the output port.
-     *
-     * @param propertyDefinition the property definition
-     * @param value the property value
-     * @return the builder instance
-     */
-    public Builder addProperty(
-        @NotNull InstantPropertyDefinition propertyDefinition,
-        @NotNull InstantPropertyValue value) {
-      return putProperty(propertyDefinition, value);
-    }
-
-    /**
-     * Adds a tag property value to the output port.
-     *
-     * @param propertyDefinition the property definition
-     * @param value the property value
-     * @return the builder instance
-     */
-    public Builder addProperty(
-        @NotNull TagPropertyDefinition propertyDefinition, @NotNull TagPropertyValue value) {
-      return putProperty(propertyDefinition, value);
-    }
-
-    /**
-     * Puts a property value into the properties map.
-     *
-     * @param propertyDefinition the property definition
-     * @param value the property value
-     * @return the builder instance
-     */
-    private Builder putProperty(PropertyDefinition propertyDefinition, PropertyValue value) {
-      this.properties.put(propertyDefinition.getCode(), value);
+    private Builder properties(Map<String, PropertyValue> properties) {
+      this.properties = Map.copyOf(properties);
       return this;
     }
 

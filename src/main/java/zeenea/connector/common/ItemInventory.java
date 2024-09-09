@@ -36,7 +36,8 @@ public final class ItemInventory {
    * @param labelPath the path of labels associated with the item
    * @return a new ItemInventory instance
    */
-  public ItemInventory of(@NotNull ItemIdentifier itemIdentifier, @NotNull List<String> labelPath) {
+  public static ItemInventory of(
+      @NotNull ItemIdentifier itemIdentifier, @NotNull List<String> labelPath) {
     return new ItemInventory.Builder(itemIdentifier).addLabels(labelPath).build();
   }
 

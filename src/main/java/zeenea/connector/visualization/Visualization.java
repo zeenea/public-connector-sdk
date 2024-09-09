@@ -5,7 +5,6 @@ import java.util.Objects;
 import java.util.StringJoiner;
 import org.jetbrains.annotations.NotNull;
 import zeenea.connector.Item;
-import zeenea.connector.common.ItemIdentifier;
 import zeenea.connector.common.ItemReference;
 import zeenea.connector.exception.ExceptionUtils;
 
@@ -89,12 +88,10 @@ public final class Visualization extends Item {
   /**
    * Creates a builder for Visualization.
    *
-   * @param id the identifier of the item
-   * @param name the name of the item
    * @return a new Builder instance
    */
-  public static Builder builder(@NotNull ItemIdentifier id, @NotNull String name) {
-    return new Builder(id, name);
+  public static Builder builder() {
+    return new Builder();
   }
 
   /** Builder class for constructing Visualization instances. */
@@ -107,23 +104,13 @@ public final class Visualization extends Item {
     private List<ItemReference> linkedDataset;
 
     /**
-     * Constructs a Builder instance with the specified identifier and name.
-     *
-     * @param id the identifier of the item
-     * @param name the name of the item
-     */
-    private Builder(@NotNull ItemIdentifier id, @NotNull String name) {
-      super(id, name);
-    }
-
-    /**
      * Sets the fields of the visualization.
      *
      * @param fields the fields of the visualization
      * @return the Builder instance
      */
-    public Visualization.Builder fields(@NotNull List<VisualizationField> fields) {
-      this.fields = fields;
+    public Builder fields(@NotNull List<VisualizationField> fields) {
+      this.fields = List.copyOf(fields);
       return this;
     }
 
@@ -133,8 +120,8 @@ public final class Visualization extends Item {
      * @param linkedDataset the linked dataset references of the visualization
      * @return the Builder instance
      */
-    public Visualization.Builder linkedDataset(@NotNull List<ItemReference> linkedDataset) {
-      this.linkedDataset = linkedDataset;
+    public Builder linkedDataset(@NotNull List<ItemReference> linkedDataset) {
+      this.linkedDataset = List.copyOf(linkedDataset);
       return this;
     }
 

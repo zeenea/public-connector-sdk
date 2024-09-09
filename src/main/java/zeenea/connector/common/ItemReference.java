@@ -32,9 +32,12 @@ public final class ItemReference {
    * @param connectionReference the connection reference associated with the item, if any
    * @return a new ItemReference instance
    */
-  public ItemReference of(
+  public static ItemReference of(
       @NotNull ItemIdentifier itemIdentifier, @Nullable ConnectionReference connectionReference) {
-    return new Builder(itemIdentifier).connectionReference(connectionReference).build();
+    return builder()
+        .itemIdentifier(itemIdentifier)
+        .connectionReference(connectionReference)
+        .build();
   }
 
   /**
@@ -58,11 +61,10 @@ public final class ItemReference {
   /**
    * Creates a new builder for the ItemReference class.
    *
-   * @param itemIdentifier the identifier for the item
    * @return a new Builder instance
    */
-  public static Builder builder(@NotNull ItemIdentifier itemIdentifier) {
-    return new Builder(itemIdentifier);
+  public static Builder builder() {
+    return new Builder();
   }
 
   /**
@@ -107,18 +109,20 @@ public final class ItemReference {
   public static class Builder {
 
     /** The identifier for the item. */
-    private final ItemIdentifier itemIdentifier;
+    private ItemIdentifier itemIdentifier;
 
     /** The connection reference associated with the item, if any. */
     private ConnectionReference connectionReference;
 
     /**
-     * Constructs a Builder instance with the specified item identifier.
+     * Sets the identifier for the item.
      *
      * @param itemIdentifier the identifier for the item
+     * @return the Builder instance
      */
-    private Builder(ItemIdentifier itemIdentifier) {
+    public Builder itemIdentifier(@Nullable ItemIdentifier itemIdentifier) {
       this.itemIdentifier = itemIdentifier;
+      return this;
     }
 
     /**
