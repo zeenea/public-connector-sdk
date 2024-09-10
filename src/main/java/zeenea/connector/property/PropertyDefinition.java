@@ -46,6 +46,56 @@ public abstract class PropertyDefinition {
   }
 
   /**
+   * Creates a new StringPropertyDefinition with the specified code.
+   *
+   * @param code the code of the property definition
+   * @return a new StringPropertyDefinition instance
+   */
+  public static StringPropertyDefinition string(String code) {
+    return new StringPropertyDefinition(code);
+  }
+
+  /**
+   * Creates a new InstantPropertyDefinition with the specified code.
+   *
+   * @param code the code of the property definition
+   * @return a new InstantPropertyDefinition instance
+   */
+  public static InstantPropertyDefinition instant(String code) {
+    return new InstantPropertyDefinition(code);
+  }
+
+  /**
+   * Creates a new NumberPropertyDefinition with the specified code.
+   *
+   * @param code the code of the property definition
+   * @return a new NumberPropertyDefinition instance
+   */
+  public static NumberPropertyDefinition number(String code) {
+    return new NumberPropertyDefinition(code);
+  }
+
+  /**
+   * Creates a new TagPropertyDefinition with the specified code.
+   *
+   * @param code the code of the property definition
+   * @return a new TagPropertyDefinition instance
+   */
+  public static TagPropertyDefinition tag(String code) {
+    return new TagPropertyDefinition(code);
+  }
+
+  /**
+   * Creates a new UrlPropertyDefinition with the specified code.
+   *
+   * @param code the code of the property definition
+   * @return a new UrlPropertyDefinition instance
+   */
+  public static UrlPropertyDefinition url(String code) {
+    return new UrlPropertyDefinition(code);
+  }
+
+  /**
    * Checks if this PropertyDefinition is equal to another object.
    *
    * @param o the object to compare with
