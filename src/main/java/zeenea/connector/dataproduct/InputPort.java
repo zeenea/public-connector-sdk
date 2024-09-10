@@ -138,7 +138,7 @@ public final class InputPort {
     /** The list of output identifiers for the input port. */
     private List<ItemIdentifier> outputs;
 
-    private Builder name(@NotNull String name) {
+    public Builder name(@NotNull String name) {
       this.name = name;
       return this;
     }

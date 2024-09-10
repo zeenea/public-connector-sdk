@@ -2,7 +2,6 @@ package zeenea.connector.process;
 
 import java.util.List;
 import java.util.Objects;
-import java.util.StringJoiner;
 import org.jetbrains.annotations.NotNull;
 import zeenea.connector.Item;
 import zeenea.connector.common.ItemReference;
@@ -12,10 +11,10 @@ import zeenea.connector.exception.ExceptionUtils;
 public final class DataProcess extends Item {
 
   /** The source item references. */
-  @NotNull private final List<ItemReference> sourceItemReference;
+  @NotNull private final List<ItemReference> source;
 
   /** The target item references. */
-  @NotNull private final List<ItemReference> targetItemReference;
+  @NotNull private final List<ItemReference> target;
 
   /**
    * Constructs a DataProcess instance using the provided builder.
@@ -24,10 +23,10 @@ public final class DataProcess extends Item {
    */
   private DataProcess(Builder builder) {
     super(builder);
-    ExceptionUtils.requireNonNullOrEmpty("sourceItemReference", builder.sourceItemReference);
-    ExceptionUtils.requireNonNullOrEmpty("targetItemReference", builder.targetItemReference);
-    this.sourceItemReference = List.copyOf(builder.sourceItemReference);
-    this.targetItemReference = List.copyOf(builder.targetItemReference);
+    ExceptionUtils.requireNonNullOrEmpty("sourceItemReference", builder.source);
+    ExceptionUtils.requireNonNullOrEmpty("targetItemReference", builder.target);
+    this.source = List.copyOf(builder.source);
+    this.target = List.copyOf(builder.target);
   }
 
   /**
@@ -35,8 +34,8 @@ public final class DataProcess extends Item {
    *
    * @return the source item references
    */
-  public @NotNull List<ItemReference> getSourceItemReference() {
-    return sourceItemReference;
+  public @NotNull List<ItemReference> getSource() {
+    return source;
   }
 
   /**
@@ -44,8 +43,8 @@ public final class DataProcess extends Item {
    *
    * @return the target item references
    */
-  public @NotNull List<ItemReference> getTargetItemReference() {
-    return targetItemReference;
+  public @NotNull List<ItemReference> getTarget() {
+    return target;
   }
 
   /**
@@ -59,8 +58,7 @@ public final class DataProcess extends Item {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
     DataProcess that = (DataProcess) o;
-    return Objects.equals(sourceItemReference, that.sourceItemReference)
-        && Objects.equals(targetItemReference, that.targetItemReference);
+    return Objects.equals(source, that.source) && Objects.equals(target, that.target);
   }
 
   /**
@@ -70,7 +68,7 @@ public final class DataProcess extends Item {
    */
   @Override
   public int hashCode() {
-    return Objects.hash(sourceItemReference, targetItemReference);
+    return Objects.hash(source, target);
   }
 
   /**
@@ -80,10 +78,11 @@ public final class DataProcess extends Item {
    */
   @Override
   public String toString() {
-    return new StringJoiner(", ", DataProcess.class.getSimpleName() + "[", "]")
-        .add("sourceItemReference=" + sourceItemReference)
-        .add("targetItemReference=" + targetItemReference)
-        .toString();
+    final StringBuffer sb = new StringBuffer("DataProcess{");
+    sb.append("source=").append(source);
+    sb.append(", target=").append(target);
+    sb.append('}');
+    return sb.toString();
   }
 
   /**
@@ -99,30 +98,30 @@ public final class DataProcess extends Item {
   public static class Builder extends Item.Builder<DataProcess, Builder> {
 
     /** The source item references to be set in the DataProcess. */
-    private List<ItemReference> sourceItemReference;
+    private List<ItemReference> source;
 
     /** The target item references to be set in the DataProcess. */
-    private List<ItemReference> targetItemReference;
+    private List<ItemReference> target;
 
     /**
      * Sets the source item references for the DataProcess.
      *
-     * @param sourceItemReference the source item references
+     * @param source the source item references
      * @return this Builder instance
      */
-    public Builder sourceItemReference(@NotNull List<ItemReference> sourceItemReference) {
-      this.sourceItemReference = List.copyOf(sourceItemReference);
+    public Builder source(@NotNull List<ItemReference> source) {
+      this.source = List.copyOf(source);
       return this;
     }
 
     /**
      * Sets the target item references for the DataProcess.
      *
-     * @param targetItemReference the target item references
+     * @param target the target item references
      * @return this Builder instance
      */
-    public Builder targetItemReference(@NotNull List<ItemReference> targetItemReference) {
-      this.targetItemReference = List.copyOf(targetItemReference);
+    public Builder target(@NotNull List<ItemReference> target) {
+      this.target = List.copyOf(target);
       return this;
     }
 

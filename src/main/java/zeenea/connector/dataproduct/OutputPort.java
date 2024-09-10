@@ -210,7 +210,7 @@ public final class OutputPort {
      * @param properties the collection of properties to set
      * @return the builder instance
      */
-    private Builder properties(Map<String, PropertyValue> properties) {
+    public Builder properties(Map<String, PropertyValue> properties) {
       this.properties = Map.copyOf(properties);
       return this;
     }

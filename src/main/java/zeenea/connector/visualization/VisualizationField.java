@@ -6,7 +6,6 @@ import java.util.StringJoiner;
 import org.jetbrains.annotations.NotNull;
 import zeenea.connector.common.ItemReference;
 import zeenea.connector.dataset.Field;
-import zeenea.connector.exception.ExceptionUtils;
 
 /** Represents a field in a visualization. */
 public final class VisualizationField extends Field {
@@ -24,7 +23,6 @@ public final class VisualizationField extends Field {
    */
   private VisualizationField(Builder builder) {
     super(builder);
-    ExceptionUtils.requireNonNull("sourceItemReferenceList", builder.itemReferenceList);
     this.fieldType = Objects.requireNonNull(builder.fieldType, "fieldType");
     this.itemReferenceList = builder.itemReferenceList;
   }
@@ -101,7 +99,7 @@ public final class VisualizationField extends Field {
     private VisualizationFieldType fieldType;
 
     /** The list of item references associated with the field. */
-    private List<ItemReference> itemReferenceList;
+    private List<ItemReference> itemReferenceList = List.of();
 
     /** Constructs a Builder instance. */
     private Builder() {}

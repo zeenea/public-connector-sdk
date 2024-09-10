@@ -5,7 +5,6 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import zeenea.connector.common.ItemIdentifier;
 import zeenea.connector.contact.ContactRelation;
-import zeenea.connector.exception.ExceptionUtils;
 import zeenea.connector.property.*;
 
 /**
@@ -40,8 +39,6 @@ public abstract class Item {
    * @param builder the builder used to create the Item instance
    */
   protected Item(Builder<?, ?> builder) {
-    ExceptionUtils.requireNonNull("contactRelations", builder.contactRelations);
-    ExceptionUtils.requireNonNull("propertyDefinition", builder.properties);
     this.name = Objects.requireNonNull(builder.name, "name");
     this.id = Objects.requireNonNull(builder.id, "id");
     this.description = builder.description;
@@ -113,10 +110,10 @@ public abstract class Item {
     private String description;
 
     /** The properties of the item. */
-    private Map<String, PropertyValue> properties;
+    private Map<String, PropertyValue> properties = Map.of();
 
     /** The contact relations of the item. */
-    private List<ContactRelation> contactRelations;
+    private List<ContactRelation> contactRelations = List.of();
 
     /**
      * Sets the identifier of the item.
@@ -124,7 +121,7 @@ public abstract class Item {
      * @param id the identifier of the item
      * @return the builder instance
      */
-    private THIS id(@NotNull ItemIdentifier id) {
+    public THIS id(@NotNull ItemIdentifier id) {
       this.id = id;
       return self();
     }
@@ -135,7 +132,7 @@ public abstract class Item {
      * @param name the name of the item
      * @return the builder instance
      */
-    private THIS name(@NotNull String name) {
+    public THIS name(@NotNull String name) {
       this.name = name;
       return self();
     }

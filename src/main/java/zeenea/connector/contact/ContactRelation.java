@@ -114,7 +114,7 @@ public final class ContactRelation {
      * @param contact the contact associated with the relation
      * @return the Builder instance
      */
-    private Builder contact(@NotNull Contact contact) {
+    public Builder contact(@NotNull Contact contact) {
       this.contact = contact;
       return this;
     }
@@ -125,7 +125,7 @@ public final class ContactRelation {
      * @param role the role associated with the relation
      * @return the Builder instance
      */
-    private Builder role(@NotNull Role role) {
+    public Builder role(@NotNull Role role) {
       this.role = role;
       return this;
     }

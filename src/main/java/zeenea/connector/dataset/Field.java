@@ -43,7 +43,6 @@ public class Field {
    */
   public Field(Field.Builder<?, ?> builder) {
     ExceptionUtils.requireNonNullOrEmpty("keys", builder.keys);
-    ExceptionUtils.requireNonNull("properties", builder.properties);
     this.name = Objects.requireNonNull(builder.name, "name");
     this.dataType = Objects.requireNonNull(builder.dataType);
     this.nativeType = Objects.requireNonNull(builder.nativeType);
@@ -240,7 +239,7 @@ public class Field {
     private String description;
 
     /** The properties of the field. */
-    private Map<String, PropertyValue> properties;
+    private Map<String, PropertyValue> properties = Map.of();
 
     /** Protected constructor for the Builder class. */
     protected Builder() {}

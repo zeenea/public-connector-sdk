@@ -99,8 +99,9 @@ public final class Role {
      * Sets the role name.
      *
      * @param name the name of the role
+     * @return the builder instance
      */
-    private Builder name(@NotNull String name) {
+    public Builder name(@NotNull String name) {
       this.name = name;
       return this;
     }

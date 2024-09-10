@@ -411,6 +411,7 @@ public class SimpleLogger {
      * @param ex Throwable factory that takes the message and the cause as arguments.
      * @param <T> Type of the Throwable.
      * @param <U> Type of the cause.
+     * @param cause the cause of the exception
      * @return The new Throwable.
      */
     public <T extends Throwable, U extends Throwable> T exception(

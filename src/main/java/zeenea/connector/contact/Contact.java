@@ -39,7 +39,7 @@ public final class Contact {
    * @return a new Contact instance
    */
   public static Contact of(
-      @NotNull String email, @NotNull String name, @NotNull String phoneNumber) {
+      @NotNull String email, @Nullable String name, @Nullable String phoneNumber) {
     return builder().email(email).name(name).phoneNumber(phoneNumber).build();
   }
 
@@ -135,8 +135,9 @@ public final class Contact {
      * Sets the email of the contact.
      *
      * @param email the email address of the contact
+     * @return the builder instance
      */
-    private Builder email(@NotNull String email) {
+    public Builder email(@NotNull String email) {
       this.email = email;
       return this;
     }

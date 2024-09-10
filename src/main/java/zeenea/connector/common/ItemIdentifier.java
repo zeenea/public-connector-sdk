@@ -41,6 +41,30 @@ public final class ItemIdentifier {
   }
 
   /**
+   * Creates a new ItemIdentifier with the specified identification property added as a prefix.
+   *
+   * @param identificationProperty the identification property to add as a prefix
+   * @return a new ItemIdentifier instance with the specified prefix
+   */
+  public ItemIdentifier withPrefix(IdentificationProperty identificationProperty) {
+    var idEntries = new ArrayList<>(Collections.singletonList(identificationProperty));
+    idEntries.addAll(this.identificationProperties);
+    return ItemIdentifier.of(idEntries);
+  }
+
+  /**
+   * Creates a new ItemIdentifier with the specified identification property added as a suffix.
+   *
+   * @param identificationProperty the identification property to add as a suffix
+   * @return a new ItemIdentifier instance with the specified suffix
+   */
+  public ItemIdentifier withSuffix(IdentificationProperty identificationProperty) {
+    var idEntries = new ArrayList<>(this.identificationProperties);
+    idEntries.add(identificationProperty);
+    return ItemIdentifier.of(idEntries);
+  }
+
+  /**
    * Creates a new builder for the ItemIdentifier class.
    *
    * @return a new Builder instance
