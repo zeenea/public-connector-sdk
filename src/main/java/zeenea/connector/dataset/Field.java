@@ -44,8 +44,8 @@ public class Field {
   public Field(Field.Builder<?, ?> builder) {
     ExceptionUtils.requireNonNullOrEmpty("keys", builder.keys);
     this.name = Objects.requireNonNull(builder.name, "name");
-    this.dataType = Objects.requireNonNull(builder.dataType);
-    this.nativeType = Objects.requireNonNull(builder.nativeType);
+    this.dataType = builder.dataType;
+    this.nativeType = builder.nativeType;
     this.nativeIndex = builder.nativeIndex;
     this.keys = List.copyOf(builder.keys);
     this.nullable = builder.nullable;

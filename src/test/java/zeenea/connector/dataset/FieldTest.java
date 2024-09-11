@@ -134,50 +134,6 @@ class FieldTest {
   }
 
   @Test
-  @DisplayName("Field builder should fail with null data type")
-  void builderShouldFailWithNullDataType() {
-    Map<String, PropertyValue> properties =
-        Map.of("key1", PropertyValue.string("value1"), "key2", PropertyValue.string("value2"));
-    List<String> keys = List.of("key1", "key2");
-    assertThrows(
-        NullPointerException.class,
-        () ->
-            Field.builder()
-                .name("FieldName")
-                .dataType(null)
-                .nativeType("String")
-                .nativeIndex(1)
-                .keys(keys)
-                .nullable(true)
-                .multivalued(false)
-                .description("Field description")
-                .properties(properties)
-                .build());
-  }
-
-  @Test
-  @DisplayName("Field builder should fail with null native type")
-  void builderShouldFailWithNullNativeType() {
-    Map<String, PropertyValue> properties =
-        Map.of("key1", PropertyValue.string("value1"), "key2", PropertyValue.string("value2"));
-    List<String> keys = List.of("key1", "key2");
-    assertThrows(
-        NullPointerException.class,
-        () ->
-            Field.builder()
-                .name("FieldName")
-                .dataType(DataType.String)
-                .nativeType(null)
-                .nativeIndex(1)
-                .keys(keys)
-                .nullable(true)
-                .multivalued(false)
-                .description("Field description")
-                .properties(properties)
-                .build());
-  }
-
-  @Test
   @DisplayName("Field builder should fail with null keys")
   void builderShouldFailWithNullKeys() {
     Map<String, PropertyValue> properties =

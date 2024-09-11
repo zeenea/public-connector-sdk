@@ -41,6 +41,17 @@ public final class ItemReference {
   }
 
   /**
+   * Creates a new ItemReference instance with the specified item identifier, without any connection
+   * reference.
+   *
+   * @param itemIdentifier the identifier for the item
+   * @return a new ItemReference instance
+   */
+  public static ItemReference of(@NotNull ItemIdentifier itemIdentifier) {
+    return of(itemIdentifier, null);
+  }
+
+  /**
    * Gets the identifier for the item.
    *
    * @return the identifier for the item
