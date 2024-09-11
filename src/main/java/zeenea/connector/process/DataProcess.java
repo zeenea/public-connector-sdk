@@ -126,6 +126,17 @@ public final class DataProcess extends Item {
     }
 
     /**
+     * Sets the source item references for the DataProcess.
+     *
+     * @param source the source item references
+     * @return this Builder instance
+     */
+    public Builder source(ItemReference... source) {
+      this.source = List.of(source);
+      return this;
+    }
+
+    /**
      * Sets the target item references for the DataProcess.
      *
      * @param target the target item references
@@ -133,6 +144,17 @@ public final class DataProcess extends Item {
      */
     public Builder target(@NotNull List<ItemReference> target) {
       this.target = List.copyOf(target);
+      return this;
+    }
+
+    /**
+     * Sets the target item references for the DataProcess.
+     *
+     * @param target the target item references
+     * @return this Builder instance
+     */
+    public Builder target(ItemReference... target) {
+      this.target = List.of(target);
       return this;
     }
 

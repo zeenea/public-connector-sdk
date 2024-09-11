@@ -32,6 +32,16 @@ public final class ItemIdentifier {
   }
 
   /**
+   * Creates a new ItemIdentifier instance with the specified list of identification properties.
+   *
+   * @param identificationProperties the list of identification properties
+   * @return a new ItemIdentifier instance
+   */
+  public static ItemIdentifier of(IdentificationProperty... identificationProperties) {
+    return of(List.of(identificationProperties));
+  }
+
+  /**
    * Gets the list of identification properties.
    *
    * @return the list of identification properties
@@ -53,6 +63,17 @@ public final class ItemIdentifier {
   }
 
   /**
+   * Creates a new ItemIdentifier with the specified identification property added as a prefix.
+   *
+   * @param key the key of the identification property.
+   * @param value the value of the identification property.
+   * @return a new ItemIdentifier instance with the specified prefix
+   */
+  public ItemIdentifier withPrefix(String key, String value) {
+    return withPrefix(IdentificationProperty.of(key, value));
+  }
+
+  /**
    * Creates a new ItemIdentifier with the specified identification property added as a suffix.
    *
    * @param identificationProperty the identification property to add as a suffix
@@ -62,6 +83,17 @@ public final class ItemIdentifier {
     var idEntries = new ArrayList<>(this.identificationProperties);
     idEntries.add(identificationProperty);
     return ItemIdentifier.of(idEntries);
+  }
+
+  /**
+   * Creates a new ItemIdentifier with the specified identification property added as a suffix.
+   *
+   * @param key the key of the identification property
+   * @param value the value of the identification property
+   * @return a new ItemIdentifier instance with the specified suffix
+   */
+  public ItemIdentifier withSuffix(String key, String value) {
+    return withSuffix(IdentificationProperty.of(key, value));
   }
 
   /**

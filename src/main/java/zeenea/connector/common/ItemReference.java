@@ -138,6 +138,17 @@ public final class ItemReference {
     }
 
     /**
+     * Sets the identifier for the item.
+     *
+     * @param itemIdentifier the identifier for the item
+     * @return the Builder instance
+     */
+    public Builder itemIdentifier(IdentificationProperty... itemIdentifier) {
+      this.itemIdentifier = ItemIdentifier.of(itemIdentifier);
+      return this;
+    }
+
+    /**
      * Sets the connection reference for the item.
      *
      * @param connectionReference the connection reference to set
@@ -145,6 +156,28 @@ public final class ItemReference {
      */
     public Builder connectionReference(@Nullable ConnectionReference connectionReference) {
       this.connectionReference = connectionReference;
+      return this;
+    }
+
+    /**
+     * Sets the connection code for the item.
+     *
+     * @param code the connection code to set
+     * @return the builder instance
+     */
+    public Builder connectionCode(@Nullable String code) {
+      this.connectionReference = code != null ? ConnectionReferenceCode.of(code) : null;
+      return this;
+    }
+
+    /**
+     * Sets the connection alias for the item.
+     *
+     * @param alias the connection alias to set
+     * @return the builder instance
+     */
+    public Builder connectionAlias(@Nullable String alias) {
+      this.connectionReference = alias != null ? ConnectionReferenceCode.of(alias) : null;
       return this;
     }
 

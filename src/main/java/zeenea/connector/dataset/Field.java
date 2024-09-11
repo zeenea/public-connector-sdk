@@ -304,7 +304,18 @@ public class Field {
      * @return the builder instance
      */
     public THIS keys(@NotNull List<String> keys) {
-      this.keys = keys;
+      this.keys = List.copyOf(keys);
+      return self();
+    }
+
+    /**
+     * Sets the list of keys associated with the field.
+     *
+     * @param keys the list of keys
+     * @return the builder instance
+     */
+    public THIS keys(String... keys) {
+      this.keys = List.of(keys);
       return self();
     }
 

@@ -125,7 +125,7 @@ class DataProcessTest {
                 .id(itemIdentifier)
                 .name("DataProcess1")
                 .description("Description")
-                .source(null)
+                .source((List<ItemReference>) null)
                 .target(target)
                 .build());
   }
@@ -148,7 +148,7 @@ class DataProcessTest {
                 .name("DataProcess1")
                 .description("Description")
                 .source(source)
-                .target(null)
+                .target((List<ItemReference>) null)
                 .build());
   }
 }

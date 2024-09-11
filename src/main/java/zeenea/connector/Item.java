@@ -3,6 +3,7 @@ package zeenea.connector;
 import java.util.*;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import zeenea.connector.common.IdentificationProperty;
 import zeenea.connector.common.ItemIdentifier;
 import zeenea.connector.contact.ContactRelation;
 import zeenea.connector.property.*;
@@ -123,6 +124,17 @@ public abstract class Item {
      */
     public THIS id(@NotNull ItemIdentifier id) {
       this.id = id;
+      return self();
+    }
+
+    /**
+     * Sets the identifier of the item.
+     *
+     * @param id the identifier of the item
+     * @return the builder instance
+     */
+    public THIS id(IdentificationProperty... id) {
+      this.id = ItemIdentifier.of(id);
       return self();
     }
 

@@ -123,6 +123,17 @@ public final class ItemInventory {
     }
 
     /**
+     * Sets the item identifier for the builder.
+     *
+     * @param itemIdentifier the identifier for the item
+     * @return the builder instance
+     */
+    public Builder itemIdentifier(IdentificationProperty itemIdentifier) {
+      this.itemIdentifier = ItemIdentifier.of(itemIdentifier);
+      return this;
+    }
+
+    /**
      * Set a list of labels for the builder.
      *
      * @param labelPath the list of labels to add
@@ -130,6 +141,17 @@ public final class ItemInventory {
      */
     public Builder labelPath(@NotNull List<String> labelPath) {
       this.labelPath = List.copyOf(labelPath);
+      return this;
+    }
+
+    /**
+     * Set a list of labels for the builder.
+     *
+     * @param labelPath the list of labels to add
+     * @return the builder instance
+     */
+    public Builder labelPath(String... labelPath) {
+      this.labelPath = List.of(labelPath);
       return this;
     }
 

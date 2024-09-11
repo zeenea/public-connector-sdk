@@ -146,7 +146,7 @@ class FieldTest {
                 .dataType(DataType.String)
                 .nativeType("String")
                 .nativeIndex(1)
-                .keys(null)
+                .keys((List<String>) null)
                 .nullable(true)
                 .multivalued(false)
                 .description("Field description")
