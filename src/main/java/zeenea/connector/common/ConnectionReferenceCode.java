@@ -1,7 +1,6 @@
 package zeenea.connector.common;
 
 import java.util.Objects;
-import java.util.StringJoiner;
 import org.jetbrains.annotations.NotNull;
 
 /** Represents a code for a connection reference in the Zeenea Data Catalog. */
@@ -70,9 +69,7 @@ public final class ConnectionReferenceCode implements ConnectionReference {
    */
   @Override
   public String toString() {
-    return new StringJoiner(", ", ConnectionReferenceCode.class.getSimpleName() + "[", "]")
-        .add("value='" + value + "'")
-        .toString();
+    return "ConnectionReferenceCode{" + "value='" + value + "'}";
   }
 
   /**

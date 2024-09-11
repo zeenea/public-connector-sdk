@@ -124,13 +124,18 @@ public final class OutputPort {
    */
   @Override
   public String toString() {
-    return new StringJoiner(", ", OutputPort.class.getSimpleName() + "[", "]")
-        .add("name='" + name + "'")
-        .add("description='" + description + "'")
-        .add("dataContract=" + dataContract)
-        .add("datasets=" + datasets)
-        .add("properties=" + properties)
-        .toString();
+    return "OutputPort{"
+        + "dataContract="
+        + dataContract
+        + ", name='"
+        + name
+        + "', description='"
+        + description
+        + "', datasets="
+        + datasets
+        + ", properties="
+        + properties
+        + "}";
   }
 
   /**

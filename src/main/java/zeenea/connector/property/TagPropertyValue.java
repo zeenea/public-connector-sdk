@@ -2,7 +2,6 @@ package zeenea.connector.property;
 
 import java.util.List;
 import java.util.Objects;
-import java.util.StringJoiner;
 
 /** Represents a property value that holds a list of tags. */
 public final class TagPropertyValue implements PropertyValue {
@@ -58,8 +57,6 @@ public final class TagPropertyValue implements PropertyValue {
    */
   @Override
   public String toString() {
-    return new StringJoiner(", ", TagPropertyValue.class.getSimpleName() + "[", "]")
-        .add("value='" + value + "'")
-        .toString();
+    return "TagPropertyValue{" + "value=" + value + "}";
   }
 }

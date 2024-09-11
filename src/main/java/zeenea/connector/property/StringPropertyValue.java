@@ -1,7 +1,6 @@
 package zeenea.connector.property;
 
 import java.util.Objects;
-import java.util.StringJoiner;
 import org.jetbrains.annotations.NotNull;
 
 /**
@@ -62,8 +61,6 @@ public final class StringPropertyValue implements PropertyValue {
    */
   @Override
   public String toString() {
-    return new StringJoiner(", ", StringPropertyValue.class.getSimpleName() + "[", "]")
-        .add("value='" + value + "'")
-        .toString();
+    return "StringPropertyValue{" + "value='" + value + "'}";
   }
 }

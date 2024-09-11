@@ -1,7 +1,6 @@
 package zeenea.connector.contact;
 
 import java.util.Objects;
-import java.util.StringJoiner;
 import org.jetbrains.annotations.NotNull;
 import zeenea.connector.exception.ExceptionUtils;
 
@@ -84,9 +83,7 @@ public final class Role {
    */
   @Override
   public String toString() {
-    return new StringJoiner(", ", Role.class.getSimpleName() + "[", "]")
-        .add("name='" + name + "'")
-        .toString();
+    return "Role{" + "name='" + name + "'}";
   }
 
   /** Builder class for creating instances of Role. */

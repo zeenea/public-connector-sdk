@@ -2,7 +2,6 @@ package zeenea.connector.visualization;
 
 import java.util.List;
 import java.util.Objects;
-import java.util.StringJoiner;
 import org.jetbrains.annotations.NotNull;
 import zeenea.connector.Item;
 import zeenea.connector.common.ItemReference;
@@ -79,10 +78,22 @@ public final class Visualization extends Item {
    */
   @Override
   public String toString() {
-    return new StringJoiner(", ", Visualization.class.getSimpleName() + "[", "]")
-        .add("fields=" + fields)
-        .add("linkedDataset=" + linkedDataset)
-        .toString();
+    return "Visualization{"
+        + "id="
+        + getId()
+        + ", name='"
+        + getName()
+        + "', description="
+        + getDescription()
+        + ", contactRelations="
+        + getContactRelations()
+        + ", properties="
+        + getProperties()
+        + "fields="
+        + fields
+        + ", linkedDataset="
+        + linkedDataset
+        + "}";
   }
 
   /**

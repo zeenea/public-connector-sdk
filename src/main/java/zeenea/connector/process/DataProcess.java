@@ -78,11 +78,22 @@ public final class DataProcess extends Item {
    */
   @Override
   public String toString() {
-    final StringBuffer sb = new StringBuffer("DataProcess{");
-    sb.append("source=").append(source);
-    sb.append(", target=").append(target);
-    sb.append('}');
-    return sb.toString();
+    return "DataProcess{"
+        + "id="
+        + getId()
+        + ", name='"
+        + getName()
+        + "', description="
+        + getDescription()
+        + ", contactRelations="
+        + getContactRelations()
+        + ", properties="
+        + getProperties()
+        + "source="
+        + source
+        + ", target="
+        + target
+        + "}";
   }
 
   /**

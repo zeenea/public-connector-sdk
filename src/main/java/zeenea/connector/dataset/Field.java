@@ -183,17 +183,26 @@ public class Field {
    */
   @Override
   public String toString() {
-    return new StringJoiner(", ", Field.class.getSimpleName() + "[", "]")
-        .add("dataType=" + dataType)
-        .add("name='" + name + "'")
-        .add("nativeType='" + nativeType + "'")
-        .add("nativeIndex=" + nativeIndex)
-        .add("keys=" + keys)
-        .add("nullable=" + nullable)
-        .add("multivalued=" + multivalued)
-        .add("description='" + description + "'")
-        .add("properties=" + properties)
-        .toString();
+    return "Field{"
+        + "name='"
+        + name
+        + "', keys="
+        + keys
+        + ", dataType="
+        + dataType
+        + ", nativeType='"
+        + nativeType
+        + "', nativeIndex="
+        + nativeIndex
+        + ", nullable="
+        + nullable
+        + ", multivalued="
+        + multivalued
+        + ", description='"
+        + description
+        + "', properties="
+        + properties
+        + "}";
   }
 
   /**

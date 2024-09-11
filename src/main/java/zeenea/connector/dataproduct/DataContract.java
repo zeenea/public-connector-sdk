@@ -1,7 +1,6 @@
 package zeenea.connector.dataproduct;
 
 import java.util.Objects;
-import java.util.StringJoiner;
 import org.jetbrains.annotations.NotNull;
 
 /** Represents a data contract with a specific type and source. */
@@ -89,10 +88,7 @@ public final class DataContract {
    */
   @Override
   public String toString() {
-    return new StringJoiner(", ", DataContract.class.getSimpleName() + "[", "]")
-        .add("type=" + type)
-        .add("source='" + source + "'")
-        .toString();
+    return "DataContract{" + "source='" + source + "', type=" + type + "}";
   }
 
   /**

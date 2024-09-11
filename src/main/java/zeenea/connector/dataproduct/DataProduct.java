@@ -94,16 +94,24 @@ public final class DataProduct extends Item {
    */
   @Override
   public String toString() {
-    return new StringJoiner(", ", DataProduct.class.getSimpleName() + "[", "]")
-        .add("name='" + getName() + "'")
-        .add("id=" + getId())
-        .add("description=" + getDescription())
-        .add("properties=" + getProperties())
-        .add("contactRelations=" + getContactRelations())
-        .add("inputPorts=" + inputPorts)
-        .add("outputPorts=" + outputPorts)
-        .add("internalComponents=" + internalComponents)
-        .toString();
+    return "DataProduct{"
+        + "id="
+        + getId()
+        + ", name='"
+        + getName()
+        + "', description="
+        + getDescription()
+        + ", contactRelations="
+        + getContactRelations()
+        + ", properties="
+        + getProperties()
+        + ", inputPorts="
+        + inputPorts
+        + ", internalComponents="
+        + internalComponents
+        + ", outputPorts="
+        + outputPorts
+        + "}";
   }
 
   /**

@@ -3,7 +3,6 @@ package zeenea.connector.property;
 import java.net.URI;
 import java.util.Objects;
 import java.util.Optional;
-import java.util.StringJoiner;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -89,9 +88,6 @@ public final class UrlPropertyValue implements PropertyValue {
    */
   @Override
   public String toString() {
-    return new StringJoiner(", ", UrlPropertyValue.class.getSimpleName() + "[", "]")
-        .add("value=" + value)
-        .add("label='" + label + "'")
-        .toString();
+    return "UrlPropertyValue{" + "label='" + label + ", value=" + value + "}";
   }
 }

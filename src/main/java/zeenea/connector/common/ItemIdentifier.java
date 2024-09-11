@@ -104,9 +104,7 @@ public final class ItemIdentifier {
    */
   @Override
   public String toString() {
-    return new StringJoiner(", ", ItemIdentifier.class.getSimpleName() + "[", "]")
-        .add("identificationProperties=" + identificationProperties)
-        .toString();
+    return "ItemIdentifier{" + "identificationProperties=" + identificationProperties + "}";
   }
 
   /** Builder class for creating instances of ItemIdentifier. */

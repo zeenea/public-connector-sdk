@@ -1,7 +1,6 @@
 package zeenea.connector.common;
 
 import java.util.Objects;
-import java.util.StringJoiner;
 import org.jetbrains.annotations.NotNull;
 
 /** Represents an identification property in the Zeenea Data Catalog. */
@@ -91,10 +90,7 @@ public class IdentificationProperty {
    */
   @Override
   public String toString() {
-    return new StringJoiner(", ", IdentificationProperty.class.getSimpleName() + "[", "]")
-        .add("key='" + key + "'")
-        .add("value='" + value + "'")
-        .toString();
+    return "IdentificationProperty{" + "key='" + key + "', value='" + value + "'}";
   }
 
   /** Builder class for creating instances of IdentificationProperty. */

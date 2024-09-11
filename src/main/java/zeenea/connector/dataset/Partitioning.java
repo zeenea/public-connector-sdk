@@ -1,7 +1,6 @@
 package zeenea.connector.dataset;
 
 import java.util.Objects;
-import java.util.StringJoiner;
 import org.jetbrains.annotations.NotNull;
 import zeenea.connector.exception.ExceptionUtils;
 
@@ -75,10 +74,7 @@ public final class Partitioning {
    */
   @Override
   public String toString() {
-    return new StringJoiner(", ", Partitioning.class.getSimpleName() + "[", "]")
-        .add("column='" + column + "'")
-        .add("partitionType='" + partitionType + "'")
-        .toString();
+    return "Partitioning{" + "column='" + column + "', partitionType='" + partitionType + "'}";
   }
 
   /**

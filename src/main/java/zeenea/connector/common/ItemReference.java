@@ -2,7 +2,6 @@ package zeenea.connector.common;
 
 import java.util.Objects;
 import java.util.Optional;
-import java.util.StringJoiner;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -110,10 +109,12 @@ public final class ItemReference {
    */
   @Override
   public String toString() {
-    return new StringJoiner(", ", ItemReference.class.getSimpleName() + "[", "]")
-        .add("connectionAlias='" + connectionReference + "'")
-        .add("itemIdentifier=" + itemIdentifier)
-        .toString();
+    return "ItemReference{"
+        + "connectionReference="
+        + connectionReference
+        + ", itemIdentifier="
+        + itemIdentifier
+        + "}";
   }
 
   /** Builder class for creating instances of ItemReference. */

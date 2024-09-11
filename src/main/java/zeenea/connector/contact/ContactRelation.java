@@ -1,7 +1,6 @@
 package zeenea.connector.contact;
 
 import java.util.Objects;
-import java.util.StringJoiner;
 import org.jetbrains.annotations.NotNull;
 
 /** Represents a relation between a contact and a role. */
@@ -84,10 +83,7 @@ public final class ContactRelation {
    */
   @Override
   public String toString() {
-    return new StringJoiner(", ", ContactRelation.class.getSimpleName() + "[", "]")
-        .add("contact=" + contact)
-        .add("role=" + role)
-        .toString();
+    return "ContactRelation{" + "contact=" + contact + ", role=" + role + "}";
   }
 
   /**

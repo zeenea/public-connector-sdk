@@ -106,12 +106,16 @@ public final class InputPort {
    */
   @Override
   public String toString() {
-    return new StringJoiner(", ", InputPort.class.getSimpleName() + "[", "]")
-        .add("name='" + name + "'")
-        .add("description='" + description + "'")
-        .add("inputs=" + inputs)
-        .add("outputs=" + outputs)
-        .toString();
+    return "InputPort{"
+        + "description='"
+        + description
+        + ", name='"
+        + name
+        + "', inputs="
+        + inputs
+        + ", outputs="
+        + outputs
+        + "}";
   }
 
   /**

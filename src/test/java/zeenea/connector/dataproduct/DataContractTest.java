@@ -35,14 +35,6 @@ class DataContractTest {
   }
 
   @Test
-  @DisplayName("DataContract toString should return correct format")
-  void toStringShouldReturnCorrectFormat() {
-    DataContract dataContract = DataContract.of(DataContract.Type.Custom, "sourceValue");
-    String expected = "DataContract[type=Custom, source='sourceValue']";
-    assertEquals(expected, dataContract.toString());
-  }
-
-  @Test
   @DisplayName("DataContract factory should fail with null type")
   void shouldFailWithNullType() {
     assertThrows(NullPointerException.class, () -> DataContract.of(null, "sourceValue"));

@@ -1,7 +1,6 @@
 package zeenea.connector.property;
 
 import java.util.Objects;
-import java.util.StringJoiner;
 import org.jetbrains.annotations.NotNull;
 
 /**
@@ -127,9 +126,6 @@ public abstract class PropertyDefinition {
    */
   @Override
   public String toString() {
-    return new StringJoiner(", ", PropertyDefinition.class.getSimpleName() + "[", "]")
-        .add("code='" + code + "'")
-        .add("type=" + type)
-        .toString();
+    return "PropertyDefinition{" + "code='" + code + ", type=" + type + "}";
   }
 }

@@ -3,7 +3,6 @@ package zeenea.connector.common;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
-import java.util.StringJoiner;
 import org.jetbrains.annotations.NotNull;
 import zeenea.connector.exception.ExceptionUtils;
 
@@ -91,10 +90,7 @@ public final class ItemInventory {
    */
   @Override
   public String toString() {
-    return new StringJoiner(", ", ItemInventory.class.getSimpleName() + "[", "]")
-        .add("itemIdentifier=" + itemIdentifier)
-        .add("labelPath=" + labelPath)
-        .toString();
+    return "ItemInventory{" + "itemIdentifier=" + itemIdentifier + ", labelPath=" + labelPath + "}";
   }
 
   /**

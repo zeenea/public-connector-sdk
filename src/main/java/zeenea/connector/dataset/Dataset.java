@@ -3,7 +3,6 @@ package zeenea.connector.dataset;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
-import java.util.StringJoiner;
 import org.jetbrains.annotations.NotNull;
 import zeenea.connector.Item;
 import zeenea.connector.common.ItemReference;
@@ -122,13 +121,28 @@ public final class Dataset extends Item {
    */
   @Override
   public String toString() {
-    return new StringJoiner(", ", Dataset.class.getSimpleName() + "[", "]")
-        .add("fields=" + fields)
-        .add("primaryKeys=" + primaryKeys)
-        .add("foreignKeys=" + foreignKeys)
-        .add("partitions=" + partitions)
-        .add("sourceDatasets=" + sourceDatasets)
-        .toString();
+    return "Dataset{"
+        + "id="
+        + getId()
+        + ", name='"
+        + getName()
+        + "', description="
+        + getDescription()
+        + ", contactRelations="
+        + getContactRelations()
+        + ", properties="
+        + getProperties()
+        + ", fields="
+        + fields
+        + ", primaryKeys="
+        + primaryKeys
+        + ", foreignKeys="
+        + foreignKeys
+        + ", partitions="
+        + partitions
+        + ", sourceDatasets="
+        + sourceDatasets
+        + '}';
   }
 
   /**

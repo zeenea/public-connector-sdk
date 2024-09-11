@@ -2,7 +2,6 @@ package zeenea.connector.contact;
 
 import java.util.Objects;
 import java.util.Optional;
-import java.util.StringJoiner;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import zeenea.connector.exception.ExceptionUtils;
@@ -112,11 +111,14 @@ public final class Contact {
    */
   @Override
   public String toString() {
-    return new StringJoiner(", ", Contact.class.getSimpleName() + "[", "]")
-        .add("name='" + name + "'")
-        .add("email='" + email + "'")
-        .add("phoneNumber='" + phoneNumber + "'")
-        .toString();
+    return "Contact{"
+        + "email='"
+        + email
+        + "', name='"
+        + name
+        + "', phoneNumber='"
+        + phoneNumber
+        + "'}";
   }
 
   /** Builder class for creating instances of Contact. */

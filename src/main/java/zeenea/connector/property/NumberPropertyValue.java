@@ -2,7 +2,6 @@ package zeenea.connector.property;
 
 import java.math.BigDecimal;
 import java.util.Objects;
-import java.util.StringJoiner;
 import org.jetbrains.annotations.NotNull;
 
 /**
@@ -63,8 +62,6 @@ public final class NumberPropertyValue implements PropertyValue {
    */
   @Override
   public String toString() {
-    return new StringJoiner(", ", NumberPropertyValue.class.getSimpleName() + "[", "]")
-        .add("value=" + value)
-        .toString();
+    return "NumberPropertyValue{" + "value=" + value + "}";
   }
 }
