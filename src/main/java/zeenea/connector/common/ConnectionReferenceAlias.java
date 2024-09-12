@@ -1,7 +1,6 @@
 package zeenea.connector.common;
 
 import java.util.Objects;
-import java.util.StringJoiner;
 import org.jetbrains.annotations.NotNull;
 
 /** Represents an alias for a connection reference in the Zeenea Data Catalog. */
@@ -24,8 +23,8 @@ public final class ConnectionReferenceAlias implements ConnectionReference {
    * @param value the value of the connection reference alias
    * @return a new ConnectionReferenceAlias instance
    */
-  public ConnectionReferenceAlias of(@NotNull String value) {
-    return new ConnectionReferenceAlias.Builder(value).build();
+  public static ConnectionReferenceAlias of(@NotNull String value) {
+    return new Builder().value(value).build();
   }
 
   /**
@@ -70,34 +69,33 @@ public final class ConnectionReferenceAlias implements ConnectionReference {
    */
   @Override
   public String toString() {
-    return new StringJoiner(", ", ConnectionReferenceAlias.class.getSimpleName() + "[", "]")
-        .add("value='" + value + "'")
-        .toString();
+    return "ConnectionReferenceAlias{" + "value='" + value + "'}";
   }
 
   /**
    * Creates a new builder for a ConnectionReferenceAlias instance.
    *
-   * @param value the value of the connection reference alias
    * @return a new Builder instance
    */
-  public static Builder builder(@NotNull String value) {
-    return new Builder(value);
+  public static Builder builder() {
+    return new Builder();
   }
 
   /** Builder class for creating instances of ConnectionReferenceAlias. */
   public static class Builder {
 
     /** The value of the connection reference alias. */
-    private final String value;
+    private String value;
 
     /**
-     * Constructs a Builder instance with the specified value.
+     * Sets the value of the connection reference alias.
      *
      * @param value the value of the connection reference alias
+     * @return the Builder instance
      */
-    private Builder(String value) {
+    public Builder value(@NotNull String value) {
       this.value = value;
+      return this;
     }
 
     /**

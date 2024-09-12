@@ -1,7 +1,6 @@
 package zeenea.connector.common;
 
 import java.util.Objects;
-import java.util.StringJoiner;
 import org.jetbrains.annotations.NotNull;
 
 /** Represents an identification property in the Zeenea Data Catalog. */
@@ -29,8 +28,8 @@ public class IdentificationProperty {
    * @param value the value of the identification property
    * @return a new IdentificationProperty instance
    */
-  public IdentificationProperty of(@NotNull String key, @NotNull String value) {
-    return new IdentificationProperty.Builder(key, value).build();
+  public static IdentificationProperty of(@NotNull String key, @NotNull String value) {
+    return builder().key(key).value(value).build();
   }
 
   /**
@@ -54,12 +53,10 @@ public class IdentificationProperty {
   /**
    * Creates a new builder for an IdentificationProperty instance.
    *
-   * @param key the key of the identification property
-   * @param value the value of the identification property
    * @return a new Builder instance
    */
-  public static Builder builder(@NotNull String key, @NotNull String value) {
-    return new Builder(key, value);
+  public static Builder builder() {
+    return new Builder();
   }
 
   /**
@@ -93,30 +90,38 @@ public class IdentificationProperty {
    */
   @Override
   public String toString() {
-    return new StringJoiner(", ", IdentificationProperty.class.getSimpleName() + "[", "]")
-        .add("key='" + key + "'")
-        .add("value='" + value + "'")
-        .toString();
+    return "IdentificationProperty{" + "key='" + key + "', value='" + value + "'}";
   }
 
   /** Builder class for creating instances of IdentificationProperty. */
   public static class Builder {
 
     /** The key of the identification property. */
-    private final String key;
+    private String key;
 
     /** The value of the identification property. */
-    private final String value;
+    private String value;
 
     /**
-     * Constructs a Builder instance with the specified key and value.
+     * Sets the key of the identification property.
      *
      * @param key the key of the identification property
-     * @param value the value of the identification property
+     * @return the Builder instance
      */
-    private Builder(String key, String value) {
+    public Builder key(@NotNull String key) {
       this.key = key;
+      return this;
+    }
+
+    /**
+     * Sets the value of the identification property.
+     *
+     * @param value the value of the identification property
+     * @return the Builder instance
+     */
+    public Builder value(@NotNull String value) {
       this.value = value;
+      return this;
     }
 
     /**

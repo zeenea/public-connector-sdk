@@ -1,7 +1,6 @@
 package zeenea.connector.contact;
 
 import java.util.Objects;
-import java.util.StringJoiner;
 import org.jetbrains.annotations.NotNull;
 
 /** Represents a relation between a contact and a role. */
@@ -22,6 +21,17 @@ public final class ContactRelation {
     Objects.requireNonNull(builder.role, "role");
     this.contact = builder.contact;
     this.role = builder.role;
+  }
+
+  /**
+   * Creates a new ContactRelation instance with the specified contact and role.
+   *
+   * @param contact the contact associated with the relation
+   * @param role the role associated with the relation
+   * @return a new ContactRelation instance
+   */
+  public static ContactRelation of(@NotNull Contact contact, @NotNull Role role) {
+    return builder().contact(contact).role(role).build();
   }
 
   /**
@@ -73,41 +83,47 @@ public final class ContactRelation {
    */
   @Override
   public String toString() {
-    return new StringJoiner(", ", ContactRelation.class.getSimpleName() + "[", "]")
-        .add("contact=" + contact)
-        .add("role=" + role)
-        .toString();
+    return "ContactRelation{" + "contact=" + contact + ", role=" + role + "}";
   }
 
   /**
    * Creates a new builder for the ContactRelation class.
    *
-   * @param contact the contact associated with the relation
-   * @param role the role associated with the relation
    * @return a new Builder instance
    */
-  public static Builder builder(Contact contact, Role role) {
-    return new Builder(contact, role);
+  public static Builder builder() {
+    return new Builder();
   }
 
   /** Builder class for creating instances of ContactRelation. */
   public static final class Builder {
 
     /** The contact associated with the relation. */
-    private final Contact contact;
+    private Contact contact;
 
     /** The role associated with the relation. */
-    private final Role role;
+    private Role role;
 
     /**
-     * Constructs a Builder instance with the specified contact and role.
+     * Sets the contact associated with the relation.
      *
      * @param contact the contact associated with the relation
-     * @param role the role associated with the relation
+     * @return the Builder instance
      */
-    private Builder(@NotNull Contact contact, @NotNull Role role) {
+    public Builder contact(@NotNull Contact contact) {
       this.contact = contact;
+      return this;
+    }
+
+    /**
+     * Sets the role associated with the relation.
+     *
+     * @param role the role associated with the relation
+     * @return the Builder instance
+     */
+    public Builder role(@NotNull Role role) {
       this.role = role;
+      return this;
     }
 
     /**

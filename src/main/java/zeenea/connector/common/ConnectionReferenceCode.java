@@ -1,7 +1,6 @@
 package zeenea.connector.common;
 
 import java.util.Objects;
-import java.util.StringJoiner;
 import org.jetbrains.annotations.NotNull;
 
 /** Represents a code for a connection reference in the Zeenea Data Catalog. */
@@ -24,8 +23,8 @@ public final class ConnectionReferenceCode implements ConnectionReference {
    * @param value the value of the connection reference code
    * @return a new ConnectionReferenceCode instance
    */
-  public ConnectionReferenceCode of(@NotNull String value) {
-    return new ConnectionReferenceCode.Builder(value).build();
+  public static ConnectionReferenceCode of(@NotNull String value) {
+    return new Builder().value(value).build();
   }
 
   /**
@@ -70,34 +69,33 @@ public final class ConnectionReferenceCode implements ConnectionReference {
    */
   @Override
   public String toString() {
-    return new StringJoiner(", ", ConnectionReferenceCode.class.getSimpleName() + "[", "]")
-        .add("value='" + value + "'")
-        .toString();
+    return "ConnectionReferenceCode{" + "value='" + value + "'}";
   }
 
   /**
    * Creates a new builder for a ConnectionReferenceCode instance.
    *
-   * @param value the value of the connection reference code
    * @return a new Builder instance
    */
-  public static Builder builder(@NotNull String value) {
-    return new Builder(value);
+  public static Builder builder() {
+    return new Builder();
   }
 
   /** Builder class for creating instances of ConnectionReferenceCode. */
   public static class Builder {
 
-    /** The value of the connection reference code. */
-    private final String value;
+    /** The value of the connection reference alias. */
+    private String value;
 
     /**
-     * Constructs a Builder instance with the specified value.
+     * Sets the value of the connection reference alias.
      *
-     * @param value the value of the connection reference code
+     * @param value the value of the connection reference alias
+     * @return the Builder instance
      */
-    private Builder(String value) {
+    public Builder value(@NotNull String value) {
       this.value = value;
+      return this;
     }
 
     /**

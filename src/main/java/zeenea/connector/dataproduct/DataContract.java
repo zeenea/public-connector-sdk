@@ -1,7 +1,6 @@
 package zeenea.connector.dataproduct;
 
 import java.util.Objects;
-import java.util.StringJoiner;
 import org.jetbrains.annotations.NotNull;
 
 /** Represents a data contract with a specific type and source. */
@@ -27,6 +26,17 @@ public final class DataContract {
   private DataContract(Builder builder) {
     this.type = Objects.requireNonNull(builder.type, "type");
     this.source = Objects.requireNonNull(builder.source, "source");
+  }
+
+  /**
+   * Creates a DataContract instance with the specified type and source.
+   *
+   * @param type the type of the data contract
+   * @param source the source of the data contract
+   * @return a new DataContract instance
+   */
+  public static DataContract of(@NotNull Type type, @NotNull String source) {
+    return builder().type(type).source(source).build();
   }
 
   /**
@@ -78,41 +88,47 @@ public final class DataContract {
    */
   @Override
   public String toString() {
-    return new StringJoiner(", ", DataContract.class.getSimpleName() + "[", "]")
-        .add("type=" + type)
-        .add("source='" + source + "'")
-        .toString();
+    return "DataContract{" + "source='" + source + "', type=" + type + "}";
   }
 
   /**
    * Creates a new builder for the DataContract class.
    *
-   * @param type the type of the data contract
-   * @param source the source of the data contract
    * @return a new Builder instance
    */
-  public static Builder builder(@NotNull Type type, @NotNull String source) {
-    return new Builder(type, source);
+  public static Builder builder() {
+    return new Builder();
   }
 
   /** Builder class for creating instances of DataContract. */
   public static class Builder {
 
     /** The type of the data contract. */
-    private final Type type;
+    private Type type;
 
     /** The source of the data contract. */
-    private final String source;
+    private String source;
 
     /**
-     * Constructs a Builder instance with the specified type and source.
+     * Sets the type of the data contract.
      *
      * @param type the type of the data contract
-     * @param source the source of the data contract
+     * @return the builder instance
      */
-    private Builder(@NotNull Type type, @NotNull String source) {
+    public Builder type(@NotNull Type type) {
       this.type = type;
+      return this;
+    }
+
+    /**
+     * Sets the source of the data contract.
+     *
+     * @param source the source of the data contract
+     * @return the builder instance
+     */
+    public Builder source(@NotNull String source) {
       this.source = source;
+      return this;
     }
 
     /**

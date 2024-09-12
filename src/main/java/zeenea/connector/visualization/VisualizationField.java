@@ -2,19 +2,18 @@ package zeenea.connector.visualization;
 
 import java.util.List;
 import java.util.Objects;
-import java.util.StringJoiner;
+import org.jetbrains.annotations.NotNull;
 import zeenea.connector.common.ItemReference;
 import zeenea.connector.dataset.Field;
-import zeenea.connector.exception.ExceptionUtils;
 
 /** Represents a field in a visualization. */
 public final class VisualizationField extends Field {
 
   /** The type of the field. */
-  private final VisualizationFieldType fieldType;
+  @NotNull private final VisualizationFieldType fieldType;
 
   /** The list of item references associated with the field. */
-  private final List<ItemReference> itemReferenceList;
+  @NotNull private final List<ItemReference> itemReferenceList;
 
   /**
    * Constructs a VisualizationField instance using the builder.
@@ -23,7 +22,6 @@ public final class VisualizationField extends Field {
    */
   private VisualizationField(Builder builder) {
     super(builder);
-    ExceptionUtils.requireNonNull("sourceItemReferenceList", builder.itemReferenceList);
     this.fieldType = Objects.requireNonNull(builder.fieldType, "fieldType");
     this.itemReferenceList = builder.itemReferenceList;
   }
@@ -33,7 +31,7 @@ public final class VisualizationField extends Field {
    *
    * @return the type of the field
    */
-  public VisualizationFieldType getFieldType() {
+  public @NotNull VisualizationFieldType getFieldType() {
     return fieldType;
   }
 
@@ -78,10 +76,30 @@ public final class VisualizationField extends Field {
    */
   @Override
   public String toString() {
-    return new StringJoiner(", ", VisualizationField.class.getSimpleName() + "[", "]")
-        .add("fieldType=" + fieldType)
-        .add("sourceItemReferenceList=" + itemReferenceList)
-        .toString();
+    return "VisualizationField{"
+        + "name='"
+        + getName()
+        + "', keys="
+        + getKeys()
+        + ", dataType="
+        + getDataType()
+        + ", nativeType='"
+        + getNativeType()
+        + "', nativeIndex="
+        + getNativeIndex()
+        + ", nullable="
+        + isNullable()
+        + ", multivalued="
+        + isMultivalued()
+        + ", description='"
+        + getDescription()
+        + "', properties="
+        + getProperties()
+        + "fieldType="
+        + fieldType
+        + ", itemReferenceList="
+        + itemReferenceList
+        + '}';
   }
 
   /**
@@ -100,7 +118,7 @@ public final class VisualizationField extends Field {
     private VisualizationFieldType fieldType;
 
     /** The list of item references associated with the field. */
-    private List<ItemReference> itemReferenceList;
+    private List<ItemReference> itemReferenceList = List.of();
 
     /** Constructs a Builder instance. */
     private Builder() {}

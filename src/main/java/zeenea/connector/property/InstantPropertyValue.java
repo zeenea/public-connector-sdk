@@ -2,7 +2,6 @@ package zeenea.connector.property;
 
 import java.time.Instant;
 import java.util.Objects;
-import java.util.StringJoiner;
 import org.jetbrains.annotations.NotNull;
 
 /**
@@ -63,8 +62,6 @@ public final class InstantPropertyValue implements PropertyValue {
    */
   @Override
   public String toString() {
-    return new StringJoiner(", ", InstantPropertyValue.class.getSimpleName() + "[", "]")
-        .add("value=" + value)
-        .toString();
+    return "InstantPropertyValue{" + "value=" + value + "}";
   }
 }

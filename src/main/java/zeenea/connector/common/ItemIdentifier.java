@@ -27,8 +27,18 @@ public final class ItemIdentifier {
    * @param identificationProperties the list of identification properties
    * @return a new ItemIdentifier instance
    */
-  public ItemIdentifier of(@NotNull List<IdentificationProperty> identificationProperties) {
-    return new ItemIdentifier.Builder(identificationProperties).build();
+  public static ItemIdentifier of(@NotNull List<IdentificationProperty> identificationProperties) {
+    return new Builder().identificationProperties(identificationProperties).build();
+  }
+
+  /**
+   * Creates a new ItemIdentifier instance with the specified list of identification properties.
+   *
+   * @param identificationProperties the list of identification properties
+   * @return a new ItemIdentifier instance
+   */
+  public static ItemIdentifier of(IdentificationProperty... identificationProperties) {
+    return of(List.of(identificationProperties));
   }
 
   /**
@@ -41,21 +51,58 @@ public final class ItemIdentifier {
   }
 
   /**
+   * Creates a new ItemIdentifier with the specified identification property added as a prefix.
+   *
+   * @param identificationProperty the identification property to add as a prefix
+   * @return a new ItemIdentifier instance with the specified prefix
+   */
+  public ItemIdentifier withPrefix(IdentificationProperty identificationProperty) {
+    var idEntries = new ArrayList<>(Collections.singletonList(identificationProperty));
+    idEntries.addAll(this.identificationProperties);
+    return ItemIdentifier.of(idEntries);
+  }
+
+  /**
+   * Creates a new ItemIdentifier with the specified identification property added as a prefix.
+   *
+   * @param key the key of the identification property.
+   * @param value the value of the identification property.
+   * @return a new ItemIdentifier instance with the specified prefix
+   */
+  public ItemIdentifier withPrefix(String key, String value) {
+    return withPrefix(IdentificationProperty.of(key, value));
+  }
+
+  /**
+   * Creates a new ItemIdentifier with the specified identification property added as a suffix.
+   *
+   * @param identificationProperty the identification property to add as a suffix
+   * @return a new ItemIdentifier instance with the specified suffix
+   */
+  public ItemIdentifier withSuffix(IdentificationProperty identificationProperty) {
+    var idEntries = new ArrayList<>(this.identificationProperties);
+    idEntries.add(identificationProperty);
+    return ItemIdentifier.of(idEntries);
+  }
+
+  /**
+   * Creates a new ItemIdentifier with the specified identification property added as a suffix.
+   *
+   * @param key the key of the identification property
+   * @param value the value of the identification property
+   * @return a new ItemIdentifier instance with the specified suffix
+   */
+  public ItemIdentifier withSuffix(String key, String value) {
+    return withSuffix(IdentificationProperty.of(key, value));
+  }
+
+  /**
    * Creates a new builder for the ItemIdentifier class.
    *
-   * @param identificationProperty the first identification property
-   * @param identificationProperties additional identification properties
    * @return a new Builder instance
    */
-  public static Builder builder(
-      @NotNull IdentificationProperty identificationProperty,
-      @NotNull IdentificationProperty... identificationProperties) {
-    List<IdentificationProperty> identificationPropertyList = new ArrayList<>();
-    identificationPropertyList.add(identificationProperty);
-    if (identificationProperties != null) {
-      identificationPropertyList.addAll(Arrays.asList(identificationProperties));
-    }
-    return new Builder(identificationPropertyList);
+  public static Builder builder() {
+    return new Builder();
   }
 
   /**
@@ -89,47 +136,24 @@ public final class ItemIdentifier {
    */
   @Override
   public String toString() {
-    return new StringJoiner(", ", ItemIdentifier.class.getSimpleName() + "[", "]")
-        .add("identificationProperties=" + identificationProperties)
-        .toString();
+    return "ItemIdentifier{" + "identificationProperties=" + identificationProperties + "}";
   }
 
   /** Builder class for creating instances of ItemIdentifier. */
   public static class Builder {
 
     /** The list of identification properties. */
-    private final List<IdentificationProperty> identificationProperties = new ArrayList<>();
+    private List<IdentificationProperty> identificationProperties;
 
     /**
-     * Private constructor to enforce the use of the builder.
-     *
-     * @param identificationProperties the list of identification properties
-     */
-    private Builder(List<IdentificationProperty> identificationProperties) {
-      this.identificationProperties.addAll(identificationProperties);
-    }
-
-    /**
-     * Adds an identification property to the builder.
-     *
-     * @param identificationProperty the identification property to add
-     * @return the builder instance
-     */
-    public Builder addIdentificationProperty(
-        @NotNull IdentificationProperty identificationProperty) {
-      this.identificationProperties.add(identificationProperty);
-      return this;
-    }
-
-    /**
-     * Adds a collection of identification properties to the builder.
+     * Set a collection of identification properties to the builder.
      *
      * @param identificationProperties the collection of identification properties to add
      * @return the builder instance
      */
-    public Builder addIdentificationProperties(
+    public Builder identificationProperties(
         @NotNull Collection<IdentificationProperty> identificationProperties) {
-      this.identificationProperties.addAll(identificationProperties);
+      this.identificationProperties = List.copyOf(identificationProperties);
       return this;
     }
 

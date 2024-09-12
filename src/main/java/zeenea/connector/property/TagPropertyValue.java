@@ -1,32 +1,28 @@
 package zeenea.connector.property;
 
+import java.util.List;
 import java.util.Objects;
-import java.util.StringJoiner;
 
-/**
- * Represents a property value of type Tag. This class is immutable and implements the PropertyValue
- * interface.
- */
+/** Represents a property value that holds a list of tags. */
 public final class TagPropertyValue implements PropertyValue {
 
-  /** The value of the property. */
-  private final String value;
+  private final List<String> value;
 
   /**
-   * Constructs a TagPropertyValue instance with the specified value.
+   * Constructs a new TagPropertyValue with the specified list of tags.
    *
-   * @param value the value of the property
+   * @param value the list of tags
    */
-  public TagPropertyValue(String value) {
+  public TagPropertyValue(List<String> value) {
     this.value = value;
   }
 
   /**
-   * Gets the value of the property.
+   * Returns the list of tags.
    *
-   * @return the value of the property
+   * @return the list of tags
    */
-  public String getValue() {
+  public List<String> getValue() {
     return this.value;
   }
 
@@ -61,8 +57,6 @@ public final class TagPropertyValue implements PropertyValue {
    */
   @Override
   public String toString() {
-    return new StringJoiner(", ", TagPropertyValue.class.getSimpleName() + "[", "]")
-        .add("value='" + value + "'")
-        .toString();
+    return "TagPropertyValue{" + "value=" + value + "}";
   }
 }

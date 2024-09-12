@@ -2,7 +2,6 @@ package zeenea.connector.dataset;
 
 import java.util.List;
 import java.util.Objects;
-import java.util.StringJoiner;
 import org.jetbrains.annotations.NotNull;
 import zeenea.connector.exception.ExceptionUtils;
 
@@ -109,12 +108,16 @@ public final class ForeignKey {
    */
   @Override
   public String toString() {
-    return new StringJoiner(", ", ForeignKey.class.getSimpleName() + "[", "]")
-        .add("name='" + name + "'")
-        .add("targetDataset='" + targetDataset + "'")
-        .add("sourceFields=" + sourceFields)
-        .add("targetFields=" + targetFields)
-        .toString();
+    return "ForeignKey{"
+        + "name='"
+        + name
+        + "', targetDataset='"
+        + targetDataset
+        + "', sourceFields="
+        + sourceFields
+        + ", targetFields="
+        + targetFields
+        + "}";
   }
 
   /**
@@ -162,7 +165,7 @@ public final class ForeignKey {
      * @return the builder instance
      */
     public Builder sourceFields(@NotNull List<String> sourceFields) {
-      this.sourceFields = sourceFields;
+      this.sourceFields = List.copyOf(sourceFields);
       return this;
     }
 
@@ -173,7 +176,7 @@ public final class ForeignKey {
      * @return the builder instance
      */
     public Builder targetFields(@NotNull List<String> targetFields) {
-      this.targetFields = targetFields;
+      this.targetFields = List.copyOf(targetFields);
       return this;
     }
 

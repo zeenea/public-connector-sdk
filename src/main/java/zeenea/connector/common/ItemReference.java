@@ -2,7 +2,6 @@ package zeenea.connector.common;
 
 import java.util.Objects;
 import java.util.Optional;
-import java.util.StringJoiner;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -32,9 +31,23 @@ public final class ItemReference {
    * @param connectionReference the connection reference associated with the item, if any
    * @return a new ItemReference instance
    */
-  public ItemReference of(
+  public static ItemReference of(
       @NotNull ItemIdentifier itemIdentifier, @Nullable ConnectionReference connectionReference) {
-    return new Builder(itemIdentifier).connectionReference(connectionReference).build();
+    return builder()
+        .itemIdentifier(itemIdentifier)
+        .connectionReference(connectionReference)
+        .build();
+  }
+
+  /**
+   * Creates a new ItemReference instance with the specified item identifier, without any connection
+   * reference.
+   *
+   * @param itemIdentifier the identifier for the item
+   * @return a new ItemReference instance
+   */
+  public static ItemReference of(@NotNull ItemIdentifier itemIdentifier) {
+    return of(itemIdentifier, null);
   }
 
   /**
@@ -58,11 +71,10 @@ public final class ItemReference {
   /**
    * Creates a new builder for the ItemReference class.
    *
-   * @param itemIdentifier the identifier for the item
    * @return a new Builder instance
    */
-  public static Builder builder(@NotNull ItemIdentifier itemIdentifier) {
-    return new Builder(itemIdentifier);
+  public static Builder builder() {
+    return new Builder();
   }
 
   /**
@@ -97,28 +109,43 @@ public final class ItemReference {
    */
   @Override
   public String toString() {
-    return new StringJoiner(", ", ItemReference.class.getSimpleName() + "[", "]")
-        .add("connectionAlias='" + connectionReference + "'")
-        .add("itemIdentifier=" + itemIdentifier)
-        .toString();
+    return "ItemReference{"
+        + "connectionReference="
+        + connectionReference
+        + ", itemIdentifier="
+        + itemIdentifier
+        + "}";
   }
 
   /** Builder class for creating instances of ItemReference. */
   public static class Builder {
 
     /** The identifier for the item. */
-    private final ItemIdentifier itemIdentifier;
+    private ItemIdentifier itemIdentifier;
 
     /** The connection reference associated with the item, if any. */
     private ConnectionReference connectionReference;
 
     /**
-     * Constructs a Builder instance with the specified item identifier.
+     * Sets the identifier for the item.
      *
      * @param itemIdentifier the identifier for the item
+     * @return the Builder instance
      */
-    private Builder(ItemIdentifier itemIdentifier) {
+    public Builder itemIdentifier(@Nullable ItemIdentifier itemIdentifier) {
       this.itemIdentifier = itemIdentifier;
+      return this;
+    }
+
+    /**
+     * Sets the identifier for the item.
+     *
+     * @param itemIdentifier the identifier for the item
+     * @return the Builder instance
+     */
+    public Builder itemIdentifier(IdentificationProperty... itemIdentifier) {
+      this.itemIdentifier = ItemIdentifier.of(itemIdentifier);
+      return this;
     }
 
     /**
@@ -129,6 +156,28 @@ public final class ItemReference {
      */
     public Builder connectionReference(@Nullable ConnectionReference connectionReference) {
       this.connectionReference = connectionReference;
+      return this;
+    }
+
+    /**
+     * Sets the connection code for the item.
+     *
+     * @param code the connection code to set
+     * @return the builder instance
+     */
+    public Builder connectionCode(@Nullable String code) {
+      this.connectionReference = code != null ? ConnectionReferenceCode.of(code) : null;
+      return this;
+    }
+
+    /**
+     * Sets the connection alias for the item.
+     *
+     * @param alias the connection alias to set
+     * @return the builder instance
+     */
+    public Builder connectionAlias(@Nullable String alias) {
+      this.connectionReference = alias != null ? ConnectionReferenceCode.of(alias) : null;
       return this;
     }
 

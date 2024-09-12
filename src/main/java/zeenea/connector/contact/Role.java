@@ -1,7 +1,6 @@
 package zeenea.connector.contact;
 
 import java.util.Objects;
-import java.util.StringJoiner;
 import org.jetbrains.annotations.NotNull;
 import zeenea.connector.exception.ExceptionUtils;
 
@@ -31,8 +30,8 @@ public final class Role {
    * @param name the name of the role
    * @return a new Role instance
    */
-  public Role of(@NotNull String name) {
-    return new Role.Builder(name).build();
+  public static Role of(@NotNull String name) {
+    return builder().name(name).build();
   }
 
   /**
@@ -47,11 +46,10 @@ public final class Role {
   /**
    * Creates a new builder for a Role instance.
    *
-   * @param name the name of the role
    * @return a new Builder instance
    */
-  public static Builder builder(String name) {
-    return new Builder(name);
+  public static Builder builder() {
+    return new Builder();
   }
 
   /**
@@ -85,24 +83,24 @@ public final class Role {
    */
   @Override
   public String toString() {
-    return new StringJoiner(", ", Role.class.getSimpleName() + "[", "]")
-        .add("name='" + name + "'")
-        .toString();
+    return "Role{" + "name='" + name + "'}";
   }
 
   /** Builder class for creating instances of Role. */
   public static class Builder {
 
     /** The name of the role. */
-    private final String name;
+    private String name;
 
     /**
-     * Constructs a Builder instance with the specified name.
+     * Sets the role name.
      *
      * @param name the name of the role
+     * @return the builder instance
      */
-    private Builder(@NotNull String name) {
+    public Builder name(@NotNull String name) {
       this.name = name;
+      return this;
     }
 
     /**

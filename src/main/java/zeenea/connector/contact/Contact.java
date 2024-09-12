@@ -2,7 +2,6 @@ package zeenea.connector.contact;
 
 import java.util.Objects;
 import java.util.Optional;
-import java.util.StringJoiner;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import zeenea.connector.exception.ExceptionUtils;
@@ -28,6 +27,19 @@ public final class Contact {
     this.email = builder.email;
     this.name = builder.name;
     this.phoneNumber = builder.phoneNumber;
+  }
+
+  /**
+   * Creates a Contact instance with the specified email, name, and phone number.
+   *
+   * @param email the email address of the contact
+   * @param name the name of the contact
+   * @param phoneNumber the phone number of the contact
+   * @return a new Contact instance
+   */
+  public static Contact of(
+      @NotNull String email, @Nullable String name, @Nullable String phoneNumber) {
+    return builder().email(email).name(name).phoneNumber(phoneNumber).build();
   }
 
   /**
@@ -60,11 +72,10 @@ public final class Contact {
   /**
    * Creates a new builder for the Contact class.
    *
-   * @param email the email address of the contact
    * @return a new Builder instance
    */
-  public static Builder builder(@NotNull String email) {
-    return new Builder(email);
+  public static Builder builder() {
+    return new Builder();
   }
 
   /**
@@ -100,18 +111,21 @@ public final class Contact {
    */
   @Override
   public String toString() {
-    return new StringJoiner(", ", Contact.class.getSimpleName() + "[", "]")
-        .add("name='" + name + "'")
-        .add("email='" + email + "'")
-        .add("phoneNumber='" + phoneNumber + "'")
-        .toString();
+    return "Contact{"
+        + "email='"
+        + email
+        + "', name='"
+        + name
+        + "', phoneNumber='"
+        + phoneNumber
+        + "'}";
   }
 
   /** Builder class for creating instances of Contact. */
   public static class Builder {
 
     /** The email address of the contact. */
-    private final String email;
+    private String email;
 
     /** The name of the contact, if any. */
     private String name;
@@ -120,12 +134,14 @@ public final class Contact {
     private String phoneNumber;
 
     /**
-     * Constructs a Builder instance with the specified email address.
+     * Sets the email of the contact.
      *
      * @param email the email address of the contact
+     * @return the builder instance
      */
-    private Builder(@NotNull String email) {
+    public Builder email(@NotNull String email) {
       this.email = email;
+      return this;
     }
 
     /**

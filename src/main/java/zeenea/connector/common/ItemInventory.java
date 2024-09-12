@@ -3,7 +3,6 @@ package zeenea.connector.common;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
-import java.util.StringJoiner;
 import org.jetbrains.annotations.NotNull;
 import zeenea.connector.exception.ExceptionUtils;
 
@@ -36,8 +35,9 @@ public final class ItemInventory {
    * @param labelPath the path of labels associated with the item
    * @return a new ItemInventory instance
    */
-  public ItemInventory of(@NotNull ItemIdentifier itemIdentifier, @NotNull List<String> labelPath) {
-    return new ItemInventory.Builder(itemIdentifier).addLabels(labelPath).build();
+  public static ItemInventory of(
+      @NotNull ItemIdentifier itemIdentifier, @NotNull List<String> labelPath) {
+    return builder().itemIdentifier(itemIdentifier).labelPath(labelPath).build();
   }
 
   /**
@@ -90,59 +90,68 @@ public final class ItemInventory {
    */
   @Override
   public String toString() {
-    return new StringJoiner(", ", ItemInventory.class.getSimpleName() + "[", "]")
-        .add("itemIdentifier=" + itemIdentifier)
-        .add("labelPath=" + labelPath)
-        .toString();
+    return "ItemInventory{" + "itemIdentifier=" + itemIdentifier + ", labelPath=" + labelPath + "}";
   }
 
   /**
    * Creates a new builder for the ItemInventory class.
    *
-   * @param itemIdentifier the identifier for the item
    * @return a new Builder instance
    */
-  public static Builder builder(@NotNull ItemIdentifier itemIdentifier) {
-    return new Builder(itemIdentifier);
+  public static Builder builder() {
+    return new Builder();
   }
 
   /** Builder class for creating instances of ItemInventory. */
   public static class Builder {
 
     /** The identifier for the item. */
-    private final ItemIdentifier itemIdentifier;
+    private ItemIdentifier itemIdentifier;
 
     /** The path of labels associated with the item. */
-    private final List<String> labelPath = new ArrayList<>();
+    private List<String> labelPath = new ArrayList<>();
 
     /**
-     * Constructs a Builder instance with the specified item identifier.
+     * Sets the item identifier for the builder.
      *
      * @param itemIdentifier the identifier for the item
-     */
-    private Builder(ItemIdentifier itemIdentifier) {
-      this.itemIdentifier = itemIdentifier;
-    }
-
-    /**
-     * Adds a label to the builder.
-     *
-     * @param label the label to add
      * @return the builder instance
      */
-    public Builder addLabel(@NotNull String label) {
-      this.labelPath.add(label);
+    public Builder itemIdentifier(@NotNull ItemIdentifier itemIdentifier) {
+      this.itemIdentifier = itemIdentifier;
       return this;
     }
 
     /**
-     * Adds a list of labels to the builder.
+     * Sets the item identifier for the builder.
      *
-     * @param labels the list of labels to add
+     * @param itemIdentifier the identifier for the item
      * @return the builder instance
      */
-    public Builder addLabels(@NotNull List<String> labels) {
-      this.labelPath.addAll(labels);
+    public Builder itemIdentifier(IdentificationProperty itemIdentifier) {
+      this.itemIdentifier = ItemIdentifier.of(itemIdentifier);
+      return this;
+    }
+
+    /**
+     * Set a list of labels for the builder.
+     *
+     * @param labelPath the list of labels to add
+     * @return the builder instance
+     */
+    public Builder labelPath(@NotNull List<String> labelPath) {
+      this.labelPath = List.copyOf(labelPath);
+      return this;
+    }
+
+    /**
+     * Set a list of labels for the builder.
+     *
+     * @param labelPath the list of labels to add
+     * @return the builder instance
+     */
+    public Builder labelPath(String... labelPath) {
+      this.labelPath = List.of(labelPath);
       return this;
     }
 
