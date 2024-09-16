@@ -145,14 +145,11 @@ public final class DataProduct extends Item {
   /** Builder class for creating instances of DataProduct. */
   public static class Builder extends Item.Builder<DataProduct, Builder> {
 
-    /** The list of input ports for the data product. */
-    private List<InputPort> inputPorts;
+    private List<InputPort> inputPorts = Collections.emptyList();
 
-    /** The list of output ports for the data product. */
-    private List<OutputPort> outputPorts;
+    private List<OutputPort> outputPorts = Collections.emptyList();
 
-    /** The list of internal components for the data product. */
-    private List<Item> internalComponents;
+    private List<Item> internalComponents = Collections.emptyList();
 
     /**
      * Set a collection of input ports to the data product.
