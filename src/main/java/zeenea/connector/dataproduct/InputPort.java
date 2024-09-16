@@ -130,18 +130,20 @@ public final class InputPort {
   /** Builder class for creating instances of InputPort. */
   public static class Builder {
 
-    /** The name of the input port. */
     private String name;
 
-    /** The description of the input port. */
     private String description = null;
 
-    /** The list of input references for the input port. */
-    private List<ItemReference> inputs;
+    private List<ItemReference> inputs = Collections.emptyList();
 
-    /** The list of output identifiers for the input port. */
-    private List<ItemIdentifier> outputs;
+    private List<ItemIdentifier> outputs = Collections.emptyList();
 
+    /**
+     * Sets the name of the input port.
+     *
+     * @param name the name of the input port
+     * @return the builder instance
+     */
     public Builder name(@NotNull String name) {
       this.name = name;
       return this;

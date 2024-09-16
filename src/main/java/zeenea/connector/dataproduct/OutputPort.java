@@ -150,20 +150,17 @@ public final class OutputPort {
   /** Builder class for creating instances of OutputPort. */
   public static class Builder {
 
-    /** The name of the output port. */
     private String name;
 
-    /** The description of the output port. */
     private String description = null;
 
-    /** The data contract associated with the output port. */
     private DataContract dataContract;
 
     /** The list of datasets associated with the output port. */
-    private List<Dataset> datasets;
+    private List<Dataset> datasets = Collections.emptyList();
 
     /** The properties of the output port. */
-    private Map<String, PropertyValue> properties;
+    private Map<String, PropertyValue> properties = Collections.emptyMap();
 
     /**
      * Sets the name of the output port.
@@ -182,7 +179,7 @@ public final class OutputPort {
      * @param dataContract the data contract to set
      * @return the builder instance
      */
-    public Builder dataContract(DataContract dataContract) {
+    public Builder dataContract(@NotNull DataContract dataContract) {
       this.dataContract = dataContract;
       return this;
     }
