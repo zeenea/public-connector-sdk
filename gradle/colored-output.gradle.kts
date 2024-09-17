@@ -59,6 +59,10 @@ tasks.withType<Test> {
                 }
 
                 when (result.resultType) {
+                    null -> {
+                        summaryStyle = ANSI_WHITE
+                    }
+
                     TestResult.ResultType.SUCCESS -> {
                         summaryStyle = ANSI_GREEN
                     }
