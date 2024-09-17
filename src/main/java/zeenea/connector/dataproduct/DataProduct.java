@@ -28,7 +28,7 @@ public final class DataProduct extends Item {
     super(builder);
     ExceptionUtils.requireNonNull("inputPort", builder.inputPorts);
     ExceptionUtils.requireNonNull("outputPorts", builder.outputPorts);
-    requireNonDataOrDataProcess(builder.internalComponents);
+    requireDatasetOrDataProcess(builder.internalComponents);
     inputPorts = List.copyOf(builder.inputPorts);
     outputPorts = List.copyOf(builder.outputPorts);
     internalComponents = List.copyOf(builder.internalComponents);
@@ -115,12 +115,13 @@ public final class DataProduct extends Item {
   }
 
   /**
-   * Ensures that the internal components are not Dataset nor DataProcess instances.
+   * Ensures that the internal components are Dataset or DataProcess instances.
    *
    * @param internalComponents the list of internal components to check
-   * @throws IllegalArgumentException if any internal component is a Dataset or DataProcess
+   * @throws IllegalArgumentException if any internal component is neither a Dataset nor a
+   *     DataProcess
    */
-  private static void requireNonDataOrDataProcess(@NotNull List<Item> internalComponents) {
+  private static void requireDatasetOrDataProcess(@NotNull List<Item> internalComponents) {
     ExceptionUtils.requireNonNull("internalComponents", internalComponents);
     for (Item item : internalComponents) {
       if (!(item instanceof Dataset || item instanceof DataProcess)) {
