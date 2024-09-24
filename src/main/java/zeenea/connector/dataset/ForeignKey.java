@@ -1,5 +1,6 @@
 package zeenea.connector.dataset;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import org.jetbrains.annotations.NotNull;
@@ -136,10 +137,10 @@ public final class ForeignKey {
     private String targetDataset;
 
     /** The source fields of the foreign key. */
-    private List<String> sourceFields;
+    private List<String> sourceFields = new ArrayList<>();
 
     /** The target fields of the foreign key. */
-    private List<String> targetFields;
+    private List<String> targetFields = new ArrayList<>();
 
     /** The name of the foreign key. */
     private String name;
@@ -170,6 +171,17 @@ public final class ForeignKey {
     }
 
     /**
+     * Sets the source fields of the foreign key.
+     *
+     * @param sourceFields the source fields of the foreign key
+     * @return the builder instance
+     */
+    public Builder sourceFields(String... sourceFields) {
+      this.sourceFields = List.of(sourceFields);
+      return this;
+    }
+
+    /**
      * Sets the target fields of the foreign key.
      *
      * @param targetFields the target fields of the foreign key
@@ -177,6 +189,17 @@ public final class ForeignKey {
      */
     public Builder targetFields(@NotNull List<String> targetFields) {
       this.targetFields = List.copyOf(targetFields);
+      return this;
+    }
+
+    /**
+     * Sets the target fields of the foreign key.
+     *
+     * @param targetFields the target fields of the foreign key
+     * @return the builder instance
+     */
+    public Builder targetFields(String... targetFields) {
+      this.targetFields = List.of(targetFields);
       return this;
     }
 

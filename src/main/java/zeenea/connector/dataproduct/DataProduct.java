@@ -163,6 +163,17 @@ public final class DataProduct extends Item {
     }
 
     /**
+     * Set a collection of input ports to the data product.
+     *
+     * @param inputPorts the collection of input ports to add
+     * @return the builder instance
+     */
+    public Builder inputPorts(InputPort... inputPorts) {
+      this.inputPorts = List.of(inputPorts);
+      return this;
+    }
+
+    /**
      * Set a collection of output ports to the data product.
      *
      * @param outputPorts the collection of output ports to add
@@ -174,6 +185,17 @@ public final class DataProduct extends Item {
     }
 
     /**
+     * Set a collection of output ports to the data product.
+     *
+     * @param outputPorts the collection of output ports to add
+     * @return the builder instance
+     */
+    public Builder outputPorts(OutputPort... outputPorts) {
+      this.outputPorts = List.of(outputPorts);
+      return this;
+    }
+
+    /**
      * Set a collection of items as internal components to the data product.
      *
      * @param items the collection of items to add
@@ -181,6 +203,17 @@ public final class DataProduct extends Item {
      */
     public Builder internalComponents(@NotNull Collection<Item> items) {
       this.internalComponents = List.copyOf(items);
+      return this;
+    }
+
+    /**
+     * Set a collection of items as internal components to the data product.
+     *
+     * @param items the collection of items to add
+     * @return the builder instance
+     */
+    public Builder internalComponents(Item... items) {
+      this.internalComponents = List.of(items);
       return this;
     }
 

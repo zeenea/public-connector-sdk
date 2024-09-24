@@ -184,6 +184,17 @@ public final class Dataset extends Item {
     }
 
     /**
+     * Sets the list of fields in the dataset.
+     *
+     * @param fields the list of fields
+     * @return the builder instance
+     */
+    public Builder fields(Field... fields) {
+      this.fields = List.of(fields);
+      return this;
+    }
+
+    /**
      * Sets the list of primary keys in the dataset.
      *
      * @param primaryKeys the list of primary keys
@@ -191,6 +202,17 @@ public final class Dataset extends Item {
      */
     public Builder primaryKeys(@NotNull List<String> primaryKeys) {
       this.primaryKeys = List.copyOf(primaryKeys);
+      return this;
+    }
+
+    /**
+     * Sets the list of primary keys in the dataset.
+     *
+     * @param primaryKeys the list of primary keys
+     * @return the builder instance
+     */
+    public Builder primaryKeys(String... primaryKeys) {
+      this.primaryKeys = List.of(primaryKeys);
       return this;
     }
 
@@ -206,6 +228,17 @@ public final class Dataset extends Item {
     }
 
     /**
+     * Sets the list of foreign keys in the dataset.
+     *
+     * @param foreignKeys the list of foreign keys
+     * @return the builder instance
+     */
+    public Builder foreignKeys(ForeignKey... foreignKeys) {
+      this.foreignKeys = List.of(foreignKeys);
+      return this;
+    }
+
+    /**
      * Sets the list of partitions in the dataset.
      *
      * @param partitions the list of partitions
@@ -217,6 +250,17 @@ public final class Dataset extends Item {
     }
 
     /**
+     * Sets the list of partitions in the dataset.
+     *
+     * @param partitions the list of partitions
+     * @return the builder instance
+     */
+    public Builder partitions(Partitioning... partitions) {
+      this.partitions = List.of(partitions);
+      return this;
+    }
+
+    /**
      * Sets the list of source datasets for the dataset.
      *
      * @param sourceDatasets the list of source datasets
@@ -224,6 +268,17 @@ public final class Dataset extends Item {
      */
     public Builder sourceDatasets(@NotNull List<ItemReference> sourceDatasets) {
       this.sourceDatasets = List.copyOf(sourceDatasets);
+      return this;
+    }
+
+    /**
+     * Sets the target item references for the DataProcess.
+     *
+     * @param sourceDatasets the target item references
+     * @return this Builder instance
+     */
+    public Builder sourceDatasets(ItemReference... sourceDatasets) {
+      this.sourceDatasets = List.of(sourceDatasets);
       return this;
     }
 

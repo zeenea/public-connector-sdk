@@ -1,5 +1,6 @@
 package zeenea.connector.process;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import org.jetbrains.annotations.NotNull;
@@ -109,10 +110,12 @@ public final class DataProcess extends Item {
   public static class Builder extends Item.Builder<DataProcess, Builder> {
 
     /** The source item references to be set in the DataProcess. */
-    private List<ItemReference> source;
+    private List<ItemReference> source = new ArrayList<>();
+    ;
 
     /** The target item references to be set in the DataProcess. */
-    private List<ItemReference> target;
+    private List<ItemReference> target = new ArrayList<>();
+    ;
 
     /**
      * Sets the source item references for the DataProcess.

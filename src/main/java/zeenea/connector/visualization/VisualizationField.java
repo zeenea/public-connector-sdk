@@ -1,5 +1,6 @@
 package zeenea.connector.visualization;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import org.jetbrains.annotations.NotNull;
@@ -107,7 +108,7 @@ public final class VisualizationField extends Field {
    *
    * @return a new Builder instance
    */
-  public static Builder builder() {
+  public static @NotNull Builder builder() {
     return new Builder();
   }
 
@@ -118,7 +119,7 @@ public final class VisualizationField extends Field {
     private VisualizationFieldType fieldType;
 
     /** The list of item references associated with the field. */
-    private List<ItemReference> itemReferenceList = List.of();
+    private List<ItemReference> itemReferenceList = new ArrayList<>();
 
     /** Constructs a Builder instance. */
     private Builder() {}
@@ -140,8 +141,19 @@ public final class VisualizationField extends Field {
      * @param itemReferenceList the list of item references associated with the field
      * @return the Builder instance
      */
-    public Builder sourceItemReferenceList(List<ItemReference> itemReferenceList) {
-      this.itemReferenceList = itemReferenceList;
+    public Builder itemReferenceList(@NotNull List<ItemReference> itemReferenceList) {
+      this.itemReferenceList = List.copyOf(itemReferenceList);
+      return this;
+    }
+
+    /**
+     * Sets the list of item references associated with the field.
+     *
+     * @param itemReference the list of item references associated with the field
+     * @return the Builder instance
+     */
+    public Builder itemReferenceList(ItemReference... itemReference) {
+      this.itemReferenceList = List.of(itemReference);
       return this;
     }
 

@@ -1,5 +1,6 @@
 package zeenea.connector.visualization;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import org.jetbrains.annotations.NotNull;
@@ -109,10 +110,10 @@ public final class Visualization extends Item {
   public static class Builder extends Item.Builder<Visualization, Builder> {
 
     /** The fields of the visualization. */
-    private List<VisualizationField> fields;
+    private List<VisualizationField> fields = new ArrayList<>();
 
     /** The linked dataset references of the visualization. */
-    private List<ItemReference> linkedDataset;
+    private List<ItemReference> linkedDataset = new ArrayList<>();
 
     /**
      * Sets the fields of the visualization.
@@ -126,6 +127,17 @@ public final class Visualization extends Item {
     }
 
     /**
+     * Sets the fields of the visualization.
+     *
+     * @param fields the fields of the visualization
+     * @return the Builder instance
+     */
+    public Builder fields(VisualizationField... fields) {
+      this.fields = List.of(fields);
+      return this;
+    }
+
+    /**
      * Sets the linked dataset references of the visualization.
      *
      * @param linkedDataset the linked dataset references of the visualization
@@ -133,6 +145,17 @@ public final class Visualization extends Item {
      */
     public Builder linkedDataset(@NotNull List<ItemReference> linkedDataset) {
       this.linkedDataset = List.copyOf(linkedDataset);
+      return this;
+    }
+
+    /**
+     * Sets the linked dataset references of the visualization.
+     *
+     * @param linkedDataset the linked dataset references of the visualization
+     * @return the Builder instance
+     */
+    public Builder linkedDataset(ItemReference... linkedDataset) {
+      this.linkedDataset = List.of(linkedDataset);
       return this;
     }
 

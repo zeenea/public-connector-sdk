@@ -149,7 +149,7 @@ class VisualizationTest {
                 .id(ItemIdentifier.of(List.of(IdentificationProperty.of("key", "visualization"))))
                 .name("Visualization")
                 .description("Description")
-                .fields(null)
+                .fields(List.of(null))
                 .linkedDataset(linkedDataset)
                 .build());
   }
@@ -178,7 +178,7 @@ class VisualizationTest {
                 .name("Visualization")
                 .description("Description")
                 .fields(fields)
-                .linkedDataset(null)
+                .linkedDataset(List.of(null))
                 .build());
   }
 }

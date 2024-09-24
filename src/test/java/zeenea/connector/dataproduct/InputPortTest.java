@@ -111,7 +111,7 @@ class InputPortTest {
             InputPort.builder()
                 .name("InputPort1")
                 .description("Description1")
-                .inputs(null)
+                .inputs(List.of(null))
                 .outputs(outputs)
                 .build());
   }
@@ -130,7 +130,7 @@ class InputPortTest {
                 .name("InputPort1")
                 .description("Description1")
                 .inputs(inputs)
-                .outputs(null)
+                .outputs(List.of(null))
                 .build());
   }
 }
