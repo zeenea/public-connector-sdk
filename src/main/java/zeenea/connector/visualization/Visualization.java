@@ -14,8 +14,8 @@ public final class Visualization extends Item {
   /** The fields of the visualization. */
   @NotNull private final List<VisualizationField> fields;
 
-  /** The linked dataset references of the visualization. */
-  @NotNull private final List<ItemReference> linkedDataset;
+  /** The list of source datasets for the visualization. */
+  @NotNull private final List<ItemReference> sourceDatasets;
 
   /**
    * Constructs a Visualization instance using the builder.
@@ -25,9 +25,9 @@ public final class Visualization extends Item {
   private Visualization(Builder builder) {
     super(builder);
     ExceptionUtils.requireNonNull("fields", builder.fields);
-    ExceptionUtils.requireNonNull("linkedDataset", builder.linkedDataset);
+    ExceptionUtils.requireNonNull("sourceDatasets", builder.sourceDatasets);
     this.fields = List.copyOf(builder.fields);
-    this.linkedDataset = List.copyOf(builder.linkedDataset);
+    this.sourceDatasets = List.copyOf(builder.sourceDatasets);
   }
 
   /**
@@ -40,12 +40,12 @@ public final class Visualization extends Item {
   }
 
   /**
-   * Gets the linked dataset references of the visualization.
+   * Gets the list of source dataset references of the visualization.
    *
-   * @return the linked dataset references of the visualization
+   * @return the list of source dataset references of the visualization
    */
-  public @NotNull List<ItemReference> getLinkedDataset() {
-    return linkedDataset;
+  public @NotNull List<ItemReference> getSourceDatasets() {
+    return sourceDatasets;
   }
 
   /**
@@ -59,7 +59,8 @@ public final class Visualization extends Item {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
     Visualization that = (Visualization) o;
-    return Objects.equals(fields, that.fields) && Objects.equals(linkedDataset, that.linkedDataset);
+    return Objects.equals(fields, that.fields)
+        && Objects.equals(sourceDatasets, that.sourceDatasets);
   }
 
   /**
@@ -69,7 +70,7 @@ public final class Visualization extends Item {
    */
   @Override
   public int hashCode() {
-    return Objects.hash(fields, linkedDataset);
+    return Objects.hash(fields, sourceDatasets);
   }
 
   /**
@@ -92,8 +93,8 @@ public final class Visualization extends Item {
         + getProperties()
         + "fields="
         + fields
-        + ", linkedDataset="
-        + linkedDataset
+        + ", sourceDatasets="
+        + sourceDatasets
         + "}";
   }
 
@@ -112,8 +113,8 @@ public final class Visualization extends Item {
     /** The fields of the visualization. */
     private List<VisualizationField> fields = new ArrayList<>();
 
-    /** The linked dataset references of the visualization. */
-    private List<ItemReference> linkedDataset = new ArrayList<>();
+    /** The list of source dataset references of the visualization. */
+    private List<ItemReference> sourceDatasets = new ArrayList<>();
 
     /**
      * Sets the fields of the visualization.
@@ -138,24 +139,24 @@ public final class Visualization extends Item {
     }
 
     /**
-     * Sets the linked dataset references of the visualization.
+     * Sets the list of source dataset references of the visualization.
      *
-     * @param linkedDataset the linked dataset references of the visualization
+     * @param sourceDatasets the list of source dataset references of the visualization
      * @return the Builder instance
      */
-    public Builder linkedDataset(@NotNull List<ItemReference> linkedDataset) {
-      this.linkedDataset = List.copyOf(linkedDataset);
+    public Builder sourceDatasets(@NotNull List<ItemReference> sourceDatasets) {
+      this.sourceDatasets = List.copyOf(sourceDatasets);
       return this;
     }
 
     /**
-     * Sets the linked dataset references of the visualization.
+     * Sets the list of source dataset references of the visualization.
      *
-     * @param linkedDataset the linked dataset references of the visualization
+     * @param sourceDatasets the list of source dataset references of the visualization
      * @return the Builder instance
      */
-    public Builder linkedDataset(ItemReference... linkedDataset) {
-      this.linkedDataset = List.of(linkedDataset);
+    public Builder sourceDatasets(ItemReference... sourceDatasets) {
+      this.sourceDatasets = List.of(sourceDatasets);
       return this;
     }
 

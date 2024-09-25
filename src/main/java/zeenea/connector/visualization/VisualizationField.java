@@ -14,7 +14,7 @@ public final class VisualizationField extends Field {
   @NotNull private final VisualizationFieldType fieldType;
 
   /** The list of item references associated with the field. */
-  @NotNull private final List<ItemReference> itemReferenceList;
+  @NotNull private final List<ItemReference> itemReferences;
 
   /**
    * Constructs a VisualizationField instance using the builder.
@@ -24,7 +24,7 @@ public final class VisualizationField extends Field {
   private VisualizationField(Builder builder) {
     super(builder);
     this.fieldType = Objects.requireNonNull(builder.fieldType, "fieldType");
-    this.itemReferenceList = builder.itemReferenceList;
+    this.itemReferences = builder.itemReferences;
   }
 
   /**
@@ -41,8 +41,8 @@ public final class VisualizationField extends Field {
    *
    * @return the list of item references associated with the field
    */
-  public List<ItemReference> getSourceItemReferenceList() {
-    return itemReferenceList;
+  public List<ItemReference> getSourceItemReference() {
+    return itemReferences;
   }
 
   /**
@@ -57,7 +57,7 @@ public final class VisualizationField extends Field {
     if (o == null || getClass() != o.getClass()) return false;
     if (!super.equals(o)) return false;
     VisualizationField that = (VisualizationField) o;
-    return fieldType == that.fieldType && Objects.equals(itemReferenceList, that.itemReferenceList);
+    return fieldType == that.fieldType && Objects.equals(itemReferences, that.itemReferences);
   }
 
   /**
@@ -67,7 +67,7 @@ public final class VisualizationField extends Field {
    */
   @Override
   public int hashCode() {
-    return Objects.hash(super.hashCode(), fieldType, itemReferenceList);
+    return Objects.hash(super.hashCode(), fieldType, itemReferences);
   }
 
   /**
@@ -98,8 +98,8 @@ public final class VisualizationField extends Field {
         + getProperties()
         + "fieldType="
         + fieldType
-        + ", itemReferenceList="
-        + itemReferenceList
+        + ", itemReferences="
+        + itemReferences
         + '}';
   }
 
@@ -119,7 +119,7 @@ public final class VisualizationField extends Field {
     private VisualizationFieldType fieldType;
 
     /** The list of item references associated with the field. */
-    private List<ItemReference> itemReferenceList = new ArrayList<>();
+    private List<ItemReference> itemReferences = new ArrayList<>();
 
     /** Constructs a Builder instance. */
     private Builder() {}
@@ -138,22 +138,22 @@ public final class VisualizationField extends Field {
     /**
      * Sets the list of item references associated with the field.
      *
-     * @param itemReferenceList the list of item references associated with the field
+     * @param itemReferences the list of item references associated with the field
      * @return the Builder instance
      */
-    public Builder itemReferenceList(@NotNull List<ItemReference> itemReferenceList) {
-      this.itemReferenceList = List.copyOf(itemReferenceList);
+    public Builder itemReferences(@NotNull List<ItemReference> itemReferences) {
+      this.itemReferences = List.copyOf(itemReferences);
       return this;
     }
 
     /**
      * Sets the list of item references associated with the field.
      *
-     * @param itemReference the list of item references associated with the field
+     * @param itemReferences the list of item references associated with the field
      * @return the Builder instance
      */
-    public Builder itemReferenceList(ItemReference... itemReference) {
-      this.itemReferenceList = List.of(itemReference);
+    public Builder itemReferences(ItemReference... itemReferences) {
+      this.itemReferences = List.of(itemReferences);
       return this;
     }
 

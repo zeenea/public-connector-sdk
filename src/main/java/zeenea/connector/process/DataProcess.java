@@ -12,10 +12,10 @@ import zeenea.connector.exception.ExceptionUtils;
 public final class DataProcess extends Item {
 
   /** The source item references. */
-  @NotNull private final List<ItemReference> source;
+  @NotNull private final List<ItemReference> sources;
 
   /** The target item references. */
-  @NotNull private final List<ItemReference> target;
+  @NotNull private final List<ItemReference> targets;
 
   /**
    * Constructs a DataProcess instance using the provided builder.
@@ -24,28 +24,28 @@ public final class DataProcess extends Item {
    */
   private DataProcess(Builder builder) {
     super(builder);
-    ExceptionUtils.requireNonNullOrEmpty("sourceItemReference", builder.source);
-    ExceptionUtils.requireNonNullOrEmpty("targetItemReference", builder.target);
-    this.source = List.copyOf(builder.source);
-    this.target = List.copyOf(builder.target);
+    ExceptionUtils.requireNonNullOrEmpty("sources", builder.sources);
+    ExceptionUtils.requireNonNullOrEmpty("targets", builder.targets);
+    this.sources = List.copyOf(builder.sources);
+    this.targets = List.copyOf(builder.targets);
   }
 
   /**
-   * Gets the source item references.
+   * Gets the list of source item references.
    *
-   * @return the source item references
+   * @return the list of source item references
    */
-  public @NotNull List<ItemReference> getSource() {
-    return source;
+  public @NotNull List<ItemReference> getSources() {
+    return sources;
   }
 
   /**
-   * Gets the target item references.
+   * Gets the list of target item references.
    *
-   * @return the target item references
+   * @return the list of target item references
    */
-  public @NotNull List<ItemReference> getTarget() {
-    return target;
+  public @NotNull List<ItemReference> getTargets() {
+    return targets;
   }
 
   /**
@@ -59,7 +59,7 @@ public final class DataProcess extends Item {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
     DataProcess that = (DataProcess) o;
-    return Objects.equals(source, that.source) && Objects.equals(target, that.target);
+    return Objects.equals(sources, that.sources) && Objects.equals(targets, that.targets);
   }
 
   /**
@@ -69,7 +69,7 @@ public final class DataProcess extends Item {
    */
   @Override
   public int hashCode() {
-    return Objects.hash(source, target);
+    return Objects.hash(sources, targets);
   }
 
   /**
@@ -90,10 +90,10 @@ public final class DataProcess extends Item {
         + getContactRelations()
         + ", properties="
         + getProperties()
-        + "source="
-        + source
-        + ", target="
-        + target
+        + "sources="
+        + sources
+        + ", targets="
+        + targets
         + "}";
   }
 
@@ -109,55 +109,55 @@ public final class DataProcess extends Item {
   /** Builder class for constructing DataProcess instances. */
   public static class Builder extends Item.Builder<DataProcess, Builder> {
 
-    /** The source item references to be set in the DataProcess. */
-    private List<ItemReference> source = new ArrayList<>();
+    /** The list of source item references to be set in the DataProcess. */
+    private List<ItemReference> sources = new ArrayList<>();
     ;
 
-    /** The target item references to be set in the DataProcess. */
-    private List<ItemReference> target = new ArrayList<>();
+    /** The list of target item references to be set in the DataProcess. */
+    private List<ItemReference> targets = new ArrayList<>();
     ;
 
     /**
-     * Sets the source item references for the DataProcess.
+     * Sets the list of source item references for the DataProcess.
      *
-     * @param source the source item references
+     * @param sources the list of source item references
      * @return this Builder instance
      */
-    public Builder source(@NotNull List<ItemReference> source) {
-      this.source = List.copyOf(source);
+    public Builder sources(@NotNull List<ItemReference> sources) {
+      this.sources = List.copyOf(sources);
       return this;
     }
 
     /**
-     * Sets the source item references for the DataProcess.
+     * Sets the list of source item references for the DataProcess.
      *
-     * @param source the source item references
+     * @param sources the list of source item references
      * @return this Builder instance
      */
-    public Builder source(ItemReference... source) {
-      this.source = List.of(source);
+    public Builder sources(ItemReference... sources) {
+      this.sources = List.of(sources);
       return this;
     }
 
     /**
-     * Sets the target item references for the DataProcess.
+     * Sets the list of target item references for the DataProcess.
      *
-     * @param target the target item references
+     * @param targets the list of target item references
      * @return this Builder instance
      */
-    public Builder target(@NotNull List<ItemReference> target) {
-      this.target = List.copyOf(target);
+    public Builder targets(@NotNull List<ItemReference> targets) {
+      this.targets = List.copyOf(targets);
       return this;
     }
 
     /**
-     * Sets the target item references for the DataProcess.
+     * Sets the list of target item references for the DataProcess.
      *
-     * @param target the target item references
+     * @param targets the list of target item references
      * @return this Builder instance
      */
-    public Builder target(ItemReference... target) {
-      this.target = List.of(target);
+    public Builder targets(ItemReference... targets) {
+      this.targets = List.of(targets);
       return this;
     }
 
