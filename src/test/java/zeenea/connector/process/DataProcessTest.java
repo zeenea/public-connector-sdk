@@ -32,13 +32,13 @@ class DataProcessTest {
             .id(itemIdentifier)
             .name("DataProcess")
             .description("Description")
-            .source(source)
-            .target(target)
+            .sources(source)
+            .targets(target)
             .build();
     assertNotNull(dataProcess);
     assertEquals(itemIdentifier, dataProcess.getId());
-    assertEquals(source, dataProcess.getSource());
-    assertEquals(target, dataProcess.getTarget());
+    assertEquals(source, dataProcess.getSources());
+    assertEquals(target, dataProcess.getTargets());
   }
 
   @Test
@@ -61,16 +61,16 @@ class DataProcessTest {
             .id(itemIdentifier)
             .name("DataProcess")
             .description("Description")
-            .source(source)
-            .target(target)
+            .sources(source)
+            .targets(target)
             .build();
     DataProcess dataProcess2 =
         DataProcess.builder()
             .id(itemIdentifier)
             .name("DataProcess")
             .description("Description")
-            .source(source)
-            .target(target)
+            .sources(source)
+            .targets(target)
             .build();
     assertEquals(dataProcess1, dataProcess2);
     assertEquals(dataProcess1.hashCode(), dataProcess2.hashCode());
@@ -94,16 +94,16 @@ class DataProcessTest {
             .id(ItemIdentifier.of(List.of(IdentificationProperty.of("key", "dataprocess1"))))
             .name("DataProcess1")
             .description("Description")
-            .source(source)
-            .target(target)
+            .sources(source)
+            .targets(target)
             .build();
     DataProcess dataProcess2 =
         DataProcess.builder()
             .id(ItemIdentifier.of(List.of(IdentificationProperty.of("key", "dataprocess2"))))
             .name("DataProcess2")
             .description("Description")
-            .source(target)
-            .target(source)
+            .sources(target)
+            .targets(source)
             .build();
     assertNotEquals(dataProcess1, dataProcess2);
   }
@@ -125,8 +125,8 @@ class DataProcessTest {
                 .id(itemIdentifier)
                 .name("DataProcess1")
                 .description("Description")
-                .source((List<ItemReference>) null)
-                .target(target)
+                .sources((List<ItemReference>) null)
+                .targets(target)
                 .build());
   }
 
@@ -147,8 +147,8 @@ class DataProcessTest {
                 .id(itemIdentifier)
                 .name("DataProcess1")
                 .description("Description")
-                .source(source)
-                .target((List<ItemReference>) null)
+                .sources(source)
+                .targets((List<ItemReference>) null)
                 .build());
   }
 }

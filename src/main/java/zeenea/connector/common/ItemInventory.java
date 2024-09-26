@@ -14,8 +14,8 @@ public final class ItemInventory {
   /** The identifier for the item. */
   @NotNull private final ItemIdentifier itemIdentifier;
 
-  /** The path of labels associated with the item. */
-  @NotNull private final List<String> labelPath;
+  /** The list of labels associated with the item. */
+  @NotNull private final List<String> labels;
 
   /**
    * Constructs an ItemInventory instance using the provided builder.
@@ -23,9 +23,9 @@ public final class ItemInventory {
    * @param builder the builder used to create the ItemInventory instance
    */
   private ItemInventory(Builder builder) {
-    ExceptionUtils.requireNonNull("label", builder.labelPath);
+    ExceptionUtils.requireNonNull("labels", builder.labels);
     this.itemIdentifier = Objects.requireNonNull(builder.itemIdentifier, "itemIdentifier");
-    this.labelPath = List.copyOf(builder.labelPath);
+    this.labels = List.copyOf(builder.labels);
   }
 
   /**
@@ -37,7 +37,7 @@ public final class ItemInventory {
    */
   public static ItemInventory of(
       @NotNull ItemIdentifier itemIdentifier, @NotNull List<String> labelPath) {
-    return builder().itemIdentifier(itemIdentifier).labelPath(labelPath).build();
+    return builder().itemIdentifier(itemIdentifier).labels(labelPath).build();
   }
 
   /**
@@ -50,12 +50,12 @@ public final class ItemInventory {
   }
 
   /**
-   * Gets the path of labels associated with the item.
+   * Gets the list of labels associated with the item.
    *
-   * @return the path of labels associated with the item
+   * @return the list of labels associated with the item
    */
-  public @NotNull List<String> getLabelPath() {
-    return labelPath;
+  public @NotNull List<String> getLabels() {
+    return labels;
   }
 
   /**
@@ -70,7 +70,7 @@ public final class ItemInventory {
     if (o == null || getClass() != o.getClass()) return false;
     ItemInventory that = (ItemInventory) o;
     return Objects.equals(itemIdentifier, that.itemIdentifier)
-        && Objects.equals(labelPath, that.labelPath);
+        && Objects.equals(labels, that.labels);
   }
 
   /**
@@ -80,7 +80,7 @@ public final class ItemInventory {
    */
   @Override
   public int hashCode() {
-    return Objects.hash(itemIdentifier, labelPath);
+    return Objects.hash(itemIdentifier, labels);
   }
 
   /**
@@ -90,7 +90,7 @@ public final class ItemInventory {
    */
   @Override
   public String toString() {
-    return "ItemInventory{" + "itemIdentifier=" + itemIdentifier + ", labelPath=" + labelPath + "}";
+    return "ItemInventory{" + "itemIdentifier=" + itemIdentifier + ", labels=" + labels + "}";
   }
 
   /**
@@ -109,7 +109,7 @@ public final class ItemInventory {
     private ItemIdentifier itemIdentifier;
 
     /** The path of labels associated with the item. */
-    private List<String> labelPath = new ArrayList<>();
+    private List<String> labels = new ArrayList<>();
 
     /**
      * Sets the item identifier for the builder.
@@ -136,22 +136,22 @@ public final class ItemInventory {
     /**
      * Set a list of labels for the builder.
      *
-     * @param labelPath the list of labels to add
+     * @param labels the list of labels to add
      * @return the builder instance
      */
-    public Builder labelPath(@NotNull List<String> labelPath) {
-      this.labelPath = List.copyOf(labelPath);
+    public Builder labels(@NotNull List<String> labels) {
+      this.labels = List.copyOf(labels);
       return this;
     }
 
     /**
      * Set a list of labels for the builder.
      *
-     * @param labelPath the list of labels to add
+     * @param labels the list of labels to add
      * @return the builder instance
      */
-    public Builder labelPath(String... labelPath) {
-      this.labelPath = List.of(labelPath);
+    public Builder labels(String... labels) {
+      this.labels = List.of(labels);
       return this;
     }
 

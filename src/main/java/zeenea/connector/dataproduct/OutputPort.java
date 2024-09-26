@@ -207,6 +207,17 @@ public final class OutputPort {
     }
 
     /**
+     * Set a collection of datasets to the output port.
+     *
+     * @param datasets the collection of datasets to set
+     * @return the builder instance
+     */
+    public Builder datasets(Dataset... datasets) {
+      this.datasets = List.of(datasets);
+      return this;
+    }
+
+    /**
      * Set the properties map.
      *
      * @param properties the collection of properties to set

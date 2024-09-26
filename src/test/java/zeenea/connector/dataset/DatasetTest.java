@@ -201,7 +201,7 @@ class DatasetTest {
                 .id(ItemIdentifier.of(List.of(IdentificationProperty.of("key", "dataset1"))))
                 .name("Dataset1")
                 .description("Description")
-                .fields(null)
+                .fields(List.of(null))
                 .primaryKeys(primaryKeys)
                 .foreignKeys(foreignKeys)
                 .partitions(partitions)

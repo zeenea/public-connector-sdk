@@ -42,12 +42,12 @@ class VisualizationTest {
             .name("Visualization")
             .description("Description")
             .fields(fields)
-            .linkedDataset(linkedDataset)
+            .sourceDatasets(linkedDataset)
             .build();
     assertNotNull(visualization);
     assertEquals(itemIdentifier, visualization.getId());
     assertEquals(fields, visualization.getFields());
-    assertEquals(linkedDataset, visualization.getLinkedDataset());
+    assertEquals(linkedDataset, visualization.getSourceDatasets());
   }
 
   @Test
@@ -79,7 +79,7 @@ class VisualizationTest {
             .name("Visualization")
             .description("Description")
             .fields(fields)
-            .linkedDataset(linkedDataset)
+            .sourceDatasets(linkedDataset)
             .build();
     Visualization visualization2 =
         Visualization.builder()
@@ -87,7 +87,7 @@ class VisualizationTest {
             .name("Visualization")
             .description("Description")
             .fields(fields)
-            .linkedDataset(linkedDataset)
+            .sourceDatasets(linkedDataset)
             .build();
     assertEquals(visualization1, visualization2);
     assertEquals(visualization1.hashCode(), visualization2.hashCode());
@@ -121,7 +121,7 @@ class VisualizationTest {
             .name("Visualization1")
             .description("Description")
             .fields(fields)
-            .linkedDataset(linkedDataset)
+            .sourceDatasets(linkedDataset)
             .build();
     Visualization visualization2 =
         Visualization.builder()
@@ -129,7 +129,7 @@ class VisualizationTest {
             .name("Visualization2")
             .description("Description")
             .fields(List.of())
-            .linkedDataset(List.of())
+            .sourceDatasets(List.of())
             .build();
     assertNotEquals(visualization1, visualization2);
   }
@@ -149,8 +149,8 @@ class VisualizationTest {
                 .id(ItemIdentifier.of(List.of(IdentificationProperty.of("key", "visualization"))))
                 .name("Visualization")
                 .description("Description")
-                .fields(null)
-                .linkedDataset(linkedDataset)
+                .fields((List<VisualizationField>) null)
+                .sourceDatasets(linkedDataset)
                 .build());
   }
 
@@ -178,7 +178,7 @@ class VisualizationTest {
                 .name("Visualization")
                 .description("Description")
                 .fields(fields)
-                .linkedDataset(null)
+                .sourceDatasets((List<ItemReference>) null)
                 .build());
   }
 }

@@ -1,5 +1,6 @@
 package zeenea.connector.visualization;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import org.jetbrains.annotations.NotNull;
@@ -13,7 +14,7 @@ public final class VisualizationField extends Field {
   @NotNull private final VisualizationFieldType fieldType;
 
   /** The list of item references associated with the field. */
-  @NotNull private final List<ItemReference> itemReferenceList;
+  @NotNull private final List<ItemReference> itemReferences;
 
   /**
    * Constructs a VisualizationField instance using the builder.
@@ -23,7 +24,7 @@ public final class VisualizationField extends Field {
   private VisualizationField(Builder builder) {
     super(builder);
     this.fieldType = Objects.requireNonNull(builder.fieldType, "fieldType");
-    this.itemReferenceList = builder.itemReferenceList;
+    this.itemReferences = builder.itemReferences;
   }
 
   /**
@@ -40,8 +41,8 @@ public final class VisualizationField extends Field {
    *
    * @return the list of item references associated with the field
    */
-  public List<ItemReference> getSourceItemReferenceList() {
-    return itemReferenceList;
+  public List<ItemReference> getSourceItemReference() {
+    return itemReferences;
   }
 
   /**
@@ -55,8 +56,18 @@ public final class VisualizationField extends Field {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
     if (!super.equals(o)) return false;
-    VisualizationField that = (VisualizationField) o;
-    return fieldType == that.fieldType && Objects.equals(itemReferenceList, that.itemReferenceList);
+    VisualizationField visualizationField = (VisualizationField) o;
+    return getNativeIndex() == visualizationField.getNativeIndex()
+        && isNullable() == visualizationField.isNullable()
+        && isMultivalued() == visualizationField.isMultivalued()
+        && Objects.equals(getName(), visualizationField.getName())
+        && getDataType() == visualizationField.getDataType()
+        && Objects.equals(getNativeType(), visualizationField.getNativeType())
+        && Objects.equals(getKeys(), visualizationField.getKeys())
+        && Objects.equals(getDescription(), visualizationField.getDescription())
+        && Objects.equals(getProperties(), visualizationField.getProperties())
+        && fieldType == visualizationField.fieldType
+        && Objects.equals(itemReferences, visualizationField.itemReferences);
   }
 
   /**
@@ -66,7 +77,18 @@ public final class VisualizationField extends Field {
    */
   @Override
   public int hashCode() {
-    return Objects.hash(super.hashCode(), fieldType, itemReferenceList);
+    return Objects.hash(
+        getName(),
+        getDataType(),
+        getNativeType(),
+        getNativeIndex(),
+        getKeys(),
+        isNullable(),
+        isMultivalued(),
+        getDescription(),
+        getProperties(),
+        fieldType,
+        itemReferences);
   }
 
   /**
@@ -97,8 +119,8 @@ public final class VisualizationField extends Field {
         + getProperties()
         + "fieldType="
         + fieldType
-        + ", itemReferenceList="
-        + itemReferenceList
+        + ", itemReferences="
+        + itemReferences
         + '}';
   }
 
@@ -107,7 +129,7 @@ public final class VisualizationField extends Field {
    *
    * @return a new Builder instance
    */
-  public static Builder builder() {
+  public static @NotNull Builder builder() {
     return new Builder();
   }
 
@@ -118,7 +140,7 @@ public final class VisualizationField extends Field {
     private VisualizationFieldType fieldType;
 
     /** The list of item references associated with the field. */
-    private List<ItemReference> itemReferenceList = List.of();
+    private List<ItemReference> itemReferences = new ArrayList<>();
 
     /** Constructs a Builder instance. */
     private Builder() {}
@@ -137,11 +159,22 @@ public final class VisualizationField extends Field {
     /**
      * Sets the list of item references associated with the field.
      *
-     * @param itemReferenceList the list of item references associated with the field
+     * @param itemReferences the list of item references associated with the field
      * @return the Builder instance
      */
-    public Builder sourceItemReferenceList(List<ItemReference> itemReferenceList) {
-      this.itemReferenceList = itemReferenceList;
+    public Builder itemReferences(@NotNull List<ItemReference> itemReferences) {
+      this.itemReferences = List.copyOf(itemReferences);
+      return this;
+    }
+
+    /**
+     * Sets the list of item references associated with the field.
+     *
+     * @param itemReferences the list of item references associated with the field
+     * @return the Builder instance
+     */
+    public Builder itemReferences(ItemReference... itemReferences) {
+      this.itemReferences = List.of(itemReferences);
       return this;
     }
 

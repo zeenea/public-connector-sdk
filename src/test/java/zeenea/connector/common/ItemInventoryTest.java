@@ -17,7 +17,7 @@ class ItemInventoryTest {
     ItemInventory inventory = ItemInventory.of(identifier, labels);
     assertNotNull(inventory);
     assertEquals(identifier, inventory.getItemIdentifier());
-    assertEquals(labels, inventory.getLabelPath());
+    assertEquals(labels, inventory.getLabels());
   }
 
   @Test

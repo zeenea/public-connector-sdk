@@ -236,7 +236,7 @@ public class Field {
     private int nativeIndex;
 
     /** The list of keys associated with the field. */
-    private List<String> keys;
+    private List<String> keys = new ArrayList<>();
 
     /** Indicates if the field is nullable. */
     private boolean nullable;

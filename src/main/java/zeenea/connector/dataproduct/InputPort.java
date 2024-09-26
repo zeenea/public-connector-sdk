@@ -172,6 +172,17 @@ public final class InputPort {
     }
 
     /**
+     * Set a collection of input references to the input port.
+     *
+     * @param inputs the collection of input references to add
+     * @return the builder instance
+     */
+    public Builder inputs(ItemReference... inputs) {
+      this.inputs = List.of(inputs);
+      return this;
+    }
+
+    /**
      * Set a collection of output identifiers to the input port.
      *
      * @param outputs the collection of output identifiers to add
@@ -179,6 +190,17 @@ public final class InputPort {
      */
     public Builder outputs(@NotNull Collection<ItemIdentifier> outputs) {
       this.outputs = List.copyOf(outputs);
+      return this;
+    }
+
+    /**
+     * Set a collection of output identifiers to the input port.
+     *
+     * @param outputs the collection of output identifiers to add
+     * @return the builder instance
+     */
+    public Builder outputs(ItemIdentifier... outputs) {
+      this.outputs = List.of(outputs);
       return this;
     }
 

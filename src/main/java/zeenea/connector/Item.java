@@ -183,6 +183,17 @@ public abstract class Item {
     }
 
     /**
+     * Set a list of contact relations to the item.
+     *
+     * @param contactRelations the list of contact relations to add
+     * @return the builder instance
+     */
+    public THIS contactRelations(ContactRelation... contactRelations) {
+      this.contactRelations = List.of(contactRelations);
+      return self();
+    }
+
+    /**
      * Builds and returns the item instance.
      *
      * @return the created item instance

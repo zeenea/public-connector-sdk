@@ -82,6 +82,22 @@ public class PropertiesBuilder {
    * @return the builder instance
    */
   public PropertiesBuilder put(
+      @NotNull NumberPropertyDefinition propertyDefinition, @Nullable Integer value) {
+    if (value != null)
+      properties.put(
+          propertyDefinition.getCode(), new NumberPropertyValue(BigDecimal.valueOf(value)));
+    else properties.remove(propertyDefinition.getCode());
+    return this;
+  }
+
+  /**
+   * Adds a number property to the item.
+   *
+   * @param propertyDefinition the definition of the number property
+   * @param value the value of the number property
+   * @return the builder instance
+   */
+  public PropertiesBuilder put(
       @NotNull NumberPropertyDefinition propertyDefinition, @Nullable Long value) {
     if (value != null)
       properties.put(
