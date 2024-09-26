@@ -58,9 +58,14 @@ public final class Visualization extends Item {
   public boolean equals(Object o) {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
-    Visualization that = (Visualization) o;
-    return Objects.equals(fields, that.fields)
-        && Objects.equals(sourceDatasets, that.sourceDatasets);
+    Visualization visualization = (Visualization) o;
+    return Objects.equals(getId(), visualization.getId())
+        && Objects.equals(getName(), visualization.getName())
+        && Objects.equals(getDescription(), visualization.getDescription())
+        && Objects.equals(getContactRelations(), visualization.getContactRelations())
+        && Objects.equals(getProperties(), visualization.getProperties())
+        && Objects.equals(fields, visualization.fields)
+        && Objects.equals(sourceDatasets, visualization.sourceDatasets);
   }
 
   /**
@@ -70,7 +75,14 @@ public final class Visualization extends Item {
    */
   @Override
   public int hashCode() {
-    return Objects.hash(fields, sourceDatasets);
+    return Objects.hash(
+        getId(),
+        getName(),
+        getDescription(),
+        getContactRelations(),
+        getProperties(),
+        fields,
+        sourceDatasets);
   }
 
   /**

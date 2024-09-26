@@ -97,7 +97,12 @@ public final class Dataset extends Item {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
     Dataset dataset = (Dataset) o;
-    return Objects.equals(fields, dataset.fields)
+    return Objects.equals(getId(), dataset.getId())
+        && Objects.equals(getName(), dataset.getName())
+        && Objects.equals(getDescription(), dataset.getDescription())
+        && Objects.equals(getContactRelations(), dataset.getContactRelations())
+        && Objects.equals(getProperties(), dataset.getProperties())
+        && Objects.equals(fields, dataset.fields)
         && Objects.equals(primaryKeys, dataset.primaryKeys)
         && Objects.equals(foreignKeys, dataset.foreignKeys)
         && Objects.equals(partitions, dataset.partitions)
@@ -111,7 +116,17 @@ public final class Dataset extends Item {
    */
   @Override
   public int hashCode() {
-    return Objects.hash(fields, primaryKeys, foreignKeys, partitions, sourceDatasets);
+    return Objects.hash(
+        getId(),
+        getName(),
+        getDescription(),
+        getContactRelations(),
+        getProperties(),
+        fields,
+        primaryKeys,
+        foreignKeys,
+        partitions,
+        sourceDatasets);
   }
 
   /**

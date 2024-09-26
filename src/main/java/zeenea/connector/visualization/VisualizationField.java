@@ -56,8 +56,18 @@ public final class VisualizationField extends Field {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
     if (!super.equals(o)) return false;
-    VisualizationField that = (VisualizationField) o;
-    return fieldType == that.fieldType && Objects.equals(itemReferences, that.itemReferences);
+    VisualizationField visualizationField = (VisualizationField) o;
+    return getNativeIndex() == visualizationField.getNativeIndex()
+        && isNullable() == visualizationField.isNullable()
+        && isMultivalued() == visualizationField.isMultivalued()
+        && Objects.equals(getName(), visualizationField.getName())
+        && getDataType() == visualizationField.getDataType()
+        && Objects.equals(getNativeType(), visualizationField.getNativeType())
+        && Objects.equals(getKeys(), visualizationField.getKeys())
+        && Objects.equals(getDescription(), visualizationField.getDescription())
+        && Objects.equals(getProperties(), visualizationField.getProperties())
+        && fieldType == visualizationField.fieldType
+        && Objects.equals(itemReferences, visualizationField.itemReferences);
   }
 
   /**
@@ -67,7 +77,18 @@ public final class VisualizationField extends Field {
    */
   @Override
   public int hashCode() {
-    return Objects.hash(super.hashCode(), fieldType, itemReferences);
+    return Objects.hash(
+        getName(),
+        getDataType(),
+        getNativeType(),
+        getNativeIndex(),
+        getKeys(),
+        isNullable(),
+        isMultivalued(),
+        getDescription(),
+        getProperties(),
+        fieldType,
+        itemReferences);
   }
 
   /**

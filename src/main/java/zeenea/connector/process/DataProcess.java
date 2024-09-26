@@ -58,8 +58,14 @@ public final class DataProcess extends Item {
   public boolean equals(Object o) {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
-    DataProcess that = (DataProcess) o;
-    return Objects.equals(sources, that.sources) && Objects.equals(targets, that.targets);
+    DataProcess dataProcess = (DataProcess) o;
+    return Objects.equals(getId(), dataProcess.getId())
+        && Objects.equals(getName(), dataProcess.getName())
+        && Objects.equals(getDescription(), dataProcess.getDescription())
+        && Objects.equals(getContactRelations(), dataProcess.getContactRelations())
+        && Objects.equals(getProperties(), dataProcess.getProperties())
+        && Objects.equals(sources, dataProcess.sources)
+        && Objects.equals(targets, dataProcess.targets);
   }
 
   /**
@@ -69,7 +75,14 @@ public final class DataProcess extends Item {
    */
   @Override
   public int hashCode() {
-    return Objects.hash(sources, targets);
+    return Objects.hash(
+        getId(),
+        getName(),
+        getDescription(),
+        getContactRelations(),
+        getProperties(),
+        sources,
+        targets);
   }
 
   /**
