@@ -177,7 +177,7 @@ public final class ItemReference {
      * @return the builder instance
      */
     public Builder connectionAlias(@Nullable String alias) {
-      this.connectionReference = alias != null ? ConnectionReferenceCode.of(alias) : null;
+      this.connectionReference = alias != null ? ConnectionReferenceAlias.of(alias) : null;
       return this;
     }
 
