@@ -7,6 +7,7 @@ import org.jetbrains.annotations.NotNull;
 import zeenea.connector.Item;
 import zeenea.connector.common.ItemReference;
 import zeenea.connector.exception.ExceptionUtils;
+import zeenea.connector.field.Field;
 
 /** Represents a dataset which is a specialized type of Item. */
 public final class Dataset extends Item {
@@ -100,7 +101,7 @@ public final class Dataset extends Item {
     return Objects.equals(getId(), dataset.getId())
         && Objects.equals(getName(), dataset.getName())
         && Objects.equals(getDescription(), dataset.getDescription())
-        && Objects.equals(getContactRelations(), dataset.getContactRelations())
+        && Objects.equals(getContacts(), dataset.getContacts())
         && Objects.equals(getProperties(), dataset.getProperties())
         && Objects.equals(fields, dataset.fields)
         && Objects.equals(primaryKeys, dataset.primaryKeys)
@@ -120,7 +121,7 @@ public final class Dataset extends Item {
         getId(),
         getName(),
         getDescription(),
-        getContactRelations(),
+        getContacts(),
         getProperties(),
         fields,
         primaryKeys,
@@ -144,7 +145,7 @@ public final class Dataset extends Item {
         + "', description="
         + getDescription()
         + ", contactRelations="
-        + getContactRelations()
+        + getContacts()
         + ", properties="
         + getProperties()
         + ", fields="

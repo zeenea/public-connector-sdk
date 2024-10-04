@@ -62,7 +62,7 @@ public final class Visualization extends Item {
     return Objects.equals(getId(), visualization.getId())
         && Objects.equals(getName(), visualization.getName())
         && Objects.equals(getDescription(), visualization.getDescription())
-        && Objects.equals(getContactRelations(), visualization.getContactRelations())
+        && Objects.equals(getContacts(), visualization.getContacts())
         && Objects.equals(getProperties(), visualization.getProperties())
         && Objects.equals(fields, visualization.fields)
         && Objects.equals(sourceDatasets, visualization.sourceDatasets);
@@ -79,7 +79,7 @@ public final class Visualization extends Item {
         getId(),
         getName(),
         getDescription(),
-        getContactRelations(),
+        getContacts(),
         getProperties(),
         fields,
         sourceDatasets);
@@ -100,7 +100,7 @@ public final class Visualization extends Item {
         + "', description="
         + getDescription()
         + ", contactRelations="
-        + getContactRelations()
+        + getContacts()
         + ", properties="
         + getProperties()
         + "fields="

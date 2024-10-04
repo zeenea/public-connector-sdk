@@ -17,6 +17,9 @@ public final class Contact {
   /** The phone number of the contact, if any. */
   @Nullable private final String phoneNumber;
 
+  /** The role of the contact. */
+  @NotNull private final String role;
+
   /**
    * Constructs a Contact instance using the provided builder.
    *
@@ -24,9 +27,11 @@ public final class Contact {
    */
   private Contact(Builder builder) {
     ExceptionUtils.requireNonNullOrEmpty("email", builder.email);
+    ExceptionUtils.requireNonNullOrEmpty("role", builder.role);
     this.email = builder.email;
     this.name = builder.name;
     this.phoneNumber = builder.phoneNumber;
+    this.role = builder.role;
   }
 
   /**
@@ -35,11 +40,15 @@ public final class Contact {
    * @param email the email address of the contact
    * @param name the name of the contact
    * @param phoneNumber the phone number of the contact
+   * @param role the role of the contact
    * @return a new Contact instance
    */
   public static Contact of(
-      @NotNull String email, @Nullable String name, @Nullable String phoneNumber) {
-    return builder().email(email).name(name).phoneNumber(phoneNumber).build();
+      @NotNull String email,
+      @Nullable String name,
+      @Nullable String phoneNumber,
+      @NotNull String role) {
+    return builder().email(email).name(name).phoneNumber(phoneNumber).role(role).build();
   }
 
   /**
@@ -70,6 +79,15 @@ public final class Contact {
   }
 
   /**
+   * Gets the role of the contact.
+   *
+   * @return the role of the contact
+   */
+  public @NotNull String getRole() {
+    return role;
+  }
+
+  /**
    * Creates a new builder for the Contact class.
    *
    * @return a new Builder instance
@@ -91,7 +109,8 @@ public final class Contact {
     Contact that = (Contact) o;
     return Objects.equals(name, that.name)
         && Objects.equals(email, that.email)
-        && Objects.equals(phoneNumber, that.phoneNumber);
+        && Objects.equals(phoneNumber, that.phoneNumber)
+        && Objects.equals(role, that.role);
   }
 
   /**
@@ -101,7 +120,7 @@ public final class Contact {
    */
   @Override
   public int hashCode() {
-    return Objects.hash(name, email, phoneNumber);
+    return Objects.hash(name, email, phoneNumber, role);
   }
 
   /**
@@ -118,6 +137,8 @@ public final class Contact {
         + name
         + "', phoneNumber='"
         + phoneNumber
+        + "', role='"
+        + role
         + "'}";
   }
 
@@ -132,6 +153,9 @@ public final class Contact {
 
     /** The phone number of the contact, if any. */
     private String phoneNumber;
+
+    /** The role of the contact */
+    private String role;
 
     /**
      * Sets the email of the contact.
@@ -163,6 +187,17 @@ public final class Contact {
      */
     public Builder phoneNumber(@Nullable String phoneNumber) {
       this.phoneNumber = phoneNumber;
+      return this;
+    }
+
+    /**
+     * Sets the role of the contact.
+     *
+     * @param role the role to set
+     * @return the builder instance
+     */
+    public Builder role(@NotNull String role) {
+      this.role = role;
       return this;
     }
 

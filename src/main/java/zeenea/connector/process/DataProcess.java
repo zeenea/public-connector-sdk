@@ -76,7 +76,7 @@ public final class DataProcess extends Item {
     return Objects.equals(getId(), dataProcess.getId())
         && Objects.equals(getName(), dataProcess.getName())
         && Objects.equals(getDescription(), dataProcess.getDescription())
-        && Objects.equals(getContactRelations(), dataProcess.getContactRelations())
+        && Objects.equals(getContacts(), dataProcess.getContacts())
         && Objects.equals(getProperties(), dataProcess.getProperties())
         && Objects.equals(sources, dataProcess.sources)
         && Objects.equals(targets, dataProcess.targets)
@@ -94,7 +94,7 @@ public final class DataProcess extends Item {
         getId(),
         getName(),
         getDescription(),
-        getContactRelations(),
+        getContacts(),
         getProperties(),
         sources,
         targets,
@@ -116,7 +116,7 @@ public final class DataProcess extends Item {
         + "', description="
         + getDescription()
         + ", contactRelations="
-        + getContactRelations()
+        + getContacts()
         + ", properties="
         + getProperties()
         + "sources="

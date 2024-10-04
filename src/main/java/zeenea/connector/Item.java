@@ -5,7 +5,7 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import zeenea.connector.common.IdentificationProperty;
 import zeenea.connector.common.ItemIdentifier;
-import zeenea.connector.contact.ContactRelation;
+import zeenea.connector.contact.Contact;
 import zeenea.connector.property.*;
 
 /**
@@ -31,8 +31,8 @@ public abstract class Item {
   /** The properties of the item. */
   private final Map<String, PropertyValue> properties;
 
-  /** The contact relations of the item. */
-  private final List<ContactRelation> contactRelations;
+  /** The contacts of the item. */
+  private final List<Contact> contacts;
 
   /**
    * Constructs an Item instance using the provided builder.
@@ -44,7 +44,7 @@ public abstract class Item {
     this.id = Objects.requireNonNull(builder.id, "id");
     this.description = builder.description;
     this.properties = new HashMap<>(builder.properties);
-    this.contactRelations = List.copyOf(builder.contactRelations);
+    this.contacts = List.copyOf(builder.contacts);
   }
 
   /**
@@ -85,12 +85,12 @@ public abstract class Item {
   }
 
   /**
-   * Gets the contact relations of the item.
+   * Gets the contacts of the item.
    *
-   * @return a collection of the contact relations of the item
+   * @return a collection of the contacts of the item
    */
-  public Collection<ContactRelation> getContactRelations() {
-    return contactRelations;
+  public Collection<Contact> getContacts() {
+    return contacts;
   }
 
   /**
@@ -114,7 +114,7 @@ public abstract class Item {
     private Map<String, PropertyValue> properties = Map.of();
 
     /** The contact relations of the item. */
-    private List<ContactRelation> contactRelations = List.of();
+    private List<Contact> contacts = List.of();
 
     /**
      * Sets the identifier of the item.
@@ -172,24 +172,24 @@ public abstract class Item {
     }
 
     /**
-     * Set a list of contact relations to the item.
+     * Set a list of contacts to the item.
      *
-     * @param contactRelations the list of contact relations to add
+     * @param contacts the list of contacts to add
      * @return the builder instance
      */
-    public THIS contactRelations(@NotNull List<ContactRelation> contactRelations) {
-      this.contactRelations = List.copyOf(contactRelations);
+    public THIS contacts(@NotNull List<Contact> contacts) {
+      this.contacts = List.copyOf(contacts);
       return self();
     }
 
     /**
-     * Set a list of contact relations to the item.
+     * Set a list of contacts to the item.
      *
-     * @param contactRelations the list of contact relations to add
+     * @param contacts the list of contacts to add
      * @return the builder instance
      */
-    public THIS contactRelations(ContactRelation... contactRelations) {
-      this.contactRelations = List.of(contactRelations);
+    public THIS contacts(Contact... contacts) {
+      this.contacts = List.of(contacts);
       return self();
     }
 
