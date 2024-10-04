@@ -11,11 +11,14 @@ import zeenea.connector.exception.ExceptionUtils;
 /** Represents a data process which extends the Item class. */
 public final class DataProcess extends Item {
 
-  /** The source item references. */
+  /** The dataset source item references. */
   @NotNull private final List<ItemReference> sources;
 
-  /** The target item references. */
+  /** The dataset target item references. */
   @NotNull private final List<ItemReference> targets;
+
+  /** The list of field to field operations. */
+  @NotNull private final List<Operation> operations;
 
   /**
    * Constructs a DataProcess instance using the provided builder.
@@ -26,8 +29,10 @@ public final class DataProcess extends Item {
     super(builder);
     ExceptionUtils.requireNonNullOrEmpty("sources", builder.sources);
     ExceptionUtils.requireNonNullOrEmpty("targets", builder.targets);
+    ExceptionUtils.requireNonNull("operation", builder.operations);
     this.sources = List.copyOf(builder.sources);
     this.targets = List.copyOf(builder.targets);
+    this.operations = List.copyOf(builder.operations);
   }
 
   /**
@@ -49,6 +54,15 @@ public final class DataProcess extends Item {
   }
 
   /**
+   * Gets the list of operations.
+   *
+   * @return the list of operations
+   */
+  public @NotNull List<Operation> getOperations() {
+    return operations;
+  }
+
+  /**
    * Checks if this DataProcess is equal to another object.
    *
    * @param o the object to compare with
@@ -65,7 +79,8 @@ public final class DataProcess extends Item {
         && Objects.equals(getContactRelations(), dataProcess.getContactRelations())
         && Objects.equals(getProperties(), dataProcess.getProperties())
         && Objects.equals(sources, dataProcess.sources)
-        && Objects.equals(targets, dataProcess.targets);
+        && Objects.equals(targets, dataProcess.targets)
+        && Objects.equals(operations, dataProcess.operations);
   }
 
   /**
@@ -82,7 +97,8 @@ public final class DataProcess extends Item {
         getContactRelations(),
         getProperties(),
         sources,
-        targets);
+        targets,
+        operations);
   }
 
   /**
@@ -107,6 +123,8 @@ public final class DataProcess extends Item {
         + sources
         + ", targets="
         + targets
+        + ", operations="
+        + operations
         + "}";
   }
 
@@ -124,11 +142,12 @@ public final class DataProcess extends Item {
 
     /** The list of source item references to be set in the DataProcess. */
     private List<ItemReference> sources = new ArrayList<>();
-    ;
 
     /** The list of target item references to be set in the DataProcess. */
     private List<ItemReference> targets = new ArrayList<>();
-    ;
+
+    /** The list of operations to be set in the DataProcess. */
+    private List<Operation> operations = new ArrayList<>();
 
     /**
      * Sets the list of source item references for the DataProcess.
@@ -171,6 +190,28 @@ public final class DataProcess extends Item {
      */
     public Builder targets(ItemReference... targets) {
       this.targets = List.of(targets);
+      return this;
+    }
+
+    /**
+     * Sets the list of operations for the DataProcess.
+     *
+     * @param operations the list of operations
+     * @return this Builder instance
+     */
+    public Builder operations(@NotNull List<Operation> operations) {
+      this.operations = List.copyOf(operations);
+      return this;
+    }
+
+    /**
+     * Sets the list of operations for the DataProcess.
+     *
+     * @param operations the list of operations
+     * @return this Builder instance
+     */
+    public Builder operations(Operation... operations) {
+      this.operations = List.of(operations);
       return this;
     }
 
