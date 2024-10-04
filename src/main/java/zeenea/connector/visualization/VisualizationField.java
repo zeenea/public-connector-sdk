@@ -57,13 +57,13 @@ public final class VisualizationField extends Field {
     if (o == null || getClass() != o.getClass()) return false;
     if (!super.equals(o)) return false;
     VisualizationField visualizationField = (VisualizationField) o;
-    return getNativeIndex() == visualizationField.getNativeIndex()
-        && isNullable() == visualizationField.isNullable()
-        && isMultivalued() == visualizationField.isMultivalued()
+    return Objects.equals(getId(), visualizationField.getId())
         && Objects.equals(getName(), visualizationField.getName())
         && getDataType() == visualizationField.getDataType()
         && Objects.equals(getNativeType(), visualizationField.getNativeType())
-        && Objects.equals(getKeys(), visualizationField.getKeys())
+        && getNativeIndex() == visualizationField.getNativeIndex()
+        && isNullable() == visualizationField.isNullable()
+        && isMultivalued() == visualizationField.isMultivalued()
         && Objects.equals(getDescription(), visualizationField.getDescription())
         && Objects.equals(getProperties(), visualizationField.getProperties())
         && fieldType == visualizationField.fieldType
@@ -78,11 +78,11 @@ public final class VisualizationField extends Field {
   @Override
   public int hashCode() {
     return Objects.hash(
+        getId(),
         getName(),
         getDataType(),
         getNativeType(),
         getNativeIndex(),
-        getKeys(),
         isNullable(),
         isMultivalued(),
         getDescription(),
@@ -99,11 +99,11 @@ public final class VisualizationField extends Field {
   @Override
   public String toString() {
     return "VisualizationField{"
-        + "name='"
+        + "identifier="
+        + getId()
+        + ", name='"
         + getName()
-        + "', keys="
-        + getKeys()
-        + ", dataType="
+        + "', dataType="
         + getDataType()
         + ", nativeType='"
         + getNativeType()
