@@ -1,4 +1,4 @@
-package zeenea.connector.dataset;
+package zeenea.connector.field;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -8,6 +8,7 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import zeenea.connector.common.IdentificationProperty;
 import zeenea.connector.common.ItemIdentifier;
+import zeenea.connector.dataset.DataType;
 import zeenea.connector.property.PropertyValue;
 
 class FieldTest {

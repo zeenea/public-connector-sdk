@@ -10,16 +10,16 @@ import zeenea.connector.common.IdentificationProperty;
 import zeenea.connector.common.ItemIdentifier;
 import zeenea.connector.common.ItemReference;
 import zeenea.connector.dataset.DataType;
+import zeenea.connector.field.Field;
 
 class VisualizationTest {
 
   @Test
   @DisplayName("Visualization builder should create visualization")
   void shouldCreateVisualizationWithBuilder() {
-    List<VisualizationField> fields =
+    List<Field> fields =
         List.of(
-            VisualizationField.builder()
-                .fieldType(VisualizationFieldType.Measure)
+            Field.builder()
                 .identifier(ItemIdentifier.of(IdentificationProperty.of("key", "field")))
                 .name("field")
                 .dataType(DataType.String)
@@ -53,10 +53,9 @@ class VisualizationTest {
   @Test
   @DisplayName("Visualization should be equal to another with same properties")
   void shouldBeEqualToAnotherWithSameProperties() {
-    List<VisualizationField> fields =
+    List<Field> fields =
         List.of(
-            VisualizationField.builder()
-                .fieldType(VisualizationFieldType.Measure)
+            Field.builder()
                 .identifier(ItemIdentifier.of(IdentificationProperty.of("key", "field")))
                 .name("field")
                 .dataType(DataType.String)
@@ -96,10 +95,9 @@ class VisualizationTest {
   @Test
   @DisplayName("Visualization should not be equal to another with different properties")
   void shouldNotBeEqualToAnotherWithDifferentProperties() {
-    List<VisualizationField> fields =
+    List<Field> fields =
         List.of(
-            VisualizationField.builder()
-                .fieldType(VisualizationFieldType.Measure)
+            Field.builder()
                 .identifier(ItemIdentifier.of(IdentificationProperty.of("key", "field")))
                 .name("field")
                 .dataType(DataType.String)
@@ -149,7 +147,7 @@ class VisualizationTest {
                 .id(ItemIdentifier.of(List.of(IdentificationProperty.of("key", "visualization"))))
                 .name("Visualization")
                 .description("Description")
-                .fields((List<VisualizationField>) null)
+                .fields((List<Field>) null)
                 .sourceDatasets(linkedDataset)
                 .build());
   }
@@ -157,10 +155,9 @@ class VisualizationTest {
   @Test
   @DisplayName("Visualization builder should fail with null linked dataset")
   void builderShouldFailWithNullLinkedDataset() {
-    List<VisualizationField> fields =
+    List<Field> fields =
         List.of(
-            VisualizationField.builder()
-                .fieldType(VisualizationFieldType.Measure)
+            Field.builder()
                 .identifier(ItemIdentifier.of(IdentificationProperty.of("key", "field")))
                 .name("field")
                 .dataType(DataType.String)

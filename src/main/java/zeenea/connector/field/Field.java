@@ -1,9 +1,11 @@
-package zeenea.connector.dataset;
+package zeenea.connector.field;
 
 import java.util.*;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import zeenea.connector.common.ItemIdentifier;
+import zeenea.connector.common.ItemReference;
+import zeenea.connector.dataset.DataType;
 import zeenea.connector.property.PropertyValue;
 
 /** Represents a field in a dataset. */
@@ -36,6 +38,9 @@ public class Field {
   /** The properties of the field. */
   @NotNull private final Map<String, PropertyValue> properties;
 
+  /** The list of source fields associated with the field. */
+  @NotNull private final List<ItemReference> sourceFields;
+
   /**
    * Constructs a Field instance using the provided builder.
    *
@@ -51,6 +56,7 @@ public class Field {
     this.multivalued = builder.multivalued;
     this.description = builder.description;
     this.properties = new HashMap<>(builder.properties);
+    this.sourceFields = builder.itemReferences;
   }
 
   /**
@@ -135,6 +141,15 @@ public class Field {
   }
 
   /**
+   * Gets the list of item references associated with the field.
+   *
+   * @return the list of item references associated with the field
+   */
+  public List<ItemReference> getItemReference() {
+    return sourceFields;
+  }
+
+  /**
    * Checks if this Field is equal to another object.
    *
    * @param o the object to compare with
@@ -153,7 +168,8 @@ public class Field {
         && dataType == that.dataType
         && Objects.equals(nativeType, that.nativeType)
         && Objects.equals(description, that.description)
-        && Objects.equals(properties, that.properties);
+        && Objects.equals(properties, that.properties)
+        && Objects.equals(sourceFields, that.sourceFields);
   }
 
   /**
@@ -172,7 +188,8 @@ public class Field {
         nullable,
         multivalued,
         description,
-        properties);
+        properties,
+        sourceFields);
   }
 
   /**
@@ -201,6 +218,8 @@ public class Field {
         + description
         + "', properties="
         + properties
+        + ", itemReferences="
+        + sourceFields
         + "}";
   }
 
@@ -248,6 +267,9 @@ public class Field {
 
     /** The properties of the field. */
     private Map<String, PropertyValue> properties = Map.of();
+
+    /** The list of item references associated with the field. */
+    private List<ItemReference> itemReferences = new ArrayList<>();
 
     /** Protected constructor for the Builder class. */
     protected Builder() {}
@@ -348,6 +370,28 @@ public class Field {
      */
     public THIS properties(@NotNull Map<String, PropertyValue> metadata) {
       this.properties = Map.copyOf(metadata);
+      return self();
+    }
+
+    /**
+     * Sets the list of item references associated with the field.
+     *
+     * @param itemReferences the list of item references associated with the field
+     * @return the Builder instance
+     */
+    public THIS itemReferences(@NotNull List<ItemReference> itemReferences) {
+      this.itemReferences = List.copyOf(itemReferences);
+      return self();
+    }
+
+    /**
+     * Sets the list of item references associated with the field.
+     *
+     * @param itemReferences the list of item references associated with the field
+     * @return the Builder instance
+     */
+    public THIS itemReferences(ItemReference... itemReferences) {
+      this.itemReferences = List.of(itemReferences);
       return self();
     }
 

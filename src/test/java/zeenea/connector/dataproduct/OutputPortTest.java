@@ -181,7 +181,7 @@ class OutputPortTest {
                 .name("OutputPort1")
                 .description("Description1")
                 .dataContract(dataContract)
-                .datasets(List.of(null))
+                .datasets((Dataset) null)
                 .properties(properties)
                 .build());
   }

@@ -9,6 +9,7 @@ import zeenea.connector.common.ConnectionReferenceCode;
 import zeenea.connector.common.IdentificationProperty;
 import zeenea.connector.common.ItemIdentifier;
 import zeenea.connector.common.ItemReference;
+import zeenea.connector.field.Field;
 
 class DatasetTest {
 
@@ -201,7 +202,7 @@ class DatasetTest {
                 .id(ItemIdentifier.of(List.of(IdentificationProperty.of("key", "dataset1"))))
                 .name("Dataset1")
                 .description("Description")
-                .fields(List.of(null))
+                .fields((Field) null)
                 .primaryKeys(primaryKeys)
                 .foreignKeys(foreignKeys)
                 .partitions(partitions)

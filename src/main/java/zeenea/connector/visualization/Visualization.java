@@ -7,12 +7,13 @@ import org.jetbrains.annotations.NotNull;
 import zeenea.connector.Item;
 import zeenea.connector.common.ItemReference;
 import zeenea.connector.exception.ExceptionUtils;
+import zeenea.connector.field.Field;
 
 /** Represents a visualization item. */
 public final class Visualization extends Item {
 
   /** The fields of the visualization. */
-  @NotNull private final List<VisualizationField> fields;
+  @NotNull private final List<Field> fields;
 
   /** The list of source datasets for the visualization. */
   @NotNull private final List<ItemReference> sourceDatasets;
@@ -35,7 +36,7 @@ public final class Visualization extends Item {
    *
    * @return the fields of the visualization
    */
-  public @NotNull List<VisualizationField> getFields() {
+  public @NotNull List<Field> getFields() {
     return fields;
   }
 
@@ -123,7 +124,7 @@ public final class Visualization extends Item {
   public static class Builder extends Item.Builder<Visualization, Builder> {
 
     /** The fields of the visualization. */
-    private List<VisualizationField> fields = new ArrayList<>();
+    private List<Field> fields = new ArrayList<>();
 
     /** The list of source dataset references of the visualization. */
     private List<ItemReference> sourceDatasets = new ArrayList<>();
@@ -134,7 +135,7 @@ public final class Visualization extends Item {
      * @param fields the fields of the visualization
      * @return the Builder instance
      */
-    public Builder fields(@NotNull List<VisualizationField> fields) {
+    public Builder fields(@NotNull List<Field> fields) {
       this.fields = List.copyOf(fields);
       return this;
     }
@@ -145,7 +146,7 @@ public final class Visualization extends Item {
      * @param fields the fields of the visualization
      * @return the Builder instance
      */
-    public Builder fields(VisualizationField... fields) {
+    public Builder fields(Field... fields) {
       this.fields = List.of(fields);
       return this;
     }
