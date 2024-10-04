@@ -1,11 +1,11 @@
 title Inventory Connection Lifecycle
-==Inventory event==
+==Extract items event==
 Scanner->Connector:getConnection("my-Connection")
 Connector->Connection:newConnection("url"->"connection","user"->"john")
 activate Connection
 Connection->Scanner:Connection
-Scanner->Connection:inventory()
-Connection<-->DataSource:Inventory all items
-Connection->Scanner:Stream<ItemInventory>
+Scanner->Connection:extractItems(Stream<ItemIdentifier>)
+Connection<-->DataSource:Fetch all items
+Connection->Scanner:Stream<Item>
 Scanner->Connection:close()
 deactivate Connection
