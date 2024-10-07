@@ -11,7 +11,7 @@ import zeenea.connector.property.PropertyValue;
 /** Represents a field in a dataset. */
 public class Field {
 
-  /** The identifier of the item. */
+  /** The identifier of the field. */
   @NotNull private final ItemIdentifier id;
 
   /** The name of the field. */
