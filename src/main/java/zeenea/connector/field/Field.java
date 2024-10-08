@@ -38,7 +38,15 @@ public class Field {
   /** The properties of the field. */
   @NotNull private final Map<String, PropertyValue> properties;
 
-  /** The list of source fields associated with the field. */
+  /**
+   * The list of source fields associated with the field.
+   *
+   * <p>Used to declare downstream field to field lineage by referencing ItemIdentifier of source
+   * fields.
+   *
+   * <p>Only works if parent object (Dataset or Visualization) reference source datasets through
+   * sourceDatasets attribute.
+   */
   @NotNull private final List<ItemReference> sourceFields;
 
   /**
@@ -56,7 +64,7 @@ public class Field {
     this.multivalued = builder.multivalued;
     this.description = builder.description;
     this.properties = new HashMap<>(builder.properties);
-    this.sourceFields = builder.itemReferences;
+    this.sourceFields = builder.sourceFields;
   }
 
   /**
@@ -141,11 +149,11 @@ public class Field {
   }
 
   /**
-   * Gets the list of item references associated with the field.
+   * Gets the list of source field references.
    *
-   * @return the list of item references associated with the field
+   * @return the list of source field references
    */
-  public List<ItemReference> getItemReference() {
+  public List<ItemReference> getSourceField() {
     return sourceFields;
   }
 
@@ -218,7 +226,7 @@ public class Field {
         + description
         + "', properties="
         + properties
-        + ", itemReferences="
+        + ", sourceFields="
         + sourceFields
         + "}";
   }
@@ -268,8 +276,8 @@ public class Field {
     /** The properties of the field. */
     private Map<String, PropertyValue> properties = Map.of();
 
-    /** The list of item references associated with the field. */
-    private List<ItemReference> itemReferences = new ArrayList<>();
+    /** The list of source field associated with the field. */
+    private List<ItemReference> sourceFields = new ArrayList<>();
 
     /** Protected constructor for the Builder class. */
     protected Builder() {}
@@ -374,24 +382,24 @@ public class Field {
     }
 
     /**
-     * Sets the list of item references associated with the field.
+     * Sets the list of source fields associated with the field.
      *
-     * @param itemReferences the list of item references associated with the field
+     * @param sourceFields the list of source fields associated with the field
      * @return the Builder instance
      */
-    public THIS itemReferences(@NotNull List<ItemReference> itemReferences) {
-      this.itemReferences = List.copyOf(itemReferences);
+    public THIS sourceFields(@NotNull List<ItemReference> sourceFields) {
+      this.sourceFields = List.copyOf(sourceFields);
       return self();
     }
 
     /**
-     * Sets the list of item references associated with the field.
+     * Sets the list of source fields associated with the field.
      *
-     * @param itemReferences the list of item references associated with the field
+     * @param sourceFields the list of source fields associated with the field
      * @return the Builder instance
      */
-    public THIS itemReferences(ItemReference... itemReferences) {
-      this.itemReferences = List.of(itemReferences);
+    public THIS sourceFields(ItemReference... sourceFields) {
+      this.sourceFields = List.of(sourceFields);
       return self();
     }
 

@@ -5,7 +5,7 @@ Datacatalog.
 
 ## Overview
 
-This project mainly consists in various interfaces that a Connection must comply to in order to be properly loaded and
+This project mainly consists in various interfaces that a Connector must comply to in order to be properly loaded and
 operable from Zeenea Scanner.
 
 ## Getting started
@@ -25,8 +25,8 @@ More information on the subject can be found on [pf4j's website](https://pf4j.or
 
 ### `Connector`
 
-Next in line is the implementation of `Connector`, which is used to identify and create instances of the
-Connection.
+Next in line is the implementation of `Connector`, which is a factory used to identify and create instances of the
+Connection instances.
 
 ```java
 package com.example.connector;
@@ -165,7 +165,7 @@ In order to reference this package locally from other repositories (like [scanne
 On Zeenea Scanner startup, instances of `Connector` discovered in the *plugins* folder are created.
 
 Their configuration is then immediately validated by creating an instance of `Connection` for every factory, followed by
-successive calls to `connector.getProperties()` and `connector.close()`. `Connection` instances are then discarded.
+successive calls to `connection.getProperties()` and `connection.close()`. `Connection` instances are then discarded.
 
 `PropertyDefinition` collected this way are then submitted to Zeenea Datacatalog and made accessible to operators in the
 Admin interface.
@@ -190,7 +190,7 @@ After a successful synchronization, items should be visible in Zeenea Datacatalo
 ### Inventory
 
 A click on the **Inventory** button in Zeenea Datacatalog's Admin interface triggers the creation of a new `Connection`
-from the factory and the retrieval, through the Connection, of list of existing items located in the datasource.
+from the factory and the retrieval, through the Connection, of identifiers of existing items located in the datasource.
 
 The following diagram exposes the chaining of method calls leading to the item inventory.
 
@@ -201,13 +201,13 @@ After a successful inventory, items should be importable in Zeenea Datacatalog's
 ### Extract items
 
 A click on the **Item import** button in Zeenea Datacatalog's Studio interface triggers the creation of a
-new `Connection` from the factory and the retrieval, through the Connection, of specified item located in the
+new `Connection` from the factory and the retrieval, through the Connection, of specified items located in the
 datasource.
 
 The following diagram exposes the chaining of method calls leading to the extract item.
 
 ![](src/main/resources/doc-files/extract-items-connection-sequence-diagram.png)
 
-After a successful extract item, item should be visible in Zeenea Datacatalog's Studio interface.
+After a successful extract item, items should be visible in Zeenea Datacatalog's Studio interface.
 
 [scanner]: https://github.com/zeenea/scanner

@@ -24,7 +24,11 @@ public final class Dataset extends Item {
   /** The list of partitions in the dataset. */
   @NotNull private final List<Partitioning> partitions;
 
-  /** The list of source datasets for the dataset. */
+  /**
+   * The list of source datasets associated with the dataset.
+   *
+   * <p>Used to declare downstream dataset lineage by referencing ItemIdentifier of source datasets.
+   */
   @NotNull private final List<ItemReference> sourceDatasets;
 
   /**
@@ -79,9 +83,9 @@ public final class Dataset extends Item {
   }
 
   /**
-   * Gets the list of source datasets for the dataset.
+   * Gets the list of source datasets references.
    *
-   * @return the list of source datasets
+   * @return the list of source datasets references
    */
   public @NotNull List<ItemReference> getSourceDatasets() {
     return sourceDatasets;

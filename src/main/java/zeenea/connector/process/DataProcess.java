@@ -11,10 +11,10 @@ import zeenea.connector.exception.ExceptionUtils;
 /** Represents a data process which extends the Item class. */
 public final class DataProcess extends Item {
 
-  /** The dataset source item references. */
+  /** The source datasets references. */
   @NotNull private final List<ItemReference> sources;
 
-  /** The dataset target item references. */
+  /** The target datasets references. */
   @NotNull private final List<ItemReference> targets;
 
   /** The list of field to field operations. */
@@ -36,18 +36,18 @@ public final class DataProcess extends Item {
   }
 
   /**
-   * Gets the list of source item references.
+   * Gets the list of source datasets references.
    *
-   * @return the list of source item references
+   * @return the list of source datasets references
    */
   public @NotNull List<ItemReference> getSources() {
     return sources;
   }
 
   /**
-   * Gets the list of target item references.
+   * Gets the list of target datasets references.
    *
-   * @return the list of target item references
+   * @return the list of target datasets references
    */
   public @NotNull List<ItemReference> getTargets() {
     return targets;
@@ -140,19 +140,19 @@ public final class DataProcess extends Item {
   /** Builder class for constructing DataProcess instances. */
   public static class Builder extends Item.Builder<DataProcess, Builder> {
 
-    /** The list of source item references to be set in the DataProcess. */
+    /** The list of source datasets references to be set in the DataProcess. */
     private List<ItemReference> sources = new ArrayList<>();
 
-    /** The list of target item references to be set in the DataProcess. */
+    /** The list of target datasets references to be set in the DataProcess. */
     private List<ItemReference> targets = new ArrayList<>();
 
     /** The list of operations to be set in the DataProcess. */
     private List<Operation> operations = new ArrayList<>();
 
     /**
-     * Sets the list of source item references for the DataProcess.
+     * Sets the list of source datasets references for the DataProcess.
      *
-     * @param sources the list of source item references
+     * @param sources the list of source datasets references
      * @return this Builder instance
      */
     public Builder sources(@NotNull List<ItemReference> sources) {
@@ -161,9 +161,9 @@ public final class DataProcess extends Item {
     }
 
     /**
-     * Sets the list of source item references for the DataProcess.
+     * Sets the list of source datasets references for the DataProcess.
      *
-     * @param sources the list of source item references
+     * @param sources the list of source datasets references
      * @return this Builder instance
      */
     public Builder sources(ItemReference... sources) {
@@ -172,9 +172,9 @@ public final class DataProcess extends Item {
     }
 
     /**
-     * Sets the list of target item references for the DataProcess.
+     * Sets the list of target datasets references for the DataProcess.
      *
-     * @param targets the list of target item references
+     * @param targets the list of target datasets references
      * @return this Builder instance
      */
     public Builder targets(@NotNull List<ItemReference> targets) {
@@ -183,9 +183,9 @@ public final class DataProcess extends Item {
     }
 
     /**
-     * Sets the list of target item references for the DataProcess.
+     * Sets the list of target datasets references for the DataProcess.
      *
-     * @param targets the list of target item references
+     * @param targets the list of target datasets references
      * @return this Builder instance
      */
     public Builder targets(ItemReference... targets) {

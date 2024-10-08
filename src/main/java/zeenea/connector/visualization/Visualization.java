@@ -15,7 +15,11 @@ public final class Visualization extends Item {
   /** The fields of the visualization. */
   @NotNull private final List<Field> fields;
 
-  /** The list of source datasets for the visualization. */
+  /**
+   * The list of source datasets associated with the visualization.
+   *
+   * <p>Used to declare downstream dataset lineage by referencing ItemIdentifier of source datasets.
+   */
   @NotNull private final List<ItemReference> sourceDatasets;
 
   /**
@@ -41,9 +45,9 @@ public final class Visualization extends Item {
   }
 
   /**
-   * Gets the list of source dataset references of the visualization.
+   * Gets the list of source dataset references.
    *
-   * @return the list of source dataset references of the visualization
+   * @return the list of source dataset references
    */
   public @NotNull List<ItemReference> getSourceDatasets() {
     return sourceDatasets;
