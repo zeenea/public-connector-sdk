@@ -11,11 +11,14 @@ import zeenea.connector.exception.ExceptionUtils;
 /** Represents a data process which extends the Item class. */
 public final class DataProcess extends Item {
 
-  /** The source item references. */
+  /** The source datasets references. */
   @NotNull private final List<ItemReference> sources;
 
-  /** The target item references. */
+  /** The target datasets references. */
   @NotNull private final List<ItemReference> targets;
+
+  /** The list of field to field operations. */
+  @NotNull private final List<Operation> operations;
 
   /**
    * Constructs a DataProcess instance using the provided builder.
@@ -26,26 +29,37 @@ public final class DataProcess extends Item {
     super(builder);
     ExceptionUtils.requireNonNullOrEmpty("sources", builder.sources);
     ExceptionUtils.requireNonNullOrEmpty("targets", builder.targets);
+    ExceptionUtils.requireNonNull("operation", builder.operations);
     this.sources = List.copyOf(builder.sources);
     this.targets = List.copyOf(builder.targets);
+    this.operations = List.copyOf(builder.operations);
   }
 
   /**
-   * Gets the list of source item references.
+   * Gets the list of source datasets references.
    *
-   * @return the list of source item references
+   * @return the list of source datasets references
    */
   public @NotNull List<ItemReference> getSources() {
     return sources;
   }
 
   /**
-   * Gets the list of target item references.
+   * Gets the list of target datasets references.
    *
-   * @return the list of target item references
+   * @return the list of target datasets references
    */
   public @NotNull List<ItemReference> getTargets() {
     return targets;
+  }
+
+  /**
+   * Gets the list of operations.
+   *
+   * @return the list of operations
+   */
+  public @NotNull List<Operation> getOperations() {
+    return operations;
   }
 
   /**
@@ -62,10 +76,11 @@ public final class DataProcess extends Item {
     return Objects.equals(getId(), dataProcess.getId())
         && Objects.equals(getName(), dataProcess.getName())
         && Objects.equals(getDescription(), dataProcess.getDescription())
-        && Objects.equals(getContactRelations(), dataProcess.getContactRelations())
+        && Objects.equals(getContacts(), dataProcess.getContacts())
         && Objects.equals(getProperties(), dataProcess.getProperties())
         && Objects.equals(sources, dataProcess.sources)
-        && Objects.equals(targets, dataProcess.targets);
+        && Objects.equals(targets, dataProcess.targets)
+        && Objects.equals(operations, dataProcess.operations);
   }
 
   /**
@@ -79,10 +94,11 @@ public final class DataProcess extends Item {
         getId(),
         getName(),
         getDescription(),
-        getContactRelations(),
+        getContacts(),
         getProperties(),
         sources,
-        targets);
+        targets,
+        operations);
   }
 
   /**
@@ -100,13 +116,15 @@ public final class DataProcess extends Item {
         + "', description="
         + getDescription()
         + ", contactRelations="
-        + getContactRelations()
+        + getContacts()
         + ", properties="
         + getProperties()
         + "sources="
         + sources
         + ", targets="
         + targets
+        + ", operations="
+        + operations
         + "}";
   }
 
@@ -122,18 +140,19 @@ public final class DataProcess extends Item {
   /** Builder class for constructing DataProcess instances. */
   public static class Builder extends Item.Builder<DataProcess, Builder> {
 
-    /** The list of source item references to be set in the DataProcess. */
+    /** The list of source datasets references to be set in the DataProcess. */
     private List<ItemReference> sources = new ArrayList<>();
-    ;
 
-    /** The list of target item references to be set in the DataProcess. */
+    /** The list of target datasets references to be set in the DataProcess. */
     private List<ItemReference> targets = new ArrayList<>();
-    ;
+
+    /** The list of operations to be set in the DataProcess. */
+    private List<Operation> operations = new ArrayList<>();
 
     /**
-     * Sets the list of source item references for the DataProcess.
+     * Sets the list of source datasets references for the DataProcess.
      *
-     * @param sources the list of source item references
+     * @param sources the list of source datasets references
      * @return this Builder instance
      */
     public Builder sources(@NotNull List<ItemReference> sources) {
@@ -142,9 +161,9 @@ public final class DataProcess extends Item {
     }
 
     /**
-     * Sets the list of source item references for the DataProcess.
+     * Sets the list of source datasets references for the DataProcess.
      *
-     * @param sources the list of source item references
+     * @param sources the list of source datasets references
      * @return this Builder instance
      */
     public Builder sources(ItemReference... sources) {
@@ -153,9 +172,9 @@ public final class DataProcess extends Item {
     }
 
     /**
-     * Sets the list of target item references for the DataProcess.
+     * Sets the list of target datasets references for the DataProcess.
      *
-     * @param targets the list of target item references
+     * @param targets the list of target datasets references
      * @return this Builder instance
      */
     public Builder targets(@NotNull List<ItemReference> targets) {
@@ -164,13 +183,35 @@ public final class DataProcess extends Item {
     }
 
     /**
-     * Sets the list of target item references for the DataProcess.
+     * Sets the list of target datasets references for the DataProcess.
      *
-     * @param targets the list of target item references
+     * @param targets the list of target datasets references
      * @return this Builder instance
      */
     public Builder targets(ItemReference... targets) {
       this.targets = List.of(targets);
+      return this;
+    }
+
+    /**
+     * Sets the list of operations for the DataProcess.
+     *
+     * @param operations the list of operations
+     * @return this Builder instance
+     */
+    public Builder operations(@NotNull List<Operation> operations) {
+      this.operations = List.copyOf(operations);
+      return this;
+    }
+
+    /**
+     * Sets the list of operations for the DataProcess.
+     *
+     * @param operations the list of operations
+     * @return this Builder instance
+     */
+    public Builder operations(Operation... operations) {
+      this.operations = List.of(operations);
       return this;
     }
 

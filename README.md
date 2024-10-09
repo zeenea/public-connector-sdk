@@ -13,55 +13,37 @@ operable from Zeenea Scanner.
 ### `Plugin`
 
 Connector loading and classpath isolation are powered by [pf4j](https://pf4j.org/).
-
-A requirement for proper discoverability is to create an implementation of `org.pf4j.Plugin`.
-
-Implementing a `Plugin` brings the additional advantage of providing hooks to the _plugin_ lifecycle (loading,
-unloading).
-
-```java
-package com.acme.connector;
-
-import org.pf4j.Plugin;
-import org.pf4j.PluginWrapper;
-
-public class AcmeConnectorPlugin extends Plugin {
-   public AcmeConnectorPlugin(PluginWrapper wrapper) {
-       super(wrapper);
-   }
-}
-```
-
-Additionally, a manifest file called *plugin.properties* must be created.
+A manifest file called *plugin.properties* must be created.
 
 ```
-plugin.class=com.acme.connector.AcmeConnectorPlugin
-plugin.id=acme-plugin
-plugin.provider=Acme
-plugin.version=0.0.1
+plugin.id=example-plugin
+plugin.provider=Example
+plugin.version=1.0.0
 ``` 
 
 More information on the subject can be found on [pf4j's website](https://pf4j.org/doc/getting-started.html).
 
-### `ConnectorFactory`
+### `Connector`
 
-Next in line is the implementation of `ConnectorFactory`, which is used to identify and create instances of the
-Connector.
+Next in line is the implementation of `Connector`, which is a factory used to identify and create instances of the
+Connection instances.
 
 ```java
-package com.acme.connector;
+package com.example.connector;
 
-import zeenea.sdk.Connector;
-import zeenea.sdk.ConnectorConfiguration;
-import zeenea.sdk.ConnectorFactory;
-import zeenea.sdk.InvalidConfigurationException;
+import zeenea.connector.Connection;
+import zeenea.connector.ConnectionConfiguration;
+import zeenea.connector.Connector;
+import zeenea.connector.exception.InvalidConfigurationException;
 
-public class AcmeConnectorFactory implements ConnectorFactory {
+@Extension
+public class ExampleConnector implements Connector {
     public String getConnectorId() {
         // Used to select the connector
-        return "acme";
+        return "example";
     }
-    public Connector newConnector(ConnectorConfiguration connectorConfiguration) throws InvalidConfigurationException {
+
+    public Connection newConnection(ConnectionConfiguration connectionConfiguration) throws InvalidConfigurationException {
         // Configuration validation might be performed here
         // Invalid configuration is best conveyed by throwing an InvalidConfigurationException
         return connector;
@@ -69,64 +51,79 @@ public class AcmeConnectorFactory implements ConnectorFactory {
 }
 ```
 
-In order to be discoverable by the Scanner, the Fully Qualified Name of this class must be added to file
-*META-INF/extensions.idx*.
+### `Connection`
 
-```
-com.acme.connector.AcmeConnectorFactory
-```
-
-### `Connector`
-
-The main piece here is of course the `Connector` itself.
+The main piece here is of course the `Connection` itself.
 
 ```java
-package com.acme.connector;
+package com.example.connector;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import zeenea.sdk.Connector;
-import zeenea.connector.businessterm.SourceBusinessTerm;
-import zeenea.sdk.contact.SourceContactRelation;
-import zeenea.sdk.metadata.Metadata;
-import zeenea.sdk.metadata.StringMetadata;
-import zeenea.sdk.synchronization.SourceItemAction;
-import zeenea.sdk.synchronization.SynchronizationResult;
+import zeenea.connector.Connection;
+import zeenea.connector.contact.Contact;
+import zeenea.connector.property.PropertyDefinition;
+import zeenea.connector.property.StringPropertyDefinition;
+import zeenea.connector.Item;
+import zeenea.connector.visualization.Visualization;
+import zeenea.connector.field.Field;
+import zeenea.connector.common.ItemIdentifier;
+import zeenea.connector.common.IdentificationProperty;
+import zeenea.connector.common.ItemReference;
 
 import java.time.Instant;
 import java.util.*;
 import java.util.stream.Stream;
 
-public class AcmeConnector implements Connector {
+public class ExampleConnection implements Connection {
     // slf4j might be used for logging
-    private static final Logger LOGGER = LoggerFactory.getLogger(AcmeConnector.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(ExampleConnection.class);
 
-    private static final StringMetadata TYPE_METADATA = new StringMetadata("Type");
+    private static final StringPropertyDefinition TYPE_METADATA = new StringPropertyDefinition("Type");
 
-    public Set<Metadata> getTechnicalMetadata() {
+    public Set<PropertyDefinition> getProperties() {
         // Value returned here can be dynamic and change over successive calls
         return new HashSet<>(Collections.singletonList(TYPE_METADATA));
     }
 
-    public SynchronizationResult synchronize() {
-        // Return a SynchronizationResult containing a Stream to item actions
-        // Item actions can be upsert or delete
-        // This is where items would commonly be fetched from the datasource
-        // Stream is closed by Scanner upon completion
-        return new SynchronizationResult(Stream.of(
-                // Upsert
-                SourceItemAction.upsert(SourceBusinessTerm.builder()
-                        .id("updated-item-id")
-                        .name("updated-item")
-                        .addMetadata(TYPE_METADATA, "technical-item")
-                        .updateTime(Instant.now())
-                        .addContactRelation(SourceContactRelation.builder()
-                                .email("owner@acme.com")
-                                .role("owner")
-                                .build())
-                        .build()),
-                // Delete
-                SourceItemAction.delete("deleted-item-id")));
+    @Override
+    public Stream<Item> synchronize() {
+        return Stream.of(
+                Visualization.builder()
+                        .id(
+                                ItemIdentifier.of(
+                                        IdentificationProperty.of("type", "visualization"),
+                                        IdentificationProperty.of("report_id", "1234"),
+                                        IdentificationProperty.of("workspace_id", "4321")))
+                        .name("Visualization name")
+                        .description("Some description")
+                        .properties(PropertiesBuilder.create().put(TYPE_METADATA, "some type").build())
+                        .fields(
+                                List.of(
+                                        Field.builder()
+                                                .name("dim1")
+                                                .dataType(DataType.String)
+                                                .nativeType("string")
+                                                .description("some field description")
+                                                .itemReferences(List.of())
+                                                .keys(List.of("dim1"))
+                                                .build(),
+                                        Field.builder()
+                                                .name("mes1")
+                                                .dataType(DataType.String)
+                                                .nativeType("string")
+                                                .description("some field description")
+                                                .itemReferences(List.of())
+                                                .keys(List.of("mes1"))
+                                                .build()))
+                        .sourceDatasets(
+                                List.of(
+                                        ItemReference.of(
+                                                ItemIdentifier.of(IdentificationProperty.of("id", "dataset2")),
+                                                ConnectionReferenceCode.of("reference"))))
+                        .contactRelations(
+                                List.of(Contact.of("test@zeenea.com", "Some name", "0600000000", "Owner")))
+                        .build());
     }
 
     public void close() {
@@ -165,28 +162,52 @@ In order to reference this package locally from other repositories (like [scanne
 
 ### Lifecycle
 
-On Zeenea Scanner startup, instances of `ConnectorFactory` discovered in the *plugins* folder are created.
+On Zeenea Scanner startup, instances of `Connector` discovered in the *plugins* folder are created.
 
-Their configuration is then immediately validated by creating an instance of `Connector` for every factory, followed by
-successive calls to `connector.getMetadata()` and `connector.close()`. `Connector` instances are then discarded.
+Their configuration is then immediately validated by creating an instance of `Connection` for every factory, followed by
+successive calls to `connection.getProperties()` and `connection.close()`. `Connection` instances are then discarded.
 
-`Metadata` collected this way are then submitted to Zeenea Datacatalog and made accessible to operators in the Admin
-interface.
+`PropertyDefinition` collected this way are then submitted to Zeenea Datacatalog and made accessible to operators in the
+Admin interface.
+
+### On scanner start-up
+
+The following diagram exposes the initialization sequence of connectors in the Scanner.
+![](src/main/resources/doc-files/scanner-initialization-sequence-diagram.png)
 
 ### Synchronization
 
-A click on the **Synchronize** button in Zeenea Datacatalog's Admin interface triggers the creation of a new `Connector`
-from the factory and the retrieval, through the Connector, of items located in the datasource.
+A click on the **Synchronize** button in Zeenea Datacatalog's Admin interface triggers the creation of a
+new `Connection`
+from the factory and the retrieval, through the Connection, of items located in the datasource.
 
 The following diagram exposes the chaining of method calls leading to the actual sync.
 
-![](src/main/resources/doc-files/connector-sequence-diagram.png)
+![](src/main/resources/doc-files/synchronize-connection-sequence-diagram.png)
 
 After a successful synchronization, items should be visible in Zeenea Datacatalog's Studio interface.
 
-## Side notes
+### Inventory
 
-* A `Plugin` may contain multiple different `ConnectorFactory` implementations. It is thus possible to create a single
-  plugin to handle more than one Connector, just be sure to add all appropriate FQNs to file `META-INF/extensions.idx`.
+A click on the **Inventory** button in Zeenea Datacatalog's Admin interface triggers the creation of a new `Connection`
+from the factory and the retrieval, through the Connection, of identifiers of existing items located in the datasource.
+
+The following diagram exposes the chaining of method calls leading to the item inventory.
+
+![](src/main/resources/doc-files/inventory-connection-sequence-diagram.png)
+
+After a successful inventory, items should be importable in Zeenea Datacatalog's Studio interface.
+
+### Extract items
+
+A click on the **Item import** button in Zeenea Datacatalog's Studio interface triggers the creation of a
+new `Connection` from the factory and the retrieval, through the Connection, of specified items located in the
+datasource.
+
+The following diagram exposes the chaining of method calls leading to the extract item.
+
+![](src/main/resources/doc-files/extract-items-connection-sequence-diagram.png)
+
+After a successful extract item, items should be visible in Zeenea Datacatalog's Studio interface.
 
 [scanner]: https://github.com/zeenea/scanner

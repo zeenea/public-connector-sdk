@@ -102,7 +102,7 @@ public final class DataProduct extends Item {
         + "', description="
         + getDescription()
         + ", contactRelations="
-        + getContactRelations()
+        + getContacts()
         + ", properties="
         + getProperties()
         + ", inputPorts="

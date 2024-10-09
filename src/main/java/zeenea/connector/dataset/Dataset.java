@@ -7,6 +7,7 @@ import org.jetbrains.annotations.NotNull;
 import zeenea.connector.Item;
 import zeenea.connector.common.ItemReference;
 import zeenea.connector.exception.ExceptionUtils;
+import zeenea.connector.field.Field;
 
 /** Represents a dataset which is a specialized type of Item. */
 public final class Dataset extends Item {
@@ -23,7 +24,11 @@ public final class Dataset extends Item {
   /** The list of partitions in the dataset. */
   @NotNull private final List<Partitioning> partitions;
 
-  /** The list of source datasets for the dataset. */
+  /**
+   * The list of source datasets associated with the dataset.
+   *
+   * <p>Used to declare downstream dataset lineage by referencing ItemIdentifier of source datasets.
+   */
   @NotNull private final List<ItemReference> sourceDatasets;
 
   /**
@@ -78,9 +83,9 @@ public final class Dataset extends Item {
   }
 
   /**
-   * Gets the list of source datasets for the dataset.
+   * Gets the list of source datasets references.
    *
-   * @return the list of source datasets
+   * @return the list of source datasets references
    */
   public @NotNull List<ItemReference> getSourceDatasets() {
     return sourceDatasets;
@@ -100,7 +105,7 @@ public final class Dataset extends Item {
     return Objects.equals(getId(), dataset.getId())
         && Objects.equals(getName(), dataset.getName())
         && Objects.equals(getDescription(), dataset.getDescription())
-        && Objects.equals(getContactRelations(), dataset.getContactRelations())
+        && Objects.equals(getContacts(), dataset.getContacts())
         && Objects.equals(getProperties(), dataset.getProperties())
         && Objects.equals(fields, dataset.fields)
         && Objects.equals(primaryKeys, dataset.primaryKeys)
@@ -120,7 +125,7 @@ public final class Dataset extends Item {
         getId(),
         getName(),
         getDescription(),
-        getContactRelations(),
+        getContacts(),
         getProperties(),
         fields,
         primaryKeys,
@@ -144,7 +149,7 @@ public final class Dataset extends Item {
         + "', description="
         + getDescription()
         + ", contactRelations="
-        + getContactRelations()
+        + getContacts()
         + ", properties="
         + getProperties()
         + ", fields="

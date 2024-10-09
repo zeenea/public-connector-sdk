@@ -1,13 +1,18 @@
-package zeenea.connector.dataset;
+package zeenea.connector.field;
 
 import java.util.*;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-import zeenea.connector.exception.ExceptionUtils;
+import zeenea.connector.common.ItemIdentifier;
+import zeenea.connector.common.ItemReference;
+import zeenea.connector.dataset.DataType;
 import zeenea.connector.property.PropertyValue;
 
 /** Represents a field in a dataset. */
 public class Field {
+
+  /** The identifier of the field. */
+  @NotNull private final ItemIdentifier id;
 
   /** The name of the field. */
   @NotNull private final String name;
@@ -20,9 +25,6 @@ public class Field {
 
   /** The native index of the field. */
   private final int nativeIndex;
-
-  /** The list of keys associated with the field. */
-  @NotNull private final List<String> keys;
 
   /** Indicates if the field is nullable. */
   private final boolean nullable;
@@ -37,21 +39,32 @@ public class Field {
   @NotNull private final Map<String, PropertyValue> properties;
 
   /**
+   * The list of source fields associated with the field.
+   *
+   * <p>Used to declare downstream field to field lineage by referencing ItemIdentifier of source
+   * fields.
+   *
+   * <p>Only works if parent object (Dataset or Visualization) reference source datasets through
+   * sourceDatasets attribute.
+   */
+  @NotNull private final List<ItemReference> sourceFields;
+
+  /**
    * Constructs a Field instance using the provided builder.
    *
    * @param builder the builder used to create the Field instance
    */
   public Field(Field.Builder<?, ?> builder) {
-    ExceptionUtils.requireNonNullOrEmpty("keys", builder.keys);
+    this.id = Objects.requireNonNull(builder.identifier, "identifier");
     this.name = Objects.requireNonNull(builder.name, "name");
     this.dataType = builder.dataType;
     this.nativeType = builder.nativeType;
     this.nativeIndex = builder.nativeIndex;
-    this.keys = List.copyOf(builder.keys);
     this.nullable = builder.nullable;
     this.multivalued = builder.multivalued;
     this.description = builder.description;
     this.properties = new HashMap<>(builder.properties);
+    this.sourceFields = builder.sourceFields;
   }
 
   /**
@@ -73,12 +86,12 @@ public class Field {
   }
 
   /**
-   * Gets the list of keys associated with the field.
+   * Gets the item identifier associated with the field.
    *
-   * @return the list of keys
+   * @return the field item identifier
    */
-  public @NotNull List<String> getKeys() {
-    return keys;
+  public @NotNull ItemIdentifier getId() {
+    return id;
   }
 
   /**
@@ -136,6 +149,15 @@ public class Field {
   }
 
   /**
+   * Gets the list of source field references.
+   *
+   * @return the list of source field references
+   */
+  public List<ItemReference> getSourceField() {
+    return sourceFields;
+  }
+
+  /**
    * Checks if this Field is equal to another object.
    *
    * @param o the object to compare with
@@ -146,15 +168,16 @@ public class Field {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
     Field that = (Field) o;
-    return nativeIndex == that.nativeIndex
+    return Objects.equals(id, that.id)
+        && nativeIndex == that.nativeIndex
         && nullable == that.nullable
         && multivalued == that.multivalued
         && Objects.equals(name, that.name)
         && dataType == that.dataType
         && Objects.equals(nativeType, that.nativeType)
-        && Objects.equals(keys, that.keys)
         && Objects.equals(description, that.description)
-        && Objects.equals(properties, that.properties);
+        && Objects.equals(properties, that.properties)
+        && Objects.equals(sourceFields, that.sourceFields);
   }
 
   /**
@@ -165,15 +188,16 @@ public class Field {
   @Override
   public int hashCode() {
     return Objects.hash(
+        id,
         name,
         dataType,
         nativeType,
         nativeIndex,
-        keys,
         nullable,
         multivalued,
         description,
-        properties);
+        properties,
+        sourceFields);
   }
 
   /**
@@ -184,11 +208,11 @@ public class Field {
   @Override
   public String toString() {
     return "Field{"
-        + "name='"
+        + "id="
+        + id
+        + ",name='"
         + name
-        + "', keys="
-        + keys
-        + ", dataType="
+        + "', dataType="
         + dataType
         + ", nativeType='"
         + nativeType
@@ -202,6 +226,8 @@ public class Field {
         + description
         + "', properties="
         + properties
+        + ", sourceFields="
+        + sourceFields
         + "}";
   }
 
@@ -223,6 +249,9 @@ public class Field {
    */
   public static class Builder<T, THIS extends Builder<T, ?>> {
 
+    /** The item identifier associated with the field. */
+    private ItemIdentifier identifier;
+
     /** The name of the field. */
     private String name;
 
@@ -235,9 +264,6 @@ public class Field {
     /** The native index of the field. */
     private int nativeIndex;
 
-    /** The list of keys associated with the field. */
-    private List<String> keys = new ArrayList<>();
-
     /** Indicates if the field is nullable. */
     private boolean nullable;
 
@@ -249,6 +275,9 @@ public class Field {
 
     /** The properties of the field. */
     private Map<String, PropertyValue> properties = Map.of();
+
+    /** The list of source field associated with the field. */
+    private List<ItemReference> sourceFields = new ArrayList<>();
 
     /** Protected constructor for the Builder class. */
     protected Builder() {}
@@ -298,24 +327,13 @@ public class Field {
     }
 
     /**
-     * Sets the list of keys associated with the field.
+     * Sets the identifier associated with the field.
      *
-     * @param keys the list of keys
+     * @param identifier the item identifier
      * @return the builder instance
      */
-    public THIS keys(@NotNull List<String> keys) {
-      this.keys = List.copyOf(keys);
-      return self();
-    }
-
-    /**
-     * Sets the list of keys associated with the field.
-     *
-     * @param keys the list of keys
-     * @return the builder instance
-     */
-    public THIS keys(String... keys) {
-      this.keys = List.of(keys);
+    public THIS identifier(@NotNull ItemIdentifier identifier) {
+      this.identifier = identifier;
       return self();
     }
 
@@ -360,6 +378,28 @@ public class Field {
      */
     public THIS properties(@NotNull Map<String, PropertyValue> metadata) {
       this.properties = Map.copyOf(metadata);
+      return self();
+    }
+
+    /**
+     * Sets the list of source fields associated with the field.
+     *
+     * @param sourceFields the list of source fields associated with the field
+     * @return the Builder instance
+     */
+    public THIS sourceFields(@NotNull List<ItemReference> sourceFields) {
+      this.sourceFields = List.copyOf(sourceFields);
+      return self();
+    }
+
+    /**
+     * Sets the list of source fields associated with the field.
+     *
+     * @param sourceFields the list of source fields associated with the field
+     * @return the Builder instance
+     */
+    public THIS sourceFields(ItemReference... sourceFields) {
+      this.sourceFields = List.of(sourceFields);
       return self();
     }
 

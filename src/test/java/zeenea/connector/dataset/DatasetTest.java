@@ -9,6 +9,7 @@ import zeenea.connector.common.ConnectionReferenceCode;
 import zeenea.connector.common.IdentificationProperty;
 import zeenea.connector.common.ItemIdentifier;
 import zeenea.connector.common.ItemReference;
+import zeenea.connector.field.Field;
 
 class DatasetTest {
 
@@ -18,11 +19,11 @@ class DatasetTest {
     List<Field> fields =
         List.of(
             Field.builder()
+                .identifier(ItemIdentifier.of(IdentificationProperty.of("key", "field")))
                 .name("FieldName")
                 .dataType(DataType.String)
                 .nativeType("String")
                 .nativeIndex(1)
-                .keys(List.of("FieldName"))
                 .nullable(true)
                 .multivalued(false)
                 .description("Field description")
@@ -71,11 +72,11 @@ class DatasetTest {
     List<Field> fields =
         List.of(
             Field.builder()
+                .identifier(ItemIdentifier.of(IdentificationProperty.of("key", "field")))
                 .name("FieldName")
                 .dataType(DataType.String)
                 .nativeType("String")
                 .nativeIndex(1)
-                .keys(List.of("FieldName"))
                 .nullable(true)
                 .multivalued(false)
                 .description("Field description")
@@ -135,11 +136,11 @@ class DatasetTest {
             .fields(
                 List.of(
                     Field.builder()
+                        .identifier(ItemIdentifier.of(IdentificationProperty.of("key", "field")))
                         .name("FieldName")
                         .dataType(DataType.String)
                         .nativeType("String")
                         .nativeIndex(1)
-                        .keys(List.of("FieldName"))
                         .nullable(true)
                         .multivalued(false)
                         .description("Field description")
@@ -201,7 +202,7 @@ class DatasetTest {
                 .id(ItemIdentifier.of(List.of(IdentificationProperty.of("key", "dataset1"))))
                 .name("Dataset1")
                 .description("Description")
-                .fields(List.of(null))
+                .fields((Field) null)
                 .primaryKeys(primaryKeys)
                 .foreignKeys(foreignKeys)
                 .partitions(partitions)
