@@ -4,22 +4,22 @@ import java.util.Objects;
 import org.jetbrains.annotations.NotNull;
 
 /**
- * Represents a property value of type String. This class is immutable and implements the
+ * Represents a property value of long text type. This class is immutable and implements the
  * PropertyValue interface.
  *
- * <p>String property value cannot exceed 255 characters.
+ * <p>Long text property value is not indexed and searchable in data catalog.
  */
-public final class StringPropertyValue implements PropertyValue {
+public final class LongTextPropertyValue implements PropertyValue {
 
   /** The value of the property. */
   @NotNull private final String value;
 
   /**
-   * Constructs a StringPropertyValue instance with the specified value.
+   * Constructs a LongTextPropertyValue instance with the specified value.
    *
    * @param value the value of the property
    */
-  public StringPropertyValue(@NotNull String value) {
+  public LongTextPropertyValue(@NotNull String value) {
     this.value = value;
   }
 
@@ -42,7 +42,7 @@ public final class StringPropertyValue implements PropertyValue {
   public boolean equals(Object o) {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
-    StringPropertyValue that = (StringPropertyValue) o;
+    LongTextPropertyValue that = (LongTextPropertyValue) o;
     return Objects.equals(value, that.value);
   }
 
