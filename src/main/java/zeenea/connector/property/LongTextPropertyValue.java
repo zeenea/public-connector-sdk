@@ -33,10 +33,10 @@ public final class LongTextPropertyValue implements PropertyValue {
   }
 
   /**
-   * Checks if this StringPropertyValue is equal to another object.
+   * Checks if this LongTextPropertyValue is equal to another object.
    *
    * @param o the object to compare with
-   * @return true if this StringPropertyValue is equal to the specified object, false otherwise
+   * @return true if this LongTextPropertyValue is equal to the specified object, false otherwise
    */
   @Override
   public boolean equals(Object o) {
@@ -47,9 +47,9 @@ public final class LongTextPropertyValue implements PropertyValue {
   }
 
   /**
-   * Returns the hash code of this StringPropertyValue.
+   * Returns the hash code of this LongTextPropertyValue.
    *
-   * @return the hash code of this StringPropertyValue
+   * @return the hash code of this LongTextPropertyValue
    */
   @Override
   public int hashCode() {
@@ -57,12 +57,12 @@ public final class LongTextPropertyValue implements PropertyValue {
   }
 
   /**
-   * Returns the string representation of this StringPropertyValue.
+   * Returns the string representation of this LongTextPropertyValue.
    *
-   * @return the string representation of this StringPropertyValue
+   * @return the string representation of this LongTextPropertyValue
    */
   @Override
   public String toString() {
-    return "StringPropertyValue{" + "value='" + value + "'}";
+    return "LongTextPropertyValue{" + "value='" + value + "'}";
   }
 }
