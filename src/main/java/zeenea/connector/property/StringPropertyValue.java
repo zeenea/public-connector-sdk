@@ -6,6 +6,8 @@ import org.jetbrains.annotations.NotNull;
 /**
  * Represents a property value of type String. This class is immutable and implements the
  * PropertyValue interface.
+ *
+ * <p>String property value cannot exceed 255 characters.
  */
 public final class StringPropertyValue implements PropertyValue {
 

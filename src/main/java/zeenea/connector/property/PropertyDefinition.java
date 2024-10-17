@@ -55,6 +55,16 @@ public abstract class PropertyDefinition {
   }
 
   /**
+   * Creates a new LongTextPropertyDefinition with the specified code.
+   *
+   * @param code the code of the property definition
+   * @return a new LongTextPropertyDefinition instance
+   */
+  public static LongTextPropertyDefinition longText(String code) {
+    return new LongTextPropertyDefinition(code);
+  }
+
+  /**
    * Creates a new InstantPropertyDefinition with the specified code.
    *
    * @param code the code of the property definition
