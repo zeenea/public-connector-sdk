@@ -75,6 +75,21 @@ public class PropertiesBuilder {
   }
 
   /**
+   * Adds a long text property to the item.
+   *
+   * @param propertyDefinition the definition of the long text property
+   * @param value the value of the long text property
+   * @return the builder instance
+   */
+  public PropertiesBuilder put(
+      @NotNull LongTextPropertyDefinition propertyDefinition, @Nullable String value) {
+    if (value != null)
+      properties.put(propertyDefinition.getCode(), new LongTextPropertyValue(value));
+    else properties.remove(propertyDefinition.getCode());
+    return this;
+  }
+
+  /**
    * Adds a number property to the item.
    *
    * @param propertyDefinition the definition of the number property
