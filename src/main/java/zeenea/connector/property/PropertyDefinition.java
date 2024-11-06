@@ -1,7 +1,9 @@
 package zeenea.connector.property;
 
 import java.util.Objects;
+import java.util.UUID;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 /**
  * Represents a property definition. This is an abstract class that provides the basic structure for
@@ -15,15 +17,19 @@ public abstract class PropertyDefinition {
   /** The type of the property definition. */
   @NotNull private final PropertyType type;
 
+  /** The UUID of the property definition. */
+  @Nullable private final UUID uuid;
+
   /**
    * Constructs a PropertyDefinition instance with the specified code and type.
    *
    * @param code the code of the property definition
    * @param type the type of the property definition
    */
-  PropertyDefinition(@NotNull String code, @NotNull PropertyType type) {
+  PropertyDefinition(@NotNull String code, @NotNull PropertyType type, @Nullable UUID uuid) {
     this.code = Objects.requireNonNull(code);
     this.type = Objects.requireNonNull(type);
+    this.uuid = uuid;
   }
 
   /**
@@ -42,6 +48,15 @@ public abstract class PropertyDefinition {
    */
   public @NotNull PropertyType getType() {
     return type;
+  }
+
+  /**
+   * Gets the UUID of the property definition.
+   *
+   * @return the UUID of the property definition
+   */
+  public @Nullable UUID getUUID() {
+    return uuid;
   }
 
   /**
