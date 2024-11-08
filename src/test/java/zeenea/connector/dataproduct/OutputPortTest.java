@@ -30,6 +30,7 @@ class OutputPortTest {
         Map.of("key1", PropertyValue.string("value1"), "key2", PropertyValue.string("value2"));
     OutputPort outputPort =
         OutputPort.builder()
+            .id(ItemIdentifier.of(List.of(IdentificationProperty.of("id", "output-port-1"))))
             .name("OutputPort1")
             .description("Description1")
             .dataContract(dataContract)
@@ -59,6 +60,7 @@ class OutputPortTest {
         Map.of("key1", PropertyValue.string("value1"), "key2", PropertyValue.string("value2"));
     OutputPort outputPort1 =
         OutputPort.builder()
+            .id(ItemIdentifier.of(List.of(IdentificationProperty.of("id", "output-port-1"))))
             .name("OutputPort1")
             .description("Description1")
             .dataContract(dataContract)
@@ -67,6 +69,7 @@ class OutputPortTest {
             .build();
     OutputPort outputPort2 =
         OutputPort.builder()
+            .id(ItemIdentifier.of(List.of(IdentificationProperty.of("id", "output-port-1"))))
             .name("OutputPort1")
             .description("Description1")
             .dataContract(dataContract)
@@ -102,6 +105,7 @@ class OutputPortTest {
         Map.of("key3", PropertyValue.string("value3"), "key4", PropertyValue.string("value4"));
     OutputPort outputPort1 =
         OutputPort.builder()
+            .id(ItemIdentifier.of(List.of(IdentificationProperty.of("id", "output-port-1"))))
             .name("OutputPort1")
             .description("Description1")
             .dataContract(dataContract1)
@@ -110,6 +114,7 @@ class OutputPortTest {
             .build();
     OutputPort outputPort2 =
         OutputPort.builder()
+            .id(ItemIdentifier.of(List.of(IdentificationProperty.of("id", "output-port-2"))))
             .name("OutputPort2")
             .description("Description2")
             .dataContract(dataContract2)
@@ -117,6 +122,32 @@ class OutputPortTest {
             .properties(properties2)
             .build();
     assertNotEquals(outputPort1, outputPort2);
+  }
+
+  @Test
+  @DisplayName("OutputPort builder should fail with null id")
+  void builderShouldFailWithNullId() {
+    DataContract dataContract = DataContract.of(DataContract.Type.Custom, "sourceValue");
+    Dataset dataset1 =
+        Dataset.builder()
+            .id(ItemIdentifier.of(List.of(IdentificationProperty.of("name", "dataset1"))))
+            .name("Dataset1")
+            .build();
+
+    List<Dataset> datasets = List.of(dataset1);
+    Map<String, PropertyValue> properties =
+        Map.of("key1", PropertyValue.string("value1"), "key2", PropertyValue.string("value2"));
+    assertThrows(
+        NullPointerException.class,
+        () ->
+            OutputPort.builder()
+                .id(null)
+                .name("OutputPort1")
+                .description("Description1")
+                .dataContract(dataContract)
+                .datasets(datasets)
+                .properties(properties)
+                .build());
   }
 
   @Test
@@ -136,6 +167,7 @@ class OutputPortTest {
         NullPointerException.class,
         () ->
             OutputPort.builder()
+                .id(ItemIdentifier.of(List.of(IdentificationProperty.of("id", "output-port-1"))))
                 .name(null)
                 .description("Description1")
                 .dataContract(dataContract)
@@ -160,6 +192,7 @@ class OutputPortTest {
         NullPointerException.class,
         () ->
             OutputPort.builder()
+                .id(ItemIdentifier.of(List.of(IdentificationProperty.of("id", "output-port-1"))))
                 .name("OutputPort1")
                 .description("Description1")
                 .dataContract(null)
@@ -178,6 +211,7 @@ class OutputPortTest {
         NullPointerException.class,
         () ->
             OutputPort.builder()
+                .id(ItemIdentifier.of(List.of(IdentificationProperty.of("id", "output-port-1"))))
                 .name("OutputPort1")
                 .description("Description1")
                 .dataContract(dataContract)
@@ -201,6 +235,7 @@ class OutputPortTest {
         NullPointerException.class,
         () ->
             OutputPort.builder()
+                .id(ItemIdentifier.of(List.of(IdentificationProperty.of("id", "output-port-1"))))
                 .name("OutputPort1")
                 .description("Description1")
                 .dataContract(dataContract)

@@ -9,6 +9,10 @@ import zeenea.connector.exception.ExceptionUtils;
 
 /** Represents an input port in a data product. */
 public final class InputPort {
+
+  /** The identifier of the input port. */
+  @NotNull private final ItemIdentifier id;
+
   /** The name of the input port. */
   @NotNull private final String name;
 
@@ -27,12 +31,23 @@ public final class InputPort {
    * @param builder the builder used to create the InputPort instance
    */
   private InputPort(Builder builder) {
+    Objects.requireNonNull(builder.id, "id");
     ExceptionUtils.requireNonNull("input", builder.inputs);
     ExceptionUtils.requireNonNull("output", builder.outputs);
+    this.id = builder.id;
     this.name = builder.name;
     this.description = builder.description;
     this.inputs = List.copyOf(builder.inputs);
     this.outputs = List.copyOf(builder.outputs);
+  }
+
+  /**
+   * Gets the identifier of the input port.
+   *
+   * @return the identifier of the input port
+   */
+  public @NotNull ItemIdentifier getId() {
+    return id;
   }
 
   /**
@@ -83,7 +98,8 @@ public final class InputPort {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
     InputPort inputPort = (InputPort) o;
-    return Objects.equals(name, inputPort.name)
+    return Objects.equals(id, inputPort.id)
+        && Objects.equals(name, inputPort.name)
         && Objects.equals(description, inputPort.description)
         && Objects.equals(inputs, inputPort.inputs)
         && Objects.equals(outputs, inputPort.outputs);
@@ -96,7 +112,7 @@ public final class InputPort {
    */
   @Override
   public int hashCode() {
-    return Objects.hash(name, description, inputs, outputs);
+    return Objects.hash(id, name, description, inputs, outputs);
   }
 
   /**
@@ -107,9 +123,11 @@ public final class InputPort {
   @Override
   public String toString() {
     return "InputPort{"
-        + "description='"
+        + "id='"
+        + id
+        + "', description='"
         + description
-        + ", name='"
+        + "', name='"
         + name
         + "', inputs="
         + inputs
@@ -130,6 +148,8 @@ public final class InputPort {
   /** Builder class for creating instances of InputPort. */
   public static class Builder {
 
+    private ItemIdentifier id;
+
     private String name;
 
     private String description = null;
@@ -137,6 +157,17 @@ public final class InputPort {
     private List<ItemReference> inputs = Collections.emptyList();
 
     private List<ItemIdentifier> outputs = Collections.emptyList();
+
+    /**
+     * Sets the identifier of the input port.
+     *
+     * @param id the identifier of the input port
+     * @return the builder instance
+     */
+    public Builder id(@NotNull ItemIdentifier id) {
+      this.id = id;
+      return this;
+    }
 
     /**
      * Sets the name of the input port.

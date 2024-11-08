@@ -3,12 +3,16 @@ package zeenea.connector.dataproduct;
 import java.util.*;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import zeenea.connector.common.ItemIdentifier;
 import zeenea.connector.dataset.Dataset;
 import zeenea.connector.exception.ExceptionUtils;
 import zeenea.connector.property.*;
 
 /** Represents an output port in a data product. */
 public final class OutputPort {
+
+  /** The identifier of the output port. */
+  @NotNull private final ItemIdentifier id;
 
   /** The name of the output port. */
   @NotNull private final String name;
@@ -31,15 +35,26 @@ public final class OutputPort {
    * @param builder the builder used to create the OutputPort instance
    */
   private OutputPort(Builder builder) {
+    Objects.requireNonNull(builder.id, "id");
     ExceptionUtils.requireNonNullOrEmpty("name", builder.name);
     Objects.requireNonNull(builder.dataContract, "dataContract");
     ExceptionUtils.requireNonNull("dataset", builder.datasets);
     ExceptionUtils.requireNonNull("properties", builder.properties);
+    this.id = builder.id;
     this.name = builder.name;
     this.description = builder.description;
     this.dataContract = builder.dataContract;
     this.datasets = builder.datasets;
     this.properties = builder.properties;
+  }
+
+  /**
+   * Gets the identifier of the output port.
+   *
+   * @return the identifier of the output port
+   */
+  public @NotNull ItemIdentifier getId() {
+    return id;
   }
 
   /**
@@ -99,7 +114,8 @@ public final class OutputPort {
     if (this == o) return true;
     if (!(o instanceof OutputPort)) return false;
     OutputPort that = (OutputPort) o;
-    return Objects.equals(getName(), that.getName())
+    return Objects.equals(getId(), that.getId())
+        && Objects.equals(getName(), that.getName())
         && Objects.equals(getDescription(), that.getDescription())
         && Objects.equals(getDataContract(), that.getDataContract())
         && Objects.equals(getDatasets(), that.getDatasets())
@@ -114,7 +130,7 @@ public final class OutputPort {
   @Override
   public int hashCode() {
     return Objects.hash(
-        getName(), getDescription(), getDataContract(), getDatasets(), getProperties());
+        getId(), getName(), getDescription(), getDataContract(), getDatasets(), getProperties());
   }
 
   /**
@@ -125,7 +141,9 @@ public final class OutputPort {
   @Override
   public String toString() {
     return "OutputPort{"
-        + "dataContract="
+        + "id="
+        + id
+        + ", dataContract="
         + dataContract
         + ", name='"
         + name
@@ -150,6 +168,8 @@ public final class OutputPort {
   /** Builder class for creating instances of OutputPort. */
   public static class Builder {
 
+    private ItemIdentifier id;
+
     private String name;
 
     private String description = null;
@@ -161,6 +181,17 @@ public final class OutputPort {
 
     /** The properties of the output port. */
     private Map<String, PropertyValue> properties = Collections.emptyMap();
+
+    /**
+     * Sets the identifier of the output port.
+     *
+     * @param id the identifier of the output port
+     * @return the builder instance
+     */
+    public Builder id(@NotNull ItemIdentifier id) {
+      this.id = id;
+      return this;
+    }
 
     /**
      * Sets the name of the output port.

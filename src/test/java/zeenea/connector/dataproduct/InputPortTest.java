@@ -13,6 +13,8 @@ class InputPortTest {
   @Test
   @DisplayName("InputPort builder should create input port")
   void shouldCreateInputPortWithBuilder() {
+    ItemIdentifier inputPortIdentifier =
+        ItemIdentifier.of(List.of(IdentificationProperty.of("id", "input-port-1")));
     ItemIdentifier input1 = ItemIdentifier.of(List.of(IdentificationProperty.of("name", "input1")));
     ItemIdentifier input2 = ItemIdentifier.of(List.of(IdentificationProperty.of("name", "input2")));
     ConnectionReferenceCode referenceCode = ConnectionReferenceCode.of("code");
@@ -25,12 +27,14 @@ class InputPortTest {
     List<ItemIdentifier> outputs = List.of(output1, output2);
     InputPort inputPort =
         InputPort.builder()
+            .id(inputPortIdentifier)
             .name("InputPort1")
             .description("Description1")
             .inputs(inputs)
             .outputs(outputs)
             .build();
     assertNotNull(inputPort);
+    assertEquals(inputPortIdentifier, inputPort.getId());
     assertEquals("InputPort1", inputPort.getName());
     assertEquals(Optional.of("Description1"), inputPort.getDescription());
     assertEquals(inputs, inputPort.getInputs());
@@ -52,6 +56,7 @@ class InputPortTest {
     List<ItemIdentifier> outputs = List.of(output1, output2);
     InputPort inputPort1 =
         InputPort.builder()
+            .id(ItemIdentifier.of(List.of(IdentificationProperty.of("id", "input-port-1"))))
             .name("InputPort1")
             .description("Description1")
             .inputs(inputs)
@@ -59,6 +64,7 @@ class InputPortTest {
             .build();
     InputPort inputPort2 =
         InputPort.builder()
+            .id(ItemIdentifier.of(List.of(IdentificationProperty.of("id", "input-port-1"))))
             .name("InputPort1")
             .description("Description1")
             .inputs(inputs)
@@ -84,6 +90,7 @@ class InputPortTest {
     List<ItemIdentifier> outputs2 = List.of(output2);
     InputPort inputPort1 =
         InputPort.builder()
+            .id(ItemIdentifier.of(List.of(IdentificationProperty.of("id", "input-port-1"))))
             .name("InputPort1")
             .description("Description1")
             .inputs(inputs)
@@ -91,12 +98,28 @@ class InputPortTest {
             .build();
     InputPort inputPort2 =
         InputPort.builder()
+            .id(ItemIdentifier.of(List.of(IdentificationProperty.of("id", "input-port-2"))))
             .name("InputPort2")
             .description("Description2")
             .inputs(inputs)
             .outputs(outputs2)
             .build();
     assertNotEquals(inputPort1, inputPort2);
+  }
+
+  @Test
+  @DisplayName("InputPort builder should fail with null id")
+  void builderShouldFailWithNullId() {
+    assertThrows(
+        NullPointerException.class,
+        () ->
+            InputPort.builder()
+                .id(null)
+                .name("InputPort1")
+                .description("Description1")
+                .inputs(List.of())
+                .outputs(List.of())
+                .build());
   }
 
   @Test
@@ -109,6 +132,7 @@ class InputPortTest {
         NullPointerException.class,
         () ->
             InputPort.builder()
+                .id(ItemIdentifier.of(List.of(IdentificationProperty.of("id", "input-port-1"))))
                 .name("InputPort1")
                 .description("Description1")
                 .inputs(List.of(null))
@@ -127,6 +151,7 @@ class InputPortTest {
         NullPointerException.class,
         () ->
             InputPort.builder()
+                .id(ItemIdentifier.of(List.of(IdentificationProperty.of("id", "input-port-1"))))
                 .name("InputPort1")
                 .description("Description1")
                 .inputs(inputs)

@@ -20,7 +20,7 @@ class VisualizationTest {
     List<Field> fields =
         List.of(
             Field.builder()
-                .identifier(ItemIdentifier.of(IdentificationProperty.of("key", "field")))
+                .id(ItemIdentifier.of(IdentificationProperty.of("key", "field")))
                 .name("field")
                 .dataType(DataType.String)
                 .nativeType("String")
@@ -56,7 +56,7 @@ class VisualizationTest {
     List<Field> fields =
         List.of(
             Field.builder()
-                .identifier(ItemIdentifier.of(IdentificationProperty.of("key", "field")))
+                .id(ItemIdentifier.of(IdentificationProperty.of("key", "field")))
                 .name("field")
                 .dataType(DataType.String)
                 .nativeType("String")
@@ -98,7 +98,7 @@ class VisualizationTest {
     List<Field> fields =
         List.of(
             Field.builder()
-                .identifier(ItemIdentifier.of(IdentificationProperty.of("key", "field")))
+                .id(ItemIdentifier.of(IdentificationProperty.of("key", "field")))
                 .name("field")
                 .dataType(DataType.String)
                 .nativeType("String")
@@ -158,7 +158,7 @@ class VisualizationTest {
     List<Field> fields =
         List.of(
             Field.builder()
-                .identifier(ItemIdentifier.of(IdentificationProperty.of("key", "field")))
+                .id(ItemIdentifier.of(IdentificationProperty.of("key", "field")))
                 .name("field")
                 .dataType(DataType.String)
                 .nativeType("String")

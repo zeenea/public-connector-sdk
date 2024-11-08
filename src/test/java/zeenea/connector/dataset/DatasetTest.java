@@ -19,7 +19,7 @@ class DatasetTest {
     List<Field> fields =
         List.of(
             Field.builder()
-                .identifier(ItemIdentifier.of(IdentificationProperty.of("key", "field")))
+                .id(ItemIdentifier.of(IdentificationProperty.of("key", "field")))
                 .name("FieldName")
                 .dataType(DataType.String)
                 .nativeType("String")
@@ -72,7 +72,7 @@ class DatasetTest {
     List<Field> fields =
         List.of(
             Field.builder()
-                .identifier(ItemIdentifier.of(IdentificationProperty.of("key", "field")))
+                .id(ItemIdentifier.of(IdentificationProperty.of("key", "field")))
                 .name("FieldName")
                 .dataType(DataType.String)
                 .nativeType("String")
@@ -136,7 +136,7 @@ class DatasetTest {
             .fields(
                 List.of(
                     Field.builder()
-                        .identifier(ItemIdentifier.of(IdentificationProperty.of("key", "field")))
+                        .id(ItemIdentifier.of(IdentificationProperty.of("key", "field")))
                         .name("FieldName")
                         .dataType(DataType.String)
                         .nativeType("String")
