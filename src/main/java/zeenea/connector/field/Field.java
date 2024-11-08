@@ -55,7 +55,7 @@ public class Field {
    * @param builder the builder used to create the Field instance
    */
   public Field(Field.Builder<?, ?> builder) {
-    this.id = Objects.requireNonNull(builder.identifier, "identifier");
+    this.id = Objects.requireNonNull(builder.id, "id");
     this.name = Objects.requireNonNull(builder.name, "name");
     this.dataType = builder.dataType;
     this.nativeType = builder.nativeType;
@@ -250,7 +250,7 @@ public class Field {
   public static class Builder<T, THIS extends Builder<T, ?>> {
 
     /** The item identifier associated with the field. */
-    private ItemIdentifier identifier;
+    private ItemIdentifier id;
 
     /** The name of the field. */
     private String name;
@@ -329,11 +329,11 @@ public class Field {
     /**
      * Sets the identifier associated with the field.
      *
-     * @param identifier the item identifier
+     * @param id the item identifier
      * @return the builder instance
      */
-    public THIS identifier(@NotNull ItemIdentifier identifier) {
-      this.identifier = identifier;
+    public THIS id(@NotNull ItemIdentifier id) {
+      this.id = id;
       return self();
     }
 

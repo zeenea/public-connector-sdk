@@ -24,7 +24,7 @@ class FieldTest {
             IdentificationProperty.of("key2", "value2"));
     Field field =
         Field.builder()
-            .identifier(identifier)
+            .id(identifier)
             .name("FieldName")
             .dataType(DataType.String)
             .nativeType("String")
@@ -57,7 +57,7 @@ class FieldTest {
             IdentificationProperty.of("key2", "value2"));
     Field field1 =
         Field.builder()
-            .identifier(identifier)
+            .id(identifier)
             .name("FieldName")
             .dataType(DataType.String)
             .nativeType("String")
@@ -69,7 +69,7 @@ class FieldTest {
             .build();
     Field field2 =
         Field.builder()
-            .identifier(identifier)
+            .id(identifier)
             .name("FieldName")
             .dataType(DataType.String)
             .nativeType("String")
@@ -100,7 +100,7 @@ class FieldTest {
             IdentificationProperty.of("key3", "value3"));
     Field field1 =
         Field.builder()
-            .identifier(identifier1)
+            .id(identifier1)
             .name("FieldName1")
             .dataType(DataType.String)
             .nativeType("String")
@@ -112,7 +112,7 @@ class FieldTest {
             .build();
     Field field2 =
         Field.builder()
-            .identifier(identifier2)
+            .id(identifier2)
             .name("FieldName2")
             .dataType(DataType.Integer)
             .nativeType("Integer")
@@ -138,7 +138,7 @@ class FieldTest {
         NullPointerException.class,
         () ->
             Field.builder()
-                .identifier(identifier)
+                .id(identifier)
                 .name(null)
                 .dataType(DataType.String)
                 .nativeType("String")
@@ -159,7 +159,7 @@ class FieldTest {
         NullPointerException.class,
         () ->
             Field.builder()
-                .identifier(null)
+                .id(null)
                 .name("FieldName")
                 .dataType(DataType.String)
                 .nativeType("String")
@@ -182,7 +182,7 @@ class FieldTest {
         NullPointerException.class,
         () ->
             Field.builder()
-                .identifier(identifier)
+                .id(identifier)
                 .name("FieldName")
                 .dataType(DataType.String)
                 .nativeType("String")
