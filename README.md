@@ -61,6 +61,7 @@ package com.example.connector;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import zeenea.connector.Connection;
+import zeenea.connector.synchronize.SynchronizeConnection;
 import zeenea.connector.contact.Contact;
 import zeenea.connector.property.PropertyDefinition;
 import zeenea.connector.property.StringPropertyDefinition;
@@ -75,12 +76,11 @@ import java.time.Instant;
 import java.util.*;
 import java.util.stream.Stream;
 
-public class ExampleConnection implements Connection {
+public class ExampleConnection implements SynchronizeConnection {
   // slf4j might be used for logging
   private static final Logger LOGGER = LoggerFactory.getLogger(ExampleConnection.class);
 
-  private static final StringPropertyDefinition TYPE_METADATA =
-      new StringPropertyDefinition("Type");
+  private static final StringPropertyDefinition TYPE_METADATA = PropertyDefinition.string("type", "Type of item");
 
   public Set<PropertyDefinition> getProperties() {
     // Value returned here can be dynamic and change over successive calls

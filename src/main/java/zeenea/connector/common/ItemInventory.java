@@ -14,7 +14,13 @@ public final class ItemInventory {
   /** The identifier for the item. */
   @NotNull private final ItemIdentifier itemIdentifier;
 
-  /** The list of labels associated with the item. */
+  /**
+   * The list of labels associated with the item.
+   *
+   * <p>This label list will generate import hierarchy in Zeenea Studio import modal view.
+   *
+   * <p>It must be not empty to display importable items in the Studio.
+   */
   @NotNull private final List<String> labels;
 
   /**
@@ -23,7 +29,7 @@ public final class ItemInventory {
    * @param builder the builder used to create the ItemInventory instance
    */
   private ItemInventory(Builder builder) {
-    ExceptionUtils.requireNonNull("labels", builder.labels);
+    ExceptionUtils.requireNonNullOrEmpty("labels", builder.labels);
     this.itemIdentifier = Objects.requireNonNull(builder.itemIdentifier, "itemIdentifier");
     this.labels = List.copyOf(builder.labels);
   }

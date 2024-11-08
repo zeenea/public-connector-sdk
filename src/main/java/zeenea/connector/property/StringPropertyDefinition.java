@@ -1,7 +1,5 @@
 package zeenea.connector.property;
 
-import java.util.UUID;
-
 /**
  * Represents a property definition for a string type. This class extends the PropertyDefinition
  * class.
@@ -18,12 +16,12 @@ public final class StringPropertyDefinition extends PropertyDefinition {
   }
 
   /**
-   * Constructs a StringPropertyDefinition instance with the specified code and UUID.
+   * Constructs a StringPropertyDefinition instance with the specified code and label.
    *
    * @param code the code for the property definition
-   * @param uuid the UUID for the property definition
+   * @param label the label for the property definition
    */
-  public StringPropertyDefinition(String code, UUID uuid) {
-    super(code, PropertyType.STRING, uuid);
+  public StringPropertyDefinition(String code, String label) {
+    super(code, PropertyType.STRING, label);
   }
 }
