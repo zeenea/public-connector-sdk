@@ -62,9 +62,9 @@ public abstract class PropertyDefinition {
   }
 
   /**
-   * Gets the UUID of the property definition.
+   * Gets the label of the property definition.
    *
-   * @return the UUID of the property definition
+   * @return the label of the property definition
    */
   public Optional<String> getLabel() {
     return Optional.ofNullable(label);
@@ -228,6 +228,6 @@ public abstract class PropertyDefinition {
    */
   @Override
   public String toString() {
-    return "PropertyDefinition{" + "code='" + code + ", type=" + type + "}";
+    return "PropertyDefinition{" + "code='" + code + "', type=" + type + "}";
   }
 }

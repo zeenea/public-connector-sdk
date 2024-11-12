@@ -102,7 +102,7 @@ public class ExampleConnection implements SynchronizeConnection {
             .fields(
                 List.of(
                     Field.builder()
-                        .identifier(
+                        .id(
                             ItemIdentifier.of(IdentificationProperty.of("field_key", "dim1")))
                         .name("dim1")
                         .dataType(DataType.String)
@@ -113,7 +113,7 @@ public class ExampleConnection implements SynchronizeConnection {
                         .sourceFields(List.of())
                         .build(),
                     Field.builder()
-                        .identifier(
+                        .id(
                             ItemIdentifier.of(IdentificationProperty.of("field_key", "mes1")))
                         .name("mes1")
                         .dataType(DataType.String)
