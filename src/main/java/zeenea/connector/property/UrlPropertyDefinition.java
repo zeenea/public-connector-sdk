@@ -11,6 +11,16 @@ public final class UrlPropertyDefinition extends PropertyDefinition {
    * @param code the code for the property definition
    */
   public UrlPropertyDefinition(String code) {
-    super(code, PropertyType.URL);
+    super(code, PropertyType.URL, null);
+  }
+
+  /**
+   * Constructs a UrlPropertyDefinition instance with the specified code and label.
+   *
+   * @param code the code for the property definition
+   * @param label the label for the property definition
+   */
+  public UrlPropertyDefinition(String code, String label) {
+    super(code, PropertyType.URL, label);
   }
 }

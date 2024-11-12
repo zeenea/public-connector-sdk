@@ -12,6 +12,16 @@ public final class StringPropertyDefinition extends PropertyDefinition {
    * @param code the code for the property definition
    */
   public StringPropertyDefinition(String code) {
-    super(code, PropertyType.STRING);
+    super(code, PropertyType.STRING, null);
+  }
+
+  /**
+   * Constructs a StringPropertyDefinition instance with the specified code and label.
+   *
+   * @param code the code for the property definition
+   * @param label the label for the property definition
+   */
+  public StringPropertyDefinition(String code, String label) {
+    super(code, PropertyType.STRING, label);
   }
 }

@@ -61,6 +61,7 @@ package com.example.connector;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import zeenea.connector.Connection;
+import zeenea.connector.synchronize.SynchronizeConnection;
 import zeenea.connector.contact.Contact;
 import zeenea.connector.property.PropertyDefinition;
 import zeenea.connector.property.StringPropertyDefinition;
@@ -75,61 +76,74 @@ import java.time.Instant;
 import java.util.*;
 import java.util.stream.Stream;
 
-public class ExampleConnection implements Connection {
-    // slf4j might be used for logging
-    private static final Logger LOGGER = LoggerFactory.getLogger(ExampleConnection.class);
+public class ExampleConnection implements SynchronizeConnection {
+  // slf4j might be used for logging
+  private static final Logger LOGGER = LoggerFactory.getLogger(ExampleConnection.class);
 
-    private static final StringPropertyDefinition TYPE_METADATA = new StringPropertyDefinition("Type");
+  private static final StringPropertyDefinition TYPE_METADATA = PropertyDefinition.string("type", "Type of item");
 
-    public Set<PropertyDefinition> getProperties() {
-        // Value returned here can be dynamic and change over successive calls
-        return new HashSet<>(Collections.singletonList(TYPE_METADATA));
-    }
+  public Set<PropertyDefinition> getProperties() {
+    // Value returned here can be dynamic and change over successive calls
+    return new HashSet<>(Collections.singletonList(TYPE_METADATA));
+  }
 
-    @Override
-    public Stream<Item> synchronize() {
-        return Stream.of(
-                Visualization.builder()
+  @Override
+  public Stream<Item> synchronize() {
+    return Stream.of(
+        Visualization.builder()
+            .id(
+                ItemIdentifier.of(
+                    IdentificationProperty.of("type", "visualization"),
+                    IdentificationProperty.of("report_id", "1234"),
+                    IdentificationProperty.of("workspace_id", "4321")))
+            .name("Visualization name")
+            .description("Some description")
+            .properties(PropertiesBuilder.create().put(TYPE_METADATA, "some type").build())
+            .fields(
+                List.of(
+                    Field.builder()
                         .id(
-                                ItemIdentifier.of(
-                                        IdentificationProperty.of("type", "visualization"),
-                                        IdentificationProperty.of("report_id", "1234"),
-                                        IdentificationProperty.of("workspace_id", "4321")))
-                        .name("Visualization name")
-                        .description("Some description")
-                        .properties(PropertiesBuilder.create().put(TYPE_METADATA, "some type").build())
-                        .fields(
-                                List.of(
-                                        Field.builder()
-                                                .name("dim1")
-                                                .dataType(DataType.String)
-                                                .nativeType("string")
-                                                .description("some field description")
-                                                .itemReferences(List.of())
-                                                .keys(List.of("dim1"))
-                                                .build(),
-                                        Field.builder()
-                                                .name("mes1")
-                                                .dataType(DataType.String)
-                                                .nativeType("string")
-                                                .description("some field description")
-                                                .itemReferences(List.of())
-                                                .keys(List.of("mes1"))
-                                                .build()))
-                        .sourceDatasets(
-                                List.of(
-                                        ItemReference.of(
-                                                ItemIdentifier.of(IdentificationProperty.of("id", "dataset2")),
-                                                ConnectionReferenceCode.of("reference"))))
-                        .contactRelations(
-                                List.of(Contact.of("test@zeenea.com", "Some name", "0600000000", "Owner")))
-                        .build());
-    }
+                            ItemIdentifier.of(IdentificationProperty.of("field_key", "dim1")))
+                        .name("dim1")
+                        .dataType(DataType.String)
+                        .nativeType("string")
+                        .description("some field description")
+                        .properties(
+                            PropertiesBuilder.create().put(TYPE_METADATA, "dimension").build())
+                        .sourceFields(List.of())
+                        .build(),
+                    Field.builder()
+                        .id(
+                            ItemIdentifier.of(IdentificationProperty.of("field_key", "mes1")))
+                        .name("mes1")
+                        .dataType(DataType.String)
+                        .nativeType("string")
+                        .description("some field description")
+                        .properties(
+                            PropertiesBuilder.create().put(TYPE_METADATA, "measure").build())
+                        .sourceFields(
+                            List.of(
+                                ItemReference.of(
+                                    ItemIdentifier.of(
+                                        IdentificationProperty.of("id", "dataset2"),
+                                        IdentificationProperty.of("field_key", "mes1")),
+                                    ConnectionReferenceCode.of("hostname:port/database"))))
+                        .build()))
+            .sourceDatasets(
+                List.of(
+                    ItemReference.of(
+                        ItemIdentifier.of(IdentificationProperty.of("id", "dataset2")),
+                        ConnectionReferenceCode.of("hostname:port/database"))))
+            .contactRelations(
+                List.of(Contact.of("test@zeenea.com", "Some name", "0600000000", "Owner")))
+            .build());
+  }
 
-    public void close() {
-        // Resources previously opened can be closed here
-    }
+  public void close() {
+    // Resources previously opened can be closed here
+  }
 }
+
 ```
 
 ### Installation

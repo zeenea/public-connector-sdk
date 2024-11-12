@@ -11,6 +11,16 @@ public final class TagPropertyDefinition extends PropertyDefinition {
    * @param code the code for the property definition
    */
   public TagPropertyDefinition(String code) {
-    super(code, PropertyType.TAG);
+    super(code, PropertyType.TAG, null);
+  }
+
+  /**
+   * Constructs a TagPropertyDefinition instance with the specified code and label.
+   *
+   * @param code the code for the property definition
+   * @param label the label for the property definition
+   */
+  public TagPropertyDefinition(String code, String label) {
+    super(code, PropertyType.TAG, label);
   }
 }
