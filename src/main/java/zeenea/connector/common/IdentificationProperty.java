@@ -2,6 +2,7 @@ package zeenea.connector.common;
 
 import java.util.Objects;
 import org.jetbrains.annotations.NotNull;
+import zeenea.connector.exception.ExceptionUtils;
 
 /** Represents an identification property in the Zeenea Data Catalog. */
 public class IdentificationProperty {
@@ -17,8 +18,10 @@ public class IdentificationProperty {
    * @param builder the builder used to create the IdentificationProperty instance
    */
   private IdentificationProperty(Builder builder) {
-    this.key = Objects.requireNonNull(builder.key, "key");
-    this.value = Objects.requireNonNull(builder.value, "value");
+    ExceptionUtils.requireNonNullOrEmpty("key", builder.key);
+    ExceptionUtils.requireNonNullOrEmpty("value", builder.value);
+    this.key = builder.key;
+    this.value = builder.value;
   }
 
   /**
