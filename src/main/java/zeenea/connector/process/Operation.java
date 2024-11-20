@@ -112,7 +112,7 @@ public class Operation {
      *
      * @return a new Operation instance
      */
-    protected Operation build() {
+    public Operation build() {
       return new Operation(this);
     }
   }
