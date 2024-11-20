@@ -5,10 +5,7 @@ import static org.junit.jupiter.api.Assertions.*;
 import java.util.List;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import zeenea.connector.common.ConnectionReferenceCode;
-import zeenea.connector.common.IdentificationProperty;
-import zeenea.connector.common.ItemIdentifier;
-import zeenea.connector.common.ItemReference;
+import zeenea.connector.common.*;
 
 class DataProcessTest {
 
@@ -19,12 +16,18 @@ class DataProcessTest {
         List.of(
             ItemReference.of(
                 ItemIdentifier.of(List.of(IdentificationProperty.of("name", "source1"))),
-                ConnectionReferenceCode.of("reference")));
+                DataSourceIdentifier.of(
+                    List.of(
+                        IdentificationProperty.of("host", "localhost"),
+                        IdentificationProperty.of("port", "1111")))));
     List<ItemReference> target =
         List.of(
             ItemReference.of(
                 ItemIdentifier.of(List.of(IdentificationProperty.of("name", "source2"))),
-                ConnectionReferenceCode.of("reference")));
+                DataSourceIdentifier.of(
+                    List.of(
+                        IdentificationProperty.of("host", "localhost"),
+                        IdentificationProperty.of("port", "1111")))));
     ItemIdentifier itemIdentifier =
         ItemIdentifier.of(List.of(IdentificationProperty.of("key", "dataprocess")));
     DataProcess dataProcess =
@@ -48,12 +51,18 @@ class DataProcessTest {
         List.of(
             ItemReference.of(
                 ItemIdentifier.of(List.of(IdentificationProperty.of("name", "source1"))),
-                ConnectionReferenceCode.of("reference")));
+                DataSourceIdentifier.of(
+                    List.of(
+                        IdentificationProperty.of("host", "localhost"),
+                        IdentificationProperty.of("port", "1111")))));
     List<ItemReference> target =
         List.of(
             ItemReference.of(
                 ItemIdentifier.of(List.of(IdentificationProperty.of("name", "source2"))),
-                ConnectionReferenceCode.of("reference")));
+                DataSourceIdentifier.of(
+                    List.of(
+                        IdentificationProperty.of("host", "localhost"),
+                        IdentificationProperty.of("port", "1111")))));
     ItemIdentifier itemIdentifier =
         ItemIdentifier.of(List.of(IdentificationProperty.of("key", "dataprocess")));
     DataProcess dataProcess1 =
@@ -83,12 +92,18 @@ class DataProcessTest {
         List.of(
             ItemReference.of(
                 ItemIdentifier.of(List.of(IdentificationProperty.of("name", "source1"))),
-                ConnectionReferenceCode.of("reference")));
+                DataSourceIdentifier.of(
+                    List.of(
+                        IdentificationProperty.of("host", "localhost"),
+                        IdentificationProperty.of("port", "1111")))));
     List<ItemReference> target =
         List.of(
             ItemReference.of(
                 ItemIdentifier.of(List.of(IdentificationProperty.of("name", "source2"))),
-                ConnectionReferenceCode.of("reference")));
+                DataSourceIdentifier.of(
+                    List.of(
+                        IdentificationProperty.of("host", "localhost"),
+                        IdentificationProperty.of("port", "1111")))));
     DataProcess dataProcess1 =
         DataProcess.builder()
             .id(ItemIdentifier.of(List.of(IdentificationProperty.of("key", "dataprocess1"))))
@@ -115,7 +130,10 @@ class DataProcessTest {
         List.of(
             ItemReference.of(
                 ItemIdentifier.of(List.of(IdentificationProperty.of("name", "source"))),
-                ConnectionReferenceCode.of("reference")));
+                DataSourceIdentifier.of(
+                    List.of(
+                        IdentificationProperty.of("host", "localhost"),
+                        IdentificationProperty.of("port", "1111")))));
     ItemIdentifier itemIdentifier =
         ItemIdentifier.of(List.of(IdentificationProperty.of("key", "dataprocess")));
     assertThrows(
@@ -137,7 +155,10 @@ class DataProcessTest {
         List.of(
             ItemReference.of(
                 ItemIdentifier.of(List.of(IdentificationProperty.of("name", "source"))),
-                ConnectionReferenceCode.of("reference")));
+                DataSourceIdentifier.of(
+                    List.of(
+                        IdentificationProperty.of("host", "localhost"),
+                        IdentificationProperty.of("port", "1111")))));
     ItemIdentifier itemIdentifier =
         ItemIdentifier.of(List.of(IdentificationProperty.of("key", "dataprocess")));
     assertThrows(

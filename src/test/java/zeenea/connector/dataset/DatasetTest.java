@@ -5,10 +5,7 @@ import static org.junit.jupiter.api.Assertions.*;
 import java.util.List;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import zeenea.connector.common.ConnectionReferenceCode;
-import zeenea.connector.common.IdentificationProperty;
-import zeenea.connector.common.ItemIdentifier;
-import zeenea.connector.common.ItemReference;
+import zeenea.connector.common.*;
 import zeenea.connector.field.Field;
 
 class DatasetTest {
@@ -43,7 +40,10 @@ class DatasetTest {
         List.of(
             ItemReference.of(
                 ItemIdentifier.of(List.of(IdentificationProperty.of("name", "source1"))),
-                ConnectionReferenceCode.of("reference")));
+                DataSourceIdentifier.of(
+                    List.of(
+                        IdentificationProperty.of("host", "localhost"),
+                        IdentificationProperty.of("port", "1111")))));
     ItemIdentifier itemIdentifier =
         ItemIdentifier.of(List.of(IdentificationProperty.of("key", "dataset1")));
     Dataset dataset =
@@ -96,7 +96,10 @@ class DatasetTest {
         List.of(
             ItemReference.of(
                 ItemIdentifier.of(List.of(IdentificationProperty.of("name", "source1"))),
-                ConnectionReferenceCode.of("reference")));
+                DataSourceIdentifier.of(
+                    List.of(
+                        IdentificationProperty.of("host", "localhost"),
+                        IdentificationProperty.of("port", "1111")))));
     ItemIdentifier itemIdentifier =
         ItemIdentifier.of(List.of(IdentificationProperty.of("key", "dataset1")));
     Dataset dataset1 =
@@ -160,7 +163,10 @@ class DatasetTest {
                 List.of(
                     ItemReference.of(
                         ItemIdentifier.of(List.of(IdentificationProperty.of("name", "source1"))),
-                        ConnectionReferenceCode.of("reference"))))
+                        DataSourceIdentifier.of(
+                            List.of(
+                                IdentificationProperty.of("host", "localhost"),
+                                IdentificationProperty.of("port", "1111"))))))
             .build();
     Dataset dataset2 =
         Dataset.builder()
@@ -194,7 +200,10 @@ class DatasetTest {
         List.of(
             ItemReference.of(
                 ItemIdentifier.of(List.of(IdentificationProperty.of("name", "source1"))),
-                ConnectionReferenceCode.of("reference")));
+                DataSourceIdentifier.of(
+                    List.of(
+                        IdentificationProperty.of("host", "localhost"),
+                        IdentificationProperty.of("port", "1111")))));
     assertThrows(
         NullPointerException.class,
         () ->

@@ -17,13 +17,19 @@ class InputPortTest {
         ItemIdentifier.of(List.of(IdentificationProperty.of("id", "input-port-1")));
     ItemIdentifier input1 = ItemIdentifier.of(List.of(IdentificationProperty.of("name", "input1")));
     ItemIdentifier input2 = ItemIdentifier.of(List.of(IdentificationProperty.of("name", "input2")));
-    ConnectionReferenceCode referenceCode = ConnectionReferenceCode.of("code");
+    DataSourceIdentifier dataSourceIdentifier =
+        DataSourceIdentifier.of(
+            List.of(
+                IdentificationProperty.of("host", "localhost"),
+                IdentificationProperty.of("port", "1111")));
     ItemIdentifier output1 =
         ItemIdentifier.of(List.of(IdentificationProperty.of("name", "output1")));
     ItemIdentifier output2 =
         ItemIdentifier.of(List.of(IdentificationProperty.of("name", "output2")));
     List<ItemReference> inputs =
-        List.of(ItemReference.of(input1, referenceCode), ItemReference.of(input2, referenceCode));
+        List.of(
+            ItemReference.of(input1, dataSourceIdentifier),
+            ItemReference.of(input2, dataSourceIdentifier));
     List<ItemIdentifier> outputs = List.of(output1, output2);
     InputPort inputPort =
         InputPort.builder()
@@ -46,13 +52,19 @@ class InputPortTest {
   void shouldBeEqualToAnotherWithSameProperties() {
     ItemIdentifier input1 = ItemIdentifier.of(List.of(IdentificationProperty.of("name", "input1")));
     ItemIdentifier input2 = ItemIdentifier.of(List.of(IdentificationProperty.of("name", "input2")));
-    ConnectionReferenceCode referenceCode = ConnectionReferenceCode.of("code");
+    DataSourceIdentifier dataSourceIdentifier =
+        DataSourceIdentifier.of(
+            List.of(
+                IdentificationProperty.of("host", "localhost"),
+                IdentificationProperty.of("port", "1111")));
     ItemIdentifier output1 =
         ItemIdentifier.of(List.of(IdentificationProperty.of("name", "output1")));
     ItemIdentifier output2 =
         ItemIdentifier.of(List.of(IdentificationProperty.of("name", "output2")));
     List<ItemReference> inputs =
-        List.of(ItemReference.of(input1, referenceCode), ItemReference.of(input2, referenceCode));
+        List.of(
+            ItemReference.of(input1, dataSourceIdentifier),
+            ItemReference.of(input2, dataSourceIdentifier));
     List<ItemIdentifier> outputs = List.of(output1, output2);
     InputPort inputPort1 =
         InputPort.builder()
@@ -79,13 +91,19 @@ class InputPortTest {
   void shouldNotBeEqualToAnotherWithDifferentProperties() {
     ItemIdentifier input1 = ItemIdentifier.of(List.of(IdentificationProperty.of("name", "input1")));
     ItemIdentifier input2 = ItemIdentifier.of(List.of(IdentificationProperty.of("name", "input2")));
-    ConnectionReferenceCode referenceCode = ConnectionReferenceCode.of("code");
+    DataSourceIdentifier dataSourceIdentifier =
+        DataSourceIdentifier.of(
+            List.of(
+                IdentificationProperty.of("host", "localhost"),
+                IdentificationProperty.of("port", "1111")));
     ItemIdentifier output1 =
         ItemIdentifier.of(List.of(IdentificationProperty.of("name", "output1")));
     ItemIdentifier output2 =
         ItemIdentifier.of(List.of(IdentificationProperty.of("name", "output2")));
     List<ItemReference> inputs =
-        List.of(ItemReference.of(input1, referenceCode), ItemReference.of(input2, referenceCode));
+        List.of(
+            ItemReference.of(input1, dataSourceIdentifier),
+            ItemReference.of(input2, dataSourceIdentifier));
     List<ItemIdentifier> outputs1 = List.of(output1);
     List<ItemIdentifier> outputs2 = List.of(output2);
     InputPort inputPort1 =
@@ -135,7 +153,7 @@ class InputPortTest {
                 .id(ItemIdentifier.of(List.of(IdentificationProperty.of("id", "input-port-1"))))
                 .name("InputPort1")
                 .description("Description1")
-                .inputs(List.of(null))
+                .inputs(List.of((ItemReference) null))
                 .outputs(outputs)
                 .build());
   }
@@ -144,8 +162,12 @@ class InputPortTest {
   @DisplayName("InputPort builder should fail with null outputs")
   void builderShouldFailWithNullOutputs() {
     ItemIdentifier input1 = ItemIdentifier.of(List.of(IdentificationProperty.of("name", "input1")));
-    ConnectionReferenceCode referenceCode = ConnectionReferenceCode.of("code");
-    List<ItemReference> inputs = List.of(ItemReference.of(input1, referenceCode));
+    DataSourceIdentifier dataSourceIdentifier =
+        DataSourceIdentifier.of(
+            List.of(
+                IdentificationProperty.of("host", "localhost"),
+                IdentificationProperty.of("port", "1111")));
+    List<ItemReference> inputs = List.of(ItemReference.of(input1, dataSourceIdentifier));
 
     assertThrows(
         NullPointerException.class,
@@ -155,7 +177,7 @@ class InputPortTest {
                 .name("InputPort1")
                 .description("Description1")
                 .inputs(inputs)
-                .outputs(List.of(null))
+                .outputs(List.of((ItemIdentifier) null))
                 .build());
   }
 }

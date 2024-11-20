@@ -10,8 +10,8 @@ public final class ItemReference {
   /** The identifier for the item. */
   @NotNull private final ItemIdentifier itemIdentifier;
 
-  /** The connection reference associated with the item, if any. */
-  @Nullable private final ConnectionReference connectionReference;
+  /** The data source identifier associated with the item */
+  @Nullable private final DataSourceIdentifier dataSource;
 
   /**
    * Constructs an ItemReference instance using the provided builder.
@@ -20,7 +20,7 @@ public final class ItemReference {
    */
   private ItemReference(Builder builder) {
     this.itemIdentifier = Objects.requireNonNull(builder.itemIdentifier, "itemIdentifier");
-    this.connectionReference = builder.connectionReference;
+    this.dataSource = builder.dataSourceIdentifier;
   }
 
   /**
@@ -28,14 +28,14 @@ public final class ItemReference {
    * reference.
    *
    * @param itemIdentifier the identifier for the item
-   * @param connectionReference the connection reference associated with the item, if any
+   * @param dataSourceIdentifier the data source identifier associated with the item
    * @return a new ItemReference instance
    */
   public static ItemReference of(
-      @NotNull ItemIdentifier itemIdentifier, @Nullable ConnectionReference connectionReference) {
+      @NotNull ItemIdentifier itemIdentifier, @Nullable DataSourceIdentifier dataSourceIdentifier) {
     return builder()
         .itemIdentifier(itemIdentifier)
-        .connectionReference(connectionReference)
+        .dataSourceIdentifier(dataSourceIdentifier)
         .build();
   }
 
@@ -60,12 +60,12 @@ public final class ItemReference {
   }
 
   /**
-   * Gets the connection reference associated with the item, if any.
+   * Gets the data source identifier associated with the item, if any.
    *
-   * @return an Optional containing the connection reference if present, otherwise an empty Optional
+   * @return the data source identifier associated with the item
    */
-  public Optional<ConnectionReference> getConnectionReference() {
-    return Optional.ofNullable(connectionReference);
+  public Optional<DataSourceIdentifier> getDataSourceIdentifier() {
+    return Optional.ofNullable(dataSource);
   }
 
   /**
@@ -89,7 +89,7 @@ public final class ItemReference {
     if (o == null || getClass() != o.getClass()) return false;
     ItemReference that = (ItemReference) o;
     return Objects.equals(itemIdentifier, that.itemIdentifier)
-        && Objects.equals(connectionReference, that.connectionReference);
+        && Objects.equals(dataSource, that.dataSource);
   }
 
   /**
@@ -99,7 +99,7 @@ public final class ItemReference {
    */
   @Override
   public int hashCode() {
-    return Objects.hash(itemIdentifier, connectionReference);
+    return Objects.hash(itemIdentifier, dataSource);
   }
 
   /**
@@ -110,10 +110,10 @@ public final class ItemReference {
   @Override
   public String toString() {
     return "ItemReference{"
-        + "connectionReference="
-        + connectionReference
-        + ", itemIdentifier="
+        + "itemIdentifier="
         + itemIdentifier
+        + ", dataSourceIdentifier="
+        + dataSource
         + "}";
   }
 
@@ -123,8 +123,8 @@ public final class ItemReference {
     /** The identifier for the item. */
     private ItemIdentifier itemIdentifier;
 
-    /** The connection reference associated with the item, if any. */
-    private ConnectionReference connectionReference;
+    /** The data source identifier associated with the item */
+    private DataSourceIdentifier dataSourceIdentifier;
 
     /**
      * Sets the identifier for the item.
@@ -149,35 +149,13 @@ public final class ItemReference {
     }
 
     /**
-     * Sets the connection reference for the item.
+     * Sets the data source identifier for the item.
      *
-     * @param connectionReference the connection reference to set
+     * @param dataSourceIdentifier the data source identifier to set
      * @return the builder instance
      */
-    public Builder connectionReference(@Nullable ConnectionReference connectionReference) {
-      this.connectionReference = connectionReference;
-      return this;
-    }
-
-    /**
-     * Sets the connection code for the item.
-     *
-     * @param code the connection code to set
-     * @return the builder instance
-     */
-    public Builder connectionCode(@Nullable String code) {
-      this.connectionReference = code != null ? ConnectionReferenceCode.of(code) : null;
-      return this;
-    }
-
-    /**
-     * Sets the connection alias for the item.
-     *
-     * @param alias the connection alias to set
-     * @return the builder instance
-     */
-    public Builder connectionAlias(@Nullable String alias) {
-      this.connectionReference = alias != null ? ConnectionReferenceAlias.of(alias) : null;
+    public Builder dataSourceIdentifier(@Nullable DataSourceIdentifier dataSourceIdentifier) {
+      this.dataSourceIdentifier = dataSourceIdentifier;
       return this;
     }
 
