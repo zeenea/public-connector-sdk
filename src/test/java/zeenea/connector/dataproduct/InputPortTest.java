@@ -153,7 +153,7 @@ class InputPortTest {
                 .id(ItemIdentifier.of(List.of(IdentificationProperty.of("id", "input-port-1"))))
                 .name("InputPort1")
                 .description("Description1")
-                .inputs(List.of((ItemReference) null))
+                .inputs(List.of(null))
                 .outputs(outputs)
                 .build());
   }
@@ -177,7 +177,7 @@ class InputPortTest {
                 .name("InputPort1")
                 .description("Description1")
                 .inputs(inputs)
-                .outputs(List.of((ItemIdentifier) null))
+                .outputs(List.of(null))
                 .build());
   }
 }

@@ -11,7 +11,7 @@ public final class ItemReference {
   @NotNull private final ItemIdentifier itemIdentifier;
 
   /** The data source identifier associated with the item */
-  @Nullable private final DataSourceIdentifier dataSource;
+  @Nullable private final DataSourceIdentifier dataSourceIdentifier;
 
   /**
    * Constructs an ItemReference instance using the provided builder.
@@ -20,7 +20,7 @@ public final class ItemReference {
    */
   private ItemReference(Builder builder) {
     this.itemIdentifier = Objects.requireNonNull(builder.itemIdentifier, "itemIdentifier");
-    this.dataSource = builder.dataSourceIdentifier;
+    this.dataSourceIdentifier = builder.dataSourceIdentifier;
   }
 
   /**
@@ -62,10 +62,11 @@ public final class ItemReference {
   /**
    * Gets the data source identifier associated with the item, if any.
    *
-   * @return the data source identifier associated with the item
+   * @return an Optional containing the data source identifier associated with the item if present,
+   *     otherwise an empty Optional
    */
   public Optional<DataSourceIdentifier> getDataSourceIdentifier() {
-    return Optional.ofNullable(dataSource);
+    return Optional.ofNullable(dataSourceIdentifier);
   }
 
   /**
@@ -89,7 +90,7 @@ public final class ItemReference {
     if (o == null || getClass() != o.getClass()) return false;
     ItemReference that = (ItemReference) o;
     return Objects.equals(itemIdentifier, that.itemIdentifier)
-        && Objects.equals(dataSource, that.dataSource);
+        && Objects.equals(dataSourceIdentifier, that.dataSourceIdentifier);
   }
 
   /**
@@ -99,7 +100,7 @@ public final class ItemReference {
    */
   @Override
   public int hashCode() {
-    return Objects.hash(itemIdentifier, dataSource);
+    return Objects.hash(itemIdentifier, dataSourceIdentifier);
   }
 
   /**
@@ -113,7 +114,7 @@ public final class ItemReference {
         + "itemIdentifier="
         + itemIdentifier
         + ", dataSourceIdentifier="
-        + dataSource
+        + dataSourceIdentifier
         + "}";
   }
 
@@ -123,7 +124,7 @@ public final class ItemReference {
     /** The identifier for the item. */
     private ItemIdentifier itemIdentifier;
 
-    /** The data source identifier associated with the item */
+    /** The data source identifier associated with the item, if any. */
     private DataSourceIdentifier dataSourceIdentifier;
 
     /**

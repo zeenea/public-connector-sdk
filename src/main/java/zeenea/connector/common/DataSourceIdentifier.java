@@ -5,7 +5,8 @@ import org.jetbrains.annotations.NotNull;
 import zeenea.connector.exception.ExceptionUtils;
 
 /**
- * Represents an identifier for an data source, consisting of a list of identification properties.
+ * Represents an identifier for an external data source, consisting of a list of identification
+ * properties.
  *
  * <pre>Example : <br>
  * {
@@ -112,7 +113,7 @@ public final class DataSourceIdentifier {
   public static class Builder {
 
     /** The list of identification properties. */
-    private List<IdentificationProperty> identificationProperties;
+    private List<IdentificationProperty> identificationProperties = new ArrayList<>();
 
     /**
      * Set a collection of identification properties to the builder.
