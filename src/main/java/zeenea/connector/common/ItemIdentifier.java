@@ -4,7 +4,19 @@ import java.util.*;
 import org.jetbrains.annotations.NotNull;
 import zeenea.connector.exception.ExceptionUtils;
 
-/** Represents an identifier for an item, consisting of a list of identification properties. */
+/**
+ * Represents an identifier for an item, consisting of a list of identification properties.
+ *
+ * <pre>Example : <br>
+ * {
+ *  "identificationProperties": [
+ *    { "key": "database", "value": "mydb" },
+ *    { "key": "schema", "value": "myschema" },
+ *    { "key": "table", "value": "table_name" },
+ *  ]
+ * }
+ * </pre>
+ */
 public final class ItemIdentifier {
 
   /** The list of identification properties. */
@@ -143,7 +155,7 @@ public final class ItemIdentifier {
   public static class Builder {
 
     /** The list of identification properties. */
-    private List<IdentificationProperty> identificationProperties;
+    private List<IdentificationProperty> identificationProperties = new ArrayList<>();
 
     /**
      * Set a collection of identification properties to the builder.

@@ -14,11 +14,15 @@ class ItemReferenceTest {
   void shouldCreateItemReference() {
     ItemIdentifier identifier =
         ItemIdentifier.of(List.of(IdentificationProperty.of("key", "value")));
-    ConnectionReference connection = ConnectionReferenceAlias.of("connectionAlias");
-    ItemReference itemReference = ItemReference.of(identifier, connection);
+    DataSourceIdentifier dataSourceIdentifier =
+        DataSourceIdentifier.of(
+            List.of(
+                IdentificationProperty.of("host", "localhost"),
+                IdentificationProperty.of("port", "1111")));
+    ItemReference itemReference = ItemReference.of(identifier, dataSourceIdentifier);
     assertNotNull(itemReference);
     assertEquals(identifier, itemReference.getItemIdentifier());
-    assertEquals(Optional.of(connection), itemReference.getConnectionReference());
+    assertEquals(Optional.of(dataSourceIdentifier), itemReference.getDataSourceIdentifier());
   }
 
   @Test
@@ -26,9 +30,13 @@ class ItemReferenceTest {
   void shouldBeEqualToAnotherWithSameProperties() {
     ItemIdentifier identifier =
         ItemIdentifier.of(List.of(IdentificationProperty.of("key", "value")));
-    ConnectionReference connection = ConnectionReferenceAlias.of("connectionAlias");
-    ItemReference itemReference1 = ItemReference.of(identifier, connection);
-    ItemReference itemReference2 = ItemReference.of(identifier, connection);
+    DataSourceIdentifier dataSourceIdentifier =
+        DataSourceIdentifier.of(
+            List.of(
+                IdentificationProperty.of("host", "localhost"),
+                IdentificationProperty.of("port", "1111")));
+    ItemReference itemReference1 = ItemReference.of(identifier, dataSourceIdentifier);
+    ItemReference itemReference2 = ItemReference.of(identifier, dataSourceIdentifier);
     assertEquals(itemReference1, itemReference2);
     assertEquals(itemReference1.hashCode(), itemReference2.hashCode());
   }
@@ -40,17 +48,29 @@ class ItemReferenceTest {
         ItemIdentifier.of(List.of(IdentificationProperty.of("key1", "value1")));
     ItemIdentifier identifier2 =
         ItemIdentifier.of(List.of(IdentificationProperty.of("key2", "value2")));
-    ConnectionReference connection1 = ConnectionReferenceAlias.of("connectionAlias1");
-    ConnectionReference connection2 = ConnectionReferenceAlias.of("connectionAlias2");
-    ItemReference itemReference1 = ItemReference.of(identifier1, connection1);
-    ItemReference itemReference2 = ItemReference.of(identifier2, connection2);
+    DataSourceIdentifier dataSourceIdentifier1 =
+        DataSourceIdentifier.of(
+            List.of(
+                IdentificationProperty.of("host", "localhost"),
+                IdentificationProperty.of("port", "1111")));
+    DataSourceIdentifier dataSourceIdentifier2 =
+        DataSourceIdentifier.of(
+            List.of(
+                IdentificationProperty.of("host", "localhost"),
+                IdentificationProperty.of("port", "2222")));
+    ItemReference itemReference1 = ItemReference.of(identifier1, dataSourceIdentifier1);
+    ItemReference itemReference2 = ItemReference.of(identifier2, dataSourceIdentifier2);
     assertNotEquals(itemReference1, itemReference2);
   }
 
   @Test
   @DisplayName("ItemReference factory should fail with null item identifier")
   void shouldFailWithNullItemIdentifier() {
-    ConnectionReference connection = ConnectionReferenceAlias.of("connectionAlias");
-    assertThrows(NullPointerException.class, () -> ItemReference.of(null, connection));
+    DataSourceIdentifier dataSourceIdentifier =
+        DataSourceIdentifier.of(
+            List.of(
+                IdentificationProperty.of("host", "localhost"),
+                IdentificationProperty.of("port", "1111")));
+    assertThrows(NullPointerException.class, () -> ItemReference.of(null, dataSourceIdentifier));
   }
 }

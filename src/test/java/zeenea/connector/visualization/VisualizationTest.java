@@ -5,10 +5,7 @@ import static org.junit.jupiter.api.Assertions.*;
 import java.util.List;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import zeenea.connector.common.ConnectionReferenceCode;
-import zeenea.connector.common.IdentificationProperty;
-import zeenea.connector.common.ItemIdentifier;
-import zeenea.connector.common.ItemReference;
+import zeenea.connector.common.*;
 import zeenea.connector.dataset.DataType;
 import zeenea.connector.field.Field;
 
@@ -33,7 +30,10 @@ class VisualizationTest {
         List.of(
             ItemReference.of(
                 ItemIdentifier.of(List.of(IdentificationProperty.of("name", "source"))),
-                ConnectionReferenceCode.of("reference")));
+                DataSourceIdentifier.of(
+                    List.of(
+                        IdentificationProperty.of("host", "localhost"),
+                        IdentificationProperty.of("port", "1111")))));
     ItemIdentifier itemIdentifier =
         ItemIdentifier.of(List.of(IdentificationProperty.of("key", "visualization")));
     Visualization visualization =
@@ -69,7 +69,10 @@ class VisualizationTest {
         List.of(
             ItemReference.of(
                 ItemIdentifier.of(List.of(IdentificationProperty.of("name", "source"))),
-                ConnectionReferenceCode.of("reference")));
+                DataSourceIdentifier.of(
+                    List.of(
+                        IdentificationProperty.of("host", "localhost"),
+                        IdentificationProperty.of("port", "1111")))));
     ItemIdentifier itemIdentifier =
         ItemIdentifier.of(List.of(IdentificationProperty.of("key", "visualization")));
     Visualization visualization1 =
@@ -111,7 +114,10 @@ class VisualizationTest {
         List.of(
             ItemReference.of(
                 ItemIdentifier.of(List.of(IdentificationProperty.of("name", "source"))),
-                ConnectionReferenceCode.of("reference")));
+                DataSourceIdentifier.of(
+                    List.of(
+                        IdentificationProperty.of("host", "localhost"),
+                        IdentificationProperty.of("port", "1111")))));
 
     Visualization visualization1 =
         Visualization.builder()
@@ -139,7 +145,10 @@ class VisualizationTest {
         List.of(
             ItemReference.of(
                 ItemIdentifier.of(List.of(IdentificationProperty.of("name", "source"))),
-                ConnectionReferenceCode.of("reference")));
+                DataSourceIdentifier.of(
+                    List.of(
+                        IdentificationProperty.of("host", "localhost"),
+                        IdentificationProperty.of("port", "1111")))));
     assertThrows(
         NullPointerException.class,
         () ->
