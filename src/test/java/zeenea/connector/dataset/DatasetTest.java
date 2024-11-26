@@ -10,13 +10,15 @@ import zeenea.connector.field.Field;
 
 class DatasetTest {
 
+  public static String FIELD_KEY = "field_key";
+
   @Test
   @DisplayName("Dataset builder should create dataset")
   void shouldCreateDatasetWithBuilder() {
     List<Field> fields =
         List.of(
             Field.builder()
-                .id(ItemIdentifier.of(IdentificationProperty.of("key", "field")))
+                .id(ItemIdentifier.of(IdentificationProperty.of(FIELD_KEY, "field")))
                 .name("FieldName")
                 .dataType(DataType.String)
                 .nativeType("String")
@@ -25,17 +27,25 @@ class DatasetTest {
                 .multivalued(false)
                 .description("Field description")
                 .build());
-    List<String> primaryKeys = List.of("key1", "key2");
+    List<ItemIdentifier> primaryKeyIdentifiers =
+        List.of(ItemIdentifier.of(IdentificationProperty.of(FIELD_KEY, "primary_key")));
     List<ForeignKey> foreignKeys =
         List.of(
             ForeignKey.builder()
-                .targetDataset("Dataset2")
-                .sourceFields(List.of("foreignKey1"))
-                .targetFields(List.of("primaryKey1"))
+                .targetDatasetIdentifier(
+                    ItemIdentifier.of(IdentificationProperty.of("id", "dataset2")))
+                .sourceFieldIdentifiers(
+                    List.of(ItemIdentifier.of(IdentificationProperty.of(FIELD_KEY, "foreign_key"))))
+                .targetFieldIdentifiers(
+                    List.of(ItemIdentifier.of(IdentificationProperty.of(FIELD_KEY, "primary_key"))))
                 .name("foreignKey1")
                 .build());
     List<Partitioning> partitions =
-        List.of(Partitioning.builder().partitionType("type").column("field").build());
+        List.of(
+            Partitioning.builder()
+                .partitionType("type")
+                .columnIdentifier(ItemIdentifier.of(IdentificationProperty.of(FIELD_KEY, "field")))
+                .build());
     List<ItemReference> sourceDatasets =
         List.of(
             ItemReference.of(
@@ -52,7 +62,8 @@ class DatasetTest {
             .name("Dataset1")
             .description("Description")
             .fields(fields)
-            .primaryKeys(primaryKeys)
+            .primaryKeyIdentifiers(
+                List.of(ItemIdentifier.of(IdentificationProperty.of(FIELD_KEY, "primary_key"))))
             .foreignKeys(foreignKeys)
             .partitions(partitions)
             .sourceDatasets(sourceDatasets)
@@ -60,7 +71,7 @@ class DatasetTest {
     assertNotNull(dataset);
     assertEquals(itemIdentifier, dataset.getId());
     assertEquals(fields, dataset.getFields());
-    assertEquals(primaryKeys, dataset.getPrimaryKeys());
+    assertEquals(primaryKeyIdentifiers, dataset.getPrimaryKeyIdentifiers());
     assertEquals(foreignKeys, dataset.getForeignKeys());
     assertEquals(partitions, dataset.getPartitions());
     assertEquals(sourceDatasets, dataset.getSourceDatasets());
@@ -81,17 +92,29 @@ class DatasetTest {
                 .multivalued(false)
                 .description("Field description")
                 .build());
-    List<String> primaryKeys = List.of("key1", "key2");
+    List<ItemIdentifier> primaryKeyIdentifiers =
+        List.of(
+            ItemIdentifier.of(IdentificationProperty.of(FIELD_KEY, "primary_key1")),
+            ItemIdentifier.of(IdentificationProperty.of(FIELD_KEY, "primary_key2")));
     List<ForeignKey> foreignKeys =
         List.of(
             ForeignKey.builder()
-                .targetDataset("dataset2")
-                .sourceFields(List.of("foreignKey1"))
-                .targetFields(List.of("primaryKey1"))
+                .targetDatasetIdentifier(
+                    ItemIdentifier.of(IdentificationProperty.of("id", "dataset2")))
+                .sourceFieldIdentifiers(
+                    List.of(
+                        ItemIdentifier.of(IdentificationProperty.of(FIELD_KEY, "foreign_key1"))))
+                .targetFieldIdentifiers(
+                    List.of(
+                        ItemIdentifier.of(IdentificationProperty.of(FIELD_KEY, "primary_key1"))))
                 .name("foreignKey1")
                 .build());
     List<Partitioning> partitions =
-        List.of(Partitioning.builder().partitionType("type").column("field").build());
+        List.of(
+            Partitioning.builder()
+                .partitionType("type")
+                .columnIdentifier(ItemIdentifier.of(IdentificationProperty.of(FIELD_KEY, "field")))
+                .build());
     List<ItemReference> sourceDatasets =
         List.of(
             ItemReference.of(
@@ -108,7 +131,7 @@ class DatasetTest {
             .name("Dataset1")
             .description("Description")
             .fields(fields)
-            .primaryKeys(primaryKeys)
+            .primaryKeyIdentifiers(primaryKeyIdentifiers)
             .foreignKeys(foreignKeys)
             .partitions(partitions)
             .sourceDatasets(sourceDatasets)
@@ -119,7 +142,7 @@ class DatasetTest {
             .name("Dataset1")
             .description("Description")
             .fields(fields)
-            .primaryKeys(primaryKeys)
+            .primaryKeyIdentifiers(primaryKeyIdentifiers)
             .foreignKeys(foreignKeys)
             .partitions(partitions)
             .sourceDatasets(sourceDatasets)
@@ -148,17 +171,32 @@ class DatasetTest {
                         .multivalued(false)
                         .description("Field description")
                         .build()))
-            .primaryKeys(List.of("key1", "key2"))
+            .primaryKeyIdentifiers(
+                List.of(
+                    ItemIdentifier.of(IdentificationProperty.of(FIELD_KEY, "primary_key1")),
+                    ItemIdentifier.of(IdentificationProperty.of(FIELD_KEY, "primary_key2"))))
             .foreignKeys(
                 List.of(
                     ForeignKey.builder()
-                        .targetDataset("dataset2")
-                        .sourceFields(List.of("foreignKey1"))
-                        .targetFields(List.of("primaryKey1"))
+                        .targetDatasetIdentifier(
+                            ItemIdentifier.of(IdentificationProperty.of("id", "dataset2")))
+                        .sourceFieldIdentifiers(
+                            List.of(
+                                ItemIdentifier.of(
+                                    IdentificationProperty.of(FIELD_KEY, "foreign_key1"))))
+                        .targetFieldIdentifiers(
+                            List.of(
+                                ItemIdentifier.of(
+                                    IdentificationProperty.of(FIELD_KEY, "primary_key1"))))
                         .name("foreignKey1")
                         .build()))
             .partitions(
-                List.of(Partitioning.builder().partitionType("type").column("field").build()))
+                List.of(
+                    Partitioning.builder()
+                        .partitionType("type")
+                        .columnIdentifier(
+                            ItemIdentifier.of(IdentificationProperty.of(FIELD_KEY, "field")))
+                        .build()))
             .sourceDatasets(
                 List.of(
                     ItemReference.of(
@@ -174,7 +212,7 @@ class DatasetTest {
             .name("Dataset2")
             .description("Description")
             .fields(List.of())
-            .primaryKeys(List.of())
+            .primaryKeyIdentifiers(List.of())
             .foreignKeys(List.of())
             .partitions(List.of())
             .sourceDatasets(List.of())
@@ -185,17 +223,29 @@ class DatasetTest {
   @Test
   @DisplayName("Dataset builder should fail with null fields")
   void builderShouldFailWithNullFields() {
-    List<String> primaryKeys = List.of("key1", "key2");
+    List<ItemIdentifier> primaryKeyIdentifiers =
+        List.of(
+            ItemIdentifier.of(IdentificationProperty.of(FIELD_KEY, "primary_key1")),
+            ItemIdentifier.of(IdentificationProperty.of(FIELD_KEY, "primary_key2")));
     List<ForeignKey> foreignKeys =
         List.of(
             ForeignKey.builder()
-                .targetDataset("Dataset2")
-                .sourceFields(List.of("foreignKey1"))
-                .targetFields(List.of("primaryKey1"))
+                .targetDatasetIdentifier(
+                    ItemIdentifier.of(IdentificationProperty.of("id", "dataset2")))
+                .sourceFieldIdentifiers(
+                    List.of(
+                        ItemIdentifier.of(IdentificationProperty.of(FIELD_KEY, "foreign_key1"))))
+                .targetFieldIdentifiers(
+                    List.of(
+                        ItemIdentifier.of(IdentificationProperty.of(FIELD_KEY, "primary_key1"))))
                 .name("foreignKey1")
                 .build());
     List<Partitioning> partitions =
-        List.of(Partitioning.builder().partitionType("type").column("field").build());
+        List.of(
+            Partitioning.builder()
+                .partitionType("type")
+                .columnIdentifier(ItemIdentifier.of(IdentificationProperty.of(FIELD_KEY, "field")))
+                .build());
     List<ItemReference> sourceDatasets =
         List.of(
             ItemReference.of(
@@ -212,7 +262,7 @@ class DatasetTest {
                 .name("Dataset1")
                 .description("Description")
                 .fields((Field) null)
-                .primaryKeys(primaryKeys)
+                .primaryKeyIdentifiers(primaryKeyIdentifiers)
                 .foreignKeys(foreignKeys)
                 .partitions(partitions)
                 .sourceDatasets(sourceDatasets)

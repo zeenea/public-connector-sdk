@@ -4,7 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import org.jetbrains.annotations.NotNull;
-import zeenea.connector.exception.ExceptionUtils;
+import org.jetbrains.annotations.Nullable;
+import zeenea.connector.common.ItemIdentifier;
 
 /**
  * Represents a foreign key in a dataset. This class is immutable and provides methods to access the
@@ -13,13 +14,37 @@ import zeenea.connector.exception.ExceptionUtils;
 public final class ForeignKey {
 
   /** The target dataset of the foreign key. */
-  @NotNull private final String targetDataset;
+  @Deprecated(
+      since =
+          "Deprecated since version 2.1.0, use targetDatasetIdentifier instead. Will be removed in SDK version 3.0.0",
+      forRemoval = true)
+  @Nullable
+  private final String targetDataset;
+
+  /** The identifier for the targeted dataset of the foreign key. */
+  @Nullable private final ItemIdentifier targetDatasetIdentifier;
 
   /** The source fields of the foreign key. */
-  @NotNull private final List<String> sourceFields;
+  @Deprecated(
+      since =
+          "Deprecated since version 2.1.0, use targetDatasetIdentifier instead. Will be removed in SDK version 3.0.0",
+      forRemoval = true)
+  @Nullable
+  private final List<String> sourceFields;
+
+  /** The list of identifiers for source fields of the foreign key. */
+  @Nullable private final List<ItemIdentifier> sourceFieldIdentifiers;
 
   /** The target fields of the foreign key. */
-  @NotNull private final List<String> targetFields;
+  @Deprecated(
+      since =
+          "Deprecated since version 2.1.0, use targetDatasetIdentifier instead. Will be removed in SDK version 3.0.0",
+      forRemoval = true)
+  @Nullable
+  private final List<String> targetFields;
+
+  /** The list of identifiers for target fields of the foreign key. */
+  @Nullable private final List<ItemIdentifier> targetFieldIdentifiers;
 
   /** The name of the foreign key. */
   @NotNull private final String name;
@@ -30,12 +55,12 @@ public final class ForeignKey {
    * @param builder the builder used to create the ForeignKey instance
    */
   private ForeignKey(Builder builder) {
-    ExceptionUtils.requireNonNullOrEmpty("targetDataset", builder.targetDataset);
-    ExceptionUtils.requireNonNullOrEmpty("sourceFields", builder.sourceFields);
-    ExceptionUtils.requireNonNullOrEmpty("targetFields", builder.targetFields);
     this.targetDataset = builder.targetDataset;
+    this.targetDatasetIdentifier = builder.targetDatasetIdentifier;
     this.sourceFields = List.copyOf(builder.sourceFields);
+    this.sourceFieldIdentifiers = List.copyOf(builder.sourceFieldIdentifiers);
     this.targetFields = List.copyOf(builder.targetFields);
+    this.targetFieldIdentifiers = List.copyOf(builder.targetFieldIdentifiers);
     this.name = Objects.requireNonNull(builder.name);
   }
 
@@ -44,8 +69,21 @@ public final class ForeignKey {
    *
    * @return the target dataset of the foreign key
    */
-  public @NotNull String getTargetDataset() {
+  @Deprecated(
+      since =
+          "Deprecated since version 2.1.0, use targetDatasetIdentifier instead. Will be removed in SDK version 3.0.0",
+      forRemoval = true)
+  public @Nullable String getTargetDataset() {
     return targetDataset;
+  }
+
+  /**
+   * Gets the identifier for the targeted dataset of the foreign key.
+   *
+   * @return the identifier for the targeted dataset of the foreign key
+   */
+  public @Nullable ItemIdentifier getTargetDatasetIdentifier() {
+    return targetDatasetIdentifier;
   }
 
   /**
@@ -53,8 +91,21 @@ public final class ForeignKey {
    *
    * @return the source fields of the foreign key
    */
-  public @NotNull List<String> getSourceFields() {
+  @Deprecated(
+      since =
+          "Deprecated since version 2.1.0, use targetDatasetIdentifier instead. Will be removed in SDK version 3.0.0",
+      forRemoval = true)
+  public @Nullable List<String> getSourceFields() {
     return sourceFields;
+  }
+
+  /**
+   * Gets the list of identifiers for source fields of the foreign key.
+   *
+   * @return the list of identifiers for source fields of the foreign key
+   */
+  public @Nullable List<ItemIdentifier> getSourceFieldIdentifiers() {
+    return sourceFieldIdentifiers;
   }
 
   /**
@@ -62,8 +113,21 @@ public final class ForeignKey {
    *
    * @return the target fields of the foreign key
    */
-  public @NotNull List<String> getTargetFields() {
+  @Deprecated(
+      since =
+          "Deprecated since version 2.1.0, use targetDatasetIdentifier instead. Will be removed in SDK version 3.0.0",
+      forRemoval = true)
+  public @Nullable List<String> getTargetFields() {
     return targetFields;
+  }
+
+  /**
+   * Gets the list of identifiers for target fields of the foreign key.
+   *
+   * @return the list of identifiers for target fields of the foreign key
+   */
+  public @Nullable List<ItemIdentifier> getTargetFieldIdentifiers() {
+    return targetFieldIdentifiers;
   }
 
   /**
@@ -133,14 +197,36 @@ public final class ForeignKey {
   /** Builder class for creating instances of ForeignKey. */
   public static class Builder {
 
-    /** The target dataset of the foreign key. */
+    /** The targeted dataset of the foreign key. */
+    @Deprecated(
+        since =
+            "Deprecated since version 2.1.0, use targetDatasetIdentifier instead. Will be removed in SDK version 3.0.0",
+        forRemoval = true)
     private String targetDataset;
 
+    /** The identifier for the targeted dataset of the foreign key. */
+    private ItemIdentifier targetDatasetIdentifier;
+
     /** The source fields of the foreign key. */
+    @Deprecated(
+        since =
+            "Deprecated since version 2.1.0, use targetDatasetIdentifier instead. Will be removed in SDK version 3.0.0",
+        forRemoval = true)
     private List<String> sourceFields = new ArrayList<>();
 
+    /** The list of identifiers for source fields of the foreign key. */
+    private List<ItemIdentifier> sourceFieldIdentifiers = new ArrayList<>();
+
     /** The target fields of the foreign key. */
+    @Deprecated(
+        since =
+            "Deprecated since version 2.1.0, use targetDatasetIdentifier instead. Will be removed in SDK version 3.0.0",
+        forRemoval = true)
+    @NotNull
     private List<String> targetFields = new ArrayList<>();
+
+    /** The list of identifiers for target fields of the foreign key. */
+    private List<ItemIdentifier> targetFieldIdentifiers = new ArrayList<>();
 
     /** The name of the foreign key. */
     private String name;
@@ -154,8 +240,23 @@ public final class ForeignKey {
      * @param targetDataset the target dataset of the foreign key
      * @return the builder instance
      */
+    @Deprecated(
+        since =
+            "Deprecated since version 2.1.0, use targetDatasetIdentifier instead. Will be removed in SDK version 3.0.0",
+        forRemoval = true)
     public Builder targetDataset(@NotNull String targetDataset) {
       this.targetDataset = targetDataset;
+      return this;
+    }
+
+    /**
+     * Sets the identifier for the targeted dataset of the foreign key
+     *
+     * @param targetDatasetIdentifier the identifier for the targeted dataset
+     * @return the builder instance
+     */
+    public Builder targetDatasetIdentifier(@NotNull ItemIdentifier targetDatasetIdentifier) {
+      this.targetDatasetIdentifier = targetDatasetIdentifier;
       return this;
     }
 
@@ -165,6 +266,10 @@ public final class ForeignKey {
      * @param sourceFields the source fields of the foreign key
      * @return the builder instance
      */
+    @Deprecated(
+        since =
+            "Deprecated since version 2.1.0, use targetDatasetIdentifier instead. Will be removed in SDK version 3.0.0",
+        forRemoval = true)
     public Builder sourceFields(@NotNull List<String> sourceFields) {
       this.sourceFields = List.copyOf(sourceFields);
       return this;
@@ -176,8 +281,34 @@ public final class ForeignKey {
      * @param sourceFields the source fields of the foreign key
      * @return the builder instance
      */
+    @Deprecated(
+        since =
+            "Deprecated since version 2.1.0, use targetDatasetIdentifier instead. Will be removed in SDK version 3.0.0",
+        forRemoval = true)
     public Builder sourceFields(String... sourceFields) {
       this.sourceFields = List.of(sourceFields);
+      return this;
+    }
+
+    /**
+     * Sets the list of identifiers for source fields of the foreign key.
+     *
+     * @param sourceFieldIdentifiers the list of identifiers for source fields
+     * @return the builder instance
+     */
+    public Builder sourceFieldIdentifiers(@NotNull List<ItemIdentifier> sourceFieldIdentifiers) {
+      this.sourceFieldIdentifiers = List.copyOf(sourceFieldIdentifiers);
+      return this;
+    }
+
+    /**
+     * Sets the list of identifiers for source fields of the foreign key.
+     *
+     * @param sourceFieldIdentifiers the list of identifiers for source fields
+     * @return the builder instance
+     */
+    public Builder sourceFieldIdentifiers(ItemIdentifier... sourceFieldIdentifiers) {
+      this.sourceFieldIdentifiers = List.of(sourceFieldIdentifiers);
       return this;
     }
 
@@ -187,6 +318,10 @@ public final class ForeignKey {
      * @param targetFields the target fields of the foreign key
      * @return the builder instance
      */
+    @Deprecated(
+        since =
+            "Deprecated since version 2.1.0, use targetDatasetIdentifier instead. Will be removed in SDK version 3.0.0",
+        forRemoval = true)
     public Builder targetFields(@NotNull List<String> targetFields) {
       this.targetFields = List.copyOf(targetFields);
       return this;
@@ -198,8 +333,34 @@ public final class ForeignKey {
      * @param targetFields the target fields of the foreign key
      * @return the builder instance
      */
+    @Deprecated(
+        since =
+            "Deprecated since version 2.1.0, use targetDatasetIdentifier instead. Will be removed in SDK version 3.0.0",
+        forRemoval = true)
     public Builder targetFields(String... targetFields) {
       this.targetFields = List.of(targetFields);
+      return this;
+    }
+
+    /**
+     * Sets the list of identifiers for the target fields of the foreign key.
+     *
+     * @param targetFieldIdentifiers the list of identifiers for the target fields
+     * @return the builder instance
+     */
+    public Builder targetFieldIdentifiers(@NotNull List<ItemIdentifier> targetFieldIdentifiers) {
+      this.targetFieldIdentifiers = List.copyOf(targetFieldIdentifiers);
+      return this;
+    }
+
+    /**
+     * Sets the list of identifiers for the target fields of the foreign key.
+     *
+     * @param targetFieldIdentifiers the list of identifiers for the target fields
+     * @return the builder instance
+     */
+    public Builder targetFieldIdentifiers(ItemIdentifier... targetFieldIdentifiers) {
+      this.targetFieldIdentifiers = List.of(targetFieldIdentifiers);
       return this;
     }
 

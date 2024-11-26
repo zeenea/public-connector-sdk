@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Objects;
 import org.jetbrains.annotations.NotNull;
 import zeenea.connector.Item;
+import zeenea.connector.common.ItemIdentifier;
 import zeenea.connector.common.ItemReference;
 import zeenea.connector.exception.ExceptionUtils;
 import zeenea.connector.field.Field;
@@ -16,7 +17,15 @@ public final class Dataset extends Item {
   @NotNull private final List<Field> fields;
 
   /** The list of primary keys in the dataset. */
-  @NotNull private final List<String> primaryKeys;
+  @Deprecated(
+      since =
+          "Deprecated since version 2.1.0, use targetDatasetIdentifier instead. Will be removed in SDK version 3.0.0",
+      forRemoval = true)
+  @NotNull
+  private final List<String> primaryKeys;
+
+  /** The list of identifiers for primary keys in the dataset. */
+  @NotNull private final List<ItemIdentifier> primaryKeyIdentifiers;
 
   /** The list of foreign keys in the dataset. */
   @NotNull private final List<ForeignKey> foreignKeys;
@@ -41,6 +50,7 @@ public final class Dataset extends Item {
     ExceptionUtils.requireNonNull("fields", builder.fields);
     this.fields = List.copyOf(builder.fields);
     this.primaryKeys = List.copyOf(builder.primaryKeys);
+    this.primaryKeyIdentifiers = List.copyOf(builder.primaryKeyIdentifiers);
     this.foreignKeys = List.copyOf(builder.foreignKeys);
     this.partitions = List.copyOf(builder.partitions);
     this.sourceDatasets = List.copyOf(builder.sourceDatasets);
@@ -78,8 +88,21 @@ public final class Dataset extends Item {
    *
    * @return the list of primary keys
    */
+  @Deprecated(
+      since =
+          "Deprecated since version 2.1.0, use targetDatasetIdentifier instead. Will be removed in SDK version 3.0.0",
+      forRemoval = true)
   public @NotNull List<String> getPrimaryKeys() {
     return primaryKeys;
+  }
+
+  /**
+   * Gets the list of identifiers for primary keys in the dataset.
+   *
+   * @return the list of identifiers for primary keys
+   */
+  public @NotNull List<ItemIdentifier> getPrimaryKeyIdentifiers() {
+    return primaryKeyIdentifiers;
   }
 
   /**
@@ -109,6 +132,7 @@ public final class Dataset extends Item {
         && Objects.equals(getProperties(), dataset.getProperties())
         && Objects.equals(fields, dataset.fields)
         && Objects.equals(primaryKeys, dataset.primaryKeys)
+        && Objects.equals(primaryKeyIdentifiers, dataset.primaryKeyIdentifiers)
         && Objects.equals(foreignKeys, dataset.foreignKeys)
         && Objects.equals(partitions, dataset.partitions)
         && Objects.equals(sourceDatasets, dataset.sourceDatasets);
@@ -129,6 +153,7 @@ public final class Dataset extends Item {
         getProperties(),
         fields,
         primaryKeys,
+        primaryKeyIdentifiers,
         foreignKeys,
         partitions,
         sourceDatasets);
@@ -156,6 +181,8 @@ public final class Dataset extends Item {
         + fields
         + ", primaryKeys="
         + primaryKeys
+        + ", primaryKeyIdentifiers="
+        + primaryKeyIdentifiers
         + ", foreignKeys="
         + foreignKeys
         + ", partitions="
@@ -181,7 +208,14 @@ public final class Dataset extends Item {
     private List<Field> fields = new ArrayList<>();
 
     /** The list of primary keys in the dataset. */
+    @Deprecated(
+        since =
+            "Deprecated since version 2.1.0, use targetDatasetIdentifier instead. Will be removed in SDK version 3.0.0",
+        forRemoval = true)
     private List<String> primaryKeys = new ArrayList<>();
+
+    /** The list of identifiers for primary keys in the dataset. */
+    private List<ItemIdentifier> primaryKeyIdentifiers = new ArrayList<>();
 
     /** The list of foreign keys in the dataset. */
     private List<ForeignKey> foreignKeys = new ArrayList<>();
@@ -220,6 +254,10 @@ public final class Dataset extends Item {
      * @param primaryKeys the list of primary keys
      * @return the builder instance
      */
+    @Deprecated(
+        since =
+            "Deprecated since version 2.1.0, use targetDatasetIdentifier instead. Will be removed in SDK version 3.0.0",
+        forRemoval = true)
     public Builder primaryKeys(@NotNull List<String> primaryKeys) {
       this.primaryKeys = List.copyOf(primaryKeys);
       return this;
@@ -231,8 +269,34 @@ public final class Dataset extends Item {
      * @param primaryKeys the list of primary keys
      * @return the builder instance
      */
+    @Deprecated(
+        since =
+            "Deprecated since version 2.1.0, use targetDatasetIdentifier instead. Will be removed in SDK version 3.0.0",
+        forRemoval = true)
     public Builder primaryKeys(String... primaryKeys) {
       this.primaryKeys = List.of(primaryKeys);
+      return this;
+    }
+
+    /**
+     * Sets the list of identifiers for primary keys in the dataset.
+     *
+     * @param primaryKeyIdentifiers the list of identifiers for primary keys
+     * @return the builder instance
+     */
+    public Builder primaryKeyIdentifiers(@NotNull List<ItemIdentifier> primaryKeyIdentifiers) {
+      this.primaryKeyIdentifiers = List.copyOf(primaryKeyIdentifiers);
+      return this;
+    }
+
+    /**
+     * Sets the list of identifiers for primary keys in the dataset.
+     *
+     * @param primaryKeyIdentifiers the list of identifiers for primary keys
+     * @return the builder instance
+     */
+    public Builder primaryKeyIdentifiers(ItemIdentifier... primaryKeyIdentifiers) {
+      this.primaryKeyIdentifiers = List.of(primaryKeyIdentifiers);
       return this;
     }
 
