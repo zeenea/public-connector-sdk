@@ -125,7 +125,7 @@ public final class Partitioning {
      *
      * @return the created Partitioning instance
      */
-    protected Partitioning build() {
+    public Partitioning build() {
       return new Partitioning(this);
     }
   }

@@ -219,7 +219,7 @@ public final class ForeignKey {
      *
      * @return the created ForeignKey instance
      */
-    protected ForeignKey build() {
+    public ForeignKey build() {
       return new ForeignKey(this);
     }
   }
