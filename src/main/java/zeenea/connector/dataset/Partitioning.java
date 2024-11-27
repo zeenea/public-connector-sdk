@@ -12,7 +12,7 @@ public final class Partitioning {
   /** The column used for partitioning. */
   @Deprecated(
       since =
-          "Deprecated since version 2.1.0, use targetDatasetIdentifier instead. Will be removed in SDK version 3.0.0",
+          "Deprecated since version 2.1.0, use columnIdentifier instead. Scheduled for removal in version 3.0.0.",
       forRemoval = true)
   @Nullable
   private final String column;
@@ -42,7 +42,7 @@ public final class Partitioning {
    */
   @Deprecated(
       since =
-          "Deprecated since version 2.1.0, use targetDatasetIdentifier instead. Will be removed in SDK version 3.0.0",
+          "Deprecated since version 2.1.0, use getColumnIdentifier instead. Scheduled for removal in version 3.0.0.",
       forRemoval = true)
   public @Nullable String getColumn() {
     return column;
@@ -122,6 +122,10 @@ public final class Partitioning {
   public static class Builder {
 
     /** The column used for partitioning. */
+    @Deprecated(
+        since =
+            "Deprecated since version 2.1.0, use columnIdentifier instead. Scheduled for removal in version 3.0.0.",
+        forRemoval = true)
     private String column;
 
     /** The identifier of the column used for partitioning. */
@@ -141,7 +145,7 @@ public final class Partitioning {
      */
     @Deprecated(
         since =
-            "Deprecated since version 2.1.0, use targetDatasetIdentifier instead. Will be removed in SDK version 3.0.0",
+            "Deprecated since version 2.1.0, use columnIdentifier instead. Scheduled for removal in version 3.0.0.",
         forRemoval = true)
     public Builder column(@NotNull String column) {
       this.column = column;

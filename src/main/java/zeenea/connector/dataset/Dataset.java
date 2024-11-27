@@ -19,7 +19,7 @@ public final class Dataset extends Item {
   /** The list of primary keys in the dataset. */
   @Deprecated(
       since =
-          "Deprecated since version 2.1.0, use targetDatasetIdentifier instead. Will be removed in SDK version 3.0.0",
+          "Deprecated since version 2.1.0, use primaryKeyIdentifiers instead. Scheduled for removal in version 3.0.0.",
       forRemoval = true)
   @NotNull
   private final List<String> primaryKeys;
@@ -90,7 +90,7 @@ public final class Dataset extends Item {
    */
   @Deprecated(
       since =
-          "Deprecated since version 2.1.0, use targetDatasetIdentifier instead. Will be removed in SDK version 3.0.0",
+          "Deprecated since version 2.1.0, use getPrimaryKeyIdentifiers instead. Scheduled for removal in version 3.0.0.",
       forRemoval = true)
   public @NotNull List<String> getPrimaryKeys() {
     return primaryKeys;
@@ -210,7 +210,7 @@ public final class Dataset extends Item {
     /** The list of primary keys in the dataset. */
     @Deprecated(
         since =
-            "Deprecated since version 2.1.0, use targetDatasetIdentifier instead. Will be removed in SDK version 3.0.0",
+            "Deprecated since version 2.1.0, use primaryKeyIdentifiers instead. Scheduled for removal in version 3.0.0.",
         forRemoval = true)
     private List<String> primaryKeys = new ArrayList<>();
 
@@ -256,7 +256,7 @@ public final class Dataset extends Item {
      */
     @Deprecated(
         since =
-            "Deprecated since version 2.1.0, use targetDatasetIdentifier instead. Will be removed in SDK version 3.0.0",
+            "Deprecated since version 2.1.0, use primaryKeyIdentifiers instead. Scheduled for removal in version 3.0.0.",
         forRemoval = true)
     public Builder primaryKeys(@NotNull List<String> primaryKeys) {
       this.primaryKeys = List.copyOf(primaryKeys);
@@ -271,7 +271,7 @@ public final class Dataset extends Item {
      */
     @Deprecated(
         since =
-            "Deprecated since version 2.1.0, use targetDatasetIdentifier instead. Will be removed in SDK version 3.0.0",
+            "Deprecated since version 2.1.0, use primaryKeyIdentifiers instead. Scheduled for removal in version 3.0.0.",
         forRemoval = true)
     public Builder primaryKeys(String... primaryKeys) {
       this.primaryKeys = List.of(primaryKeys);

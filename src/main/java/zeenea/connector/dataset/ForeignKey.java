@@ -16,7 +16,7 @@ public final class ForeignKey {
   /** The target dataset of the foreign key. */
   @Deprecated(
       since =
-          "Deprecated since version 2.1.0, use targetDatasetIdentifier instead. Will be removed in SDK version 3.0.0",
+          "Deprecated since version 2.1.0, use targetDatasetIdentifier instead. Scheduled for removal in version 3.0.0.",
       forRemoval = true)
   @Nullable
   private final String targetDataset;
@@ -27,7 +27,7 @@ public final class ForeignKey {
   /** The source fields of the foreign key. */
   @Deprecated(
       since =
-          "Deprecated since version 2.1.0, use targetDatasetIdentifier instead. Will be removed in SDK version 3.0.0",
+          "Deprecated since version 2.1.0, use sourceFieldIdentifiers instead. Scheduled for removal in version 3.0.0.",
       forRemoval = true)
   @Nullable
   private final List<String> sourceFields;
@@ -38,7 +38,7 @@ public final class ForeignKey {
   /** The target fields of the foreign key. */
   @Deprecated(
       since =
-          "Deprecated since version 2.1.0, use targetDatasetIdentifier instead. Will be removed in SDK version 3.0.0",
+          "Deprecated since version 2.1.0, use targetFieldIdentifiers instead. Scheduled for removal in version 3.0.0.",
       forRemoval = true)
   @Nullable
   private final List<String> targetFields;
@@ -71,7 +71,7 @@ public final class ForeignKey {
    */
   @Deprecated(
       since =
-          "Deprecated since version 2.1.0, use targetDatasetIdentifier instead. Will be removed in SDK version 3.0.0",
+          "Deprecated since version 2.1.0, use getTargetDatasetIdentifier instead. Scheduled for removal in version 3.0.0.",
       forRemoval = true)
   public @Nullable String getTargetDataset() {
     return targetDataset;
@@ -93,7 +93,7 @@ public final class ForeignKey {
    */
   @Deprecated(
       since =
-          "Deprecated since version 2.1.0, use targetDatasetIdentifier instead. Will be removed in SDK version 3.0.0",
+          "Deprecated since version 2.1.0, use getSourceFieldIdentifiers instead. Scheduled for removal in version 3.0.0.",
       forRemoval = true)
   public @Nullable List<String> getSourceFields() {
     return sourceFields;
@@ -115,7 +115,7 @@ public final class ForeignKey {
    */
   @Deprecated(
       since =
-          "Deprecated since version 2.1.0, use targetDatasetIdentifier instead. Will be removed in SDK version 3.0.0",
+          "Deprecated since version 2.1.0, use getTargetFieldIdentifiers instead. Scheduled for removal in version 3.0.0.",
       forRemoval = true)
   public @Nullable List<String> getTargetFields() {
     return targetFields;
@@ -200,7 +200,7 @@ public final class ForeignKey {
     /** The targeted dataset of the foreign key. */
     @Deprecated(
         since =
-            "Deprecated since version 2.1.0, use targetDatasetIdentifier instead. Will be removed in SDK version 3.0.0",
+            "Deprecated since version 2.1.0, use targetDatasetIdentifier instead. Scheduled for removal in version 3.0.0.",
         forRemoval = true)
     private String targetDataset;
 
@@ -210,7 +210,7 @@ public final class ForeignKey {
     /** The source fields of the foreign key. */
     @Deprecated(
         since =
-            "Deprecated since version 2.1.0, use targetDatasetIdentifier instead. Will be removed in SDK version 3.0.0",
+            "Deprecated since version 2.1.0, use sourceFieldIdentifiers instead. Scheduled for removal in version 3.0.0.",
         forRemoval = true)
     private List<String> sourceFields = new ArrayList<>();
 
@@ -220,7 +220,7 @@ public final class ForeignKey {
     /** The target fields of the foreign key. */
     @Deprecated(
         since =
-            "Deprecated since version 2.1.0, use targetDatasetIdentifier instead. Will be removed in SDK version 3.0.0",
+            "Deprecated since version 2.1.0, use targetFieldIdentifiers instead. Scheduled for removal in version 3.0.0.",
         forRemoval = true)
     @NotNull
     private List<String> targetFields = new ArrayList<>();
@@ -242,7 +242,7 @@ public final class ForeignKey {
      */
     @Deprecated(
         since =
-            "Deprecated since version 2.1.0, use targetDatasetIdentifier instead. Will be removed in SDK version 3.0.0",
+            "Deprecated since version 2.1.0, use targetDatasetIdentifier instead. Scheduled for removal in version 3.0.0.",
         forRemoval = true)
     public Builder targetDataset(@NotNull String targetDataset) {
       this.targetDataset = targetDataset;
@@ -268,7 +268,7 @@ public final class ForeignKey {
      */
     @Deprecated(
         since =
-            "Deprecated since version 2.1.0, use targetDatasetIdentifier instead. Will be removed in SDK version 3.0.0",
+            "Deprecated since version 2.1.0, use sourceFieldIdentifiers instead. Scheduled for removal in version 3.0.0.",
         forRemoval = true)
     public Builder sourceFields(@NotNull List<String> sourceFields) {
       this.sourceFields = List.copyOf(sourceFields);
@@ -283,7 +283,7 @@ public final class ForeignKey {
      */
     @Deprecated(
         since =
-            "Deprecated since version 2.1.0, use targetDatasetIdentifier instead. Will be removed in SDK version 3.0.0",
+            "Deprecated since version 2.1.0, use sourceFieldIdentifiers instead. Scheduled for removal in version 3.0.0.",
         forRemoval = true)
     public Builder sourceFields(String... sourceFields) {
       this.sourceFields = List.of(sourceFields);
@@ -320,7 +320,7 @@ public final class ForeignKey {
      */
     @Deprecated(
         since =
-            "Deprecated since version 2.1.0, use targetDatasetIdentifier instead. Will be removed in SDK version 3.0.0",
+            "Deprecated since version 2.1.0, use targetFieldIdentifiers instead. Scheduled for removal in version 3.0.0.",
         forRemoval = true)
     public Builder targetFields(@NotNull List<String> targetFields) {
       this.targetFields = List.copyOf(targetFields);
@@ -335,7 +335,7 @@ public final class ForeignKey {
      */
     @Deprecated(
         since =
-            "Deprecated since version 2.1.0, use targetDatasetIdentifier instead. Will be removed in SDK version 3.0.0",
+            "Deprecated since version 2.1.0, use targetFieldIdentifiers instead. Scheduled for removal in version 3.0.0.",
         forRemoval = true)
     public Builder targetFields(String... targetFields) {
       this.targetFields = List.of(targetFields);
