@@ -45,6 +45,10 @@ public final class Dataset extends Item {
   private Dataset(Builder builder) {
     super(builder);
     ExceptionUtils.requireNonNull("fields", builder.fields);
+    ExceptionUtils.requireNonNull("primaryKeys", builder.primaryKeys);
+    ExceptionUtils.requireNonNull("primaryKeyIdentifiers", builder.primaryKeyIdentifiers);
+    ExceptionUtils.requireNonNull("foreignKeys", builder.foreignKeys);
+    ExceptionUtils.requireNonNull("sourceDatasets", builder.sourceDatasets);
     this.fields = List.copyOf(builder.fields);
     this.primaryKeys = List.copyOf(builder.primaryKeys);
     this.primaryKeyIdentifiers = List.copyOf(builder.primaryKeyIdentifiers);

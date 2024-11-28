@@ -6,6 +6,7 @@ import java.util.Objects;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import zeenea.connector.common.ItemIdentifier;
+import zeenea.connector.exception.ExceptionUtils;
 
 /**
  * Represents a foreign key in a dataset. This class is immutable and provides methods to access the
@@ -55,6 +56,10 @@ public final class ForeignKey {
    * @param builder the builder used to create the ForeignKey instance
    */
   private ForeignKey(Builder builder) {
+    ExceptionUtils.requireNonNull("sourceFields", builder.sourceFields);
+    ExceptionUtils.requireNonNull("sourceFieldIdentifiers", builder.sourceFieldIdentifiers);
+    ExceptionUtils.requireNonNull("targetFields", builder.targetFields);
+    ExceptionUtils.requireNonNull("targetFieldIdentifiers", builder.targetFieldIdentifiers);
     this.targetDataset = builder.targetDataset;
     this.targetDatasetIdentifier = builder.targetDatasetIdentifier;
     this.sourceFields = List.copyOf(builder.sourceFields);
