@@ -30,9 +30,6 @@ public final class Dataset extends Item {
   /** The list of foreign keys in the dataset. */
   @NotNull private final List<ForeignKey> foreignKeys;
 
-  /** The list of partitions in the dataset. */
-  @NotNull private final List<Partitioning> partitions;
-
   /**
    * The list of source datasets associated with the dataset.
    *
@@ -52,7 +49,6 @@ public final class Dataset extends Item {
     this.primaryKeys = List.copyOf(builder.primaryKeys);
     this.primaryKeyIdentifiers = List.copyOf(builder.primaryKeyIdentifiers);
     this.foreignKeys = List.copyOf(builder.foreignKeys);
-    this.partitions = List.copyOf(builder.partitions);
     this.sourceDatasets = List.copyOf(builder.sourceDatasets);
   }
 
@@ -72,15 +68,6 @@ public final class Dataset extends Item {
    */
   public @NotNull List<ForeignKey> getForeignKeys() {
     return foreignKeys;
-  }
-
-  /**
-   * Gets the list of partitions in the dataset.
-   *
-   * @return the list of partitions
-   */
-  public @NotNull List<Partitioning> getPartitions() {
-    return partitions;
   }
 
   /**
@@ -134,7 +121,6 @@ public final class Dataset extends Item {
         && Objects.equals(primaryKeys, dataset.primaryKeys)
         && Objects.equals(primaryKeyIdentifiers, dataset.primaryKeyIdentifiers)
         && Objects.equals(foreignKeys, dataset.foreignKeys)
-        && Objects.equals(partitions, dataset.partitions)
         && Objects.equals(sourceDatasets, dataset.sourceDatasets);
   }
 
@@ -155,7 +141,6 @@ public final class Dataset extends Item {
         primaryKeys,
         primaryKeyIdentifiers,
         foreignKeys,
-        partitions,
         sourceDatasets);
   }
 
@@ -185,8 +170,6 @@ public final class Dataset extends Item {
         + primaryKeyIdentifiers
         + ", foreignKeys="
         + foreignKeys
-        + ", partitions="
-        + partitions
         + ", sourceDatasets="
         + sourceDatasets
         + '}';
@@ -219,9 +202,6 @@ public final class Dataset extends Item {
 
     /** The list of foreign keys in the dataset. */
     private List<ForeignKey> foreignKeys = new ArrayList<>();
-
-    /** The list of partitions in the dataset. */
-    private List<Partitioning> partitions = new ArrayList<>();
 
     /** The list of source datasets for the dataset. */
     private List<ItemReference> sourceDatasets = new ArrayList<>();
@@ -319,28 +299,6 @@ public final class Dataset extends Item {
      */
     public Builder foreignKeys(ForeignKey... foreignKeys) {
       this.foreignKeys = List.of(foreignKeys);
-      return this;
-    }
-
-    /**
-     * Sets the list of partitions in the dataset.
-     *
-     * @param partitions the list of partitions
-     * @return the builder instance
-     */
-    public Builder partitions(@NotNull List<Partitioning> partitions) {
-      this.partitions = List.copyOf(partitions);
-      return this;
-    }
-
-    /**
-     * Sets the list of partitions in the dataset.
-     *
-     * @param partitions the list of partitions
-     * @return the builder instance
-     */
-    public Builder partitions(Partitioning... partitions) {
-      this.partitions = List.of(partitions);
       return this;
     }
 

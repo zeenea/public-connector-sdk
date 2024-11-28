@@ -40,12 +40,6 @@ class DatasetTest {
                     List.of(ItemIdentifier.of(IdentificationProperty.of(FIELD_KEY, "primary_key"))))
                 .name("foreignKey1")
                 .build());
-    List<Partitioning> partitions =
-        List.of(
-            Partitioning.builder()
-                .partitionType("type")
-                .columnIdentifier(ItemIdentifier.of(IdentificationProperty.of(FIELD_KEY, "field")))
-                .build());
     List<ItemReference> sourceDatasets =
         List.of(
             ItemReference.of(
@@ -65,7 +59,6 @@ class DatasetTest {
             .primaryKeyIdentifiers(
                 List.of(ItemIdentifier.of(IdentificationProperty.of(FIELD_KEY, "primary_key"))))
             .foreignKeys(foreignKeys)
-            .partitions(partitions)
             .sourceDatasets(sourceDatasets)
             .build();
     assertNotNull(dataset);
@@ -73,7 +66,6 @@ class DatasetTest {
     assertEquals(fields, dataset.getFields());
     assertEquals(primaryKeyIdentifiers, dataset.getPrimaryKeyIdentifiers());
     assertEquals(foreignKeys, dataset.getForeignKeys());
-    assertEquals(partitions, dataset.getPartitions());
     assertEquals(sourceDatasets, dataset.getSourceDatasets());
   }
 
@@ -109,12 +101,6 @@ class DatasetTest {
                         ItemIdentifier.of(IdentificationProperty.of(FIELD_KEY, "primary_key1"))))
                 .name("foreignKey1")
                 .build());
-    List<Partitioning> partitions =
-        List.of(
-            Partitioning.builder()
-                .partitionType("type")
-                .columnIdentifier(ItemIdentifier.of(IdentificationProperty.of(FIELD_KEY, "field")))
-                .build());
     List<ItemReference> sourceDatasets =
         List.of(
             ItemReference.of(
@@ -133,7 +119,6 @@ class DatasetTest {
             .fields(fields)
             .primaryKeyIdentifiers(primaryKeyIdentifiers)
             .foreignKeys(foreignKeys)
-            .partitions(partitions)
             .sourceDatasets(sourceDatasets)
             .build();
     Dataset dataset2 =
@@ -144,7 +129,6 @@ class DatasetTest {
             .fields(fields)
             .primaryKeyIdentifiers(primaryKeyIdentifiers)
             .foreignKeys(foreignKeys)
-            .partitions(partitions)
             .sourceDatasets(sourceDatasets)
             .build();
     assertEquals(dataset1, dataset2);
@@ -190,13 +174,6 @@ class DatasetTest {
                                     IdentificationProperty.of(FIELD_KEY, "primary_key1"))))
                         .name("foreignKey1")
                         .build()))
-            .partitions(
-                List.of(
-                    Partitioning.builder()
-                        .partitionType("type")
-                        .columnIdentifier(
-                            ItemIdentifier.of(IdentificationProperty.of(FIELD_KEY, "field")))
-                        .build()))
             .sourceDatasets(
                 List.of(
                     ItemReference.of(
@@ -214,7 +191,6 @@ class DatasetTest {
             .fields(List.of())
             .primaryKeyIdentifiers(List.of())
             .foreignKeys(List.of())
-            .partitions(List.of())
             .sourceDatasets(List.of())
             .build();
     assertNotEquals(dataset1, dataset2);
@@ -240,12 +216,6 @@ class DatasetTest {
                         ItemIdentifier.of(IdentificationProperty.of(FIELD_KEY, "primary_key1"))))
                 .name("foreignKey1")
                 .build());
-    List<Partitioning> partitions =
-        List.of(
-            Partitioning.builder()
-                .partitionType("type")
-                .columnIdentifier(ItemIdentifier.of(IdentificationProperty.of(FIELD_KEY, "field")))
-                .build());
     List<ItemReference> sourceDatasets =
         List.of(
             ItemReference.of(
@@ -264,7 +234,6 @@ class DatasetTest {
                 .fields((Field) null)
                 .primaryKeyIdentifiers(primaryKeyIdentifiers)
                 .foreignKeys(foreignKeys)
-                .partitions(partitions)
                 .sourceDatasets(sourceDatasets)
                 .build());
   }
