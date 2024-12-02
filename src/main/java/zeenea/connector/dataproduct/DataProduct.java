@@ -2,6 +2,7 @@ package zeenea.connector.dataproduct;
 
 import java.util.*;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 import zeenea.connector.Item;
 import zeenea.connector.dataset.Dataset;
 import zeenea.connector.exception.ExceptionUtils;
@@ -19,6 +20,9 @@ public final class DataProduct extends Item {
   /** The list of internal components for the data product. */
   @NotNull private final List<Item> internalComponents;
 
+  /** The specification of the data product. */
+  @Nullable private final String specification;
+
   /**
    * Constructs a DataProduct instance using the provided builder.
    *
@@ -32,6 +36,7 @@ public final class DataProduct extends Item {
     inputPorts = List.copyOf(builder.inputPorts);
     outputPorts = List.copyOf(builder.outputPorts);
     internalComponents = List.copyOf(builder.internalComponents);
+    specification = builder.specification;
   }
 
   /**
@@ -62,6 +67,15 @@ public final class DataProduct extends Item {
   }
 
   /**
+   * Gets the specification of the data product.
+   *
+   * @return the specification of the data product
+   */
+  public @NotNull Optional<String> getSpecification() {
+    return Optional.ofNullable(specification);
+  }
+
+  /**
    * Checks if this DataProduct is equal to another object.
    *
    * @param o the object to compare with
@@ -72,9 +86,15 @@ public final class DataProduct extends Item {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
     DataProduct that = (DataProduct) o;
-    return Objects.equals(inputPorts, that.inputPorts)
+    return Objects.equals(getId(), that.getId())
+        && Objects.equals(getName(), that.getName())
+        && Objects.equals(getDescription(), that.getDescription())
+        && Objects.equals(getContacts(), that.getContacts())
+        && Objects.equals(getProperties(), that.getProperties())
+        && Objects.equals(inputPorts, that.inputPorts)
         && Objects.equals(outputPorts, that.outputPorts)
-        && Objects.equals(internalComponents, that.internalComponents);
+        && Objects.equals(internalComponents, that.internalComponents)
+        && Objects.equals(specification, that.specification);
   }
 
   /**
@@ -84,7 +104,16 @@ public final class DataProduct extends Item {
    */
   @Override
   public int hashCode() {
-    return Objects.hash(inputPorts, outputPorts, internalComponents);
+    return Objects.hash(
+        getId(),
+        getName(),
+        getDescription(),
+        getContacts(),
+        getProperties(),
+        inputPorts,
+        outputPorts,
+        internalComponents,
+        specification);
   }
 
   /**
@@ -111,6 +140,8 @@ public final class DataProduct extends Item {
         + internalComponents
         + ", outputPorts="
         + outputPorts
+        + ", specification="
+        + specification
         + "}";
   }
 
@@ -150,6 +181,8 @@ public final class DataProduct extends Item {
     private List<OutputPort> outputPorts = Collections.emptyList();
 
     private List<Item> internalComponents = Collections.emptyList();
+
+    private String specification;
 
     /**
      * Set a collection of input ports to the data product.
@@ -214,6 +247,17 @@ public final class DataProduct extends Item {
      */
     public Builder internalComponents(Item... items) {
       this.internalComponents = List.of(items);
+      return this;
+    }
+
+    /**
+     * Sets the specification of the data product.
+     *
+     * @param specification the specification of the data product
+     * @return the builder instance
+     */
+    public Builder specification(@Nullable String specification) {
+      this.specification = specification;
       return this;
     }
 
