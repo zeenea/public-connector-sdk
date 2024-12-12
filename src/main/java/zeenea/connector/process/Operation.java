@@ -2,6 +2,7 @@ package zeenea.connector.process;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import org.jetbrains.annotations.NotNull;
 import zeenea.connector.common.ItemReference;
 import zeenea.connector.exception.ExceptionUtils;
@@ -43,6 +44,40 @@ public class Operation {
    */
   public @NotNull List<ItemReference> getTargets() {
     return targets;
+  }
+
+  /**
+   * Checks if this Operation is equal to another object.
+   *
+   * @param o the object to compare with
+   * @return true if this Operation is equal to the specified object, otherwise false
+   */
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    Operation operation = (Operation) o;
+    return Objects.equals(sources, operation.sources) && Objects.equals(targets, operation.targets);
+  }
+
+  /**
+   * Computes the hash code for this Operation.
+   *
+   * @return the hash code of this Operation
+   */
+  @Override
+  public int hashCode() {
+    return Objects.hash(sources, targets);
+  }
+
+  /**
+   * Returns a string representation of this Operation.
+   *
+   * @return a string representation of this Operation
+   */
+  @Override
+  public String toString() {
+    return "Operation{" + "sources=" + sources + ", targets=" + targets + '}';
   }
 
   /**
