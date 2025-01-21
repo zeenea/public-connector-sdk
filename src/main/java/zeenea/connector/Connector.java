@@ -29,4 +29,27 @@ public interface Connector extends ExtensionPoint {
    */
   Connection newConnection(ConnectionConfiguration configuration)
       throws InvalidConfigurationException;
+
+  /**
+   * Defines main item type returned by the connector
+   *
+   * <p>Possible values are:
+   *
+   * <p>- {@link ConnectorType#DATA_PRODUCT} for connectors that import data products
+   *
+   * <p>- {@link ConnectorType#DATA_PROCESS} for connectors that import data processes
+   *
+   * <p>- {@link ConnectorType#DATASET} for connectors that import datasets
+   *
+   * <p>- {@link ConnectorType#VISUALIZATION} for connectors that import visualization
+   *
+   * <p>Default value is {@link ConnectorType#DATASET}
+   *
+   * <p>Note that connectors can still generate and import other types of items to the platform.
+   *
+   * @return a connector type
+   */
+  default ConnectorType getConnectorType() {
+    return ConnectorType.DATASET;
+  }
 }
