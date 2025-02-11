@@ -1,27 +1,22 @@
 package zeenea.connector.common;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.concurrent.atomic.AtomicInteger;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 import org.jetbrains.annotations.NotNull;
-import zeenea.connector.exception.ExceptionUtils;
 
 /**
- * Represents an inventory of items identified by an ItemIdentifier and associated with a label
- * path.
+ * Represents an inventory item, identified by an ItemIdentifier and associated with a
+ * LabelIdentifier.
  */
 public final class ItemInventory {
   /** The identifier for the item. */
   @NotNull private final ItemIdentifier itemIdentifier;
 
-  /**
-   * The list of labels associated with the item.
-   *
-   * <p>This label list will generate import hierarchy in Zeenea Studio import modal view.
-   *
-   * <p>It must be not empty to display importable items in the Studio.
-   */
-  @NotNull private final List<String> labels;
+  /** The label identifier for the item. */
+  @NotNull private final LabelIdentifier labelIdentifier;
 
   /**
    * Constructs an ItemInventory instance using the provided builder.
@@ -29,9 +24,8 @@ public final class ItemInventory {
    * @param builder the builder used to create the ItemInventory instance
    */
   private ItemInventory(Builder builder) {
-    ExceptionUtils.requireNonNullOrEmpty("labels", builder.labels);
     this.itemIdentifier = Objects.requireNonNull(builder.itemIdentifier, "itemIdentifier");
-    this.labels = List.copyOf(builder.labels);
+    this.labelIdentifier = Objects.requireNonNull(builder.labelIdentifier, "labelIdentifier");
   }
 
   /**
@@ -61,7 +55,18 @@ public final class ItemInventory {
    * @return the list of labels associated with the item
    */
   public @NotNull List<String> getLabels() {
-    return labels;
+    return labelIdentifier.getIdentificationProperties().stream()
+        .map(IdentificationProperty::getValue)
+        .collect(Collectors.toUnmodifiableList());
+  }
+
+  /**
+   * Gets the label identifier associated with the item.
+   *
+   * @return the label identifier associated with the item
+   */
+  public @NotNull LabelIdentifier getLabelIdentifier() {
+    return labelIdentifier;
   }
 
   /**
@@ -76,7 +81,7 @@ public final class ItemInventory {
     if (o == null || getClass() != o.getClass()) return false;
     ItemInventory that = (ItemInventory) o;
     return Objects.equals(itemIdentifier, that.itemIdentifier)
-        && Objects.equals(labels, that.labels);
+        && Objects.equals(labelIdentifier, that.labelIdentifier);
   }
 
   /**
@@ -86,7 +91,7 @@ public final class ItemInventory {
    */
   @Override
   public int hashCode() {
-    return Objects.hash(itemIdentifier, labels);
+    return Objects.hash(itemIdentifier, labelIdentifier);
   }
 
   /**
@@ -96,7 +101,12 @@ public final class ItemInventory {
    */
   @Override
   public String toString() {
-    return "ItemInventory{" + "itemIdentifier=" + itemIdentifier + ", labels=" + labels + "}";
+    return "ItemInventory{"
+        + "itemIdentifier="
+        + itemIdentifier
+        + ", labelIdentifier="
+        + labelIdentifier
+        + "}";
   }
 
   /**
@@ -114,8 +124,8 @@ public final class ItemInventory {
     /** The identifier for the item. */
     private ItemIdentifier itemIdentifier;
 
-    /** The path of labels associated with the item. */
-    private List<String> labels = new ArrayList<>();
+    /** The label identifier for the item. */
+    private LabelIdentifier labelIdentifier;
 
     /**
      * Sets the item identifier for the builder.
@@ -131,11 +141,11 @@ public final class ItemInventory {
     /**
      * Sets the item identifier for the builder.
      *
-     * @param itemIdentifier the identifier for the item
+     * @param identificationProperty the identifier for the item
      * @return the builder instance
      */
-    public Builder itemIdentifier(IdentificationProperty itemIdentifier) {
-      this.itemIdentifier = ItemIdentifier.of(itemIdentifier);
+    public Builder itemIdentifier(IdentificationProperty identificationProperty) {
+      this.itemIdentifier = ItemIdentifier.of(identificationProperty);
       return this;
     }
 
@@ -144,9 +154,17 @@ public final class ItemInventory {
      *
      * @param labels the list of labels to add
      * @return the builder instance
+     * @deprecated since 2.3.0, use labelIdentifier instead
      */
+    @Deprecated(since = "2.3.0", forRemoval = true)
     public Builder labels(@NotNull List<String> labels) {
-      this.labels = List.copyOf(labels);
+      AtomicInteger index = new AtomicInteger(1);
+      this.labelIdentifier =
+          LabelIdentifier.of(
+              labels.stream()
+                  .map(
+                      label -> IdentificationProperty.of("label_" + index.getAndIncrement(), label))
+                  .collect(Collectors.toUnmodifiableList()));
       return this;
     }
 
@@ -155,9 +173,39 @@ public final class ItemInventory {
      *
      * @param labels the list of labels to add
      * @return the builder instance
+     * @deprecated since 2.3.0, use labelIdentifier instead
      */
+    @Deprecated(since = "2.3.0", forRemoval = true)
     public Builder labels(String... labels) {
-      this.labels = List.of(labels);
+      AtomicInteger index = new AtomicInteger(1);
+      this.labelIdentifier =
+          LabelIdentifier.of(
+              Stream.of(labels)
+                  .map(
+                      label -> IdentificationProperty.of("label_" + index.getAndIncrement(), label))
+                  .collect(Collectors.toUnmodifiableList()));
+      return this;
+    }
+
+    /**
+     * Sets the label identifier for the builder.
+     *
+     * @param labelIdentifier the labels for the item
+     * @return the builder instance
+     */
+    public Builder labelIdentifier(@NotNull LabelIdentifier labelIdentifier) {
+      this.labelIdentifier = labelIdentifier;
+      return this;
+    }
+
+    /**
+     * Sets the label identifier for the builder.
+     *
+     * @param identificationProperty the labels for the item
+     * @return the builder instance
+     */
+    public Builder labelIdentifier(IdentificationProperty identificationProperty) {
+      this.labelIdentifier = LabelIdentifier.of(identificationProperty);
       return this;
     }
 

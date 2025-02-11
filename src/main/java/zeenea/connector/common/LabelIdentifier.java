@@ -5,53 +5,56 @@ import org.jetbrains.annotations.NotNull;
 import zeenea.connector.exception.ExceptionUtils;
 
 /**
- * Represents an identifier for an item, consisting of a list of identification properties.
+ * Represents an ordered list of labels for an item, consisting of a list of identification
+ * properties.
  *
- * <p>This ItemIdentifier must be unique for each item in the Zeenea Data Catalog.
+ * <p>LabelIdentifier don't have to be unique for each item in the Zeenea Data Catalog.
+ *
+ * <p>This label list will generate import hierarchy in Zeenea Studio import modal view with values.
+ * It must be not empty to display importable items in the Studio.
  *
  * <pre>Example : <br>
  * {
  *  "identificationProperties": [
- *    { "key": "database", "value": "mydb" },
- *    { "key": "schema", "value": "myschema" },
- *    { "key": "table", "value": "table_name" },
+ *    { "key": "workspace_name", "value": "my_workspace" },
+ *    { "key": "report_name", "value": "my_report" },
  *  ]
  * }
  * </pre>
  */
-public final class ItemIdentifier {
+public final class LabelIdentifier {
 
-  /** The list of identification properties. */
+  /** The list of label identification properties. */
   @NotNull private final List<IdentificationProperty> identificationProperties;
 
   /**
    * Private constructor to enforce the use of the builder.
    *
-   * @param builder the builder used to create the ItemIdentifier instance
+   * @param builder the builder used to create the LabelIdentifier instance
    */
-  private ItemIdentifier(Builder builder) {
+  private LabelIdentifier(Builder builder) {
     ExceptionUtils.requireNonNullOrEmpty(
         "identificationProperties", builder.identificationProperties);
     this.identificationProperties = List.copyOf(builder.identificationProperties);
   }
 
   /**
-   * Creates a new ItemIdentifier instance with the specified list of identification properties.
+   * Creates a new LabelIdentifier instance with the specified list of identification properties.
    *
    * @param identificationProperties the list of identification properties
-   * @return a new ItemIdentifier instance
+   * @return a new LabelIdentifier instance
    */
-  public static ItemIdentifier of(@NotNull List<IdentificationProperty> identificationProperties) {
+  public static LabelIdentifier of(@NotNull List<IdentificationProperty> identificationProperties) {
     return new Builder().identificationProperties(identificationProperties).build();
   }
 
   /**
-   * Creates a new ItemIdentifier instance with the specified list of identification properties.
+   * Creates a new LabelIdentifier instance with the specified list of identification properties.
    *
    * @param identificationProperties the list of identification properties
-   * @return a new ItemIdentifier instance
+   * @return a new LabelIdentifier instance
    */
-  public static ItemIdentifier of(IdentificationProperty... identificationProperties) {
+  public static LabelIdentifier of(IdentificationProperty... identificationProperties) {
     return of(List.of(identificationProperties));
   }
 
@@ -65,53 +68,53 @@ public final class ItemIdentifier {
   }
 
   /**
-   * Creates a new ItemIdentifier with the specified identification property added as a prefix.
+   * Creates a new LabelIdentifier with the specified identification property added as a prefix.
    *
    * @param identificationProperty the identification property to add as a prefix
-   * @return a new ItemIdentifier instance with the specified prefix
+   * @return a new LabelIdentifier instance with the specified prefix
    */
-  public ItemIdentifier withPrefix(IdentificationProperty identificationProperty) {
+  public LabelIdentifier withPrefix(IdentificationProperty identificationProperty) {
     var idEntries = new ArrayList<>(Collections.singletonList(identificationProperty));
     idEntries.addAll(this.identificationProperties);
-    return ItemIdentifier.of(idEntries);
+    return LabelIdentifier.of(idEntries);
   }
 
   /**
-   * Creates a new ItemIdentifier with the specified identification property added as a prefix.
+   * Creates a new LabelIdentifier with the specified identification property added as a prefix.
    *
    * @param key the key of the identification property.
    * @param value the value of the identification property.
-   * @return a new ItemIdentifier instance with the specified prefix
+   * @return a new LabelIdentifier instance with the specified prefix
    */
-  public ItemIdentifier withPrefix(String key, String value) {
+  public LabelIdentifier withPrefix(String key, String value) {
     return withPrefix(IdentificationProperty.of(key, value));
   }
 
   /**
-   * Creates a new ItemIdentifier with the specified identification property added as a suffix.
+   * Creates a new LabelIdentifier with the specified identification property added as a suffix.
    *
    * @param identificationProperty the identification property to add as a suffix
-   * @return a new ItemIdentifier instance with the specified suffix
+   * @return a new LabelIdentifier instance with the specified suffix
    */
-  public ItemIdentifier withSuffix(IdentificationProperty identificationProperty) {
+  public LabelIdentifier withSuffix(IdentificationProperty identificationProperty) {
     var idEntries = new ArrayList<>(this.identificationProperties);
     idEntries.add(identificationProperty);
-    return ItemIdentifier.of(idEntries);
+    return LabelIdentifier.of(idEntries);
   }
 
   /**
-   * Creates a new ItemIdentifier with the specified identification property added as a suffix.
+   * Creates a new LabelIdentifier with the specified identification property added as a suffix.
    *
    * @param key the key of the identification property
    * @param value the value of the identification property
-   * @return a new ItemIdentifier instance with the specified suffix
+   * @return a new LabelIdentifier instance with the specified suffix
    */
-  public ItemIdentifier withSuffix(String key, String value) {
+  public LabelIdentifier withSuffix(String key, String value) {
     return withSuffix(IdentificationProperty.of(key, value));
   }
 
   /**
-   * Creates a new builder for the ItemIdentifier class.
+   * Creates a new builder for the LabelIdentifier class.
    *
    * @return a new Builder instance
    */
@@ -120,23 +123,23 @@ public final class ItemIdentifier {
   }
 
   /**
-   * Checks if this ItemIdentifier is equal to another object.
+   * Checks if this LabelIdentifier is equal to another object.
    *
    * @param o the object to compare with
-   * @return true if this ItemIdentifier is equal to the specified object, otherwise false
+   * @return true if this LabelIdentifier is equal to the specified object, otherwise false
    */
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
-    ItemIdentifier that = (ItemIdentifier) o;
+    LabelIdentifier that = (LabelIdentifier) o;
     return Objects.equals(identificationProperties, that.identificationProperties);
   }
 
   /**
-   * Computes the hash code for this ItemIdentifier.
+   * Computes the hash code for this LabelIdentifier.
    *
-   * @return the hash code of this ItemIdentifier
+   * @return the hash code of this LabelIdentifier
    */
   @Override
   public int hashCode() {
@@ -144,16 +147,16 @@ public final class ItemIdentifier {
   }
 
   /**
-   * Returns a string representation of this ItemIdentifier.
+   * Returns a string representation of this LabelIdentifier.
    *
-   * @return a string representation of this ItemIdentifier
+   * @return a string representation of this LabelIdentifier
    */
   @Override
   public String toString() {
-    return "ItemIdentifier{" + "identificationProperties=" + identificationProperties + "}";
+    return "LabelIdentifier{" + "identificationProperties=" + identificationProperties + "}";
   }
 
-  /** Builder class for creating instances of ItemIdentifier. */
+  /** Builder class for creating instances of LabelIdentifier. */
   public static class Builder {
 
     /** The list of identification properties. */
@@ -172,12 +175,12 @@ public final class ItemIdentifier {
     }
 
     /**
-     * Builds and returns an ItemIdentifier instance.
+     * Builds and returns an LabelIdentifier instance.
      *
-     * @return the created ItemIdentifier instance
+     * @return the created LabelIdentifier instance
      */
-    public ItemIdentifier build() {
-      return new ItemIdentifier(this);
+    public LabelIdentifier build() {
+      return new LabelIdentifier(this);
     }
   }
 }
