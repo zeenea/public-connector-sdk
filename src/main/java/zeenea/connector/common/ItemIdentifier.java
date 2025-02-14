@@ -7,7 +7,7 @@ import zeenea.connector.exception.ExceptionUtils;
 /**
  * Represents an identifier for an item, consisting of a list of identification properties.
  *
- * <p>This ItemIdentifier must be unique for each item in the Zeenea Data Catalog.
+ * <p>This ItemIdentifier must be unique for each item in the data source.
  *
  * <pre>Example : <br>
  * {

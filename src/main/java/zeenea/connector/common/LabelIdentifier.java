@@ -8,7 +8,7 @@ import zeenea.connector.exception.ExceptionUtils;
  * Represents an ordered list of labels for an item, consisting of a list of identification
  * properties.
  *
- * <p>LabelIdentifier don't have to be unique for each item in the Zeenea Data Catalog.
+ * <p>LabelIdentifier do not have to be unique for each item in the data source.
  *
  * <p>This label list will generate import hierarchy in Zeenea Studio import modal view with values.
  * It must be not empty to display importable items in the Studio.

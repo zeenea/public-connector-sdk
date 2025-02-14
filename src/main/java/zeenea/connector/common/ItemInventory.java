@@ -53,7 +53,12 @@ public final class ItemInventory {
    * Gets the list of labels associated with the item.
    *
    * @return the list of labels associated with the item
+   * @deprecated since 2.3.0, use getLabelIdentifier instead
    */
+  @Deprecated(
+      since =
+          "Deprecated since version 2.3.0, use labelIdentifier instead. Scheduled for removal in version 3.0.0.",
+      forRemoval = true)
   public @NotNull List<String> getLabels() {
     return labelIdentifier.getIdentificationProperties().stream()
         .map(IdentificationProperty::getValue)
@@ -156,7 +161,10 @@ public final class ItemInventory {
      * @return the builder instance
      * @deprecated since 2.3.0, use labelIdentifier instead
      */
-    @Deprecated(since = "2.3.0", forRemoval = true)
+    @Deprecated(
+        since =
+            "Deprecated since version 2.3.0, use labelIdentifier instead. Scheduled for removal in version 3.0.0.",
+        forRemoval = true)
     public Builder labels(@NotNull List<String> labels) {
       AtomicInteger index = new AtomicInteger(1);
       this.labelIdentifier =
@@ -175,7 +183,10 @@ public final class ItemInventory {
      * @return the builder instance
      * @deprecated since 2.3.0, use labelIdentifier instead
      */
-    @Deprecated(since = "2.3.0", forRemoval = true)
+    @Deprecated(
+        since =
+            "Deprecated since version 2.3.0, use labelIdentifier instead. Scheduled for removal in version 3.0.0.",
+        forRemoval = true)
     public Builder labels(String... labels) {
       AtomicInteger index = new AtomicInteger(1);
       this.labelIdentifier =
