@@ -5,13 +5,12 @@ import org.jetbrains.annotations.NotNull;
 import zeenea.connector.exception.ExceptionUtils;
 
 /**
- * Represents an ordered list of labels for an item, consisting of a list of identification
- * properties.
+ * Represents an ordered list of key/value labels for an item.
  *
  * <p>LabelIdentifier do not have to be unique for each item in the data source.
  *
- * <p>This label list will generate import hierarchy in Zeenea Studio import modal view with values.
- * It must be not empty to display importable items in the Studio.
+ * <p>This human-readable label list will be displayed in Zeenea Studio import modal view with
+ * values. It can be empty.
  *
  * <pre>Example : <br>
  * {
@@ -33,8 +32,7 @@ public final class LabelIdentifier {
    * @param builder the builder used to create the LabelIdentifier instance
    */
   private LabelIdentifier(Builder builder) {
-    ExceptionUtils.requireNonNullOrEmpty(
-        "identificationProperties", builder.identificationProperties);
+    ExceptionUtils.requireNonNull("identificationProperties", builder.identificationProperties);
     this.identificationProperties = List.copyOf(builder.identificationProperties);
   }
 
@@ -159,7 +157,6 @@ public final class LabelIdentifier {
   /** Builder class for creating instances of LabelIdentifier. */
   public static class Builder {
 
-    /** The list of identification properties. */
     private List<IdentificationProperty> identificationProperties = new ArrayList<>();
 
     /**

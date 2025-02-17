@@ -156,7 +156,6 @@ public final class ItemIdentifier {
   /** Builder class for creating instances of ItemIdentifier. */
   public static class Builder {
 
-    /** The list of identification properties. */
     private List<IdentificationProperty> identificationProperties = new ArrayList<>();
 
     /**

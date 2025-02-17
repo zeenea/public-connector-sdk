@@ -7,15 +7,18 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 import org.jetbrains.annotations.NotNull;
 
-/**
- * Represents an inventory item, identified by an ItemIdentifier and associated with a
- * LabelIdentifier.
- */
+/** Represents an inventory item, identified by an item identifier and eventually with a label. */
 public final class ItemInventory {
-  /** The identifier for the item. */
+  /** The unique identifier for the item. */
   @NotNull private final ItemIdentifier itemIdentifier;
 
-  /** The label identifier for the item. */
+  /**
+   * Ordered list of labels associated with the inventory item.
+   *
+   * <p>This human-readable label list will be displayed in Zeenea Studio import modal view.
+   *
+   * <p>If empty, item identifier will be used in Zeenea Studio import modal view.
+   */
   @NotNull private final LabelIdentifier labelIdentifier;
 
   /**
@@ -53,11 +56,11 @@ public final class ItemInventory {
    * Gets the list of labels associated with the item.
    *
    * @return the list of labels associated with the item
-   * @deprecated since 2.3.0, use getLabelIdentifier instead
+   * @deprecated since 2.3.0, use getLabelIdentifier() instead
    */
   @Deprecated(
       since =
-          "Deprecated since version 2.3.0, use labelIdentifier instead. Scheduled for removal in version 3.0.0.",
+          "Deprecated since version 2.3.0, use getLabelIdentifier() instead. Scheduled for removal in version 3.0.0.",
       forRemoval = true)
   public @NotNull List<String> getLabels() {
     return labelIdentifier.getIdentificationProperties().stream()
@@ -66,7 +69,11 @@ public final class ItemInventory {
   }
 
   /**
-   * Gets the label identifier associated with the item.
+   * Ordered list of labels associated with the inventory item.
+   *
+   * <p>This human-readable label list will be displayed in Zeenea Studio import modal view.
+   *
+   * <p>If empty, item identifier will be used in Zeenea Studio import modal view.
    *
    * @return the label identifier associated with the item
    */
@@ -126,10 +133,8 @@ public final class ItemInventory {
   /** Builder class for creating instances of ItemInventory. */
   public static class Builder {
 
-    /** The identifier for the item. */
     private ItemIdentifier itemIdentifier;
 
-    /** The label identifier for the item. */
     private LabelIdentifier labelIdentifier;
 
     /**
@@ -157,13 +162,18 @@ public final class ItemInventory {
     /**
      * Set a list of labels for the builder.
      *
+     * <p>Retro-compatibility is ensured by generating label keys automatically with "label_" and
+     * incremented by the index of list.
+     *
+     * <p>Examples : label_1, label_2, label_3...
+     *
      * @param labels the list of labels to add
      * @return the builder instance
-     * @deprecated since 2.3.0, use labelIdentifier instead
+     * @deprecated since 2.3.0, use labelIdentifier() instead
      */
     @Deprecated(
         since =
-            "Deprecated since version 2.3.0, use labelIdentifier instead. Scheduled for removal in version 3.0.0.",
+            "Deprecated since version 2.3.0, use labelIdentifier() instead. Scheduled for removal in version 3.0.0.",
         forRemoval = true)
     public Builder labels(@NotNull List<String> labels) {
       AtomicInteger index = new AtomicInteger(1);
@@ -179,13 +189,18 @@ public final class ItemInventory {
     /**
      * Set a list of labels for the builder.
      *
+     * <p>Retro-compatibility is ensured by generating label keys automatically with "label_" and
+     * incremented by the index of list.
+     *
+     * <p>Examples : label_1, label_2, label_3...
+     *
      * @param labels the list of labels to add
      * @return the builder instance
-     * @deprecated since 2.3.0, use labelIdentifier instead
+     * @deprecated since 2.3.0, use labelIdentifier() instead
      */
     @Deprecated(
         since =
-            "Deprecated since version 2.3.0, use labelIdentifier instead. Scheduled for removal in version 3.0.0.",
+            "Deprecated since version 2.3.0, use labelIdentifier() instead. Scheduled for removal in version 3.0.0.",
         forRemoval = true)
     public Builder labels(String... labels) {
       AtomicInteger index = new AtomicInteger(1);
