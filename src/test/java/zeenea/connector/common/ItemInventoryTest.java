@@ -13,11 +13,14 @@ class ItemInventoryTest {
   void shouldCreateItemInventory() {
     ItemIdentifier identifier =
         ItemIdentifier.of(List.of(IdentificationProperty.of("key", "value")));
-    List<String> labels = List.of("label1", "label2");
-    ItemInventory inventory = ItemInventory.of(identifier, labels);
+    LabelIdentifier labelIdentifier =
+        LabelIdentifier.of(
+            IdentificationProperty.of("label1", "value1"),
+            IdentificationProperty.of("label2", "value2"));
+    ItemInventory inventory = ItemInventory.of(identifier, labelIdentifier);
     assertNotNull(inventory);
     assertEquals(identifier, inventory.getItemIdentifier());
-    assertEquals(labels, inventory.getLabels());
+    assertEquals(labelIdentifier, inventory.getLabelIdentifier());
   }
 
   @Test
@@ -25,9 +28,12 @@ class ItemInventoryTest {
   void shouldBeEqualToAnotherWithSameProperties() {
     ItemIdentifier identifier =
         ItemIdentifier.of(List.of(IdentificationProperty.of("key", "value")));
-    List<String> labels = List.of("label1", "label2");
-    ItemInventory inventory1 = ItemInventory.of(identifier, labels);
-    ItemInventory inventory2 = ItemInventory.of(identifier, labels);
+    LabelIdentifier labelIdentifier =
+        LabelIdentifier.of(
+            IdentificationProperty.of("label1", "value1"),
+            IdentificationProperty.of("label2", "value2"));
+    ItemInventory inventory1 = ItemInventory.of(identifier, labelIdentifier);
+    ItemInventory inventory2 = ItemInventory.of(identifier, labelIdentifier);
     assertEquals(inventory1, inventory2);
     assertEquals(inventory1.hashCode(), inventory2.hashCode());
   }
@@ -39,25 +45,36 @@ class ItemInventoryTest {
         ItemIdentifier.of(List.of(IdentificationProperty.of("key1", "value1")));
     ItemIdentifier identifier2 =
         ItemIdentifier.of(List.of(IdentificationProperty.of("key2", "value2")));
-    List<String> labels1 = List.of("label1", "label2");
-    List<String> labels2 = List.of("label3", "label4");
-    ItemInventory inventory1 = ItemInventory.of(identifier1, labels1);
-    ItemInventory inventory2 = ItemInventory.of(identifier2, labels2);
+    LabelIdentifier labelIdentifier1 =
+        LabelIdentifier.of(
+            IdentificationProperty.of("label1", "value1"),
+            IdentificationProperty.of("label2", "value2"));
+    LabelIdentifier labelIdentifier2 =
+        LabelIdentifier.of(
+            IdentificationProperty.of("label1", "value3"),
+            IdentificationProperty.of("label2", "value2"));
+
+    ItemInventory inventory1 = ItemInventory.of(identifier1, labelIdentifier1);
+    ItemInventory inventory2 = ItemInventory.of(identifier2, labelIdentifier2);
     assertNotEquals(inventory1, inventory2);
   }
 
   @Test
   @DisplayName("ItemInventory factory should fail with null item identifier")
   void shouldFailWithNullItemIdentifier() {
-    List<String> labels = List.of("label1", "label2");
-    assertThrows(NullPointerException.class, () -> ItemInventory.of(null, labels));
+    LabelIdentifier labelIdentifier =
+        LabelIdentifier.of(
+            IdentificationProperty.of("label1", "value1"),
+            IdentificationProperty.of("label2", "value2"));
+    assertThrows(NullPointerException.class, () -> ItemInventory.of(null, labelIdentifier));
   }
 
   @Test
-  @DisplayName("ItemInventory factory should fail with null label path")
-  void shouldFailWithNullLabelPath() {
+  @DisplayName("ItemInventory factory should fail with null label identifier")
+  void shouldFailWithNullLabelIdentifier() {
     ItemIdentifier identifier =
         ItemIdentifier.of(List.of(IdentificationProperty.of("key", "value")));
-    assertThrows(NullPointerException.class, () -> ItemInventory.of(identifier, null));
+    LabelIdentifier labelIdentifier = null;
+    assertThrows(NullPointerException.class, () -> ItemInventory.of(identifier, labelIdentifier));
   }
 }
