@@ -37,10 +37,26 @@ public final class ItemInventory {
    * @param itemIdentifier the identifier for the item
    * @param labelPath the path of labels associated with the item
    * @return a new ItemInventory instance
+   * @deprecated since 2.3.0
    */
+  @Deprecated(
+      since = "Deprecated since version 2.3.0. Scheduled for removal in version 3.0.0.",
+      forRemoval = true)
   public static ItemInventory of(
       @NotNull ItemIdentifier itemIdentifier, @NotNull List<String> labelPath) {
     return builder().itemIdentifier(itemIdentifier).labels(labelPath).build();
+  }
+
+  /**
+   * Creates a new ItemInventory instance with the specified item and label identifiers.
+   *
+   * @param itemIdentifier the identifier for the item
+   * @param labelIdentifier the label identifier associated with the item
+   * @return a new ItemInventory instance
+   */
+  public static ItemInventory of(
+      @NotNull ItemIdentifier itemIdentifier, @NotNull LabelIdentifier labelIdentifier) {
+    return builder().itemIdentifier(itemIdentifier).labelIdentifier(labelIdentifier).build();
   }
 
   /**
