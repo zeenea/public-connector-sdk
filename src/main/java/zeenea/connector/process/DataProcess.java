@@ -27,8 +27,8 @@ public final class DataProcess extends Item {
    */
   private DataProcess(Builder builder) {
     super(builder);
-    ExceptionUtils.requireNonNullOrEmpty("sources", builder.sources);
-    ExceptionUtils.requireNonNullOrEmpty("targets", builder.targets);
+    ExceptionUtils.requireNonNull("sources", builder.sources);
+    ExceptionUtils.requireNonNull("targets", builder.targets);
     ExceptionUtils.requireNonNull("operation", builder.operations);
     this.sources = List.copyOf(builder.sources);
     this.targets = List.copyOf(builder.targets);
