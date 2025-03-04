@@ -85,6 +85,8 @@ dependencies {
     testImplementation(platform("org.junit:junit-bom:${junitVersion}"))
     testImplementation(group = "org.junit.jupiter", name = "junit-jupiter-api")
     testRuntimeOnly(group = "org.junit.jupiter", name = "junit-jupiter-engine")
+    val assertjVersion: String by project
+    testImplementation(group = "org.assertj", name = "assertj-core", version = assertjVersion)
 
     val jetbrainsAnnotationsVersion: String by project
     compileOnly(

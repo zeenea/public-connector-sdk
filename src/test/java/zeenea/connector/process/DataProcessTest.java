@@ -1,11 +1,15 @@
 package zeenea.connector.process;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.List;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import zeenea.connector.common.*;
+import zeenea.connector.common.DataSourceIdentifier;
+import zeenea.connector.common.IdentificationProperty;
+import zeenea.connector.common.ItemIdentifier;
+import zeenea.connector.common.ItemReference;
 
 class DataProcessTest {
 
@@ -171,5 +175,28 @@ class DataProcessTest {
                 .sources(source)
                 .targets((List<ItemReference>) null)
                 .build());
+  }
+
+  @Test
+  @DisplayName("DataProcess builder should not fail with empty target or sources")
+  void builderShouldNotFailWithEmptyTargetOrSources() {
+    List<ItemReference> source =
+        List.of(
+            ItemReference.of(
+                ItemIdentifier.of(List.of(IdentificationProperty.of("name", "source"))),
+                DataSourceIdentifier.of(
+                    List.of(
+                        IdentificationProperty.of("host", "localhost"),
+                        IdentificationProperty.of("port", "1111")))));
+    ItemIdentifier itemIdentifier =
+        ItemIdentifier.of(List.of(IdentificationProperty.of("key", "dataprocess")));
+    DataProcess dataProcess =
+        DataProcess.builder()
+            .id(itemIdentifier)
+            .name("DataProcess1")
+            .description("Description")
+            .build();
+    assertThat(dataProcess.getTargets()).isEmpty();
+    assertThat(dataProcess.getSources()).isEmpty();
   }
 }
