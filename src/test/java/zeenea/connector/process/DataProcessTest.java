@@ -180,14 +180,6 @@ class DataProcessTest {
   @Test
   @DisplayName("DataProcess builder should not fail with empty target or sources")
   void builderShouldNotFailWithEmptyTargetOrSources() {
-    List<ItemReference> source =
-        List.of(
-            ItemReference.of(
-                ItemIdentifier.of(List.of(IdentificationProperty.of("name", "source"))),
-                DataSourceIdentifier.of(
-                    List.of(
-                        IdentificationProperty.of("host", "localhost"),
-                        IdentificationProperty.of("port", "1111")))));
     ItemIdentifier itemIdentifier =
         ItemIdentifier.of(List.of(IdentificationProperty.of("key", "dataprocess")));
     DataProcess dataProcess =
