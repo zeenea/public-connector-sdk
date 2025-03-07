@@ -8,7 +8,7 @@ plugins {
 
 
 group = "zeenea"
-version = file("version.txt").readText().trim()
+version = System.getenv("VERSION") ?: "dev"
 description = "public-connector-sdk"
 
 java {

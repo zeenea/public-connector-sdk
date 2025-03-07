@@ -1,0 +1,62 @@
+name: Development Snapshot
+
+on:
+  pull_request:
+    branches:
+      - main
+
+permissions:
+  contents: write
+
+jobs:
+  build-library:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Project Info
+        id: info
+        run: |
+          # Extraction version
+          if [[ ${{ github.event_name }} == pull_request ]]; then
+            BRANCH_NAME='${{ github.head_ref}}'
+            PR_NUMBER='${{ github.event.number }}'
+
+            if [[ "$BRANCH_NAME" =~ ^[-_A-Za-z]+/[A-Za-z]+-[0-9]+ ]]; then
+              VERSION=$(echo "$BRANCH_NAME" | sed -E 's#^[-_A-Za-z]+/([A-Za-z]+-[0-9]+).*#\1#')
+            elif [[ -n $PR_NUMBER ]]; then
+              VERSION="PR-$PR_NUMBER"
+            fi
+
+            if [[ -z ${VERSION} ]]; then
+              echo "Cannot define VERSION (BRANCH_NAME=$BRANCH_NAME, PR_NUMBER=$PR_NUMBER)" >&2
+              exit 1
+            fi
+          else
+            echo "Cannot define VERSION: Unexpected event ${{ github.event_name }}" >&2
+            exit 1
+          fi
+
+          echo "version=${VERSION^^}"
+          echo "version=${VERSION^^}" >> $GITHUB_OUTPUT
+
+        shell: bash
+
+      - uses: actions/checkout@v4
+
+      - name: Set up JDK 11
+        uses: actions/setup-java@v4
+        with:
+          java-version: 11
+          distribution: temurin
+          cache: gradle
+
+      - name: Setup Gradle to generate and submit dependency graphs
+        uses: gradle/actions/setup-gradle@v4
+        with:
+          dependency-graph: generate-and-submit
+
+      - name: Build with Gradle
+        run: ./gradlew build
+        shell: bash
+        env:
+          GITHUB_TOKEN: ${{ secrets.ACTION_READ_PACKAGE }}
+          VERSION: ${{ steps.info.outputs.version }}

@@ -1,4 +1,4 @@
-JIRA issue: https://zeenea.atlassian.net/browse/ZEE-XXX
+JIRA issue: https://actian.atlassian.net/browse/ZEE-XXX
 
 ##### PR summary:
 
