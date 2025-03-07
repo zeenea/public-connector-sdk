@@ -58,6 +58,5 @@ jobs:
         run: ./gradlew build
         shell: bash
         env:
-          GITHUB_TOKEN_READ_PKG: ${{ secrets.ACTION_READ_PACKAGE }}
           GITHUB_TOKEN: ${{ secrets.ACTION_READ_PACKAGE }}
           VERSION: ${{ steps.info.outputs.version }}

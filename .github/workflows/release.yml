@@ -32,6 +32,5 @@ jobs:
         run: ./gradlew publish
         shell: bash
         env:
-          GITHUB_TOKEN_READ_PKG: ${{ secrets.ACTION_READ_PACKAGE }}
           GITHUB_TOKEN: ${{ secrets.ACTION_READ_PACKAGE }}
           VERSION: ${{ github.event.release.tag_name }}
