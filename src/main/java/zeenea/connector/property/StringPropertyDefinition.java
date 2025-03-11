@@ -9,10 +9,10 @@ public final class StringPropertyDefinition extends PropertyDefinition {
   /**
    * Constructs a StringPropertyDefinition instance with the specified code.
    *
-   * @param code the code for the property definition
+   * @param name the code for the property definition
    */
-  public StringPropertyDefinition(String code) {
-    super(code, PropertyType.STRING, null);
+  public StringPropertyDefinition(String name) {
+    super(name, PropertyType.STRING);
   }
 
   /**
@@ -21,6 +21,10 @@ public final class StringPropertyDefinition extends PropertyDefinition {
    * @param code the code for the property definition
    * @param label the label for the property definition
    */
+  @Deprecated(
+      since =
+          "Deprecated since version 2.3.0, use StringPropertyDefinition(String name) instead. Scheduled for removal in version 3.0.0.",
+      forRemoval = true)
   public StringPropertyDefinition(String code, String label) {
     super(code, PropertyType.STRING, label);
   }

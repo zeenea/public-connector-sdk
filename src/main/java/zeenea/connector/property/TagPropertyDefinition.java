@@ -6,12 +6,12 @@ package zeenea.connector.property;
 public final class TagPropertyDefinition extends PropertyDefinition {
 
   /**
-   * Constructs a TagPropertyDefinition instance with the specified code.
+   * Constructs a TagPropertyDefinition instance with the specified name.
    *
-   * @param code the code for the property definition
+   * @param name the name for the property definition
    */
-  public TagPropertyDefinition(String code) {
-    super(code, PropertyType.TAG, null);
+  public TagPropertyDefinition(String name) {
+    super(name, PropertyType.TAG);
   }
 
   /**
@@ -20,6 +20,10 @@ public final class TagPropertyDefinition extends PropertyDefinition {
    * @param code the code for the property definition
    * @param label the label for the property definition
    */
+  @Deprecated(
+      since =
+          "Deprecated since version 2.3.0, use TagPropertyDefinition(String name) instead. Scheduled for removal in version 3.0.0.",
+      forRemoval = true)
   public TagPropertyDefinition(String code, String label) {
     super(code, PropertyType.TAG, label);
   }

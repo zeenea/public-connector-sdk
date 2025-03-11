@@ -9,16 +9,16 @@ import org.jetbrains.annotations.Nullable;
  * Represents a property definition. This is an abstract class that provides the basic structure for
  * property definitions.
  *
- * <p>Properties are uniquely identified by their code and type.
+ * <p>Properties are uniquely identified by their name and type.
  */
 public abstract class PropertyDefinition {
 
   /**
-   * The code of the property definition.
+   * The name of the property definition.
    *
-   * <p>The code must be not null and must not change to ensure the uniqueness of the property.
+   * <p>The name must be not null and must not change to ensure the uniqueness of the property.
    */
-  @NotNull private final String code;
+  @NotNull private final String name;
 
   /**
    * The type of the property definition.
@@ -26,9 +26,6 @@ public abstract class PropertyDefinition {
    * <p>The type must be not null and must not change to ensure the uniqueness of the property.
    */
   @NotNull private final PropertyType type;
-
-  /** The label of the property definition. */
-  @Nullable private final String label;
 
   /**
    * Constructs a PropertyDefinition instance with the specified code and type.
@@ -38,9 +35,18 @@ public abstract class PropertyDefinition {
    * @param label the label of the property definition
    */
   PropertyDefinition(@NotNull String code, @NotNull PropertyType type, @Nullable String label) {
-    this.code = Objects.requireNonNull(code);
+    this(label == null ? Objects.requireNonNull(code) : label, type);
+  }
+
+  /**
+   * Constructs a PropertyDefinition instance with the specified name and type.
+   *
+   * @param name the name of the property definition
+   * @param type the type of the property definition
+   */
+  PropertyDefinition(@NotNull String name, @NotNull PropertyType type) {
+    this.name = Objects.requireNonNull(name);
     this.type = Objects.requireNonNull(type);
-    this.label = label;
   }
 
   /**
@@ -48,8 +54,16 @@ public abstract class PropertyDefinition {
    *
    * @return the code of the property definition
    */
+  @Deprecated(
+      since =
+          "Deprecated since version 2.3.0, use getName() instead. Scheduled for removal in version 3.0.0.",
+      forRemoval = true)
   public @NotNull String getCode() {
-    return code;
+    return name;
+  }
+
+  public @NotNull String getName() {
+    return name;
   }
 
   /**
@@ -66,18 +80,22 @@ public abstract class PropertyDefinition {
    *
    * @return the label of the property definition
    */
+  @Deprecated(
+      since =
+          "Deprecated since version 2.3.0, use getName() instead. Scheduled for removal in version 3.0.0.",
+      forRemoval = true)
   public Optional<String> getLabel() {
-    return Optional.ofNullable(label);
+    return Optional.of(name);
   }
 
   /**
-   * Creates a new StringPropertyDefinition with the specified code.
+   * Creates a new StringPropertyDefinition with the specified name.
    *
-   * @param code the code of the property definition
+   * @param name the name of the property definition
    * @return a new StringPropertyDefinition instance
    */
-  public static StringPropertyDefinition string(String code) {
-    return new StringPropertyDefinition(code);
+  public static StringPropertyDefinition string(String name) {
+    return new StringPropertyDefinition(name);
   }
 
   /**
@@ -87,18 +105,22 @@ public abstract class PropertyDefinition {
    * @param label the label of the property definition
    * @return a new StringPropertyDefinition instance
    */
+  @Deprecated(
+      since =
+          "Deprecated since version 2.3.0, use string(String name) instead. Scheduled for removal in version 3.0.0.",
+      forRemoval = true)
   public static StringPropertyDefinition string(String code, String label) {
-    return new StringPropertyDefinition(code, label);
+    return new StringPropertyDefinition(label == null ? code : label);
   }
 
   /**
-   * Creates a new LongTextPropertyDefinition with the specified code.
+   * Creates a new LongTextPropertyDefinition with the specified name.
    *
-   * @param code the code of the property definition
+   * @param name the name of the property definition
    * @return a new LongTextPropertyDefinition instance
    */
-  public static LongTextPropertyDefinition longText(String code) {
-    return new LongTextPropertyDefinition(code);
+  public static LongTextPropertyDefinition longText(String name) {
+    return new LongTextPropertyDefinition(name);
   }
 
   /**
@@ -108,6 +130,10 @@ public abstract class PropertyDefinition {
    * @param label the label of the property definition
    * @return a new LongTextPropertyDefinition instance
    */
+  @Deprecated(
+      since =
+          "Deprecated since version 2.3.0, use longText(String name) instead. Scheduled for removal in version 3.0.0.",
+      forRemoval = true)
   public static LongTextPropertyDefinition longText(String code, String label) {
     return new LongTextPropertyDefinition(code, label);
   }
@@ -115,11 +141,11 @@ public abstract class PropertyDefinition {
   /**
    * Creates a new InstantPropertyDefinition with the specified code.
    *
-   * @param code the code of the property definition
+   * @param name the name of the property definition
    * @return a new InstantPropertyDefinition instance
    */
-  public static InstantPropertyDefinition instant(String code) {
-    return new InstantPropertyDefinition(code);
+  public static InstantPropertyDefinition instant(String name) {
+    return new InstantPropertyDefinition(name);
   }
 
   /**
@@ -129,18 +155,22 @@ public abstract class PropertyDefinition {
    * @param label the label of the property definition
    * @return a new InstantPropertyDefinition instance
    */
+  @Deprecated(
+      since =
+          "Deprecated since version 2.3.0, use instant(String name) instead. Scheduled for removal in version 3.0.0.",
+      forRemoval = true)
   public static InstantPropertyDefinition instant(String code, String label) {
     return new InstantPropertyDefinition(code, label);
   }
 
   /**
-   * Creates a new NumberPropertyDefinition with the specified code.
+   * Creates a new NumberPropertyDefinition with the specified name.
    *
-   * @param code the code of the property definition
+   * @param name the name of the property definition
    * @return a new NumberPropertyDefinition instance
    */
-  public static NumberPropertyDefinition number(String code) {
-    return new NumberPropertyDefinition(code);
+  public static NumberPropertyDefinition number(String name) {
+    return new NumberPropertyDefinition(name);
   }
 
   /**
@@ -150,18 +180,22 @@ public abstract class PropertyDefinition {
    * @param label the label of the property definition
    * @return a new NumberPropertyDefinition instance
    */
+  @Deprecated(
+      since =
+          "Deprecated since version 2.3.0, use number(String name) instead. Scheduled for removal in version 3.0.0.",
+      forRemoval = true)
   public static NumberPropertyDefinition number(String code, String label) {
     return new NumberPropertyDefinition(code, label);
   }
 
   /**
-   * Creates a new TagPropertyDefinition with the specified code.
+   * Creates a new TagPropertyDefinition with the specified name.
    *
-   * @param code the code of the property definition
+   * @param name the name of the property definition
    * @return a new TagPropertyDefinition instance
    */
-  public static TagPropertyDefinition tag(String code) {
-    return new TagPropertyDefinition(code);
+  public static TagPropertyDefinition tag(String name) {
+    return new TagPropertyDefinition(name);
   }
 
   /**
@@ -171,18 +205,22 @@ public abstract class PropertyDefinition {
    * @param label the label of the property definition
    * @return a new TagPropertyDefinition instance
    */
+  @Deprecated(
+      since =
+          "Deprecated since version 2.3.0, use tag(String name) instead. Scheduled for removal in version 3.0.0.",
+      forRemoval = true)
   public static TagPropertyDefinition tag(String code, String label) {
     return new TagPropertyDefinition(code, label);
   }
 
   /**
-   * Creates a new UrlPropertyDefinition with the specified code.
+   * Creates a new UrlPropertyDefinition with the specified name.
    *
-   * @param code the code of the property definition
+   * @param name the name of the property definition
    * @return a new UrlPropertyDefinition instance
    */
-  public static UrlPropertyDefinition url(String code) {
-    return new UrlPropertyDefinition(code);
+  public static UrlPropertyDefinition url(String name) {
+    return new UrlPropertyDefinition(name);
   }
 
   /**
@@ -192,6 +230,10 @@ public abstract class PropertyDefinition {
    * @param label the label of the property definition
    * @return a new UrlPropertyDefinition instance
    */
+  @Deprecated(
+      since =
+          "Deprecated since version 2.3.0, use url(String name) instead. Scheduled for removal in version 3.0.0.",
+      forRemoval = true)
   public static UrlPropertyDefinition url(String code, String label) {
     return new UrlPropertyDefinition(code, label);
   }
@@ -207,7 +249,7 @@ public abstract class PropertyDefinition {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
     PropertyDefinition sourcePropertyDefinition = (PropertyDefinition) o;
-    return Objects.equals(code, sourcePropertyDefinition.code)
+    return Objects.equals(name, sourcePropertyDefinition.name)
         && type == sourcePropertyDefinition.type;
   }
 
@@ -218,7 +260,7 @@ public abstract class PropertyDefinition {
    */
   @Override
   public int hashCode() {
-    return Objects.hash(code, type);
+    return Objects.hash(name, type);
   }
 
   /**
@@ -228,6 +270,6 @@ public abstract class PropertyDefinition {
    */
   @Override
   public String toString() {
-    return "PropertyDefinition{" + "code='" + code + "', type=" + type + "}";
+    return "PropertyDefinition{" + "name='" + name + "', type=" + type + "}";
   }
 }

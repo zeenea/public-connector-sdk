@@ -7,12 +7,12 @@ package zeenea.connector.property;
 public final class LongTextPropertyDefinition extends PropertyDefinition {
 
   /**
-   * Constructs a LongTextPropertyDefinition instance with the specified code.
+   * Constructs a LongTextPropertyDefinition instance with the specified name.
    *
-   * @param code the code for the property definition
+   * @param name the name for the property definition
    */
-  public LongTextPropertyDefinition(String code) {
-    super(code, PropertyType.LONG_TEXT, null);
+  public LongTextPropertyDefinition(String name) {
+    super(name, PropertyType.LONG_TEXT);
   }
 
   /**
@@ -21,6 +21,10 @@ public final class LongTextPropertyDefinition extends PropertyDefinition {
    * @param code the code for the property definition
    * @param label the label for the property definition
    */
+  @Deprecated(
+      since =
+          "Deprecated since version 2.3.0, use LongTextPropertyDefinition(String name) instead. Scheduled for removal in version 3.0.0.",
+      forRemoval = true)
   public LongTextPropertyDefinition(String code, String label) {
     super(code, PropertyType.LONG_TEXT, label);
   }
