@@ -7,12 +7,12 @@ package zeenea.connector.property;
 public final class InstantPropertyDefinition extends PropertyDefinition {
 
   /**
-   * Constructs an InstantPropertyDefinition instance with the specified code.
+   * Constructs an InstantPropertyDefinition instance with the specified name.
    *
-   * @param code the code for the property definition
+   * @param name the name for the property definition
    */
-  public InstantPropertyDefinition(String code) {
-    super(code, PropertyType.INSTANT, null);
+  public InstantPropertyDefinition(String name) {
+    super(name, PropertyType.INSTANT);
   }
 
   /**
@@ -21,6 +21,10 @@ public final class InstantPropertyDefinition extends PropertyDefinition {
    * @param code the code for the property definition
    * @param label the label for the property definition
    */
+  @Deprecated(
+      since =
+          "Deprecated since version 2.3.0, use InstantPropertyDefinition(String name) instead. Scheduled for removal in version 3.0.0.",
+      forRemoval = true)
   public InstantPropertyDefinition(String code, String label) {
     super(code, PropertyType.INSTANT, label);
   }

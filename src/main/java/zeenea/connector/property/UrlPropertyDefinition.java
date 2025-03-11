@@ -6,12 +6,12 @@ package zeenea.connector.property;
 public final class UrlPropertyDefinition extends PropertyDefinition {
 
   /**
-   * Constructs a UrlPropertyDefinition instance with the specified code.
+   * Constructs a UrlPropertyDefinition instance with the specified name.
    *
-   * @param code the code for the property definition
+   * @param name the name for the property definition
    */
-  public UrlPropertyDefinition(String code) {
-    super(code, PropertyType.URL, null);
+  public UrlPropertyDefinition(String name) {
+    super(name, PropertyType.URL);
   }
 
   /**
@@ -20,6 +20,10 @@ public final class UrlPropertyDefinition extends PropertyDefinition {
    * @param code the code for the property definition
    * @param label the label for the property definition
    */
+  @Deprecated(
+      since =
+          "Deprecated since version 2.3.0, use UrlPropertyDefinition(String name) instead. Scheduled for removal in version 3.0.0.",
+      forRemoval = true)
   public UrlPropertyDefinition(String code, String label) {
     super(code, PropertyType.URL, label);
   }

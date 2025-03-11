@@ -7,12 +7,12 @@ package zeenea.connector.property;
 public final class NumberPropertyDefinition extends PropertyDefinition {
 
   /**
-   * Constructs a NumberPropertyDefinition instance with the specified code.
+   * Constructs a NumberPropertyDefinition instance with the specified name.
    *
-   * @param code the code for the property definition
+   * @param name the name for the property definition
    */
-  public NumberPropertyDefinition(String code) {
-    super(code, PropertyType.NUMBER, null);
+  public NumberPropertyDefinition(String name) {
+    super(name, PropertyType.NUMBER);
   }
 
   /**
@@ -21,6 +21,10 @@ public final class NumberPropertyDefinition extends PropertyDefinition {
    * @param code the code for the property definition
    * @param label the label for the property definition
    */
+  @Deprecated(
+      since =
+          "Deprecated since version 2.3.0, use NumberPropertyDefinition(String name) instead. Scheduled for removal in version 3.0.0.",
+      forRemoval = true)
   public NumberPropertyDefinition(String code, String label) {
     super(code, PropertyType.NUMBER, label);
   }
