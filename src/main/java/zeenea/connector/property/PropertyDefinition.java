@@ -56,7 +56,7 @@ public abstract class PropertyDefinition {
    */
   @Deprecated(
       since =
-          "Deprecated since version 2.3.0, use getName() instead. Scheduled for removal in version 3.0.0.",
+          "Deprecated since version 2.3.3, use getName() instead. Scheduled for removal in version 3.0.0.",
       forRemoval = true)
   public @NotNull String getCode() {
     return name;
@@ -82,7 +82,7 @@ public abstract class PropertyDefinition {
    */
   @Deprecated(
       since =
-          "Deprecated since version 2.3.0, use getName() instead. Scheduled for removal in version 3.0.0.",
+          "Deprecated since version 2.3.3, use getName() instead. Scheduled for removal in version 3.0.0.",
       forRemoval = true)
   public Optional<String> getLabel() {
     return Optional.of(name);
@@ -107,7 +107,7 @@ public abstract class PropertyDefinition {
    */
   @Deprecated(
       since =
-          "Deprecated since version 2.3.0, use string(String name) instead. Scheduled for removal in version 3.0.0.",
+          "Deprecated since version 2.3.3, use string(String name) instead. Scheduled for removal in version 3.0.0.",
       forRemoval = true)
   public static StringPropertyDefinition string(String code, String label) {
     return new StringPropertyDefinition(label == null ? code : label);
@@ -132,10 +132,10 @@ public abstract class PropertyDefinition {
    */
   @Deprecated(
       since =
-          "Deprecated since version 2.3.0, use longText(String name) instead. Scheduled for removal in version 3.0.0.",
+          "Deprecated since version 2.3.3, use longText(String name) instead. Scheduled for removal in version 3.0.0.",
       forRemoval = true)
   public static LongTextPropertyDefinition longText(String code, String label) {
-    return new LongTextPropertyDefinition(code, label);
+    return new LongTextPropertyDefinition(label == null ? code : label);
   }
 
   /**
@@ -157,10 +157,10 @@ public abstract class PropertyDefinition {
    */
   @Deprecated(
       since =
-          "Deprecated since version 2.3.0, use instant(String name) instead. Scheduled for removal in version 3.0.0.",
+          "Deprecated since version 2.3.3, use instant(String name) instead. Scheduled for removal in version 3.0.0.",
       forRemoval = true)
   public static InstantPropertyDefinition instant(String code, String label) {
-    return new InstantPropertyDefinition(code, label);
+    return new InstantPropertyDefinition(label == null ? code : label);
   }
 
   /**
@@ -182,10 +182,10 @@ public abstract class PropertyDefinition {
    */
   @Deprecated(
       since =
-          "Deprecated since version 2.3.0, use number(String name) instead. Scheduled for removal in version 3.0.0.",
+          "Deprecated since version 2.3.3, use number(String name) instead. Scheduled for removal in version 3.0.0.",
       forRemoval = true)
   public static NumberPropertyDefinition number(String code, String label) {
-    return new NumberPropertyDefinition(code, label);
+    return new NumberPropertyDefinition(label == null ? code : label);
   }
 
   /**
@@ -207,10 +207,10 @@ public abstract class PropertyDefinition {
    */
   @Deprecated(
       since =
-          "Deprecated since version 2.3.0, use tag(String name) instead. Scheduled for removal in version 3.0.0.",
+          "Deprecated since version 2.3.3, use tag(String name) instead. Scheduled for removal in version 3.0.0.",
       forRemoval = true)
   public static TagPropertyDefinition tag(String code, String label) {
-    return new TagPropertyDefinition(code, label);
+    return new TagPropertyDefinition(label == null ? code : label);
   }
 
   /**
@@ -232,10 +232,10 @@ public abstract class PropertyDefinition {
    */
   @Deprecated(
       since =
-          "Deprecated since version 2.3.0, use url(String name) instead. Scheduled for removal in version 3.0.0.",
+          "Deprecated since version 2.3.3, use url(String name) instead. Scheduled for removal in version 3.0.0.",
       forRemoval = true)
   public static UrlPropertyDefinition url(String code, String label) {
-    return new UrlPropertyDefinition(code, label);
+    return new UrlPropertyDefinition(label == null ? code : label);
   }
 
   /**
