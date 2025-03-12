@@ -25,8 +25,8 @@ public class PropertiesBuilder {
    */
   public PropertiesBuilder put(
       @NotNull StringPropertyDefinition propertyDefinition, @Nullable String value) {
-    if (value != null) properties.put(propertyDefinition.getCode(), new StringPropertyValue(value));
-    else properties.remove(propertyDefinition.getCode());
+    if (value != null) properties.put(propertyDefinition.getName(), new StringPropertyValue(value));
+    else properties.remove(propertyDefinition.getName());
     return this;
   }
 
@@ -40,8 +40,8 @@ public class PropertiesBuilder {
   public PropertiesBuilder put(
       @NotNull StringPropertyDefinition propertyDefinition, @Nullable Enum<?> value) {
     if (value != null)
-      properties.put(propertyDefinition.getCode(), new StringPropertyValue(value.toString()));
-    else properties.remove(propertyDefinition.getCode());
+      properties.put(propertyDefinition.getName(), new StringPropertyValue(value.toString()));
+    else properties.remove(propertyDefinition.getName());
     return this;
   }
 
@@ -55,8 +55,8 @@ public class PropertiesBuilder {
   public PropertiesBuilder put(
       @NotNull StringPropertyDefinition propertyDefinition, @Nullable Boolean value) {
     if (value != null)
-      properties.put(propertyDefinition.getCode(), new StringPropertyValue(value.toString()));
-    else properties.remove(propertyDefinition.getCode());
+      properties.put(propertyDefinition.getName(), new StringPropertyValue(value.toString()));
+    else properties.remove(propertyDefinition.getName());
     return this;
   }
 
@@ -69,8 +69,8 @@ public class PropertiesBuilder {
    */
   public PropertiesBuilder put(
       @NotNull StringPropertyDefinition propertyDefinition, @Nullable StringPropertyValue value) {
-    if (value != null) properties.put(propertyDefinition.getCode(), value);
-    else properties.remove(propertyDefinition.getCode());
+    if (value != null) properties.put(propertyDefinition.getName(), value);
+    else properties.remove(propertyDefinition.getName());
     return this;
   }
 
@@ -84,8 +84,8 @@ public class PropertiesBuilder {
   public PropertiesBuilder put(
       @NotNull LongTextPropertyDefinition propertyDefinition, @Nullable String value) {
     if (value != null)
-      properties.put(propertyDefinition.getCode(), new LongTextPropertyValue(value));
-    else properties.remove(propertyDefinition.getCode());
+      properties.put(propertyDefinition.getName(), new LongTextPropertyValue(value));
+    else properties.remove(propertyDefinition.getName());
     return this;
   }
 
@@ -100,8 +100,8 @@ public class PropertiesBuilder {
       @NotNull NumberPropertyDefinition propertyDefinition, @Nullable Integer value) {
     if (value != null)
       properties.put(
-          propertyDefinition.getCode(), new NumberPropertyValue(BigDecimal.valueOf(value)));
-    else properties.remove(propertyDefinition.getCode());
+          propertyDefinition.getName(), new NumberPropertyValue(BigDecimal.valueOf(value)));
+    else properties.remove(propertyDefinition.getName());
     return this;
   }
 
@@ -116,8 +116,8 @@ public class PropertiesBuilder {
       @NotNull NumberPropertyDefinition propertyDefinition, @Nullable Long value) {
     if (value != null)
       properties.put(
-          propertyDefinition.getCode(), new NumberPropertyValue(BigDecimal.valueOf(value)));
-    else properties.remove(propertyDefinition.getCode());
+          propertyDefinition.getName(), new NumberPropertyValue(BigDecimal.valueOf(value)));
+    else properties.remove(propertyDefinition.getName());
     return this;
   }
 
@@ -132,8 +132,8 @@ public class PropertiesBuilder {
       @NotNull NumberPropertyDefinition propertyDefinition, @Nullable Double value) {
     if (value != null)
       properties.put(
-          propertyDefinition.getCode(), new NumberPropertyValue(BigDecimal.valueOf(value)));
-    else properties.remove(propertyDefinition.getCode());
+          propertyDefinition.getName(), new NumberPropertyValue(BigDecimal.valueOf(value)));
+    else properties.remove(propertyDefinition.getName());
     return this;
   }
 
@@ -146,8 +146,8 @@ public class PropertiesBuilder {
    */
   public PropertiesBuilder put(
       @NotNull NumberPropertyDefinition propertyDefinition, @Nullable BigDecimal value) {
-    if (value != null) properties.put(propertyDefinition.getCode(), new NumberPropertyValue(value));
-    else properties.remove(propertyDefinition.getCode());
+    if (value != null) properties.put(propertyDefinition.getName(), new NumberPropertyValue(value));
+    else properties.remove(propertyDefinition.getName());
     return this;
   }
 
@@ -160,8 +160,8 @@ public class PropertiesBuilder {
    */
   public PropertiesBuilder put(
       @NotNull NumberPropertyDefinition propertyDefinition, @Nullable NumberPropertyValue value) {
-    if (value != null) properties.put(propertyDefinition.getCode(), value);
-    else properties.remove(propertyDefinition.getCode());
+    if (value != null) properties.put(propertyDefinition.getName(), value);
+    else properties.remove(propertyDefinition.getName());
     return this;
   }
 
@@ -174,8 +174,8 @@ public class PropertiesBuilder {
    */
   public PropertiesBuilder put(
       @NotNull UrlPropertyDefinition propertyDefinition, @Nullable URI value) {
-    if (value != null) properties.put(propertyDefinition.getCode(), new UrlPropertyValue(value));
-    else properties.remove(propertyDefinition.getCode());
+    if (value != null) properties.put(propertyDefinition.getName(), new UrlPropertyValue(value));
+    else properties.remove(propertyDefinition.getName());
     return this;
   }
 
@@ -191,8 +191,8 @@ public class PropertiesBuilder {
       @NotNull UrlPropertyDefinition propertyDefinition,
       @Nullable URI uri,
       @Nullable String label) {
-    if (uri != null) properties.put(propertyDefinition.getCode(), new UrlPropertyValue(uri, label));
-    else properties.remove(propertyDefinition.getCode());
+    if (uri != null) properties.put(propertyDefinition.getName(), new UrlPropertyValue(uri, label));
+    else properties.remove(propertyDefinition.getName());
     return this;
   }
 
@@ -205,8 +205,8 @@ public class PropertiesBuilder {
    */
   public PropertiesBuilder put(
       @NotNull UrlPropertyDefinition propertyDefinition, @Nullable UrlPropertyValue value) {
-    if (value != null) properties.put(propertyDefinition.getCode(), value);
-    else properties.remove(propertyDefinition.getCode());
+    if (value != null) properties.put(propertyDefinition.getName(), value);
+    else properties.remove(propertyDefinition.getName());
     return this;
   }
 
@@ -220,8 +220,8 @@ public class PropertiesBuilder {
   public PropertiesBuilder put(
       @NotNull InstantPropertyDefinition propertyDefinition, @Nullable Instant value) {
     if (value != null)
-      properties.put(propertyDefinition.getCode(), new InstantPropertyValue(value));
-    else properties.remove(propertyDefinition.getCode());
+      properties.put(propertyDefinition.getName(), new InstantPropertyValue(value));
+    else properties.remove(propertyDefinition.getName());
     return this;
   }
 
@@ -234,8 +234,8 @@ public class PropertiesBuilder {
    */
   public PropertiesBuilder put(
       @NotNull InstantPropertyDefinition propertyDefinition, @Nullable InstantPropertyValue value) {
-    if (value != null) properties.put(propertyDefinition.getCode(), value);
-    else properties.remove(propertyDefinition.getCode());
+    if (value != null) properties.put(propertyDefinition.getName(), value);
+    else properties.remove(propertyDefinition.getName());
     return this;
   }
 
@@ -248,8 +248,8 @@ public class PropertiesBuilder {
    */
   public PropertiesBuilder put(
       @NotNull TagPropertyDefinition propertyDefinition, @Nullable TagPropertyValue value) {
-    if (value != null) properties.put(propertyDefinition.getCode(), value);
-    else properties.remove(propertyDefinition.getCode());
+    if (value != null) properties.put(propertyDefinition.getName(), value);
+    else properties.remove(propertyDefinition.getName());
     return this;
   }
 
@@ -263,8 +263,8 @@ public class PropertiesBuilder {
   public PropertiesBuilder put(
       @NotNull TagPropertyDefinition propertyDefinition, @Nullable List<String> value) {
     if (value != null && !value.isEmpty())
-      properties.put(propertyDefinition.getCode(), new TagPropertyValue(value));
-    else properties.remove(propertyDefinition.getCode());
+      properties.put(propertyDefinition.getName(), new TagPropertyValue(value));
+    else properties.remove(propertyDefinition.getName());
     return this;
   }
 
@@ -277,8 +277,8 @@ public class PropertiesBuilder {
    */
   public PropertiesBuilder put(@NotNull TagPropertyDefinition propertyDefinition, String... value) {
     if (value.length > 0)
-      properties.put(propertyDefinition.getCode(), new TagPropertyValue(List.of(value)));
-    else properties.remove(propertyDefinition.getCode());
+      properties.put(propertyDefinition.getName(), new TagPropertyValue(List.of(value)));
+    else properties.remove(propertyDefinition.getName());
     return this;
   }
 
