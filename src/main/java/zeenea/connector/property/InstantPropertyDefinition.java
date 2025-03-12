@@ -23,7 +23,7 @@ public final class InstantPropertyDefinition extends PropertyDefinition {
    */
   @Deprecated(
       since =
-          "Deprecated since version 2.3.0, use InstantPropertyDefinition(String name) instead. Scheduled for removal in version 3.0.0.",
+          "Deprecated since version 2.3.3, use InstantPropertyDefinition(String name) instead. Scheduled for removal in version 3.0.0.",
       forRemoval = true)
   public InstantPropertyDefinition(String code, String label) {
     super(code, PropertyType.INSTANT, label);
