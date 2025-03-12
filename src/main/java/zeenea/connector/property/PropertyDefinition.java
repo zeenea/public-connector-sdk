@@ -110,7 +110,7 @@ public abstract class PropertyDefinition {
           "Deprecated since version 2.3.3, use string(String name) instead. Scheduled for removal in version 3.0.0.",
       forRemoval = true)
   public static StringPropertyDefinition string(String code, String label) {
-    return new StringPropertyDefinition(label == null ? code : label);
+    return new StringPropertyDefinition(code, label);
   }
 
   /**
@@ -135,7 +135,7 @@ public abstract class PropertyDefinition {
           "Deprecated since version 2.3.3, use longText(String name) instead. Scheduled for removal in version 3.0.0.",
       forRemoval = true)
   public static LongTextPropertyDefinition longText(String code, String label) {
-    return new LongTextPropertyDefinition(label);
+    return new LongTextPropertyDefinition(code, label);
   }
 
   /**
@@ -160,7 +160,7 @@ public abstract class PropertyDefinition {
           "Deprecated since version 2.3.3, use instant(String name) instead. Scheduled for removal in version 3.0.0.",
       forRemoval = true)
   public static InstantPropertyDefinition instant(String code, String label) {
-    return new InstantPropertyDefinition(label);
+    return new InstantPropertyDefinition(code, label);
   }
 
   /**
@@ -185,7 +185,7 @@ public abstract class PropertyDefinition {
           "Deprecated since version 2.3.3, use number(String name) instead. Scheduled for removal in version 3.0.0.",
       forRemoval = true)
   public static NumberPropertyDefinition number(String code, String label) {
-    return new NumberPropertyDefinition(label);
+    return new NumberPropertyDefinition(code, label);
   }
 
   /**
@@ -210,7 +210,7 @@ public abstract class PropertyDefinition {
           "Deprecated since version 2.3.3, use tag(String name) instead. Scheduled for removal in version 3.0.0.",
       forRemoval = true)
   public static TagPropertyDefinition tag(String code, String label) {
-    return new TagPropertyDefinition(label);
+    return new TagPropertyDefinition(code, label);
   }
 
   /**
@@ -235,7 +235,7 @@ public abstract class PropertyDefinition {
           "Deprecated since version 2.3.3, use url(String name) instead. Scheduled for removal in version 3.0.0.",
       forRemoval = true)
   public static UrlPropertyDefinition url(String code, String label) {
-    return new UrlPropertyDefinition(label);
+    return new UrlPropertyDefinition(code, label);
   }
 
   /**
