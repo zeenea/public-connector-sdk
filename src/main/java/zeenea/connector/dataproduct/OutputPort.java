@@ -4,6 +4,7 @@ import java.util.*;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import zeenea.connector.common.ItemIdentifier;
+import zeenea.connector.contact.Contact;
 import zeenea.connector.dataset.Dataset;
 import zeenea.connector.exception.ExceptionUtils;
 import zeenea.connector.property.*;
@@ -29,6 +30,9 @@ public final class OutputPort {
   /** The properties of the output port. */
   @NotNull private final Map<String, PropertyValue> properties;
 
+  /** The contacts of the output port. */
+  @NotNull private final List<Contact> contacts;
+
   /**
    * Constructs an OutputPort instance using the provided builder.
    *
@@ -46,6 +50,7 @@ public final class OutputPort {
     this.dataContract = builder.dataContract;
     this.datasets = builder.datasets;
     this.properties = builder.properties;
+    this.contacts = List.copyOf(builder.contacts);
   }
 
   /**
@@ -101,6 +106,15 @@ public final class OutputPort {
    */
   public @NotNull Map<String, PropertyValue> getProperties() {
     return properties;
+  }
+
+  /**
+   * Gets the contacts of the output port.
+   *
+   * @return a collection of the contacts of the output port
+   */
+  public Collection<Contact> getContacts() {
+    return contacts;
   }
 
   /**
@@ -182,6 +196,9 @@ public final class OutputPort {
     /** The properties of the output port. */
     private Map<String, PropertyValue> properties = Collections.emptyMap();
 
+    /** The contact relations of the output port. */
+    private List<Contact> contacts = List.of();
+
     /**
      * Sets the identifier of the output port.
      *
@@ -256,6 +273,28 @@ public final class OutputPort {
      */
     public Builder properties(Map<String, PropertyValue> properties) {
       this.properties = Map.copyOf(properties);
+      return this;
+    }
+
+    /**
+     * Set a list of contacts to the output port.
+     *
+     * @param contacts the list of contacts to add
+     * @return the builder instance
+     */
+    public Builder contacts(@NotNull List<Contact> contacts) {
+      this.contacts = List.copyOf(contacts);
+      return this;
+    }
+
+    /**
+     * Set a list of contacts to the output port.
+     *
+     * @param contacts the list of contacts to add
+     * @return the builder instance
+     */
+    public Builder contacts(Contact... contacts) {
+      this.contacts = List.of(contacts);
       return this;
     }
 
