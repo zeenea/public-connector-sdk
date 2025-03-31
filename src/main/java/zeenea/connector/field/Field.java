@@ -49,6 +49,12 @@ public class Field {
    */
   @NotNull private final List<ItemReference> sourceFields;
 
+  /** The glossaryRefs of the item. */
+  private final List<String> glossaryRefs;
+
+  /** The customItemRefs of the item. */
+  private final List<String> customItemRefs;
+
   /**
    * Constructs a Field instance using the provided builder.
    *
@@ -65,6 +71,8 @@ public class Field {
     this.description = builder.description;
     this.properties = new HashMap<>(builder.properties);
     this.sourceFields = builder.sourceFields;
+    this.glossaryRefs = List.copyOf(builder.glossaryRefs);
+    this.customItemRefs = List.copyOf(builder.customItemRefs);
   }
 
   /**
@@ -155,6 +163,24 @@ public class Field {
    */
   public List<ItemReference> getSourceField() {
     return sourceFields;
+  }
+
+  /**
+   * Gets the list of glossary refs.
+   *
+   * @return the list of glossary refs
+   */
+  public Collection<String> getGlossaryRefs() {
+    return glossaryRefs;
+  }
+
+  /**
+   * Gets the list of custom item refs.
+   *
+   * @return the list of custom item refs
+   */
+  public Collection<String> getCustomItemRefs() {
+    return customItemRefs;
   }
 
   /**
@@ -279,6 +305,12 @@ public class Field {
     /** The list of source field associated with the field. */
     private List<ItemReference> sourceFields = new ArrayList<>();
 
+    /** The list of glossary refs associated with the field. */
+    private List<String> glossaryRefs = List.of();
+
+    /** The list of custom item refs associated with the field. */
+    private List<String> customItemRefs = List.of();
+
     /** Protected constructor for the Builder class. */
     protected Builder() {}
 
@@ -400,6 +432,50 @@ public class Field {
      */
     public THIS sourceFields(ItemReference... sourceFields) {
       this.sourceFields = List.of(sourceFields);
+      return self();
+    }
+
+    /**
+     * Sets the list of glossary refs associated with the field.
+     *
+     * @param glossaryRefs the list of glossary refs associated with the field
+     * @return the Builder instance
+     */
+    public THIS glossaryRefs(@NotNull Collection<String> glossaryRefs) {
+      this.glossaryRefs = List.copyOf(glossaryRefs);
+      return self();
+    }
+
+    /**
+     * Sets the list of glossary refs associated with the field.
+     *
+     * @param glossaryRefs the list of glossary refs associated with the field
+     * @return the Builder instance
+     */
+    public THIS glossaryRefs(String... glossaryRefs) {
+      this.glossaryRefs = List.of(glossaryRefs);
+      return self();
+    }
+
+    /**
+     * Sets the list of custom item refs associated with the field.
+     *
+     * @param customItemRefs the list of custom item refs associated with the field
+     * @return the Builder instance
+     */
+    public THIS customItemRefs(@NotNull Collection<String> customItemRefs) {
+      this.customItemRefs = List.copyOf(customItemRefs);
+      return self();
+    }
+
+    /**
+     * Sets the list of custom item refs associated with the field.
+     *
+     * @param customItemRefs the list of custom item refs associated with the field
+     * @return the Builder instance
+     */
+    public THIS customItemRefs(String... customItemRefs) {
+      this.customItemRefs = List.of(customItemRefs);
       return self();
     }
 
