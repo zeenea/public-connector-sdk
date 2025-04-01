@@ -2,6 +2,7 @@ package zeenea.connector;
 
 import java.nio.file.Path;
 import java.util.Optional;
+import zeenea.connector.common.filter.FilterConfiguration;
 import zeenea.connector.exception.InvalidConfigurationException;
 
 /**
@@ -76,6 +77,13 @@ public interface ConnectionConfiguration {
    * @throws InvalidConfigurationException if the configuration is invalid
    */
   Path getPath(String key) throws InvalidConfigurationException;
+
+  /**
+   * Gets filters defined in connector configuration file.
+   *
+   * @return Filters object representing filtering rules
+   */
+  FilterConfiguration getFilters();
 
   /**
    * Gets an optional string value associated with the specified key.
