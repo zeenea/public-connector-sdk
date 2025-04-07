@@ -34,6 +34,12 @@ public abstract class Item {
   /** The contacts of the item. */
   private final List<Contact> contacts;
 
+  /** The glossaryRefs of the item. */
+  private final List<String> glossaryRefs;
+
+  /** The customItemRefs of the item. */
+  private final List<String> customItemRefs;
+
   /**
    * Constructs an Item instance using the provided builder.
    *
@@ -45,6 +51,8 @@ public abstract class Item {
     this.description = builder.description;
     this.properties = new HashMap<>(builder.properties);
     this.contacts = List.copyOf(builder.contacts);
+    this.glossaryRefs = List.copyOf(builder.glossaryRefs);
+    this.customItemRefs = List.copyOf(builder.customItemRefs);
   }
 
   /**
@@ -94,6 +102,24 @@ public abstract class Item {
   }
 
   /**
+   * Gets the glossary refs of the item.
+   *
+   * @return a collection of the glossary refs of the item
+   */
+  public Collection<String> getGlossaryRefs() {
+    return glossaryRefs;
+  }
+
+  /**
+   * Gets the custom item refs of the item.
+   *
+   * @return a collection of the custom item refs of the item
+   */
+  public Collection<String> getCustomItemRefs() {
+    return customItemRefs;
+  }
+
+  /**
    * Abstract builder class for creating instances of items.
    *
    * @param <T> the type of item being built
@@ -115,6 +141,12 @@ public abstract class Item {
 
     /** The contact relations of the item. */
     private List<Contact> contacts = List.of();
+
+    /** The glossary refs of the item. */
+    private List<String> glossaryRefs = List.of();
+
+    /** The custom item refs of the item. */
+    private List<String> customItemRefs = List.of();
 
     /**
      * Sets the identifier of the item.
@@ -190,6 +222,50 @@ public abstract class Item {
      */
     public THIS contacts(Contact... contacts) {
       this.contacts = List.of(contacts);
+      return self();
+    }
+
+    /**
+     * Set a list of glossary refs to the item.
+     *
+     * @param glossaryRefs the list of glossary refs to add
+     * @return the builder instance
+     */
+    public THIS glossaryRefs(@NotNull Collection<String> glossaryRefs) {
+      this.glossaryRefs = List.copyOf(glossaryRefs);
+      return self();
+    }
+
+    /**
+     * Set a list of glossary refs to the item.
+     *
+     * @param glossaryRefs the list of glossary refs to add
+     * @return the builder instance
+     */
+    public THIS glossaryRefs(String... glossaryRefs) {
+      this.glossaryRefs = List.of(glossaryRefs);
+      return self();
+    }
+
+    /**
+     * Set a list of custom item refs to the item.
+     *
+     * @param customItemRefs the list of custom item refs to add
+     * @return the builder instance
+     */
+    public THIS customItemRefs(@NotNull Collection<String> customItemRefs) {
+      this.customItemRefs = List.copyOf(customItemRefs);
+      return self();
+    }
+
+    /**
+     * Set a list of custom item refs to the item.
+     *
+     * @param customItemRefs the list of custom item refs to add
+     * @return the builder instance
+     */
+    public THIS customItemRefs(String... customItemRefs) {
+      this.customItemRefs = List.of(customItemRefs);
       return self();
     }
 
