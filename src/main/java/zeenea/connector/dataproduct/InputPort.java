@@ -25,6 +25,12 @@ public final class InputPort {
   /** The list of output identifiers for the input port. */
   @NotNull private final List<ItemIdentifier> outputs;
 
+  /** The glossaryRefs of the input port. */
+  @NotNull private final List<String> glossaryRefs;
+
+  /** The customItemRefs of the input port. */
+  @NotNull private final List<String> customItemRefs;
+
   /**
    * Constructs an InputPort instance using the provided builder.
    *
@@ -39,6 +45,8 @@ public final class InputPort {
     this.description = builder.description;
     this.inputs = List.copyOf(builder.inputs);
     this.outputs = List.copyOf(builder.outputs);
+    this.glossaryRefs = List.copyOf(builder.glossaryRefs);
+    this.customItemRefs = List.copyOf(builder.customItemRefs);
   }
 
   /**
@@ -85,6 +93,24 @@ public final class InputPort {
    */
   public @NotNull List<ItemIdentifier> getOutputs() {
     return outputs;
+  }
+
+  /**
+   * Gets the glossary refs of the input port.
+   *
+   * @return a collection of the glossary refs of the input port
+   */
+  public Collection<String> getGlossaryRefs() {
+    return glossaryRefs;
+  }
+
+  /**
+   * Gets the custom item refs of the input port.
+   *
+   * @return a collection of the custom item refs of the input port
+   */
+  public Collection<String> getCustomItemRefs() {
+    return customItemRefs;
   }
 
   /**
@@ -157,6 +183,12 @@ public final class InputPort {
     private List<ItemReference> inputs = Collections.emptyList();
 
     private List<ItemIdentifier> outputs = Collections.emptyList();
+
+    /** The glossary refs of the input port. */
+    private List<String> glossaryRefs = List.of();
+
+    /** The custom item refs of the input port. */
+    private List<String> customItemRefs = List.of();
 
     /**
      * Sets the identifier of the input port.
@@ -232,6 +264,50 @@ public final class InputPort {
      */
     public Builder outputs(ItemIdentifier... outputs) {
       this.outputs = List.of(outputs);
+      return this;
+    }
+
+    /**
+     * Set a list of glossary refs to the input port.
+     *
+     * @param glossaryRefs the list of glossary refs to add
+     * @return the builder instance
+     */
+    public Builder glossaryRefs(@NotNull Collection<String> glossaryRefs) {
+      this.glossaryRefs = List.copyOf(glossaryRefs);
+      return this;
+    }
+
+    /**
+     * Set a list of glossary refs to the input port.
+     *
+     * @param glossaryRefs the list of glossary refs to add
+     * @return the builder instance
+     */
+    public Builder glossaryRefs(String... glossaryRefs) {
+      this.glossaryRefs = List.of(glossaryRefs);
+      return this;
+    }
+
+    /**
+     * Set a list of custom item refs to the input port.
+     *
+     * @param customItemRefs the list of custom item refs to add
+     * @return the builder instance
+     */
+    public Builder customItemRefs(@NotNull Collection<String> customItemRefs) {
+      this.customItemRefs = List.copyOf(customItemRefs);
+      return this;
+    }
+
+    /**
+     * Set a list of custom item refs to the input port.
+     *
+     * @param customItemRefs the list of custom item refs to add
+     * @return the builder instance
+     */
+    public Builder customItemRefs(String... customItemRefs) {
+      this.customItemRefs = List.of(customItemRefs);
       return this;
     }
 
