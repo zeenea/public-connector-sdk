@@ -94,7 +94,7 @@ public interface ConnectionConfiguration {
    * "DEFAULT_SCHEMA":"zeenea_db" }
    *
    * @param key the key for the Map value
-   * @return the Map associated with the key, empty if not values matched
+   * @return the Map associated with the key, empty if not found
    * @throws InvalidConfigurationException if the value does not correspond to a Map
    */
   Map<String, String> getMap(String key) throws InvalidConfigurationException;
@@ -105,7 +105,7 @@ public interface ConnectionConfiguration {
    * <p>example: environment.variables = [ "zeenea_db", "music", "artist" ]
    *
    * @param key the key for the List value
-   * @return the List associated with the key, empty if not values matched
+   * @return the List associated with the key, empty if not found
    * @throws InvalidConfigurationException if the value does not correspond to a List
    */
   List<String> getList(String key) throws InvalidConfigurationException;
