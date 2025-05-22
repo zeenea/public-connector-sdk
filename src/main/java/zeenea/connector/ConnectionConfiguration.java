@@ -1,6 +1,8 @@
 package zeenea.connector;
 
 import java.nio.file.Path;
+import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import zeenea.connector.common.filter.FilterConfiguration;
 import zeenea.connector.exception.InvalidConfigurationException;
@@ -84,6 +86,29 @@ public interface ConnectionConfiguration {
    * @return Filters object representing filtering rules
    */
   FilterConfiguration getFilters();
+
+  /**
+   * Gets a Map associated with the specified key.
+   *
+   * <p>Example: environment.variables { "DEFAULT_WAREHOUSE":"zeenea_wh",
+   * "DEFAULT_SCHEMA":"zeenea_db" }
+   *
+   * @param key the key for the Map value
+   * @return the Map associated with the key, empty if not values matched
+   * @throws InvalidConfigurationException if the value does not correspond to a Map
+   */
+  Map<String, String> getMap(String key) throws InvalidConfigurationException;
+
+  /**
+   * Gets a List associated with the specified key.
+   *
+   * <p>example: environment.variables = [ "zeenea_db", "music", "artist" ]
+   *
+   * @param key the key for the List value
+   * @return the List associated with the key, empty if not values matched
+   * @throws InvalidConfigurationException if the value does not correspond to a List
+   */
+  List<String> getList(String key) throws InvalidConfigurationException;
 
   /**
    * Gets an optional string value associated with the specified key.
