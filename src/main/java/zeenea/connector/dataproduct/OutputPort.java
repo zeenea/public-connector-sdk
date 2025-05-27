@@ -4,6 +4,7 @@ import java.util.*;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import zeenea.connector.common.ItemIdentifier;
+import zeenea.connector.common.ItemReference;
 import zeenea.connector.contact.Contact;
 import zeenea.connector.dataset.Dataset;
 import zeenea.connector.exception.ExceptionUtils;
@@ -39,6 +40,9 @@ public final class OutputPort {
   /** The customItemRefs of the output port. */
   @NotNull private final List<String> customItemRefs;
 
+  /** The dataset references that can be linked to the output port. */
+  @NotNull private final List<ItemReference> datasetReferences;
+
   /**
    * Constructs an OutputPort instance using the provided builder.
    *
@@ -59,6 +63,7 @@ public final class OutputPort {
     this.contacts = List.copyOf(builder.contacts);
     this.glossaryRefs = List.copyOf(builder.glossaryRefs);
     this.customItemRefs = List.copyOf(builder.customItemRefs);
+    this.datasetReferences = List.copyOf(builder.datasetReferences);
   }
 
   /**
@@ -141,6 +146,16 @@ public final class OutputPort {
    */
   public Collection<String> getCustomItemRefs() {
     return customItemRefs;
+  }
+
+  /**
+   * Gets the dataset references from external systems that can be linked to the output port.
+   *
+   * @return a collection dataset references from external systems that can be linked to the output
+   *     port.
+   */
+  public @NotNull List<ItemReference> getDatasetReferences() {
+    return datasetReferences;
   }
 
   /**
@@ -230,6 +245,9 @@ public final class OutputPort {
 
     /** The custom item refs of the output port. */
     private List<String> customItemRefs = List.of();
+
+    /** The dataset references that can be linked to the output port. */
+    private List<ItemReference> datasetReferences = List.of();
 
     /**
      * Sets the identifier of the output port.
@@ -371,6 +389,17 @@ public final class OutputPort {
      */
     public Builder customItemRefs(String... customItemRefs) {
       this.customItemRefs = List.of(customItemRefs);
+      return this;
+    }
+
+    /**
+     * Set a list of dataset references that can be linked to the output port
+     *
+     * @param datasetReferences the list of dataset references to add
+     * @return the builder instance
+     */
+    public Builder datasetReferences(ItemReference... datasetReferences) {
+      this.datasetReferences = List.of(datasetReferences);
       return this;
     }
 
