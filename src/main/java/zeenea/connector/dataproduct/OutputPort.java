@@ -398,6 +398,17 @@ public final class OutputPort {
      * @param datasetReferences the list of dataset references to add
      * @return the builder instance
      */
+    public Builder datasetReferences(Collection<ItemReference> datasetReferences) {
+      this.datasetReferences = List.copyOf(datasetReferences);
+      return this;
+    }
+
+    /**
+     * Set a list of dataset references that can be linked to the output port
+     *
+     * @param datasetReferences the list of dataset references to add
+     * @return the builder instance
+     */
     public Builder datasetReferences(ItemReference... datasetReferences) {
       this.datasetReferences = List.of(datasetReferences);
       return this;
