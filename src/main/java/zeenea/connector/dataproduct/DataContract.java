@@ -2,18 +2,27 @@ package zeenea.connector.dataproduct;
 
 import java.util.Objects;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 /** Represents a data contract with a specific type and source. */
 public final class DataContract {
 
-  /** Enum representing the type of the data contract. */
+  /**
+   * Enum representing the type of the data contract.
+   *
+   * @deprecated since 2.9.0
+   */
   public enum Type {
     Custom,
     DataContractDotCom
   }
 
   /** The type of the data contract. */
-  @NotNull private final Type type;
+  @Deprecated(
+      since = "Deprecated since version 2.9.0. Scheduled for removal in version 3.0.0.",
+      forRemoval = true)
+  @Nullable
+  private final Type type;
 
   /** The source of the data contract. */
   @NotNull private final String source;
@@ -24,7 +33,7 @@ public final class DataContract {
    * @param builder the builder used to create the DataContract instance
    */
   private DataContract(Builder builder) {
-    this.type = Objects.requireNonNull(builder.type, "type");
+    this.type = Objects.requireNonNullElse(builder.type, Type.Custom);
     this.source = Objects.requireNonNull(builder.source, "source");
   }
 
@@ -35,7 +44,7 @@ public final class DataContract {
    * @param source the source of the data contract
    * @return a new DataContract instance
    */
-  public static DataContract of(@NotNull Type type, @NotNull String source) {
+  public static DataContract of(@Nullable Type type, @NotNull String source) {
     return builder().type(type).source(source).build();
   }
 
@@ -44,7 +53,10 @@ public final class DataContract {
    *
    * @return the type of the data contract
    */
-  public @NotNull Type getType() {
+  @Deprecated(
+      since = "Deprecated since 2.9.0. Scheduled for removal in version 3.0.0.",
+      forRemoval = true)
+  public @Nullable Type getType() {
     return type;
   }
 
@@ -104,6 +116,9 @@ public final class DataContract {
   public static class Builder {
 
     /** The type of the data contract. */
+    @Deprecated(
+        since = "Deprecated since 2.9.0. Scheduled for removal in version 3.0.0.",
+        forRemoval = true)
     private Type type;
 
     /** The source of the data contract. */
@@ -115,8 +130,11 @@ public final class DataContract {
      * @param type the type of the data contract
      * @return the builder instance
      */
-    public Builder type(@NotNull Type type) {
-      this.type = type;
+    @Deprecated(
+        since = "Deprecated since 2.9.0. Scheduled for removal in version 3.0.0.",
+        forRemoval = true)
+    public Builder type(@Nullable Type type) {
+      this.type = Objects.requireNonNullElse(type, Type.Custom);
       return this;
     }
 
