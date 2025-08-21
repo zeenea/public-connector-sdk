@@ -1,6 +1,7 @@
 package zeenea.connector.common;
 
 import java.util.*;
+import java.util.stream.Collectors;
 import org.jetbrains.annotations.NotNull;
 import zeenea.connector.exception.ExceptionUtils;
 
@@ -62,6 +63,33 @@ public final class ItemIdentifier {
    */
   public @NotNull List<IdentificationProperty> getIdentificationProperties() {
     return identificationProperties;
+  }
+
+  /**
+   * Gets an optional unique property value for the specified key.
+   *
+   * @param key the key of the identification property
+   * @return an Optional containing the unique property value if it exists, otherwise an empty
+   *     Optional
+   */
+  public @NotNull Optional<String> getUniquePropertyValue(String key) {
+    List<String> values = getPropertyValues(key);
+    if (values.size() > 1) throw new IllegalStateException("Multiple values found for key: " + key);
+    if (values.isEmpty()) return Optional.empty();
+    return Optional.of(values.get(0));
+  }
+
+  /**
+   * Gets a list of property values for the specified key.
+   *
+   * @param key the key of the identification property
+   * @return a list of property values for the specified key
+   */
+  public @NotNull List<String> getPropertyValues(String key) {
+    return identificationProperties.stream()
+        .filter(prop -> prop.getKey().equals(key))
+        .map(IdentificationProperty::getValue)
+        .collect(Collectors.toList());
   }
 
   /**
