@@ -35,9 +35,12 @@ class DataContractTest {
   }
 
   @Test
-  @DisplayName("DataContract factory should fail with null type")
+  @DisplayName(
+      "DataContract factory should not fail with null type and return Custom type contract")
   void shouldFailWithNullType() {
-    assertThrows(NullPointerException.class, () -> DataContract.of(null, "sourceValue"));
+    assertEquals(
+        DataContract.of(null, "sourceValue"),
+        DataContract.of(DataContract.Type.Custom, "sourceValue"));
   }
 
   @Test
