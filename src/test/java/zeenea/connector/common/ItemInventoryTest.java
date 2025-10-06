@@ -1,6 +1,6 @@
 package zeenea.connector.common;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.assertj.core.api.Assertions.*;
 
 import java.util.List;
 import org.junit.jupiter.api.DisplayName;
@@ -18,9 +18,9 @@ class ItemInventoryTest {
             IdentificationProperty.of("label1", "value1"),
             IdentificationProperty.of("label2", "value2"));
     ItemInventory inventory = ItemInventory.of(identifier, labelIdentifier);
-    assertNotNull(inventory);
-    assertEquals(identifier, inventory.getItemIdentifier());
-    assertEquals(labelIdentifier, inventory.getLabelIdentifier());
+    assertThat(inventory).isNotNull();
+    assertThat(inventory.getItemIdentifier()).isEqualTo(identifier);
+    assertThat(inventory.getLabelIdentifier()).isEqualTo(labelIdentifier);
   }
 
   @Test
@@ -34,8 +34,8 @@ class ItemInventoryTest {
             IdentificationProperty.of("label2", "value2"));
     ItemInventory inventory1 = ItemInventory.of(identifier, labelIdentifier);
     ItemInventory inventory2 = ItemInventory.of(identifier, labelIdentifier);
-    assertEquals(inventory1, inventory2);
-    assertEquals(inventory1.hashCode(), inventory2.hashCode());
+    assertThat(inventory1).isEqualTo(inventory2);
+    assertThat(inventory1.hashCode()).isEqualTo(inventory2.hashCode());
   }
 
   @Test
@@ -56,7 +56,7 @@ class ItemInventoryTest {
 
     ItemInventory inventory1 = ItemInventory.of(identifier1, labelIdentifier1);
     ItemInventory inventory2 = ItemInventory.of(identifier2, labelIdentifier2);
-    assertNotEquals(inventory1, inventory2);
+    assertThat(inventory1).isNotEqualTo(inventory2);
   }
 
   @Test
@@ -66,7 +66,8 @@ class ItemInventoryTest {
         LabelIdentifier.of(
             IdentificationProperty.of("label1", "value1"),
             IdentificationProperty.of("label2", "value2"));
-    assertThrows(NullPointerException.class, () -> ItemInventory.of(null, labelIdentifier));
+    assertThatThrownBy(() -> ItemInventory.of(null, labelIdentifier))
+        .isInstanceOf(NullPointerException.class);
   }
 
   @Test
@@ -75,6 +76,7 @@ class ItemInventoryTest {
     ItemIdentifier identifier =
         ItemIdentifier.of(List.of(IdentificationProperty.of("key", "value")));
     LabelIdentifier labelIdentifier = null;
-    assertThrows(NullPointerException.class, () -> ItemInventory.of(identifier, labelIdentifier));
+    assertThatThrownBy(() -> ItemInventory.of(identifier, labelIdentifier))
+        .isInstanceOf(NullPointerException.class);
   }
 }

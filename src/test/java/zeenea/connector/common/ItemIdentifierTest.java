@@ -1,10 +1,9 @@
 package zeenea.connector.common;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.assertj.core.api.Assertions.*;
 
 import java.util.List;
 import java.util.Optional;
-import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -15,9 +14,9 @@ class ItemIdentifierTest {
   void shouldCreateItemIdentifier() {
     IdentificationProperty prop = IdentificationProperty.of("key", "value");
     ItemIdentifier identifier = ItemIdentifier.of(List.of(prop));
-    assertNotNull(identifier);
-    assertEquals(1, identifier.getIdentificationProperties().size());
-    assertEquals(prop, identifier.getIdentificationProperties().get(0));
+    assertThat(identifier).isNotNull();
+    assertThat(identifier.getIdentificationProperties()).hasSize(1);
+    assertThat(identifier.getIdentificationProperties().get(0)).isEqualTo(prop);
   }
 
   @Test
@@ -27,11 +26,11 @@ class ItemIdentifierTest {
     IdentificationProperty prop2 = IdentificationProperty.of("key2", "value2");
     ItemIdentifier identifier1 = ItemIdentifier.of(List.of(prop1));
     ItemIdentifier identifier2 = identifier1.withPrefix(prop2);
-    assertEquals(1, identifier1.getIdentificationProperties().size());
-    assertEquals(2, identifier2.getIdentificationProperties().size());
-    assertEquals(prop2, identifier2.getIdentificationProperties().get(0));
-    assertEquals(prop1, identifier2.getIdentificationProperties().get(1));
-    assertEquals(prop1, identifier1.getIdentificationProperties().get(0));
+    assertThat(identifier1.getIdentificationProperties()).hasSize(1);
+    assertThat(identifier2.getIdentificationProperties()).hasSize(2);
+    assertThat(identifier2.getIdentificationProperties().get(0)).isEqualTo(prop2);
+    assertThat(identifier2.getIdentificationProperties().get(1)).isEqualTo(prop1);
+    assertThat(identifier1.getIdentificationProperties().get(0)).isEqualTo(prop1);
   }
 
   @Test
@@ -41,11 +40,11 @@ class ItemIdentifierTest {
     IdentificationProperty prop2 = IdentificationProperty.of("key2", "value2");
     ItemIdentifier identifier1 = ItemIdentifier.of(List.of(prop1));
     ItemIdentifier identifier2 = identifier1.withSuffix(prop2);
-    assertEquals(1, identifier1.getIdentificationProperties().size());
-    assertEquals(2, identifier2.getIdentificationProperties().size());
-    assertEquals(prop1, identifier2.getIdentificationProperties().get(0));
-    assertEquals(prop2, identifier2.getIdentificationProperties().get(1));
-    assertEquals(prop1, identifier1.getIdentificationProperties().get(0));
+    assertThat(identifier1.getIdentificationProperties()).hasSize(1);
+    assertThat(identifier2.getIdentificationProperties()).hasSize(2);
+    assertThat(identifier2.getIdentificationProperties().get(0)).isEqualTo(prop1);
+    assertThat(identifier2.getIdentificationProperties().get(1)).isEqualTo(prop2);
+    assertThat(identifier1.getIdentificationProperties().get(0)).isEqualTo(prop1);
   }
 
   @Test
@@ -55,7 +54,7 @@ class ItemIdentifierTest {
     IdentificationProperty prop2 = IdentificationProperty.of("key2", "value2");
     ItemIdentifier identifier = ItemIdentifier.of(List.of(prop1, prop2));
     Optional<String> map = identifier.getUniquePropertyValue("key2");
-    Assertions.assertThat(map).isPresent().hasValue("value2");
+    assertThat(map).isPresent().hasValue("value2");
   }
 
   @Test
@@ -65,7 +64,7 @@ class ItemIdentifierTest {
     IdentificationProperty prop2 = IdentificationProperty.of("key2", "value2");
     ItemIdentifier identifier = ItemIdentifier.of(List.of(prop1, prop2));
     Optional<String> map = identifier.getUniquePropertyValue("key3");
-    Assertions.assertThat(map).isEmpty();
+    assertThat(map).isEmpty();
   }
 
   @Test
@@ -75,7 +74,7 @@ class ItemIdentifierTest {
     IdentificationProperty prop1 = IdentificationProperty.of("key1", "value1");
     IdentificationProperty prop2 = IdentificationProperty.of("key1", "value2");
     ItemIdentifier identifier = ItemIdentifier.of(List.of(prop1, prop2));
-    Assertions.assertThatThrownBy(() -> identifier.getUniquePropertyValue("key1"))
+    assertThatThrownBy(() -> identifier.getUniquePropertyValue("key1"))
         .isInstanceOf(IllegalStateException.class)
         .hasMessage("Multiple values found for key: key1");
   }
@@ -87,15 +86,14 @@ class ItemIdentifierTest {
     IdentificationProperty prop2 = IdentificationProperty.of("key1", "value2");
     ItemIdentifier identifier = ItemIdentifier.of(List.of(prop1, prop2));
     List<String> map = identifier.getPropertyValues("key1");
-    Assertions.assertThat(map).hasSize(2).containsExactlyInAnyOrder("value1", "value2");
+    assertThat(map).hasSize(2).containsExactlyInAnyOrder("value1", "value2");
   }
 
   @Test
   @DisplayName("ItemIdentifier factory should fail with empty identification properties")
   void shouldFailWithEmptyIdentificationProperties() {
-    assertThrows(
-        IllegalArgumentException.class,
-        () -> ItemIdentifier.of(List.of()),
-        "identificationProperties cannot be null");
+    assertThatThrownBy(() -> ItemIdentifier.of(List.of()))
+        .isInstanceOf(IllegalArgumentException.class)
+        .describedAs("identificationProperties cannot be null");
   }
 }

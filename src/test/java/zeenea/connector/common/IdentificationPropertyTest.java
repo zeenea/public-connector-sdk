@@ -1,6 +1,6 @@
 package zeenea.connector.common;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.assertj.core.api.Assertions.*;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -11,9 +11,9 @@ class IdentificationPropertyTest {
   @DisplayName("IdentificationProperty factory should create identification property")
   void shouldCreateIdentificationProperty() {
     IdentificationProperty prop = IdentificationProperty.of("key", "value");
-    assertNotNull(prop);
-    assertEquals("key", prop.getKey());
-    assertEquals("value", prop.getValue());
+    assertThat(prop).isNotNull();
+    assertThat(prop.getKey()).isEqualTo("key");
+    assertThat(prop.getValue()).isEqualTo("value");
   }
 
   @Test
@@ -21,8 +21,8 @@ class IdentificationPropertyTest {
   void shouldBeEqualToAnotherWithSameProperties() {
     IdentificationProperty prop1 = IdentificationProperty.of("key", "value");
     IdentificationProperty prop2 = IdentificationProperty.of("key", "value");
-    assertEquals(prop1, prop2);
-    assertEquals(prop1.hashCode(), prop2.hashCode());
+    assertThat(prop1).isEqualTo(prop2);
+    assertThat(prop1.hashCode()).isEqualTo(prop2.hashCode());
   }
 
   @Test
@@ -30,18 +30,20 @@ class IdentificationPropertyTest {
   void shouldNotBeEqualToAnotherWithDifferentProperties() {
     IdentificationProperty prop1 = IdentificationProperty.of("key1", "value1");
     IdentificationProperty prop2 = IdentificationProperty.of("key2", "value2");
-    assertNotEquals(prop1, prop2);
+    assertThat(prop1).isNotEqualTo(prop2);
   }
 
   @Test
   @DisplayName("IdentificationProperty factory should fail with null key")
   void shouldFailWithNullKey() {
-    assertThrows(NullPointerException.class, () -> IdentificationProperty.of(null, "value"));
+    assertThatThrownBy(() -> IdentificationProperty.of(null, "value"))
+        .isInstanceOf(NullPointerException.class);
   }
 
   @Test
   @DisplayName("IdentificationProperty factory should fail with null value")
   void shouldFailWithNullValue() {
-    assertThrows(NullPointerException.class, () -> IdentificationProperty.of("key", null));
+    assertThatThrownBy(() -> IdentificationProperty.of("key", null))
+        .isInstanceOf(NullPointerException.class);
   }
 }

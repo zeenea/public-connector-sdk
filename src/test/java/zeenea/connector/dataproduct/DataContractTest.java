@@ -1,6 +1,6 @@
 package zeenea.connector.dataproduct;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.assertj.core.api.Assertions.*;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -11,9 +11,9 @@ class DataContractTest {
   @DisplayName("DataContract factory should create data contract")
   void shouldCreateDataContract() {
     DataContract dataContract = DataContract.of(DataContract.Type.Custom, "sourceValue");
-    assertNotNull(dataContract);
-    assertEquals(DataContract.Type.Custom, dataContract.getType());
-    assertEquals("sourceValue", dataContract.getSource());
+    assertThat(dataContract).isNotNull();
+    assertThat(dataContract.getType()).isEqualTo(DataContract.Type.Custom);
+    assertThat(dataContract.getSource()).isEqualTo("sourceValue");
   }
 
   @Test
@@ -21,8 +21,8 @@ class DataContractTest {
   void shouldBeEqualToAnotherWithSameProperties() {
     DataContract dataContract1 = DataContract.of(DataContract.Type.Custom, "sourceValue");
     DataContract dataContract2 = DataContract.of(DataContract.Type.Custom, "sourceValue");
-    assertEquals(dataContract1, dataContract2);
-    assertEquals(dataContract1.hashCode(), dataContract2.hashCode());
+    assertThat(dataContract1).isEqualTo(dataContract2);
+    assertThat(dataContract1.hashCode()).isEqualTo(dataContract2.hashCode());
   }
 
   @Test
@@ -31,21 +31,21 @@ class DataContractTest {
     DataContract dataContract1 = DataContract.of(DataContract.Type.Custom, "sourceValue1");
     DataContract dataContract2 =
         DataContract.of(DataContract.Type.DataContractDotCom, "sourceValue2");
-    assertNotEquals(dataContract1, dataContract2);
+    assertThat(dataContract1).isNotEqualTo(dataContract2);
   }
 
   @Test
   @DisplayName(
       "DataContract factory should not fail with null type and return Custom type contract")
   void shouldFailWithNullType() {
-    assertEquals(
-        DataContract.of(null, "sourceValue"),
-        DataContract.of(DataContract.Type.Custom, "sourceValue"));
+    assertThat(DataContract.of(null, "sourceValue"))
+        .isEqualTo(DataContract.of(DataContract.Type.Custom, "sourceValue"));
   }
 
   @Test
   @DisplayName("DataContract factory should fail with null source")
   void shouldFailWithNullSource() {
-    assertThrows(NullPointerException.class, () -> DataContract.of(DataContract.Type.Custom, null));
+    assertThatThrownBy(() -> DataContract.of(DataContract.Type.Custom, null))
+        .isInstanceOf(NullPointerException.class);
   }
 }

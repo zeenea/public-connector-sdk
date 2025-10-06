@@ -1,6 +1,6 @@
 package zeenea.connector.contact;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.assertj.core.api.Assertions.*;
 
 import java.util.Optional;
 import org.junit.jupiter.api.DisplayName;
@@ -12,17 +12,17 @@ class ContactTest {
   @DisplayName("Contact factory should create contact")
   void shouldCreateContact() {
     Contact contact1 = Contact.of("email@example.com", "John Doe", "1234567890", "Admin");
-    assertNotNull(contact1);
-    assertEquals("email@example.com", contact1.getEmail());
-    assertEquals(Optional.of("John Doe"), contact1.getName());
-    assertEquals(Optional.of("1234567890"), contact1.getPhoneNumber());
-    assertEquals("Admin", contact1.getRole());
+    assertThat(contact1).isNotNull();
+    assertThat(contact1.getEmail()).isEqualTo("email@example.com");
+    assertThat(contact1.getName()).isEqualTo(Optional.of("John Doe"));
+    assertThat(contact1.getPhoneNumber()).isEqualTo(Optional.of("1234567890"));
+    assertThat(contact1.getRole()).isEqualTo("Admin");
     Contact contact2 = Contact.of("email@example.com", null, null, "Admin");
-    assertNotNull(contact2);
-    assertEquals("email@example.com", contact2.getEmail());
-    assertEquals(Optional.empty(), contact2.getName());
-    assertEquals(Optional.empty(), contact2.getPhoneNumber());
-    assertEquals("Admin", contact2.getRole());
+    assertThat(contact2).isNotNull();
+    assertThat(contact2.getEmail()).isEqualTo("email@example.com");
+    assertThat(contact2.getName()).isEqualTo(Optional.empty());
+    assertThat(contact2.getPhoneNumber()).isEqualTo(Optional.empty());
+    assertThat(contact2.getRole()).isEqualTo("Admin");
   }
 
   @Test
@@ -30,8 +30,8 @@ class ContactTest {
   void shouldBeEqualToAnotherWithSameProperties() {
     Contact contact1 = Contact.of("email@example.com", "John Doe", "1234567890", "Admin");
     Contact contact2 = Contact.of("email@example.com", "John Doe", "1234567890", "Admin");
-    assertEquals(contact1, contact2);
-    assertEquals(contact1.hashCode(), contact2.hashCode());
+    assertThat(contact1).isEqualTo(contact2);
+    assertThat(contact1.hashCode()).isEqualTo(contact2.hashCode());
   }
 
   @Test
@@ -39,13 +39,13 @@ class ContactTest {
   void shouldNotBeEqualToAnotherWithDifferentProperties() {
     Contact contact1 = Contact.of("email1@example.com", "John Doe", "1234567890", "Admin");
     Contact contact2 = Contact.of("email2@example.com", "Jane Doe", "0987654321", "User");
-    assertNotEquals(contact1, contact2);
+    assertThat(contact1).isNotEqualTo(contact2);
   }
 
   @Test
   @DisplayName("Contact factory should fail with null email")
   void shouldFailWithNullEmail() {
-    assertThrows(
-        NullPointerException.class, () -> Contact.of(null, "John Doe", "1234567890", "Admin"));
+    assertThatThrownBy(() -> Contact.of(null, "John Doe", "1234567890", "Admin"))
+        .isInstanceOf(NullPointerException.class);
   }
 }

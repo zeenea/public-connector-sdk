@@ -1,9 +1,8 @@
 package zeenea.connector.field;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.assertj.core.api.Assertions.*;
 
 import java.util.Map;
-import java.util.Optional;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import zeenea.connector.common.IdentificationProperty;
@@ -34,16 +33,16 @@ class FieldTest {
             .description("Field description")
             .properties(properties)
             .build();
-    assertNotNull(field);
-    assertEquals(identifier, field.getId());
-    assertEquals("FieldName", field.getName());
-    assertEquals(DataType.String, field.getDataType());
-    assertEquals("String", field.getNativeType());
-    assertEquals(1, field.getNativeIndex());
-    assertTrue(field.isNullable());
-    assertFalse(field.isMultivalued());
-    assertEquals(Optional.of("Field description"), field.getDescription());
-    assertEquals(properties, field.getProperties());
+    assertThat(field).isNotNull();
+    assertThat(field.getId()).isEqualTo(identifier);
+    assertThat(field.getName()).isEqualTo("FieldName");
+    assertThat(field.getDataType()).isEqualTo(DataType.String);
+    assertThat(field.getNativeType()).isEqualTo("String");
+    assertThat(field.getNativeIndex()).isEqualTo(1);
+    assertThat(field.isNullable()).isTrue();
+    assertThat(field.isMultivalued()).isFalse();
+    assertThat(field.getDescription()).isPresent().get().isEqualTo("Field description");
+    assertThat(field.getProperties()).isEqualTo(properties);
   }
 
   @Test
@@ -79,8 +78,8 @@ class FieldTest {
             .description("Field description")
             .properties(properties)
             .build();
-    assertEquals(field1, field2);
-    assertEquals(field1.hashCode(), field2.hashCode());
+    assertThat(field1).isEqualTo(field2);
+    assertThat(field1.hashCode()).isEqualTo(field2.hashCode());
   }
 
   @Test
@@ -122,7 +121,7 @@ class FieldTest {
             .description("Field description 2")
             .properties(properties2)
             .build();
-    assertNotEquals(field1, field2);
+    assertThat(field1).isNotEqualTo(field2);
   }
 
   @Test
@@ -134,20 +133,20 @@ class FieldTest {
         ItemIdentifier.of(
             IdentificationProperty.of("key1", "value1"),
             IdentificationProperty.of("key2", "value2"));
-    assertThrows(
-        NullPointerException.class,
-        () ->
-            Field.builder()
-                .id(identifier)
-                .name(null)
-                .dataType(DataType.String)
-                .nativeType("String")
-                .nativeIndex(1)
-                .nullable(true)
-                .multivalued(false)
-                .description("Field description")
-                .properties(properties)
-                .build());
+    assertThatThrownBy(
+            () ->
+                Field.builder()
+                    .id(identifier)
+                    .name(null)
+                    .dataType(DataType.String)
+                    .nativeType("String")
+                    .nativeIndex(1)
+                    .nullable(true)
+                    .multivalued(false)
+                    .description("Field description")
+                    .properties(properties)
+                    .build())
+        .isInstanceOf(NullPointerException.class);
   }
 
   @Test
@@ -155,20 +154,20 @@ class FieldTest {
   void builderShouldFailWithNullKeys() {
     Map<String, PropertyValue> properties =
         Map.of("key1", PropertyValue.string("value1"), "key2", PropertyValue.string("value2"));
-    assertThrows(
-        NullPointerException.class,
-        () ->
-            Field.builder()
-                .id(null)
-                .name("FieldName")
-                .dataType(DataType.String)
-                .nativeType("String")
-                .nativeIndex(1)
-                .nullable(true)
-                .multivalued(false)
-                .description("Field description")
-                .properties(properties)
-                .build());
+    assertThatThrownBy(
+            () ->
+                Field.builder()
+                    .id(null)
+                    .name("FieldName")
+                    .dataType(DataType.String)
+                    .nativeType("String")
+                    .nativeIndex(1)
+                    .nullable(true)
+                    .multivalued(false)
+                    .description("Field description")
+                    .properties(properties)
+                    .build())
+        .isInstanceOf(NullPointerException.class);
   }
 
   @Test
@@ -178,19 +177,19 @@ class FieldTest {
         ItemIdentifier.of(
             IdentificationProperty.of("key1", "value1"),
             IdentificationProperty.of("key2", "value2"));
-    assertThrows(
-        NullPointerException.class,
-        () ->
-            Field.builder()
-                .id(identifier)
-                .name("FieldName")
-                .dataType(DataType.String)
-                .nativeType("String")
-                .nativeIndex(1)
-                .nullable(true)
-                .multivalued(false)
-                .description("Field description")
-                .properties(null)
-                .build());
+    assertThatThrownBy(
+            () ->
+                Field.builder()
+                    .id(identifier)
+                    .name("FieldName")
+                    .dataType(DataType.String)
+                    .nativeType("String")
+                    .nativeIndex(1)
+                    .nullable(true)
+                    .multivalued(false)
+                    .description("Field description")
+                    .properties(null)
+                    .build())
+        .isInstanceOf(NullPointerException.class);
   }
 }

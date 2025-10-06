@@ -1,10 +1,9 @@
 package zeenea.connector.dataproduct;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.assertj.core.api.Assertions.*;
 
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import zeenea.connector.common.IdentificationProperty;
@@ -37,12 +36,12 @@ class OutputPortTest {
             .datasets(datasets)
             .properties(properties)
             .build();
-    assertNotNull(outputPort);
-    assertEquals("OutputPort1", outputPort.getName());
-    assertEquals(Optional.of("Description1"), outputPort.getDescription());
-    assertEquals(dataContract, outputPort.getDataContract());
-    assertEquals(datasets, outputPort.getDatasets());
-    assertEquals(properties, outputPort.getProperties());
+    assertThat(outputPort).isNotNull();
+    assertThat(outputPort.getName()).isEqualTo("OutputPort1");
+    assertThat(outputPort.getDescription()).contains("Description1");
+    assertThat(outputPort.getDataContract()).isEqualTo(dataContract);
+    assertThat(outputPort.getDatasets()).isEqualTo(datasets);
+    assertThat(outputPort.getProperties()).isEqualTo(properties);
   }
 
   @Test
@@ -76,8 +75,8 @@ class OutputPortTest {
             .datasets(datasets)
             .properties(properties)
             .build();
-    assertEquals(outputPort1, outputPort2);
-    assertEquals(outputPort1.hashCode(), outputPort2.hashCode());
+    assertThat(outputPort1).isEqualTo(outputPort2);
+    assertThat(outputPort1.hashCode()).isEqualTo(outputPort2.hashCode());
   }
 
   @Test
@@ -121,7 +120,7 @@ class OutputPortTest {
             .datasets(datasets2)
             .properties(properties2)
             .build();
-    assertNotEquals(outputPort1, outputPort2);
+    assertThat(outputPort1).isNotEqualTo(outputPort2);
   }
 
   @Test
@@ -137,17 +136,17 @@ class OutputPortTest {
     List<Dataset> datasets = List.of(dataset1);
     Map<String, PropertyValue> properties =
         Map.of("key1", PropertyValue.string("value1"), "key2", PropertyValue.string("value2"));
-    assertThrows(
-        NullPointerException.class,
-        () ->
-            OutputPort.builder()
-                .id(null)
-                .name("OutputPort1")
-                .description("Description1")
-                .dataContract(dataContract)
-                .datasets(datasets)
-                .properties(properties)
-                .build());
+    assertThatThrownBy(
+            () ->
+                OutputPort.builder()
+                    .id(null)
+                    .name("OutputPort1")
+                    .description("Description1")
+                    .dataContract(dataContract)
+                    .datasets(datasets)
+                    .properties(properties)
+                    .build())
+        .isInstanceOf(NullPointerException.class);
   }
 
   @Test
@@ -163,17 +162,19 @@ class OutputPortTest {
     List<Dataset> datasets = List.of(dataset1);
     Map<String, PropertyValue> properties =
         Map.of("key1", PropertyValue.string("value1"), "key2", PropertyValue.string("value2"));
-    assertThrows(
-        NullPointerException.class,
-        () ->
-            OutputPort.builder()
-                .id(ItemIdentifier.of(List.of(IdentificationProperty.of("id", "output-port-1"))))
-                .name(null)
-                .description("Description1")
-                .dataContract(dataContract)
-                .datasets(datasets)
-                .properties(properties)
-                .build());
+    assertThatThrownBy(
+            () ->
+                OutputPort.builder()
+                    .id(
+                        ItemIdentifier.of(
+                            List.of(IdentificationProperty.of("id", "output-port-1"))))
+                    .name(null)
+                    .description("Description1")
+                    .dataContract(dataContract)
+                    .datasets(datasets)
+                    .properties(properties)
+                    .build())
+        .isInstanceOf(NullPointerException.class);
   }
 
   @Test
@@ -188,17 +189,19 @@ class OutputPortTest {
     List<Dataset> datasets = List.of(dataset1);
     Map<String, PropertyValue> properties =
         Map.of("key1", PropertyValue.string("value1"), "key2", PropertyValue.string("value2"));
-    assertThrows(
-        NullPointerException.class,
-        () ->
-            OutputPort.builder()
-                .id(ItemIdentifier.of(List.of(IdentificationProperty.of("id", "output-port-1"))))
-                .name("OutputPort1")
-                .description("Description1")
-                .dataContract(null)
-                .datasets(datasets)
-                .properties(properties)
-                .build());
+    assertThatThrownBy(
+            () ->
+                OutputPort.builder()
+                    .id(
+                        ItemIdentifier.of(
+                            List.of(IdentificationProperty.of("id", "output-port-1"))))
+                    .name("OutputPort1")
+                    .description("Description1")
+                    .dataContract(null)
+                    .datasets(datasets)
+                    .properties(properties)
+                    .build())
+        .isInstanceOf(NullPointerException.class);
   }
 
   @Test
@@ -207,17 +210,19 @@ class OutputPortTest {
     DataContract dataContract = DataContract.of(DataContract.Type.Custom, "sourceValue");
     Map<String, PropertyValue> properties =
         Map.of("key1", PropertyValue.string("value1"), "key2", PropertyValue.string("value2"));
-    assertThrows(
-        NullPointerException.class,
-        () ->
-            OutputPort.builder()
-                .id(ItemIdentifier.of(List.of(IdentificationProperty.of("id", "output-port-1"))))
-                .name("OutputPort1")
-                .description("Description1")
-                .dataContract(dataContract)
-                .datasets((Dataset) null)
-                .properties(properties)
-                .build());
+    assertThatThrownBy(
+            () ->
+                OutputPort.builder()
+                    .id(
+                        ItemIdentifier.of(
+                            List.of(IdentificationProperty.of("id", "output-port-1"))))
+                    .name("OutputPort1")
+                    .description("Description1")
+                    .dataContract(dataContract)
+                    .datasets((Dataset) null)
+                    .properties(properties)
+                    .build())
+        .isInstanceOf(NullPointerException.class);
   }
 
   @Test
@@ -231,16 +236,18 @@ class OutputPortTest {
             .build();
 
     List<Dataset> datasets = List.of(dataset1);
-    assertThrows(
-        NullPointerException.class,
-        () ->
-            OutputPort.builder()
-                .id(ItemIdentifier.of(List.of(IdentificationProperty.of("id", "output-port-1"))))
-                .name("OutputPort1")
-                .description("Description1")
-                .dataContract(dataContract)
-                .datasets(datasets)
-                .properties(null)
-                .build());
+    assertThatThrownBy(
+            () ->
+                OutputPort.builder()
+                    .id(
+                        ItemIdentifier.of(
+                            List.of(IdentificationProperty.of("id", "output-port-1"))))
+                    .name("OutputPort1")
+                    .description("Description1")
+                    .dataContract(dataContract)
+                    .datasets(datasets)
+                    .properties(null)
+                    .build())
+        .isInstanceOf(NullPointerException.class);
   }
 }

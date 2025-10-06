@@ -1,6 +1,6 @@
 package zeenea.connector.dataset;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.assertj.core.api.Assertions.*;
 
 import java.util.List;
 import org.junit.jupiter.api.DisplayName;
@@ -61,12 +61,12 @@ class DatasetTest {
             .foreignKeys(foreignKeys)
             .sourceDatasets(sourceDatasets)
             .build();
-    assertNotNull(dataset);
-    assertEquals(itemIdentifier, dataset.getId());
-    assertEquals(fields, dataset.getFields());
-    assertEquals(primaryKeyIdentifiers, dataset.getPrimaryKeyIdentifiers());
-    assertEquals(foreignKeys, dataset.getForeignKeys());
-    assertEquals(sourceDatasets, dataset.getSourceDatasets());
+    assertThat(dataset).isNotNull();
+    assertThat(dataset.getId()).isEqualTo(itemIdentifier);
+    assertThat(dataset.getFields()).isEqualTo(fields);
+    assertThat(dataset.getPrimaryKeyIdentifiers()).isEqualTo(primaryKeyIdentifiers);
+    assertThat(dataset.getForeignKeys()).isEqualTo(foreignKeys);
+    assertThat(dataset.getSourceDatasets()).isEqualTo(sourceDatasets);
   }
 
   @Test
@@ -131,8 +131,8 @@ class DatasetTest {
             .foreignKeys(foreignKeys)
             .sourceDatasets(sourceDatasets)
             .build();
-    assertEquals(dataset1, dataset2);
-    assertEquals(dataset1.hashCode(), dataset2.hashCode());
+    assertThat(dataset1).isEqualTo(dataset2);
+    assertThat(dataset1.hashCode()).isEqualTo(dataset2.hashCode());
   }
 
   @Test
@@ -193,7 +193,7 @@ class DatasetTest {
             .foreignKeys(List.of())
             .sourceDatasets(List.of())
             .build();
-    assertNotEquals(dataset1, dataset2);
+    assertThat(dataset1).isNotEqualTo(dataset2);
   }
 
   @Test
@@ -224,17 +224,17 @@ class DatasetTest {
                     List.of(
                         IdentificationProperty.of("host", "localhost"),
                         IdentificationProperty.of("port", "1111")))));
-    assertThrows(
-        NullPointerException.class,
-        () ->
-            Dataset.builder()
-                .id(ItemIdentifier.of(List.of(IdentificationProperty.of("key", "dataset1"))))
-                .name("Dataset1")
-                .description("Description")
-                .fields((Field) null)
-                .primaryKeyIdentifiers(primaryKeyIdentifiers)
-                .foreignKeys(foreignKeys)
-                .sourceDatasets(sourceDatasets)
-                .build());
+    assertThatThrownBy(
+            () ->
+                Dataset.builder()
+                    .id(ItemIdentifier.of(List.of(IdentificationProperty.of("key", "dataset1"))))
+                    .name("Dataset1")
+                    .description("Description")
+                    .fields((Field) null)
+                    .primaryKeyIdentifiers(primaryKeyIdentifiers)
+                    .foreignKeys(foreignKeys)
+                    .sourceDatasets(sourceDatasets)
+                    .build())
+        .isInstanceOf(NullPointerException.class);
   }
 }

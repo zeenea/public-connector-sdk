@@ -1,6 +1,6 @@
 package zeenea.connector.visualization;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.assertj.core.api.Assertions.*;
 
 import java.util.List;
 import org.junit.jupiter.api.DisplayName;
@@ -44,10 +44,10 @@ class VisualizationTest {
             .fields(fields)
             .sourceDatasets(linkedDataset)
             .build();
-    assertNotNull(visualization);
-    assertEquals(itemIdentifier, visualization.getId());
-    assertEquals(fields, visualization.getFields());
-    assertEquals(linkedDataset, visualization.getSourceDatasets());
+    assertThat(visualization).isNotNull();
+    assertThat(visualization.getId()).isEqualTo(itemIdentifier);
+    assertThat(visualization.getFields()).isEqualTo(fields);
+    assertThat(visualization.getSourceDatasets()).isEqualTo(linkedDataset);
   }
 
   @Test
@@ -91,8 +91,8 @@ class VisualizationTest {
             .fields(fields)
             .sourceDatasets(linkedDataset)
             .build();
-    assertEquals(visualization1, visualization2);
-    assertEquals(visualization1.hashCode(), visualization2.hashCode());
+    assertThat(visualization1).isEqualTo(visualization2);
+    assertThat(visualization1.hashCode()).isEqualTo(visualization2.hashCode());
   }
 
   @Test
@@ -135,7 +135,7 @@ class VisualizationTest {
             .fields(List.of())
             .sourceDatasets(List.of())
             .build();
-    assertNotEquals(visualization1, visualization2);
+    assertThat(visualization1).isNotEqualTo(visualization2);
   }
 
   @Test
@@ -149,16 +149,18 @@ class VisualizationTest {
                     List.of(
                         IdentificationProperty.of("host", "localhost"),
                         IdentificationProperty.of("port", "1111")))));
-    assertThrows(
-        NullPointerException.class,
-        () ->
-            Visualization.builder()
-                .id(ItemIdentifier.of(List.of(IdentificationProperty.of("key", "visualization"))))
-                .name("Visualization")
-                .description("Description")
-                .fields((List<Field>) null)
-                .sourceDatasets(linkedDataset)
-                .build());
+    assertThatThrownBy(
+            () ->
+                Visualization.builder()
+                    .id(
+                        ItemIdentifier.of(
+                            List.of(IdentificationProperty.of("key", "visualization1"))))
+                    .name("Visualization1")
+                    .description("Description")
+                    .fields((Field) null)
+                    .sourceDatasets(linkedDataset)
+                    .build())
+        .isInstanceOf(NullPointerException.class);
   }
 
   @Test
@@ -176,15 +178,17 @@ class VisualizationTest {
                 .multivalued(false)
                 .description("Field description")
                 .build());
-    assertThrows(
-        NullPointerException.class,
-        () ->
-            Visualization.builder()
-                .id(ItemIdentifier.of(List.of(IdentificationProperty.of("key", "visualization"))))
-                .name("Visualization")
-                .description("Description")
-                .fields(fields)
-                .sourceDatasets((List<ItemReference>) null)
-                .build());
+    assertThatThrownBy(
+            () ->
+                Visualization.builder()
+                    .id(
+                        ItemIdentifier.of(
+                            List.of(IdentificationProperty.of("key", "visualization"))))
+                    .name("Visualization")
+                    .description("Description")
+                    .fields(fields)
+                    .sourceDatasets((List<ItemReference>) null)
+                    .build())
+        .isInstanceOf(NullPointerException.class);
   }
 }

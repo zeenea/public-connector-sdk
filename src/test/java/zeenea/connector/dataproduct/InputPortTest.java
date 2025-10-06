@@ -1,6 +1,6 @@
 package zeenea.connector.dataproduct;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.assertj.core.api.Assertions.*;
 
 import java.util.List;
 import java.util.Optional;
@@ -39,12 +39,12 @@ class InputPortTest {
             .inputs(inputs)
             .outputs(outputs)
             .build();
-    assertNotNull(inputPort);
-    assertEquals(inputPortIdentifier, inputPort.getId());
-    assertEquals("InputPort1", inputPort.getName());
-    assertEquals(Optional.of("Description1"), inputPort.getDescription());
-    assertEquals(inputs, inputPort.getInputs());
-    assertEquals(outputs, inputPort.getOutputs());
+    assertThat(inputPort).isNotNull();
+    assertThat(inputPort.getId()).isEqualTo(inputPortIdentifier);
+    assertThat(inputPort.getName()).isEqualTo("InputPort1");
+    assertThat(inputPort.getDescription()).isEqualTo(Optional.of("Description1"));
+    assertThat(inputPort.getInputs()).isEqualTo(inputs);
+    assertThat(inputPort.getOutputs()).isEqualTo(outputs);
   }
 
   @Test
@@ -82,8 +82,8 @@ class InputPortTest {
             .inputs(inputs)
             .outputs(outputs)
             .build();
-    assertEquals(inputPort1, inputPort2);
-    assertEquals(inputPort1.hashCode(), inputPort2.hashCode());
+    assertThat(inputPort1).isEqualTo(inputPort2);
+    assertThat(inputPort1.hashCode()).isEqualTo(inputPort2.hashCode());
   }
 
   @Test
@@ -122,22 +122,22 @@ class InputPortTest {
             .inputs(inputs)
             .outputs(outputs2)
             .build();
-    assertNotEquals(inputPort1, inputPort2);
+    assertThat(inputPort1).isNotEqualTo(inputPort2);
   }
 
   @Test
   @DisplayName("InputPort builder should fail with null id")
   void builderShouldFailWithNullId() {
-    assertThrows(
-        NullPointerException.class,
-        () ->
-            InputPort.builder()
-                .id(null)
-                .name("InputPort1")
-                .description("Description1")
-                .inputs(List.of())
-                .outputs(List.of())
-                .build());
+    assertThatThrownBy(
+            () ->
+                InputPort.builder()
+                    .id(null)
+                    .name("InputPort1")
+                    .description("Description1")
+                    .inputs(List.of())
+                    .outputs(List.of())
+                    .build())
+        .isInstanceOf(NullPointerException.class);
   }
 
   @Test
@@ -146,16 +146,16 @@ class InputPortTest {
     ItemIdentifier output1 =
         ItemIdentifier.of(List.of(IdentificationProperty.of("name", "output1")));
     List<ItemIdentifier> outputs = List.of(output1);
-    assertThrows(
-        NullPointerException.class,
-        () ->
-            InputPort.builder()
-                .id(ItemIdentifier.of(List.of(IdentificationProperty.of("id", "input-port-1"))))
-                .name("InputPort1")
-                .description("Description1")
-                .inputs(List.of(null))
-                .outputs(outputs)
-                .build());
+    assertThatThrownBy(
+            () ->
+                InputPort.builder()
+                    .id(ItemIdentifier.of(List.of(IdentificationProperty.of("id", "input-port-1"))))
+                    .name("InputPort1")
+                    .description("Description1")
+                    .inputs(List.of(null))
+                    .outputs(outputs)
+                    .build())
+        .isInstanceOf(NullPointerException.class);
   }
 
   @Test
@@ -169,15 +169,15 @@ class InputPortTest {
                 IdentificationProperty.of("port", "1111")));
     List<ItemReference> inputs = List.of(ItemReference.of(input1, dataSourceIdentifier));
 
-    assertThrows(
-        NullPointerException.class,
-        () ->
-            InputPort.builder()
-                .id(ItemIdentifier.of(List.of(IdentificationProperty.of("id", "input-port-1"))))
-                .name("InputPort1")
-                .description("Description1")
-                .inputs(inputs)
-                .outputs(List.of(null))
-                .build());
+    assertThatThrownBy(
+            () ->
+                InputPort.builder()
+                    .id(ItemIdentifier.of(List.of(IdentificationProperty.of("id", "input-port-1"))))
+                    .name("InputPort1")
+                    .description("Description1")
+                    .inputs(inputs)
+                    .outputs(List.of(null))
+                    .build())
+        .isInstanceOf(NullPointerException.class);
   }
 }

@@ -1,6 +1,6 @@
 package zeenea.connector.common;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.assertj.core.api.Assertions.*;
 
 import java.util.List;
 import java.util.Optional;
@@ -20,9 +20,10 @@ class ItemReferenceTest {
                 IdentificationProperty.of("host", "localhost"),
                 IdentificationProperty.of("port", "1111")));
     ItemReference itemReference = ItemReference.of(identifier, dataSourceIdentifier);
-    assertNotNull(itemReference);
-    assertEquals(identifier, itemReference.getItemIdentifier());
-    assertEquals(Optional.of(dataSourceIdentifier), itemReference.getDataSourceIdentifier());
+    assertThat(itemReference).isNotNull();
+    assertThat(itemReference.getItemIdentifier()).isEqualTo(identifier);
+    assertThat(itemReference.getDataSourceIdentifier())
+        .isEqualTo(Optional.of(dataSourceIdentifier));
   }
 
   @Test
@@ -37,8 +38,8 @@ class ItemReferenceTest {
                 IdentificationProperty.of("port", "1111")));
     ItemReference itemReference1 = ItemReference.of(identifier, dataSourceIdentifier);
     ItemReference itemReference2 = ItemReference.of(identifier, dataSourceIdentifier);
-    assertEquals(itemReference1, itemReference2);
-    assertEquals(itemReference1.hashCode(), itemReference2.hashCode());
+    assertThat(itemReference1).isEqualTo(itemReference2);
+    assertThat(itemReference1.hashCode()).isEqualTo(itemReference2.hashCode());
   }
 
   @Test
@@ -60,7 +61,7 @@ class ItemReferenceTest {
                 IdentificationProperty.of("port", "2222")));
     ItemReference itemReference1 = ItemReference.of(identifier1, dataSourceIdentifier1);
     ItemReference itemReference2 = ItemReference.of(identifier2, dataSourceIdentifier2);
-    assertNotEquals(itemReference1, itemReference2);
+    assertThat(itemReference1).isNotEqualTo(itemReference2);
   }
 
   @Test
@@ -71,6 +72,7 @@ class ItemReferenceTest {
             List.of(
                 IdentificationProperty.of("host", "localhost"),
                 IdentificationProperty.of("port", "1111")));
-    assertThrows(NullPointerException.class, () -> ItemReference.of(null, dataSourceIdentifier));
+    assertThatThrownBy(() -> ItemReference.of(null, dataSourceIdentifier))
+        .isInstanceOf(NullPointerException.class);
   }
 }
