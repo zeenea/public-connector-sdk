@@ -1,14 +1,13 @@
 package zeenea.connector.sample;
 
 import java.util.List;
+import lombok.Builder;
+import lombok.Singular;
 import lombok.Value;
 
 @Value
+@Builder
 public class DataSample {
-  List<SampleField<?>> data;
 
-  public DataSample(List<SampleField<?>> data) {
-    this.data = data;
-    // Maybe add some validation here about the size of sampleField.values?
-  }
+  @Singular List<SampleField<?>> fields;
 }
