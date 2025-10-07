@@ -4,6 +4,7 @@ plugins {
     `maven-publish`
     id("com.diffplug.spotless") version "6.25.0"
     id("com.github.spotbugs") version "6.0.14"
+    id("io.freefair.lombok") version "9.0.0"
 }
 
 
