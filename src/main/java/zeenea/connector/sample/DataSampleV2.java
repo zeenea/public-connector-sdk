@@ -11,16 +11,16 @@ import lombok.Value;
 @Builder
 public class DataSampleV2 {
 
-  @Singular List<SampleField> fields;
+  @Singular List<SampleFieldV2> fields;
 
   public DataSampleV2 addFieldValues(List<SampleValue> sampleValues) {
     AtomicInteger index = new AtomicInteger(0);
 
-    List<? extends SampleField> sampleFields =
+    List<? extends SampleFieldV2> sampleFields =
         sampleValues.stream()
             .map(
                 row -> {
-                  SampleField sampleField = fields.get(index.getAndIncrement());
+                  SampleFieldV2 sampleField = fields.get(index.getAndIncrement());
                   return sampleField.add(row);
                 })
             .collect(Collectors.toList());
@@ -31,11 +31,11 @@ public class DataSampleV2 {
   public DataSampleV2 addFieldValues2(List<Object> sampleValues) {
     AtomicInteger index = new AtomicInteger(0);
 
-    List<? extends SampleField> sampleFields =
+    List<? extends SampleFieldV2> sampleFields =
         sampleValues.stream()
             .map(
                 row -> {
-                  SampleField sampleField = fields.get(index.getAndIncrement());
+                  SampleFieldV2 sampleField = fields.get(index.getAndIncrement());
                   return addValue(sampleField, row);
                 })
             .collect(Collectors.toList());
@@ -43,7 +43,7 @@ public class DataSampleV2 {
     return DataSampleV2.builder().fields(sampleFields).build();
   }
 
-  private SampleField addValue(SampleField field, Object object) {
+  private SampleFieldV2 addValue(SampleFieldV2 field, Object object) {
     switch (field.getType()) {
       case String:
         return field.addString((String) object);

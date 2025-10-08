@@ -12,7 +12,7 @@ import zeenea.connector.dataset.DataType;
 
 @Value
 @RequiredArgsConstructor(access = AccessLevel.PRIVATE)
-public class SampleField {
+public class SampleFieldV2 {
   String name;
   DataType type;
   @Singular List<SampleValue> values;
@@ -21,35 +21,39 @@ public class SampleField {
     return Collections.unmodifiableList(values);
   }
 
-  public static SampleField of(String header, DataType dataType, List<SampleValue> values) {
-    return new SampleField(header, dataType, values);
+  public static SampleFieldV2 header(String header, DataType dataType) {
+    return new SampleFieldV2(header, dataType, List.of());
   }
 
-  public static SampleField ofStrings(String header, List<String> values) {
+  public static SampleFieldV2 of(String header, DataType dataType, List<SampleValue> values) {
+    return new SampleFieldV2(header, dataType, values);
+  }
+
+  public static SampleFieldV2 ofStrings(String header, List<String> values) {
     List<SampleValue> collect =
         values.stream().map(SampleValueString::new).collect(Collectors.toList());
-    return new SampleField(header, DataType.String, collect);
+    return new SampleFieldV2(header, DataType.String, collect);
   }
 
-  public SampleField addString(String value) {
+  public SampleFieldV2 addString(String value) {
     SampleValue sampleValueString = new SampleValueString(value);
     List<SampleValue> collect =
         Stream.concat(this.values.stream(), Stream.of(sampleValueString))
             .collect(Collectors.toList());
-    return new SampleField(this.name, this.type, collect);
+    return new SampleFieldV2(this.name, this.type, collect);
   }
 
-  public SampleField addInteger(Integer value) {
+  public SampleFieldV2 addInteger(Integer value) {
     SampleValue sampleValue = new SampleValueInteger(value);
     List<SampleValue> collect =
         Stream.concat(this.values.stream(), Stream.of(sampleValue)).collect(Collectors.toList());
-    return new SampleField(this.name, this.type, collect);
+    return new SampleFieldV2(this.name, this.type, collect);
   }
 
-  public SampleField add(SampleValue value) {
+  public SampleFieldV2 add(SampleValue value) {
     List<SampleValue> collect =
         Stream.concat(this.values.stream(), Stream.of(value)).collect(Collectors.toList());
-    return new SampleField(this.name, this.type, collect);
+    return new SampleFieldV2(this.name, this.type, collect);
   }
 
   //  public static SampleField<Integer> ofIntegers(String header, List<Integer> values) {
