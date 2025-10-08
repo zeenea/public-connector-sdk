@@ -13,6 +13,10 @@ public class DataSampleV2 {
 
   @Singular List<SampleFieldV2> fields;
 
+  public List<SampleFieldV2> getFields() {
+    return List.copyOf(fields);
+  }
+
   public DataSampleV2 addFieldValues(List<SampleValue> sampleValues) {
     AtomicInteger index = new AtomicInteger(0);
 
@@ -25,6 +29,16 @@ public class DataSampleV2 {
                 })
             .collect(Collectors.toList());
 
+    return DataSampleV2.builder().fields(sampleFields).build();
+  }
+
+  public DataSampleV2 addFieldValues(SampleFieldV2 sampleField, List<SampleValue> sampleValues) {
+    SampleFieldV2 sampleFieldUpdated = sampleField.add(sampleValues);
+    List<SampleFieldV2> sampleFields =
+        fields.stream()
+            .filter(sampleFieldToRemove -> !sampleFieldToRemove.equals(sampleField))
+            .collect(Collectors.toList());
+    sampleFields.add(sampleFieldUpdated);
     return DataSampleV2.builder().fields(sampleFields).build();
   }
 

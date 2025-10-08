@@ -16,30 +16,30 @@ public class DataSampleV2Test {
   public void testSample() {
     DataSampleV2 dataSample =
         DataSampleV2.builder()
-            .field(SampleField.ofStrings("header1", List.of("valeur1", "valeur2")))
+            .field(SampleFieldV2.ofStrings("header1", List.of("valeur1", "valeur2")))
             .build();
 
     assertThat(dataSample)
         .isEqualTo(
             new DataSampleV2(
-                List.of(SampleField.ofStrings("header1", List.of("valeur1", "valeur2")))));
+                List.of(SampleFieldV2.ofStrings("header1", List.of("valeur1", "valeur2")))));
   }
 
   @Test
   @DisplayName("Ecrire un data sample avec un header et des valeurs integer")
   public void testSampleIntegerHeader() {
     DataSampleV2 dataSample =
-        DataSampleV2.builder().field(SampleField.ofIntegers("header1", List.of(1, 2))).build();
+        DataSampleV2.builder().field(SampleFieldV2.ofIntegers("header1", List.of(1, 2))).build();
 
     assertThat(dataSample)
-        .isEqualTo(new DataSampleV2(List.of(SampleField.ofIntegers("header1", List.of(1, 2)))));
+        .isEqualTo(new DataSampleV2(List.of(SampleFieldV2.ofIntegers("header1", List.of(1, 2)))));
   }
 
   @Test
   @DisplayName("When adding a null values, DataSample should return an empty list")
   public void verifyValuesIsNotNull() {
     DataSampleV2 dataSample =
-        DataSampleV2.builder().field(SampleField.of("header1", DataType.String, null)).build();
+        DataSampleV2.builder().field(SampleFieldV2.of("header1", DataType.String, null)).build();
     assertThat(dataSample.getFields().get(0).getValues()).isNotNull();
   }
 
@@ -47,17 +47,29 @@ public class DataSampleV2Test {
   @DisplayName("When adding a null values, DataSample should failed")
   public void verifyItFailWhenProvidingNullValues() {
     Assertions.assertThatThrownBy(
-        () -> DataSampleV2.builder().field(SampleField.ofIntegers("header1", null)).build());
+        () -> DataSampleV2.builder().field(SampleFieldV2.ofIntegers("header1", null)).build());
   }
 
   @Test
   @DisplayName("test addFieldValues")
   public void addFieldValuesTest() {
     DataSampleV2 dataSampleV2 =
-        new DataSampleV2(List.of(SampleField.ofIntegers("header1", Collections.emptyList())));
+        new DataSampleV2(List.of(SampleFieldV2.ofIntegers("header1", Collections.emptyList())));
     DataSampleV2 dataSampleUpdated =
         dataSampleV2.addFieldValues(
             List.of(new SampleValueString("value1"), new SampleValueString("value2")));
+    assertThat(dataSampleUpdated).isNotNull();
+    assertThat(dataSampleUpdated.getFields().get(0).getValues()).hasSize(2);
+  }
+
+  @Test
+  @DisplayName("test addFieldValues with SampleField empty")
+  public void addFieldValuesTest2() {
+    SampleFieldV2 sampleField = SampleFieldV2.ofIntegers("header1", Collections.emptyList());
+    DataSampleV2 dataSampleV2 = new DataSampleV2(List.of(sampleField));
+    DataSampleV2 dataSampleUpdated =
+        dataSampleV2.addFieldValues(
+            sampleField, List.of(new SampleValueString("value1"), new SampleValueString("value2")));
     assertThat(dataSampleUpdated).isNotNull();
     assertThat(dataSampleUpdated.getFields().get(0).getValues()).hasSize(2);
   }
