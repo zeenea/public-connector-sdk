@@ -2,6 +2,7 @@ package zeenea.connector.sample;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+import java.util.Collections;
 import java.util.List;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
@@ -47,5 +48,17 @@ public class DataSampleV2Test {
   public void verifyItFailWhenProvidingNullValues() {
     Assertions.assertThatThrownBy(
         () -> DataSampleV2.builder().field(SampleField.ofIntegers("header1", null)).build());
+  }
+
+  @Test
+  @DisplayName("test addFieldValues")
+  public void addFieldValuesTest() {
+    DataSampleV2 dataSampleV2 =
+        new DataSampleV2(List.of(SampleField.ofIntegers("header1", Collections.emptyList())));
+    DataSampleV2 dataSampleUpdated =
+        dataSampleV2.addFieldValues(
+            List.of(new SampleValueString("value1"), new SampleValueString("value2")));
+    assertThat(dataSampleUpdated).isNotNull();
+    assertThat(dataSampleUpdated.getFields().get(0).getValues()).hasSize(2);
   }
 }
