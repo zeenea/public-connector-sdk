@@ -6,8 +6,4 @@ import lombok.Value;
 public class SampleValueInteger implements SampleValue {
 
   Integer value;
-
-  public Integer getValue() {
-    return value;
-  }
 }

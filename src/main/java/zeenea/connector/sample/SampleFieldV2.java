@@ -1,7 +1,13 @@
 package zeenea.connector.sample;
 
+import java.math.BigDecimal;
+import java.time.Instant;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 import lombok.AccessLevel;
@@ -12,84 +18,152 @@ import zeenea.connector.dataset.DataType;
 
 @Value
 @RequiredArgsConstructor(access = AccessLevel.PRIVATE)
-public class SampleFieldV2 {
+public class SampleField {
   String name;
   DataType type;
   @Singular List<SampleValue> values;
 
   public List<SampleValue> getValues() {
-    return Collections.unmodifiableList(values);
+    return Optional.ofNullable(values).map(List::copyOf).orElse(Collections.emptyList());
   }
 
-  public static SampleFieldV2 header(String header, DataType dataType) {
-    return new SampleFieldV2(header, dataType, List.of());
+  public static SampleField of(String header, DataType dataType, List<SampleValue> values) {
+    return new SampleField(header, dataType, values);
   }
 
-  public static SampleFieldV2 of(String header, DataType dataType, List<SampleValue> values) {
-    return new SampleFieldV2(header, dataType, values);
-  }
-
-  public static SampleFieldV2 ofStrings(String header, List<String> values) {
+  public SampleField add(SampleValue value) {
     List<SampleValue> collect =
+        Stream.concat(getValues().stream(), Stream.of(value)).collect(Collectors.toList());
+    return new SampleField(this.name, this.type, collect);
+  }
+
+  public static SampleField ofStrings(String header, List<String> values) {
+    List<SampleValue> samplesValues =
         values.stream().map(SampleValueString::new).collect(Collectors.toList());
-    return new SampleFieldV2(header, DataType.String, collect);
+    return new SampleField(header, DataType.String, samplesValues);
   }
 
-  public SampleFieldV2 addString(String value) {
-    SampleValue sampleValueString = new SampleValueString(value);
-    List<SampleValue> collect =
-        Stream.concat(this.values.stream(), Stream.of(sampleValueString))
-            .collect(Collectors.toList());
-    return new SampleFieldV2(this.name, this.type, collect);
+  public SampleField addString(String value) {
+    SampleValue sampleValue = new SampleValueString(value);
+    List<SampleValue> sampleValues =
+        Stream.concat(getValues().stream(), Stream.of(sampleValue)).collect(Collectors.toList());
+    return new SampleField(this.name, this.type, sampleValues);
   }
 
-  public SampleFieldV2 addInteger(Integer value) {
+  public static SampleField ofIntegers(String header, List<Integer> values) {
+    List<SampleValue> sampleValues =
+        values.stream().map(SampleValueInteger::new).collect(Collectors.toList());
+    return new SampleField(header, DataType.Integer, sampleValues);
+  }
+
+  public SampleField addInteger(Integer value) {
     SampleValue sampleValue = new SampleValueInteger(value);
-    List<SampleValue> collect =
-        Stream.concat(this.values.stream(), Stream.of(sampleValue)).collect(Collectors.toList());
-    return new SampleFieldV2(this.name, this.type, collect);
+    List<SampleValue> sampleValues =
+        Stream.concat(getValues().stream(), Stream.of(sampleValue)).collect(Collectors.toList());
+    return new SampleField(this.name, this.type, sampleValues);
   }
 
-  public SampleFieldV2 add(SampleValue value) {
-    List<SampleValue> collect =
-        Stream.concat(this.values.stream(), Stream.of(value)).collect(Collectors.toList());
-    return new SampleFieldV2(this.name, this.type, collect);
+  public static SampleField ofLongs(String header, List<Long> values) {
+    List<SampleValue> sampleValues =
+        values.stream().map(SampleValueLong::new).collect(Collectors.toList());
+    return new SampleField(header, DataType.Integer, sampleValues);
   }
 
-  //  public static SampleField<Integer> ofIntegers(String header, List<Integer> values) {
-  //    return new SampleField<>(header, DataType.Integer, values);
-  //  }
-  //
-  //  public static SampleField<Long> ofLongs(String header, List<Long> values) {
-  //    return new SampleField<>(header, DataType.Long, values);
-  //  }
-  //
-  //  public static SampleField<BigDecimal> ofBigDecimals(String header, List<BigDecimal> values) {
-  //    return new SampleField<>(header, DataType.BigDecimal, values);
-  //  }
-  //
-  //  public static SampleField<Double> ofDoubles(String header, List<Double> values) {
-  //    return new SampleField<>(header, DataType.Double, values);
-  //  }
-  //
-  //  public static SampleField<Boolean> ofBooleans(String header, List<Boolean> values) {
-  //    return new SampleField<>(header, DataType.Boolean, values);
-  //  }
-  //
-  //  public static SampleField<LocalDate> ofLocalDates(String header, List<LocalDate> values) {
-  //    return new SampleField<>(header, DataType.Date, values);
-  //  }
-  //
-  //  public static SampleField<LocalTime> ofLocalTimes(String header, List<LocalTime> values) {
-  //    return new SampleField<>(header, DataType.Time, values);
-  //  }
-  //
-  //  public static SampleField<LocalDateTime> ofLocalDateTimes(
-  //      String header, List<LocalDateTime> values) {
-  //    return new SampleField<>(header, DataType.Date, values);
-  //  }
-  //
-  //  public static SampleField<Instant> ofInstants(String header, List<Instant> values) {
-  //    return new SampleField<>(header, DataType.Timestamp, values);
-  //  }
+  public SampleField addLong(Long value) {
+    SampleValue sampleValue = new SampleValueLong(value);
+    List<SampleValue> sampleValues =
+        Stream.concat(getValues().stream(), Stream.of(sampleValue)).collect(Collectors.toList());
+    return new SampleField(this.name, this.type, sampleValues);
+  }
+
+  public static SampleField ofBigDecimals(String header, List<BigDecimal> values) {
+    List<SampleValue> sampleValues =
+        values.stream().map(SampleValueBigDecimal::new).collect(Collectors.toList());
+    return new SampleField(header, DataType.BigDecimal, sampleValues);
+  }
+
+  public SampleField addBigDecimal(BigDecimal value) {
+    SampleValue sampleValue = new SampleValueBigDecimal(value);
+    List<SampleValue> sampleValues =
+        Stream.concat(getValues().stream(), Stream.of(sampleValue)).collect(Collectors.toList());
+    return new SampleField(this.name, this.type, sampleValues);
+  }
+
+  public static SampleField ofDoubles(String header, List<Double> values) {
+    List<SampleValue> sampleValues =
+        values.stream().map(SampleValueDouble::new).collect(Collectors.toList());
+    return new SampleField(header, DataType.Double, sampleValues);
+  }
+
+  public SampleField addDouble(Double value) {
+    SampleValue sampleValue = new SampleValueDouble(value);
+    List<SampleValue> sampleValues =
+        Stream.concat(getValues().stream(), Stream.of(sampleValue)).collect(Collectors.toList());
+    return new SampleField(this.name, this.type, sampleValues);
+  }
+
+  public static SampleField ofBooleans(String header, List<Boolean> values) {
+    List<SampleValue> sampleValues =
+        values.stream().map(SampleValueBoolean::new).collect(Collectors.toList());
+    return new SampleField(header, DataType.Boolean, sampleValues);
+  }
+
+  public SampleField addBoolean(Boolean value) {
+    SampleValue sampleValue = new SampleValueBoolean(value);
+    List<SampleValue> sampleValues =
+        Stream.concat(getValues().stream(), Stream.of(sampleValue)).collect(Collectors.toList());
+    return new SampleField(this.name, this.type, sampleValues);
+  }
+
+  public static SampleField ofLocalDates(String header, List<LocalDate> values) {
+    List<SampleValue> sampleValues =
+        values.stream().map(SampleValueLocalDate::new).collect(Collectors.toList());
+    return new SampleField(header, DataType.Date, sampleValues);
+  }
+
+  public SampleField addLocalDate(LocalDate value) {
+    SampleValue sampleValue = new SampleValueLocalDate(value);
+    List<SampleValue> sampleValues =
+        Stream.concat(getValues().stream(), Stream.of(sampleValue)).collect(Collectors.toList());
+    return new SampleField(this.name, this.type, sampleValues);
+  }
+
+  public static SampleField ofLocalTimes(String header, List<LocalTime> values) {
+    List<SampleValue> sampleValues =
+        values.stream().map(SampleValueLocalTime::new).collect(Collectors.toList());
+    return new SampleField(header, DataType.Time, sampleValues);
+  }
+
+  public SampleField addLocalTime(LocalTime value) {
+    SampleValue sampleValue = new SampleValueLocalTime(value);
+    List<SampleValue> sampleValues =
+        Stream.concat(getValues().stream(), Stream.of(sampleValue)).collect(Collectors.toList());
+    return new SampleField(this.name, this.type, sampleValues);
+  }
+
+  public static SampleField ofLocalDateTimes(String header, List<LocalDateTime> values) {
+    List<SampleValue> sampleValues =
+        values.stream().map(SampleValueLocalDateTime::new).collect(Collectors.toList());
+    return new SampleField(header, DataType.Timestamp, sampleValues);
+  }
+
+  public SampleField addLocalDateTime(LocalDateTime value) {
+    SampleValue sampleValue = new SampleValueLocalDateTime(value);
+    List<SampleValue> sampleValues =
+        Stream.concat(getValues().stream(), Stream.of(sampleValue)).collect(Collectors.toList());
+    return new SampleField(this.name, this.type, sampleValues);
+  }
+
+  public static SampleField ofInstants(String header, List<Instant> values) {
+    List<SampleValue> sampleValues =
+        values.stream().map(SampleValueInstant::new).collect(Collectors.toList());
+    return new SampleField(header, DataType.Timestamp, sampleValues);
+  }
+
+  public SampleField addInstant(Instant value) {
+    SampleValue sampleValue = new SampleValueInstant(value);
+    List<SampleValue> sampleValues =
+        Stream.concat(getValues().stream(), Stream.of(sampleValue)).collect(Collectors.toList());
+    return new SampleField(this.name, this.type, sampleValues);
+  }
 }
