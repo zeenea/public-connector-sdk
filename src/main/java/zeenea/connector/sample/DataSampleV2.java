@@ -7,7 +7,11 @@ import lombok.Value;
 
 @Value
 @Builder
-public class DataSample {
+public class DataSampleV2 {
 
   @Singular List<SampleField<?>> fields;
+
+//  public void addRow(List<Object> rows) {
+//      rows.stream().map(row -> row.)
+//  }
 }

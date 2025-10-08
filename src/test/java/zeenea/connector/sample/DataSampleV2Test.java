@@ -5,29 +5,29 @@ import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-public class DataSampleTest {
+public class DataSampleV2Test {
 
   @Test
   @DisplayName("Ecrire un data sample avec un header et des valeurs string")
   public void testSample() {
-    DataSample dataSample =
-        DataSample.builder()
+    DataSampleV2 dataSample =
+        DataSampleV2.builder()
             .field(SampleField.ofStrings("header1", List.of("valeur1", "valeur2")))
             .build();
 
     Assertions.assertThat(dataSample)
         .isEqualTo(
-            new DataSample(
+            new DataSampleV2(
                 List.of(SampleField.ofStrings("header1", List.of("valeur1", "valeur2")))));
   }
 
   @Test
   @DisplayName("Ecrire un data sample avec un header et des valeurs integer")
   public void testSampleIntegerHeader() {
-    DataSample dataSample =
-        DataSample.builder().field(SampleField.ofIntegers("header1", List.of(1, 2))).build();
+    DataSampleV2 dataSample =
+        DataSampleV2.builder().field(SampleField.ofIntegers("header1", List.of(1, 2))).build();
 
     Assertions.assertThat(dataSample)
-        .isEqualTo(new DataSample(List.of(SampleField.ofIntegers("header1", List.of(1, 2)))));
+        .isEqualTo(new DataSampleV2(List.of(SampleField.ofIntegers("header1", List.of(1, 2)))));
   }
 }
