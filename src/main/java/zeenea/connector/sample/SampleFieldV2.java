@@ -27,6 +27,10 @@ public class SampleFieldV2 {
     return Optional.ofNullable(values).map(List::copyOf).orElse(Collections.emptyList());
   }
 
+  public static SampleFieldV2 header(String header, DataType dataType) {
+    return new SampleFieldV2(header, dataType, List.of());
+  }
+
   public static SampleFieldV2 of(String header, DataType dataType, List<SampleValue> values) {
     return new SampleFieldV2(header, dataType, values);
   }
