@@ -54,7 +54,7 @@ public class DataSampleV2Test {
   @DisplayName("test addFieldValues")
   public void addFieldValuesTest() {
     DataSampleV2 dataSampleV2 =
-        new DataSampleV2(List.of(SampleFieldV2.ofIntegers("header1", Collections.emptyList())));
+        new DataSampleV2(List.of(SampleFieldV2.header("header1", DataType.String)));
     DataSampleV2 dataSampleUpdated =
         dataSampleV2.addFieldValues(
             List.of(new SampleValueString("value1"), new SampleValueString("value2")));
@@ -65,7 +65,7 @@ public class DataSampleV2Test {
   @Test
   @DisplayName("test addFieldValues with SampleField empty")
   public void addFieldValuesTest2() {
-    SampleFieldV2 sampleField = SampleFieldV2.ofIntegers("header1", Collections.emptyList());
+    SampleFieldV2 sampleField = SampleFieldV2.header("header1", DataType.String);
     DataSampleV2 dataSampleV2 = new DataSampleV2(List.of(sampleField));
     DataSampleV2 dataSampleUpdated =
         dataSampleV2.addFieldValues(
