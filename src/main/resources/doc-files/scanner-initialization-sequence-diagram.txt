@@ -7,6 +7,9 @@ Connection-->Connection:Validate configuration values
 Connection<-->DataSource:Check connection
 Connection->Scanner:Connection
 database DataSource
+Scanner->Connection:getDataSource()
+Connection<-->Connection:Build DataSourceIdentifier
+Connection->Scanner:DataSource(DataSourceIdentifier("host", "db.example.com"), "example database")
 Scanner->Connection:getProperties()
 Connection<-->Connection:Get item metadata
 Connection->Scanner:Set(Metadata("name", STRING))
