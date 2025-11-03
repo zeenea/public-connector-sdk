@@ -1,5 +1,7 @@
 package zeenea.connector.property;
 
+import java.util.UUID;
+
 /**
  * Represents a property definition for a long text type. This class extends the PropertyDefinition
  * class.
@@ -13,6 +15,17 @@ public final class LongTextPropertyDefinition extends PropertyDefinition {
    */
   public LongTextPropertyDefinition(String name) {
     super(name, PropertyType.LONG_TEXT);
+  }
+
+  /**
+   * Constructs a LongTextPropertyDefinition instance with the specified name and UUID. Used only
+   * internally for common properties
+   *
+   * @param name the name for the property definition
+   * @param uuid the UUID for the property definition
+   */
+  LongTextPropertyDefinition(String name, UUID uuid) {
+    super(name, PropertyType.LONG_TEXT, uuid);
   }
 
   /**

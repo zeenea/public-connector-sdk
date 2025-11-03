@@ -3,7 +3,7 @@ plugins {
     `java-library`
     `maven-publish`
     id("com.diffplug.spotless") version "6.25.0"
-    id("com.github.spotbugs") version "6.0.14"
+    id("com.github.spotbugs") version "6.4.4"
 }
 
 
@@ -72,11 +72,16 @@ tasks {
 
 repositories {
     mavenCentral()
+    mavenLocal()
+    maven { url = uri("https://jitpack.io") }
 }
 
 dependencies {
     val pf4jVersion: String by project
     api(group = "org.pf4j", name = "pf4j", version = pf4jVersion)
+
+    // Common properties are used to extract the associated UUIDs
+    implementation(group = "com.github.zeenea", name = "common-properties", version = "4.4")
 
     val slf4jVersion: String by project
     testImplementation(group = "org.slf4j", name = "slf4j-api", version = slf4jVersion)
@@ -96,11 +101,44 @@ dependencies {
     )
 }
 
+@Suppress("UNCHECKED_CAST")
+fun groovy.util.Node.childText(name: String): String? {
+    val list = this.get(name) as? MutableList<*>
+    val node = list?.firstOrNull() as? groovy.util.Node
+    return node?.text()
+}
+
+@Suppress("UNCHECKED_CAST")
+fun groovy.util.Node.replaceNode(name: String, value: String) {
+    val list = this.get(name) as? MutableList<*>
+    val node = list?.firstOrNull() as? groovy.util.Node
+    node?.setValue(value)
+}
+
 publishing {
     publications {
         create<MavenPublication>("public-connector-sdk") {
             from(components["java"])
             artifact(tasks["javadocJar"])
+            pom.withXml {
+                val root = asNode()
+
+                val dependenciesNode: groovy.util.Node =
+                    (root.get("dependencies") as? MutableList<*>)?.firstOrNull()
+                            as? groovy.util.Node
+                        ?: root.appendNode("dependencies")
+
+                // --- Rename the Jitpack dependencies ---
+                dependenciesNode.children().filterIsInstance<groovy.util.Node>()
+                    .filter { dep ->
+                        dep.childText("groupId") == "com.github.zeenea"
+                    }
+                    .forEach { unwanted ->
+                        unwanted.replaceNode("groupId", "zeenea")
+                    }
+
+
+            }
         }
     }
     repositories {
