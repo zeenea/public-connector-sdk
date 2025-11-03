@@ -2,6 +2,7 @@ package zeenea.connector.property;
 
 import java.util.Objects;
 import java.util.Optional;
+import java.util.UUID;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -28,6 +29,13 @@ public abstract class PropertyDefinition {
   @NotNull private final PropertyType type;
 
   /**
+   * The UUID of the property definition when it's a common property such as sql query or schema
+   *
+   * <p>This field is optional and can be null.
+   */
+  @Nullable private final UUID uuid;
+
+  /**
    * Constructs a PropertyDefinition instance with the specified code and type.
    *
    * @param code the code of the property definition
@@ -47,6 +55,21 @@ public abstract class PropertyDefinition {
   PropertyDefinition(@NotNull String name, @NotNull PropertyType type) {
     this.name = Objects.requireNonNull(name);
     this.type = Objects.requireNonNull(type);
+    this.uuid = null;
+  }
+
+  /**
+   * Constructs a PropertyDefinition instance with the specified name, type and uuid. Used only
+   * internally to build common properties
+   *
+   * @param name the name of the property definition
+   * @param type the type of the property definition
+   * @param uuid the uuid of the property definition
+   */
+  PropertyDefinition(@NotNull String name, @NotNull PropertyType type, @NotNull UUID uuid) {
+    this.name = Objects.requireNonNull(name);
+    this.type = Objects.requireNonNull(type);
+    this.uuid = Objects.requireNonNull(uuid);
   }
 
   /**
@@ -73,6 +96,16 @@ public abstract class PropertyDefinition {
    */
   public @NotNull PropertyType getType() {
     return type;
+  }
+
+  /**
+   * Gets the UUID of the property definition, in case of a common property.
+   *
+   * @return an Optional containing the UUID of the property definition, or an empty Optional if not
+   *     present
+   */
+  public Optional<UUID> getUuid() {
+    return Optional.ofNullable(uuid);
   }
 
   /**

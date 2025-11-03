@@ -72,11 +72,25 @@ tasks {
 
 repositories {
     mavenCentral()
+    maven {
+        name = "Zeenea Connector SDK"
+        url = uri("https://maven.pkg.github.com/zeenea/*")
+        credentials {
+            username =
+                System.getenv("GITHUB_ACTOR") ?: project.findProperty("github.actor") as String?
+            password =
+                System.getenv("GITHUB_TOKEN") ?: project.findProperty("github.token") as String?
+        }
+    }
+    mavenLocal()
 }
 
 dependencies {
     val pf4jVersion: String by project
     api(group = "org.pf4j", name = "pf4j", version = pf4jVersion)
+
+    // Common properties are used to extract the associated UUIDs
+    implementation(group = "zeenea", name = "common-properties", version = "4.3")
 
     val slf4jVersion: String by project
     testImplementation(group = "org.slf4j", name = "slf4j-api", version = slf4jVersion)
