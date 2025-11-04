@@ -282,6 +282,11 @@ public class PropertiesBuilder {
     return this;
   }
 
+  public PropertiesBuilder put(@NotNull CommonProperty commonProperty) {
+    properties.put(commonProperty.getPropertyDefinition().getName(), commonProperty.getValue());
+    return this;
+  }
+
   public Map<String, PropertyValue> build() {
     return Map.copyOf(properties);
   }
