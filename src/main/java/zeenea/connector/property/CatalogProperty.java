@@ -4,7 +4,7 @@ import static zeenea.common.properties.CommonProperties.catalogCommonProperty;
 
 import java.util.List;
 
-public class CatalogProperty implements CommonProperty {
+public final class CatalogProperty implements CommonProperty {
   private static final TagPropertyDefinition CATALOG =
       new TagPropertyDefinition(catalogCommonProperty.defaultName(), catalogCommonProperty.uuid());
   private final TagPropertyValue tagPropertyValue;

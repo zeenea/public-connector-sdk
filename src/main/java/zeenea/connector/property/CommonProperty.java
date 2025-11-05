@@ -1,6 +1,6 @@
 package zeenea.connector.property;
 
-public interface CommonProperty {
+public sealed interface CommonProperty permits CatalogProperty {
 
   PropertyDefinition getPropertyDefinition();
 
