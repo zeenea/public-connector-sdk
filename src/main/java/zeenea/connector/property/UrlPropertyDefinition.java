@@ -1,5 +1,7 @@
 package zeenea.connector.property;
 
+import java.util.UUID;
+
 /**
  * Represents a property definition for a URL type. This class extends the PropertyDefinition class.
  */
@@ -12,6 +14,17 @@ public final class UrlPropertyDefinition extends PropertyDefinition {
    */
   public UrlPropertyDefinition(String name) {
     super(name, PropertyType.URL);
+  }
+
+  /**
+   * Constructs a UrlPropertyDefinition instance with the specified name and UUID. Used only
+   * internally for common properties
+   *
+   * @param name the name for the property definition
+   * @param uuid the UUID for the property definition
+   */
+  UrlPropertyDefinition(String name, UUID uuid) {
+    super(name, PropertyType.URL, uuid);
   }
 
   /**
