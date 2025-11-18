@@ -119,6 +119,7 @@ publishing {
     publications {
         create<MavenPublication>("public-connector-sdk") {
             from(components["java"])
+            artifact(tasks["sourcesJar"])
             artifact(tasks["javadocJar"])
             pom.withXml {
                 val root = asNode()
