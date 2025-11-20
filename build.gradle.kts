@@ -110,20 +110,6 @@ dependencies {
     )
 }
 
-@Suppress("UNCHECKED_CAST")
-fun groovy.util.Node.childText(name: String): String? {
-    val list = this.get(name) as? MutableList<*>
-    val node = list?.firstOrNull() as? groovy.util.Node
-    return node?.text()
-}
-
-@Suppress("UNCHECKED_CAST")
-fun groovy.util.Node.replaceNode(name: String, value: String) {
-    val list = this.get(name) as? MutableList<*>
-    val node = list?.firstOrNull() as? groovy.util.Node
-    node?.setValue(value)
-}
-
 publishing {
     publications {
         create<MavenPublication>("public-connector-sdk") {
