@@ -1,4 +1,4 @@
-title Inventory Connection Lifecycle
+title Extract Item Connection Lifecycle
 ==Extract items event==
 Scanner->Connector:getConnection("my-Connection")
 Connector->Connection:newConnection("url"->"connection","user"->"john")
