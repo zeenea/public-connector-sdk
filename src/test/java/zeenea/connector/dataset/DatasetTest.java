@@ -48,6 +48,12 @@ class DatasetTest {
                     List.of(
                         IdentificationProperty.of("host", "localhost"),
                         IdentificationProperty.of("port", "1111")))));
+    List<QueryReference> sourceQueries =
+        List.of(
+            QueryReference.of(
+                "SELECT * FROM table",
+                "standard_sql",
+                DataSourceIdentifier.of(List.of(IdentificationProperty.of("host", "localhost")))));
     ItemIdentifier itemIdentifier =
         ItemIdentifier.of(List.of(IdentificationProperty.of("key", "dataset1")));
     Dataset dataset =
@@ -60,6 +66,7 @@ class DatasetTest {
                 List.of(ItemIdentifier.of(IdentificationProperty.of(FIELD_KEY, "primary_key"))))
             .foreignKeys(foreignKeys)
             .sourceDatasets(sourceDatasets)
+            .sourceQueries(sourceQueries)
             .build();
     assertNotNull(dataset);
     assertEquals(itemIdentifier, dataset.getId());
@@ -67,6 +74,7 @@ class DatasetTest {
     assertEquals(primaryKeyIdentifiers, dataset.getPrimaryKeyIdentifiers());
     assertEquals(foreignKeys, dataset.getForeignKeys());
     assertEquals(sourceDatasets, dataset.getSourceDatasets());
+    assertEquals(sourceQueries, dataset.getSourceQueries());
   }
 
   @Test
@@ -109,6 +117,7 @@ class DatasetTest {
                     List.of(
                         IdentificationProperty.of("host", "localhost"),
                         IdentificationProperty.of("port", "1111")))));
+    List<QueryReference> sourceQueries = List.of(QueryReference.of("SELECT 1", "mysql"));
     ItemIdentifier itemIdentifier =
         ItemIdentifier.of(List.of(IdentificationProperty.of("key", "dataset1")));
     Dataset dataset1 =
@@ -120,6 +129,7 @@ class DatasetTest {
             .primaryKeyIdentifiers(primaryKeyIdentifiers)
             .foreignKeys(foreignKeys)
             .sourceDatasets(sourceDatasets)
+            .sourceQueries(sourceQueries)
             .build();
     Dataset dataset2 =
         Dataset.builder()
@@ -130,6 +140,7 @@ class DatasetTest {
             .primaryKeyIdentifiers(primaryKeyIdentifiers)
             .foreignKeys(foreignKeys)
             .sourceDatasets(sourceDatasets)
+            .sourceQueries(sourceQueries)
             .build();
     assertEquals(dataset1, dataset2);
     assertEquals(dataset1.hashCode(), dataset2.hashCode());
@@ -182,6 +193,7 @@ class DatasetTest {
                             List.of(
                                 IdentificationProperty.of("host", "localhost"),
                                 IdentificationProperty.of("port", "1111"))))))
+            .sourceQueries(List.of(QueryReference.of("SELECT * FROM t1", "h2")))
             .build();
     Dataset dataset2 =
         Dataset.builder()
@@ -192,6 +204,7 @@ class DatasetTest {
             .primaryKeyIdentifiers(List.of())
             .foreignKeys(List.of())
             .sourceDatasets(List.of())
+            .sourceQueries(List.of())
             .build();
     assertNotEquals(dataset1, dataset2);
   }
@@ -224,6 +237,7 @@ class DatasetTest {
                     List.of(
                         IdentificationProperty.of("host", "localhost"),
                         IdentificationProperty.of("port", "1111")))));
+    List<QueryReference> sourceQueries = List.of(QueryReference.of("SELECT 1", "sql"));
     assertThrows(
         NullPointerException.class,
         () ->
@@ -235,6 +249,7 @@ class DatasetTest {
                 .primaryKeyIdentifiers(primaryKeyIdentifiers)
                 .foreignKeys(foreignKeys)
                 .sourceDatasets(sourceDatasets)
+                .sourceQueries(sourceQueries)
                 .build());
   }
 }

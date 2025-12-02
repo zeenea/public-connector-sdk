@@ -10,6 +10,7 @@ import zeenea.connector.common.DataSourceIdentifier;
 import zeenea.connector.common.IdentificationProperty;
 import zeenea.connector.common.ItemIdentifier;
 import zeenea.connector.common.ItemReference;
+import zeenea.connector.common.QueryReference;
 
 class DataProcessTest {
 
@@ -32,6 +33,14 @@ class DataProcessTest {
                     List.of(
                         IdentificationProperty.of("host", "localhost"),
                         IdentificationProperty.of("port", "1111")))));
+    List<QueryReference> queries =
+        List.of(
+            QueryReference.of(
+                "SELECT * FROM process_input",
+                "snowflake",
+                DataSourceIdentifier.of(
+                    List.of(IdentificationProperty.of("account", "account1")))));
+
     ItemIdentifier itemIdentifier =
         ItemIdentifier.of(List.of(IdentificationProperty.of("key", "dataprocess")));
     DataProcess dataProcess =
@@ -41,11 +50,13 @@ class DataProcessTest {
             .description("Description")
             .sources(source)
             .targets(target)
+            .queries(queries)
             .build();
     assertNotNull(dataProcess);
     assertEquals(itemIdentifier, dataProcess.getId());
     assertEquals(source, dataProcess.getSources());
     assertEquals(target, dataProcess.getTargets());
+    assertEquals(queries, dataProcess.getQueries());
   }
 
   @Test
@@ -67,6 +78,7 @@ class DataProcessTest {
                     List.of(
                         IdentificationProperty.of("host", "localhost"),
                         IdentificationProperty.of("port", "1111")))));
+    List<QueryReference> queries = List.of(QueryReference.of("SELECT 1", "sql"));
     ItemIdentifier itemIdentifier =
         ItemIdentifier.of(List.of(IdentificationProperty.of("key", "dataprocess")));
     DataProcess dataProcess1 =
@@ -76,6 +88,7 @@ class DataProcessTest {
             .description("Description")
             .sources(source)
             .targets(target)
+            .queries(queries)
             .build();
     DataProcess dataProcess2 =
         DataProcess.builder()
@@ -84,6 +97,7 @@ class DataProcessTest {
             .description("Description")
             .sources(source)
             .targets(target)
+            .queries(queries)
             .build();
     assertEquals(dataProcess1, dataProcess2);
     assertEquals(dataProcess1.hashCode(), dataProcess2.hashCode());
@@ -115,6 +129,7 @@ class DataProcessTest {
             .description("Description")
             .sources(source)
             .targets(target)
+            .queries(List.of(QueryReference.of("SELECT 1", "sql")))
             .build();
     DataProcess dataProcess2 =
         DataProcess.builder()
@@ -123,6 +138,7 @@ class DataProcessTest {
             .description("Description")
             .sources(target)
             .targets(source)
+            .queries(List.of())
             .build();
     assertNotEquals(dataProcess1, dataProcess2);
   }
@@ -138,6 +154,7 @@ class DataProcessTest {
                     List.of(
                         IdentificationProperty.of("host", "localhost"),
                         IdentificationProperty.of("port", "1111")))));
+    List<QueryReference> queries = List.of(QueryReference.of("SELECT 1", "sql"));
     ItemIdentifier itemIdentifier =
         ItemIdentifier.of(List.of(IdentificationProperty.of("key", "dataprocess")));
     assertThrows(
@@ -149,6 +166,7 @@ class DataProcessTest {
                 .description("Description")
                 .sources((List<ItemReference>) null)
                 .targets(target)
+                .queries(queries)
                 .build());
   }
 
@@ -163,6 +181,7 @@ class DataProcessTest {
                     List.of(
                         IdentificationProperty.of("host", "localhost"),
                         IdentificationProperty.of("port", "1111")))));
+    List<QueryReference> queries = List.of(QueryReference.of("SELECT 1", "sql"));
     ItemIdentifier itemIdentifier =
         ItemIdentifier.of(List.of(IdentificationProperty.of("key", "dataprocess")));
     assertThrows(
@@ -174,6 +193,41 @@ class DataProcessTest {
                 .description("Description")
                 .sources(source)
                 .targets((List<ItemReference>) null)
+                .queries(queries)
+                .build());
+  }
+
+  @Test
+  @DisplayName("DataProcess builder should fail with null queries")
+  void builderShouldFailWithNullQueries() {
+    List<ItemReference> source =
+        List.of(
+            ItemReference.of(
+                ItemIdentifier.of(List.of(IdentificationProperty.of("name", "source"))),
+                DataSourceIdentifier.of(
+                    List.of(
+                        IdentificationProperty.of("host", "localhost"),
+                        IdentificationProperty.of("port", "1111")))));
+    List<ItemReference> target =
+        List.of(
+            ItemReference.of(
+                ItemIdentifier.of(List.of(IdentificationProperty.of("name", "source2"))),
+                DataSourceIdentifier.of(
+                    List.of(
+                        IdentificationProperty.of("host", "localhost"),
+                        IdentificationProperty.of("port", "1111")))));
+    ItemIdentifier itemIdentifier =
+        ItemIdentifier.of(List.of(IdentificationProperty.of("key", "dataprocess")));
+    assertThrows(
+        NullPointerException.class,
+        () ->
+            DataProcess.builder()
+                .id(itemIdentifier)
+                .name("DataProcess1")
+                .description("Description")
+                .sources(source)
+                .targets(target)
+                .queries((List<QueryReference>) null)
                 .build());
   }
 
@@ -190,5 +244,6 @@ class DataProcessTest {
             .build();
     assertThat(dataProcess.getTargets()).isEmpty();
     assertThat(dataProcess.getSources()).isEmpty();
+    assertThat(dataProcess.getQueries()).isEmpty();
   }
 }
