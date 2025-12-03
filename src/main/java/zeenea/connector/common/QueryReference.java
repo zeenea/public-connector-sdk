@@ -6,7 +6,7 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 /** Represents a reference to a query in the Zeenea Data Catalog. */
-public class QueryReference {
+public final class QueryReference {
   /** The SQL query for the item. */
   @NotNull private final String sqlQuery;
 
