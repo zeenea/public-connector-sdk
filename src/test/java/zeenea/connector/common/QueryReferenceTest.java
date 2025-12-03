@@ -18,10 +18,10 @@ class QueryReferenceTest {
                 IdentificationProperty.of("host", "localhost"),
                 IdentificationProperty.of("port", "1111")));
     QueryReference queryReference =
-        QueryReference.of("SELECT * FROM table", "SQL", dataSourceIdentifier);
+        QueryReference.of("SELECT * FROM table", SqlDialect.MYSQL, dataSourceIdentifier);
     assertNotNull(queryReference);
     assertEquals("SELECT * FROM table", queryReference.getSqlQuery());
-    assertEquals("SQL", queryReference.getSqlDialect());
+    assertEquals(SqlDialect.MYSQL, queryReference.getSqlDialect());
     assertEquals(Optional.of(dataSourceIdentifier), queryReference.getDataSourceIdentifier());
   }
 
@@ -34,9 +34,9 @@ class QueryReferenceTest {
                 IdentificationProperty.of("host", "localhost"),
                 IdentificationProperty.of("port", "1111")));
     QueryReference queryReference1 =
-        QueryReference.of("SELECT * FROM table", "SQL", dataSourceIdentifier);
+        QueryReference.of("SELECT * FROM table", SqlDialect.MYSQL, dataSourceIdentifier);
     QueryReference queryReference2 =
-        QueryReference.of("SELECT * FROM table", "SQL", dataSourceIdentifier);
+        QueryReference.of("SELECT * FROM table", SqlDialect.MYSQL, dataSourceIdentifier);
     assertEquals(queryReference1, queryReference2);
     assertEquals(queryReference1.hashCode(), queryReference2.hashCode());
   }
@@ -55,9 +55,9 @@ class QueryReferenceTest {
                 IdentificationProperty.of("host", "localhost"),
                 IdentificationProperty.of("port", "2222")));
     QueryReference queryReference1 =
-        QueryReference.of("SELECT * FROM table1", "SQL", dataSourceIdentifier1);
+        QueryReference.of("SELECT * FROM table1", SqlDialect.MYSQL, dataSourceIdentifier1);
     QueryReference queryReference2 =
-        QueryReference.of("SELECT * FROM table2", "SQL", dataSourceIdentifier2);
+        QueryReference.of("SELECT * FROM table2", SqlDialect.MYSQL, dataSourceIdentifier2);
     assertNotEquals(queryReference1, queryReference2);
   }
 
@@ -70,7 +70,8 @@ class QueryReferenceTest {
                 IdentificationProperty.of("host", "localhost"),
                 IdentificationProperty.of("port", "1111")));
     assertThrows(
-        NullPointerException.class, () -> QueryReference.of(null, "SQL", dataSourceIdentifier));
+        NullPointerException.class,
+        () -> QueryReference.of(null, SqlDialect.MYSQL, dataSourceIdentifier));
   }
 
   @Test
@@ -89,10 +90,10 @@ class QueryReferenceTest {
   @Test
   @DisplayName("QueryReference.of should create a query reference without data source identifier")
   void shouldCreateQueryReferenceWithoutDataSourceIdentifier() {
-    QueryReference queryReference = QueryReference.of("SELECT * FROM table", "SQL");
+    QueryReference queryReference = QueryReference.of("SELECT * FROM table", SqlDialect.MYSQL);
     assertNotNull(queryReference);
     assertEquals("SELECT * FROM table", queryReference.getSqlQuery());
-    assertEquals("SQL", queryReference.getSqlDialect());
+    assertEquals(SqlDialect.MYSQL, queryReference.getSqlDialect());
     assertEquals(Optional.empty(), queryReference.getDataSourceIdentifier());
   }
 
@@ -105,10 +106,10 @@ class QueryReferenceTest {
                 IdentificationProperty.of("host", "localhost"),
                 IdentificationProperty.of("port", "1111")));
     QueryReference queryReference =
-        QueryReference.of("SELECT * FROM table", "SQL", dataSourceIdentifier);
+        QueryReference.of("SELECT * FROM table", SqlDialect.MYSQL, dataSourceIdentifier);
     assertNotNull(queryReference);
     assertEquals("SELECT * FROM table", queryReference.getSqlQuery());
-    assertEquals("SQL", queryReference.getSqlDialect());
+    assertEquals(SqlDialect.MYSQL, queryReference.getSqlDialect());
     assertEquals(Optional.of(dataSourceIdentifier), queryReference.getDataSourceIdentifier());
   }
 }

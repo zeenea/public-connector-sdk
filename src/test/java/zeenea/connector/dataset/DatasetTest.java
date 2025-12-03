@@ -52,7 +52,7 @@ class DatasetTest {
         List.of(
             QueryReference.of(
                 "SELECT * FROM table",
-                "standard_sql",
+                SqlDialect.MYSQL,
                 DataSourceIdentifier.of(List.of(IdentificationProperty.of("host", "localhost")))));
     ItemIdentifier itemIdentifier =
         ItemIdentifier.of(List.of(IdentificationProperty.of("key", "dataset1")));
@@ -117,7 +117,7 @@ class DatasetTest {
                     List.of(
                         IdentificationProperty.of("host", "localhost"),
                         IdentificationProperty.of("port", "1111")))));
-    List<QueryReference> sourceQueries = List.of(QueryReference.of("SELECT 1", "mysql"));
+    List<QueryReference> sourceQueries = List.of(QueryReference.of("SELECT 1", SqlDialect.MYSQL));
     ItemIdentifier itemIdentifier =
         ItemIdentifier.of(List.of(IdentificationProperty.of("key", "dataset1")));
     Dataset dataset1 =
@@ -193,7 +193,7 @@ class DatasetTest {
                             List.of(
                                 IdentificationProperty.of("host", "localhost"),
                                 IdentificationProperty.of("port", "1111"))))))
-            .sourceQueries(List.of(QueryReference.of("SELECT * FROM t1", "h2")))
+            .sourceQueries(List.of(QueryReference.of("SELECT * FROM t1", SqlDialect.DB2)))
             .build();
     Dataset dataset2 =
         Dataset.builder()
@@ -237,7 +237,7 @@ class DatasetTest {
                     List.of(
                         IdentificationProperty.of("host", "localhost"),
                         IdentificationProperty.of("port", "1111")))));
-    List<QueryReference> sourceQueries = List.of(QueryReference.of("SELECT 1", "sql"));
+    List<QueryReference> sourceQueries = List.of(QueryReference.of("SELECT 1", SqlDialect.MYSQL));
     assertThrows(
         NullPointerException.class,
         () ->

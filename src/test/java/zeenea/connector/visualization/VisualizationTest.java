@@ -38,7 +38,7 @@ class VisualizationTest {
         List.of(
             QueryReference.of(
                 "SELECT * FROM viz_source",
-                "postgresql",
+                SqlDialect.POSTGRES,
                 DataSourceIdentifier.of(List.of(IdentificationProperty.of("host", "localhost")))));
     ItemIdentifier itemIdentifier =
         ItemIdentifier.of(List.of(IdentificationProperty.of("key", "visualization")));
@@ -81,7 +81,7 @@ class VisualizationTest {
                     List.of(
                         IdentificationProperty.of("host", "localhost"),
                         IdentificationProperty.of("port", "1111")))));
-    List<QueryReference> sourceQueries = List.of(QueryReference.of("SELECT 1", "sql"));
+    List<QueryReference> sourceQueries = List.of(QueryReference.of("SELECT 1", SqlDialect.MYSQL));
     ItemIdentifier itemIdentifier =
         ItemIdentifier.of(List.of(IdentificationProperty.of("key", "visualization")));
     Visualization visualization1 =
@@ -137,7 +137,7 @@ class VisualizationTest {
             .description("Description")
             .fields(fields)
             .sourceDatasets(linkedDataset)
-            .sourceQueries(List.of(QueryReference.of("SELECT 1", "sql")))
+            .sourceQueries(List.of(QueryReference.of("SELECT 1", SqlDialect.MYSQL)))
             .build();
     Visualization visualization2 =
         Visualization.builder()
@@ -162,7 +162,7 @@ class VisualizationTest {
                     List.of(
                         IdentificationProperty.of("host", "localhost"),
                         IdentificationProperty.of("port", "1111")))));
-    List<QueryReference> sourceQueries = List.of(QueryReference.of("SELECT 1", "sql"));
+    List<QueryReference> sourceQueries = List.of(QueryReference.of("SELECT 1", SqlDialect.MYSQL));
     assertThrows(
         NullPointerException.class,
         () ->
@@ -191,7 +191,7 @@ class VisualizationTest {
                 .multivalued(false)
                 .description("Field description")
                 .build());
-    List<QueryReference> sourceQueries = List.of(QueryReference.of("SELECT 1", "sql"));
+    List<QueryReference> sourceQueries = List.of(QueryReference.of("SELECT 1", SqlDialect.MYSQL));
     assertThrows(
         NullPointerException.class,
         () ->

@@ -6,11 +6,7 @@ import static org.junit.jupiter.api.Assertions.*;
 import java.util.List;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import zeenea.connector.common.DataSourceIdentifier;
-import zeenea.connector.common.IdentificationProperty;
-import zeenea.connector.common.ItemIdentifier;
-import zeenea.connector.common.ItemReference;
-import zeenea.connector.common.QueryReference;
+import zeenea.connector.common.*;
 
 class DataProcessTest {
 
@@ -37,7 +33,7 @@ class DataProcessTest {
         List.of(
             QueryReference.of(
                 "SELECT * FROM process_input",
-                "snowflake",
+                SqlDialect.SNOWFLAKE,
                 DataSourceIdentifier.of(
                     List.of(IdentificationProperty.of("account", "account1")))));
 
@@ -78,7 +74,7 @@ class DataProcessTest {
                     List.of(
                         IdentificationProperty.of("host", "localhost"),
                         IdentificationProperty.of("port", "1111")))));
-    List<QueryReference> queries = List.of(QueryReference.of("SELECT 1", "sql"));
+    List<QueryReference> queries = List.of(QueryReference.of("SELECT 1", SqlDialect.MYSQL));
     ItemIdentifier itemIdentifier =
         ItemIdentifier.of(List.of(IdentificationProperty.of("key", "dataprocess")));
     DataProcess dataProcess1 =
@@ -129,7 +125,7 @@ class DataProcessTest {
             .description("Description")
             .sources(source)
             .targets(target)
-            .queries(List.of(QueryReference.of("SELECT 1", "sql")))
+            .queries(List.of(QueryReference.of("SELECT 1", SqlDialect.MYSQL)))
             .build();
     DataProcess dataProcess2 =
         DataProcess.builder()
@@ -154,7 +150,7 @@ class DataProcessTest {
                     List.of(
                         IdentificationProperty.of("host", "localhost"),
                         IdentificationProperty.of("port", "1111")))));
-    List<QueryReference> queries = List.of(QueryReference.of("SELECT 1", "sql"));
+    List<QueryReference> queries = List.of(QueryReference.of("SELECT 1", SqlDialect.MYSQL));
     ItemIdentifier itemIdentifier =
         ItemIdentifier.of(List.of(IdentificationProperty.of("key", "dataprocess")));
     assertThrows(
@@ -181,7 +177,7 @@ class DataProcessTest {
                     List.of(
                         IdentificationProperty.of("host", "localhost"),
                         IdentificationProperty.of("port", "1111")))));
-    List<QueryReference> queries = List.of(QueryReference.of("SELECT 1", "sql"));
+    List<QueryReference> queries = List.of(QueryReference.of("SELECT 1", SqlDialect.MYSQL));
     ItemIdentifier itemIdentifier =
         ItemIdentifier.of(List.of(IdentificationProperty.of("key", "dataprocess")));
     assertThrows(

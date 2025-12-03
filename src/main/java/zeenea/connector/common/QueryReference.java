@@ -5,13 +5,13 @@ import java.util.Optional;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-/** Represents a reference to a query in the Zeenea Data Catalog. */
+/** Represents a reference to a SQL query in the Zeenea Data Catalog. */
 public final class QueryReference {
   /** The SQL query for the item. */
   @NotNull private final String sqlQuery;
 
   /** The SQL Dialect of the query. */
-  @NotNull private final String sqlDialect;
+  @NotNull private final SqlDialect sqlDialect;
 
   /** The data source identifier associated with the query */
   @Nullable private final DataSourceIdentifier dataSourceIdentifier;
@@ -38,7 +38,7 @@ public final class QueryReference {
    */
   public static QueryReference of(
       @NotNull String sqlQuery,
-      @NotNull String sqlDialect,
+      @NotNull SqlDialect sqlDialect,
       @Nullable DataSourceIdentifier dataSourceIdentifier) {
     return builder()
         .sqlQuery(sqlQuery)
@@ -55,7 +55,7 @@ public final class QueryReference {
    * @param sqlDialect the sql dialect for the query
    * @return a new QueryReference instance
    */
-  public static QueryReference of(@NotNull String sqlQuery, @NotNull String sqlDialect) {
+  public static QueryReference of(@NotNull String sqlQuery, @NotNull SqlDialect sqlDialect) {
     return of(sqlQuery, sqlDialect, null);
   }
 
@@ -73,7 +73,7 @@ public final class QueryReference {
    *
    * @return the SQL dialect of the query
    */
-  public @NotNull String getSqlDialect() {
+  public @NotNull SqlDialect getSqlDialect() {
     return sqlDialect;
   }
 
@@ -146,7 +146,7 @@ public final class QueryReference {
     private String sqlQuery;
 
     /** The SQL dialect for the query. */
-    private String sqlDialect;
+    private SqlDialect sqlDialect;
 
     /** The data source identifier associated with the query, if any. */
     private DataSourceIdentifier dataSourceIdentifier;
@@ -168,7 +168,7 @@ public final class QueryReference {
      * @param sqlDialect the dialect of the query
      * @return the Builder instance
      */
-    public QueryReference.Builder sqlDialect(@Nullable String sqlDialect) {
+    public QueryReference.Builder sqlDialect(@Nullable SqlDialect sqlDialect) {
       this.sqlDialect = sqlDialect;
       return this;
     }
