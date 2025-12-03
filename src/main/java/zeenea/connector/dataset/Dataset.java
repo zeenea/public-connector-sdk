@@ -7,6 +7,7 @@ import org.jetbrains.annotations.NotNull;
 import zeenea.connector.Item;
 import zeenea.connector.common.ItemIdentifier;
 import zeenea.connector.common.ItemReference;
+import zeenea.connector.common.QueryReference;
 import zeenea.connector.exception.ExceptionUtils;
 import zeenea.connector.field.Field;
 
@@ -38,6 +39,13 @@ public final class Dataset extends Item {
   @NotNull private final List<ItemReference> sourceDatasets;
 
   /**
+   * The list of source queries associated with the dataset.
+   *
+   * <p>Used to declare upstream dataset lineage by referencing QueryReference of source datasets.
+   */
+  @NotNull private final List<QueryReference> sourceQueries;
+
+  /**
    * Constructs a Dataset instance using the provided builder.
    *
    * @param builder the builder used to create the Dataset instance
@@ -49,11 +57,13 @@ public final class Dataset extends Item {
     ExceptionUtils.requireNonNull("primaryKeyIdentifiers", builder.primaryKeyIdentifiers);
     ExceptionUtils.requireNonNull("foreignKeys", builder.foreignKeys);
     ExceptionUtils.requireNonNull("sourceDatasets", builder.sourceDatasets);
+    ExceptionUtils.requireNonNull("sourceQueries", builder.sourceQueries);
     this.fields = List.copyOf(builder.fields);
     this.primaryKeys = List.copyOf(builder.primaryKeys);
     this.primaryKeyIdentifiers = List.copyOf(builder.primaryKeyIdentifiers);
     this.foreignKeys = List.copyOf(builder.foreignKeys);
     this.sourceDatasets = List.copyOf(builder.sourceDatasets);
+    this.sourceQueries = List.copyOf(builder.sourceQueries);
   }
 
   /**
@@ -106,6 +116,15 @@ public final class Dataset extends Item {
   }
 
   /**
+   * Gets the list of source queries references.
+   *
+   * @return the list of source queries references
+   */
+  public @NotNull List<QueryReference> getSourceQueries() {
+    return sourceQueries;
+  }
+
+  /**
    * Checks if this Dataset is equal to another object.
    *
    * @param o the object to compare with
@@ -125,7 +144,8 @@ public final class Dataset extends Item {
         && Objects.equals(primaryKeys, dataset.primaryKeys)
         && Objects.equals(primaryKeyIdentifiers, dataset.primaryKeyIdentifiers)
         && Objects.equals(foreignKeys, dataset.foreignKeys)
-        && Objects.equals(sourceDatasets, dataset.sourceDatasets);
+        && Objects.equals(sourceDatasets, dataset.sourceDatasets)
+        && Objects.equals(sourceQueries, dataset.sourceQueries);
   }
 
   /**
@@ -145,7 +165,8 @@ public final class Dataset extends Item {
         primaryKeys,
         primaryKeyIdentifiers,
         foreignKeys,
-        sourceDatasets);
+        sourceDatasets,
+        sourceQueries);
   }
 
   /**
@@ -176,6 +197,8 @@ public final class Dataset extends Item {
         + foreignKeys
         + ", sourceDatasets="
         + sourceDatasets
+        + ", sourceQueries="
+        + sourceQueries
         + '}';
   }
 
@@ -209,6 +232,9 @@ public final class Dataset extends Item {
 
     /** The list of source datasets for the dataset. */
     private List<ItemReference> sourceDatasets = new ArrayList<>();
+
+    /** The list of source queries for the dataset. */
+    private List<QueryReference> sourceQueries = new ArrayList<>();
 
     /**
      * Sets the list of fields in the dataset.
@@ -325,6 +351,28 @@ public final class Dataset extends Item {
      */
     public Builder sourceDatasets(ItemReference... sourceDatasets) {
       this.sourceDatasets = List.of(sourceDatasets);
+      return this;
+    }
+
+    /**
+     * Sets the list of source queries for the dataset.
+     *
+     * @param sourceQueries the list of source queries
+     * @return the builder instance
+     */
+    public Builder sourceQueries(@NotNull List<QueryReference> sourceQueries) {
+      this.sourceQueries = List.copyOf(sourceQueries);
+      return this;
+    }
+
+    /**
+     * Sets the source query references for the DataProcess.
+     *
+     * @param sourceQueries the source query references
+     * @return this Builder instance
+     */
+    public Builder sourceQueries(QueryReference... sourceQueries) {
+      this.sourceQueries = List.of(sourceQueries);
       return this;
     }
 

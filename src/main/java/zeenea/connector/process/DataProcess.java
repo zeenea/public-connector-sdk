@@ -6,6 +6,7 @@ import java.util.Objects;
 import org.jetbrains.annotations.NotNull;
 import zeenea.connector.Item;
 import zeenea.connector.common.ItemReference;
+import zeenea.connector.common.QueryReference;
 import zeenea.connector.exception.ExceptionUtils;
 
 /** Represents a data process which extends the Item class. */
@@ -20,6 +21,9 @@ public final class DataProcess extends Item {
   /** The list of field to field operations. */
   @NotNull private final List<Operation> operations;
 
+  /** The list of query references. */
+  @NotNull private final List<QueryReference> queries;
+
   /**
    * Constructs a DataProcess instance using the provided builder.
    *
@@ -30,9 +34,11 @@ public final class DataProcess extends Item {
     ExceptionUtils.requireNonNull("sources", builder.sources);
     ExceptionUtils.requireNonNull("targets", builder.targets);
     ExceptionUtils.requireNonNull("operation", builder.operations);
+    ExceptionUtils.requireNonNull("queries", builder.queries);
     this.sources = List.copyOf(builder.sources);
     this.targets = List.copyOf(builder.targets);
     this.operations = List.copyOf(builder.operations);
+    this.queries = List.copyOf(builder.queries);
   }
 
   /**
@@ -63,6 +69,15 @@ public final class DataProcess extends Item {
   }
 
   /**
+   * Gets the list of query references.
+   *
+   * @return the list of query references
+   */
+  public @NotNull List<QueryReference> getQueries() {
+    return queries;
+  }
+
+  /**
    * Checks if this DataProcess is equal to another object.
    *
    * @param o the object to compare with
@@ -80,7 +95,8 @@ public final class DataProcess extends Item {
         && Objects.equals(getProperties(), dataProcess.getProperties())
         && Objects.equals(sources, dataProcess.sources)
         && Objects.equals(targets, dataProcess.targets)
-        && Objects.equals(operations, dataProcess.operations);
+        && Objects.equals(operations, dataProcess.operations)
+        && Objects.equals(queries, dataProcess.queries);
   }
 
   /**
@@ -98,7 +114,8 @@ public final class DataProcess extends Item {
         getProperties(),
         sources,
         targets,
-        operations);
+        operations,
+        queries);
   }
 
   /**
@@ -125,6 +142,8 @@ public final class DataProcess extends Item {
         + targets
         + ", operations="
         + operations
+        + ", queries="
+        + queries
         + "}";
   }
 
@@ -148,6 +167,9 @@ public final class DataProcess extends Item {
 
     /** The list of operations to be set in the DataProcess. */
     private List<Operation> operations = new ArrayList<>();
+
+    /** The list of queries to be set in the DataProcess. */
+    private List<QueryReference> queries = new ArrayList<>();
 
     /**
      * Sets the list of source datasets references for the DataProcess.
@@ -212,6 +234,28 @@ public final class DataProcess extends Item {
      */
     public Builder operations(Operation... operations) {
       this.operations = List.of(operations);
+      return this;
+    }
+
+    /**
+     * Sets the list of queries for the DataProcess.
+     *
+     * @param queries the list of queries
+     * @return this Builder instance
+     */
+    public Builder queries(@NotNull List<QueryReference> queries) {
+      this.queries = List.copyOf(queries);
+      return this;
+    }
+
+    /**
+     * Sets the list of queries for the DataProcess.
+     *
+     * @param queries the list of queries
+     * @return this Builder instance
+     */
+    public Builder queries(QueryReference... queries) {
+      this.queries = List.of(queries);
       return this;
     }
 
