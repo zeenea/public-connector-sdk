@@ -112,4 +112,37 @@ class QueryReferenceTest {
     assertEquals(SqlDialect.MYSQL, queryReference.getSqlDialect());
     assertEquals(Optional.of(dataSourceIdentifier), queryReference.getDataSourceIdentifier());
   }
+
+  @Test
+  @DisplayName("QueryReference builder should handle valid String dialect")
+  void shouldCreateQueryReferenceWithBuilderDialectValid() {
+    QueryReference queryReference =
+        QueryReference.builder().sqlQuery("SELECT * FROM table").sqlDialect("mysql").build();
+    assertNotNull(queryReference);
+    assertEquals("SELECT * FROM table", queryReference.getSqlQuery());
+    assertEquals(SqlDialect.MYSQL, queryReference.getSqlDialect());
+  }
+
+  @Test
+  @DisplayName("QueryReference builder should handle not found String dialect")
+  void shouldCreateQueryReferenceWithBuilderDialectNotFound() {
+    QueryReference queryReference =
+        QueryReference.builder()
+            .sqlQuery("SELECT * FROM table")
+            .sqlDialect("super-database")
+            .build();
+    assertNotNull(queryReference);
+    assertEquals("SELECT * FROM table", queryReference.getSqlQuery());
+    assertEquals(SqlDialect.ANSI, queryReference.getSqlDialect());
+  }
+
+  @Test
+  @DisplayName("QueryReference builder should handle null String dialect")
+  void shouldCreateQueryReferenceWithBuilderDialectNull() {
+    QueryReference queryReference =
+        QueryReference.builder().sqlQuery("SELECT * FROM table").sqlDialect((String) null).build();
+    assertNotNull(queryReference);
+    assertEquals("SELECT * FROM table", queryReference.getSqlQuery());
+    assertEquals(SqlDialect.ANSI, queryReference.getSqlDialect());
+  }
 }

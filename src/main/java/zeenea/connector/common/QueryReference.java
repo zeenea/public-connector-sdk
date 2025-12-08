@@ -174,6 +174,17 @@ public final class QueryReference {
     }
 
     /**
+     * Sets the sql dialect for the query.
+     *
+     * @param sqlDialectName the dialect name, ANSI will be used if null or not found
+     * @return the Builder instance
+     */
+    public QueryReference.Builder sqlDialect(@Nullable String sqlDialectName) {
+      this.sqlDialect = SqlDialect.fromCustomName(sqlDialectName);
+      return this;
+    }
+
+    /**
      * Sets the data source identifier for the query.
      *
      * @param dataSourceIdentifier the data source identifier to set

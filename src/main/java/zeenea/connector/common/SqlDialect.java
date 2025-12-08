@@ -1,31 +1,61 @@
 package zeenea.connector.common;
 
+import java.util.Arrays;
+
 /** Enum representing all SQL dialect available for the SQL Lineage library. */
 public enum SqlDialect {
-  ANSI,
-  ATHENA,
-  BIGQUERY,
-  CLICKHOUSE,
-  DATABRICKS,
-  DB2,
-  DUCKDB,
-  EXASOL,
-  GREENPLUM,
-  HIVE,
-  IMPALA,
-  MARIADB,
-  MATERIALIZE,
-  MYSQL,
-  ORACLE,
-  POSTGRES,
-  REDSHIFT,
-  SNOWFLAKE,
-  SOQL,
-  SPARKSQL,
-  SQLITE,
-  STARROCKS,
-  TERADATA,
-  TRINO,
-  TSQL,
-  VERTICA
+  ANSI("ansi"),
+  ATHENA("athena"),
+  BIGQUERY("bigquery"),
+  CLICKHOUSE("clickhouse"),
+  DATABRICKS("databricks"),
+  DB2("db2"),
+  DUCKDB("duckdb"),
+  EXASOL("exasol"),
+  GREENPLUM("greenplum"),
+  HIVE("hive"),
+  IMPALA("impala"),
+  MARIADB("mariadb"),
+  MATERIALIZE("materialize"),
+  MYSQL("mysql"),
+  ORACLE("oracle"),
+  POSTGRES("postgres"),
+  REDSHIFT("redshift"),
+  SNOWFLAKE("snowflake"),
+  SOQL("soql"),
+  SPARKSQL("sparksql"),
+  SQLITE("sqlite"),
+  STARROCKS("starrocks"),
+  TERADATA("teradata"),
+  TRINO("trino"),
+  TSQL("tsql"),
+  VERTICA("vertica");
+
+  private final String dialectName;
+
+  SqlDialect(String dialectName) {
+    this.dialectName = dialectName;
+  }
+
+  public String getDialectName() {
+    return dialectName;
+  }
+
+  /**
+   * Returns the SqlDialect associated with the given name. Returns ANSI if the name is null or not
+   * found.
+   *
+   * @param name The name to look up
+   * @return The matching SqlDialect or ANSI
+   */
+  public static SqlDialect fromCustomName(String name) {
+    if (name == null) {
+      return ANSI;
+    }
+
+    return Arrays.stream(values())
+        .filter(dialect -> dialect.dialectName.equalsIgnoreCase(name))
+        .findFirst()
+        .orElse(ANSI);
+  }
 }
