@@ -4,7 +4,7 @@ Scanner->Connector:getConnection("my-Connection")
 Connector->Connection:newConnection("url"->"connection","user"->"john")
 activate Connection
 Connection->Scanner:Connection
-Scanner->Connection:extractItems(Stream<ItemIdentifier>)
+Scanner->Connection:extractItems(Stream<ItemToExtract>)
 Connection<-->DataSource:Fetch all items
 Connection->Scanner:Stream<Item>
 Scanner->Connection:close()

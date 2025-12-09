@@ -17,10 +17,13 @@ class ItemInventoryTest {
         LabelIdentifier.of(
             IdentificationProperty.of("label1", "value1"),
             IdentificationProperty.of("label2", "value2"));
-    ItemInventory inventory = ItemInventory.of(identifier, labelIdentifier);
+    DataSourceIdentifier dataSourceIdentifier =
+        DataSourceIdentifier.of(IdentificationProperty.of("dsKey", "dsValue"));
+    ItemInventory inventory = ItemInventory.of(identifier, labelIdentifier, dataSourceIdentifier);
     assertNotNull(inventory);
     assertEquals(identifier, inventory.getItemIdentifier());
     assertEquals(labelIdentifier, inventory.getLabelIdentifier());
+    assertEquals(dataSourceIdentifier, inventory.getDataSourceIdentifier());
   }
 
   @Test
@@ -32,8 +35,10 @@ class ItemInventoryTest {
         LabelIdentifier.of(
             IdentificationProperty.of("label1", "value1"),
             IdentificationProperty.of("label2", "value2"));
-    ItemInventory inventory1 = ItemInventory.of(identifier, labelIdentifier);
-    ItemInventory inventory2 = ItemInventory.of(identifier, labelIdentifier);
+    DataSourceIdentifier dataSourceIdentifier =
+        DataSourceIdentifier.of(IdentificationProperty.of("dsKey", "dsValue"));
+    ItemInventory inventory1 = ItemInventory.of(identifier, labelIdentifier, dataSourceIdentifier);
+    ItemInventory inventory2 = ItemInventory.of(identifier, labelIdentifier, dataSourceIdentifier);
     assertEquals(inventory1, inventory2);
     assertEquals(inventory1.hashCode(), inventory2.hashCode());
   }
@@ -53,28 +58,42 @@ class ItemInventoryTest {
         LabelIdentifier.of(
             IdentificationProperty.of("label1", "value3"),
             IdentificationProperty.of("label2", "value2"));
+    DataSourceIdentifier dataSourceIdentifier1 =
+        DataSourceIdentifier.of(IdentificationProperty.of("dsKey1", "dsValue1"));
+    DataSourceIdentifier dataSourceIdentifier2 =
+        DataSourceIdentifier.of(IdentificationProperty.of("dsKey2", "dsValue2"));
 
-    ItemInventory inventory1 = ItemInventory.of(identifier1, labelIdentifier1);
-    ItemInventory inventory2 = ItemInventory.of(identifier2, labelIdentifier2);
+    ItemInventory inventory1 =
+        ItemInventory.of(identifier1, labelIdentifier1, dataSourceIdentifier1);
+    ItemInventory inventory2 =
+        ItemInventory.of(identifier2, labelIdentifier2, dataSourceIdentifier2);
     assertNotEquals(inventory1, inventory2);
   }
 
   @Test
   @DisplayName("ItemInventory factory should fail with null item identifier")
+  @SuppressWarnings("DataFlowIssue")
   void shouldFailWithNullItemIdentifier() {
     LabelIdentifier labelIdentifier =
         LabelIdentifier.of(
             IdentificationProperty.of("label1", "value1"),
             IdentificationProperty.of("label2", "value2"));
-    assertThrows(NullPointerException.class, () -> ItemInventory.of(null, labelIdentifier));
+    DataSourceIdentifier dataSourceIdentifier =
+        DataSourceIdentifier.of(IdentificationProperty.of("dsKey", "dsValue"));
+    assertThrows(
+        NullPointerException.class,
+        () -> ItemInventory.of(null, labelIdentifier, dataSourceIdentifier));
   }
 
   @Test
   @DisplayName("ItemInventory factory should fail with null label identifier")
+  @SuppressWarnings("DataFlowIssue")
   void shouldFailWithNullLabelIdentifier() {
     ItemIdentifier identifier =
         ItemIdentifier.of(List.of(IdentificationProperty.of("key", "value")));
-    LabelIdentifier labelIdentifier = null;
-    assertThrows(NullPointerException.class, () -> ItemInventory.of(identifier, labelIdentifier));
+    DataSourceIdentifier dataSourceIdentifier =
+        DataSourceIdentifier.of(IdentificationProperty.of("dsKey", "dsValue"));
+    assertThrows(
+        NullPointerException.class, () -> ItemInventory.of(identifier, null, dataSourceIdentifier));
   }
 }

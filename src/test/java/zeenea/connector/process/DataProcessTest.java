@@ -39,9 +39,12 @@ class DataProcessTest {
 
     ItemIdentifier itemIdentifier =
         ItemIdentifier.of(List.of(IdentificationProperty.of("key", "dataprocess")));
+    DataSourceIdentifier dataSourceIdentifier =
+        DataSourceIdentifier.of(List.of(IdentificationProperty.of("alias", "mock-dataset")));
     DataProcess dataProcess =
         DataProcess.builder()
             .id(itemIdentifier)
+            .dataSourceIdentifier(dataSourceIdentifier)
             .name("DataProcess")
             .description("Description")
             .sources(source)
@@ -77,9 +80,12 @@ class DataProcessTest {
     List<QueryReference> queries = List.of(QueryReference.of("SELECT 1", SqlDialect.MYSQL));
     ItemIdentifier itemIdentifier =
         ItemIdentifier.of(List.of(IdentificationProperty.of("key", "dataprocess")));
+    DataSourceIdentifier dataSourceIdentifier =
+        DataSourceIdentifier.of(List.of(IdentificationProperty.of("alias", "mock-dataset")));
     DataProcess dataProcess1 =
         DataProcess.builder()
             .id(itemIdentifier)
+            .dataSourceIdentifier(dataSourceIdentifier)
             .name("DataProcess")
             .description("Description")
             .sources(source)
@@ -89,6 +95,7 @@ class DataProcessTest {
     DataProcess dataProcess2 =
         DataProcess.builder()
             .id(itemIdentifier)
+            .dataSourceIdentifier(dataSourceIdentifier)
             .name("DataProcess")
             .description("Description")
             .sources(source)
@@ -121,6 +128,9 @@ class DataProcessTest {
     DataProcess dataProcess1 =
         DataProcess.builder()
             .id(ItemIdentifier.of(List.of(IdentificationProperty.of("key", "dataprocess1"))))
+            .dataSourceIdentifier(
+                DataSourceIdentifier.of(
+                    List.of(IdentificationProperty.of("alias", "mock-dataset"))))
             .name("DataProcess1")
             .description("Description")
             .sources(source)
@@ -130,6 +140,9 @@ class DataProcessTest {
     DataProcess dataProcess2 =
         DataProcess.builder()
             .id(ItemIdentifier.of(List.of(IdentificationProperty.of("key", "dataprocess2"))))
+            .dataSourceIdentifier(
+                DataSourceIdentifier.of(
+                    List.of(IdentificationProperty.of("alias", "mock-dataset"))))
             .name("DataProcess2")
             .description("Description")
             .sources(target)
@@ -232,9 +245,12 @@ class DataProcessTest {
   void builderShouldNotFailWithEmptyTargetOrSources() {
     ItemIdentifier itemIdentifier =
         ItemIdentifier.of(List.of(IdentificationProperty.of("key", "dataprocess")));
+    DataSourceIdentifier dataSourceIdentifier =
+        DataSourceIdentifier.of(List.of(IdentificationProperty.of("alias", "mock-dataset")));
     DataProcess dataProcess =
         DataProcess.builder()
             .id(itemIdentifier)
+            .dataSourceIdentifier(dataSourceIdentifier)
             .name("DataProcess1")
             .description("Description")
             .build();

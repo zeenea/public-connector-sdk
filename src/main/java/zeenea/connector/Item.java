@@ -3,6 +3,7 @@ package zeenea.connector;
 import java.util.*;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import zeenea.connector.common.DataSourceIdentifier;
 import zeenea.connector.common.IdentificationProperty;
 import zeenea.connector.common.ItemIdentifier;
 import zeenea.connector.contact.Contact;
@@ -40,6 +41,9 @@ public abstract class Item {
   /** The customItemRefs of the item. */
   private final List<String> customItemRefs;
 
+  /** The data source identifier of the item. */
+  private final DataSourceIdentifier dataSourceIdentifier;
+
   /**
    * Constructs an Item instance using the provided builder.
    *
@@ -53,6 +57,7 @@ public abstract class Item {
     this.contacts = List.copyOf(builder.contacts);
     this.glossaryRefs = List.copyOf(builder.glossaryRefs);
     this.customItemRefs = List.copyOf(builder.customItemRefs);
+    this.dataSourceIdentifier = builder.dataSourceIdentifier;
   }
 
   /**
@@ -120,6 +125,15 @@ public abstract class Item {
   }
 
   /**
+   * Gets the datasource identifier of the item.
+   *
+   * @return the datasource identifier of the item
+   */
+  public DataSourceIdentifier getDataSourceIdentifier() {
+    return dataSourceIdentifier;
+  }
+
+  /**
    * Abstract builder class for creating instances of items.
    *
    * @param <T> the type of item being built
@@ -147,6 +161,8 @@ public abstract class Item {
 
     /** The custom item refs of the item. */
     private List<String> customItemRefs = List.of();
+
+    private DataSourceIdentifier dataSourceIdentifier;
 
     /**
      * Sets the identifier of the item.
@@ -266,6 +282,17 @@ public abstract class Item {
      */
     public THIS customItemRefs(String... customItemRefs) {
       this.customItemRefs = List.of(customItemRefs);
+      return self();
+    }
+
+    /**
+     * Sets the datasource identifier of the item.
+     *
+     * @param dataSourceIdentifier the datasource identifier of the item
+     * @return the builder instance
+     */
+    public THIS dataSourceIdentifier(@NotNull DataSourceIdentifier dataSourceIdentifier) {
+      this.dataSourceIdentifier = dataSourceIdentifier;
       return self();
     }
 
