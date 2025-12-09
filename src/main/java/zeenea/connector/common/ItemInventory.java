@@ -21,6 +21,8 @@ public final class ItemInventory {
    */
   @NotNull private final LabelIdentifier labelIdentifier;
 
+  @NotNull private final DataSourceIdentifier dataSourceIdentifier;
+
   /**
    * Constructs an ItemInventory instance using the provided builder.
    *
@@ -29,6 +31,8 @@ public final class ItemInventory {
   private ItemInventory(Builder builder) {
     this.itemIdentifier = Objects.requireNonNull(builder.itemIdentifier, "itemIdentifier");
     this.labelIdentifier = Objects.requireNonNull(builder.labelIdentifier, "labelIdentifier");
+    this.dataSourceIdentifier =
+        Objects.requireNonNull(builder.dataSourceIdentifier, "dataSourceIdentifier");
   }
 
   /**
@@ -52,11 +56,18 @@ public final class ItemInventory {
    *
    * @param itemIdentifier the identifier for the item
    * @param labelIdentifier the label identifier associated with the item
+   * @param dataSourceIdentifier the datasource identifier associated with the item
    * @return a new ItemInventory instance
    */
   public static ItemInventory of(
-      @NotNull ItemIdentifier itemIdentifier, @NotNull LabelIdentifier labelIdentifier) {
-    return builder().itemIdentifier(itemIdentifier).labelIdentifier(labelIdentifier).build();
+      @NotNull ItemIdentifier itemIdentifier,
+      @NotNull LabelIdentifier labelIdentifier,
+      @NotNull DataSourceIdentifier dataSourceIdentifier) {
+    return builder()
+        .itemIdentifier(itemIdentifier)
+        .labelIdentifier(labelIdentifier)
+        .dataSourceIdentifier(dataSourceIdentifier)
+        .build();
   }
 
   /**
@@ -98,6 +109,15 @@ public final class ItemInventory {
   }
 
   /**
+   * Gets the datasource identifier for the item.
+   *
+   * @return the datasource identifier for the item
+   */
+  public @NotNull DataSourceIdentifier getDataSourceIdentifier() {
+    return dataSourceIdentifier;
+  }
+
+  /**
    * Checks if this ItemInventory is equal to another object.
    *
    * @param o the object to compare with
@@ -109,7 +129,8 @@ public final class ItemInventory {
     if (o == null || getClass() != o.getClass()) return false;
     ItemInventory that = (ItemInventory) o;
     return Objects.equals(itemIdentifier, that.itemIdentifier)
-        && Objects.equals(labelIdentifier, that.labelIdentifier);
+        && Objects.equals(labelIdentifier, that.labelIdentifier)
+        && Objects.equals(dataSourceIdentifier, that.dataSourceIdentifier);
   }
 
   /**
@@ -119,7 +140,7 @@ public final class ItemInventory {
    */
   @Override
   public int hashCode() {
-    return Objects.hash(itemIdentifier, labelIdentifier);
+    return Objects.hash(itemIdentifier, labelIdentifier, dataSourceIdentifier);
   }
 
   /**
@@ -134,6 +155,8 @@ public final class ItemInventory {
         + itemIdentifier
         + ", labelIdentifier="
         + labelIdentifier
+        + ", dataSourceIdentifier="
+        + dataSourceIdentifier
         + "}";
   }
 
@@ -152,6 +175,8 @@ public final class ItemInventory {
     private ItemIdentifier itemIdentifier;
 
     private LabelIdentifier labelIdentifier;
+
+    private DataSourceIdentifier dataSourceIdentifier;
 
     /**
      * Sets the item identifier for the builder.
@@ -248,6 +273,28 @@ public final class ItemInventory {
      */
     public Builder labelIdentifier(IdentificationProperty identificationProperty) {
       this.labelIdentifier = LabelIdentifier.of(identificationProperty);
+      return this;
+    }
+
+    /**
+     * Sets the datasource identifier for the builder.
+     *
+     * @param dataSourceIdentifier the datasource for the item
+     * @return the builder instance
+     */
+    public Builder dataSourceIdentifier(@NotNull DataSourceIdentifier dataSourceIdentifier) {
+      this.dataSourceIdentifier = dataSourceIdentifier;
+      return this;
+    }
+
+    /**
+     * Sets the datasource identifier for the builder.
+     *
+     * @param identificationProperty the datasource for the item
+     * @return the builder instance
+     */
+    public Builder dataSourceIdentifier(IdentificationProperty identificationProperty) {
+      this.dataSourceIdentifier = DataSourceIdentifier.of(identificationProperty);
       return this;
     }
 
