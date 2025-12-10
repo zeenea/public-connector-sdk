@@ -1,0 +1,11 @@
+name: Integration Test
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  call-workflow:
+    uses: zeenea/connectivity-workflows/.github/workflows/integration.yml@main
+    secrets: inherit
