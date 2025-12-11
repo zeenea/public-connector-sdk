@@ -5,12 +5,12 @@ import java.util.Optional;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-/** Represents a reference to a SQL query in the Zeenea Data Catalog. */
+/** Represents a SQL query linked to an {@link zeenea.connector.Item}. */
 public final class QueryReference {
   /** The SQL query for the item. */
   @NotNull private final String sqlQuery;
 
-  /** The SQL Dialect of the query. */
+  /** The SQL dialect of the query. */
   @NotNull private final SqlDialect sqlDialect;
 
   /** The data source identifier associated with the query */

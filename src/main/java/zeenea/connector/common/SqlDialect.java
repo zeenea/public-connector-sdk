@@ -2,7 +2,7 @@ package zeenea.connector.common;
 
 import java.util.Arrays;
 
-/** Enum representing all SQL dialect available for the SQL Lineage library. */
+/** Enum representing all SQL dialects available. */
 public enum SqlDialect {
   ANSI("ansi"),
   ATHENA("athena"),
