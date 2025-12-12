@@ -34,12 +34,6 @@ class VisualizationTest {
                     List.of(
                         IdentificationProperty.of("host", "localhost"),
                         IdentificationProperty.of("port", "1111")))));
-    List<QueryReference> sourceQueries =
-        List.of(
-            QueryReference.of(
-                "SELECT * FROM viz_source",
-                SqlDialect.POSTGRES,
-                DataSourceIdentifier.of(List.of(IdentificationProperty.of("host", "localhost")))));
     ItemIdentifier itemIdentifier =
         ItemIdentifier.of(List.of(IdentificationProperty.of("key", "visualization")));
     Visualization visualization =
@@ -49,13 +43,11 @@ class VisualizationTest {
             .description("Description")
             .fields(fields)
             .sourceDatasets(linkedDataset)
-            .sourceQueries(sourceQueries)
             .build();
     assertNotNull(visualization);
     assertEquals(itemIdentifier, visualization.getId());
     assertEquals(fields, visualization.getFields());
     assertEquals(linkedDataset, visualization.getSourceDatasets());
-    assertEquals(sourceQueries, visualization.getSourceQueries());
   }
 
   @Test
@@ -81,7 +73,6 @@ class VisualizationTest {
                     List.of(
                         IdentificationProperty.of("host", "localhost"),
                         IdentificationProperty.of("port", "1111")))));
-    List<QueryReference> sourceQueries = List.of(QueryReference.of("SELECT 1", SqlDialect.MYSQL));
     ItemIdentifier itemIdentifier =
         ItemIdentifier.of(List.of(IdentificationProperty.of("key", "visualization")));
     Visualization visualization1 =
@@ -91,7 +82,6 @@ class VisualizationTest {
             .description("Description")
             .fields(fields)
             .sourceDatasets(linkedDataset)
-            .sourceQueries(sourceQueries)
             .build();
     Visualization visualization2 =
         Visualization.builder()
@@ -100,7 +90,6 @@ class VisualizationTest {
             .description("Description")
             .fields(fields)
             .sourceDatasets(linkedDataset)
-            .sourceQueries(sourceQueries)
             .build();
     assertEquals(visualization1, visualization2);
     assertEquals(visualization1.hashCode(), visualization2.hashCode());
@@ -137,7 +126,6 @@ class VisualizationTest {
             .description("Description")
             .fields(fields)
             .sourceDatasets(linkedDataset)
-            .sourceQueries(List.of(QueryReference.of("SELECT 1", SqlDialect.MYSQL)))
             .build();
     Visualization visualization2 =
         Visualization.builder()
@@ -146,7 +134,6 @@ class VisualizationTest {
             .description("Description")
             .fields(List.of())
             .sourceDatasets(List.of())
-            .sourceQueries(List.of())
             .build();
     assertNotEquals(visualization1, visualization2);
   }
@@ -162,7 +149,6 @@ class VisualizationTest {
                     List.of(
                         IdentificationProperty.of("host", "localhost"),
                         IdentificationProperty.of("port", "1111")))));
-    List<QueryReference> sourceQueries = List.of(QueryReference.of("SELECT 1", SqlDialect.MYSQL));
     assertThrows(
         NullPointerException.class,
         () ->
@@ -172,7 +158,6 @@ class VisualizationTest {
                 .description("Description")
                 .fields((List<Field>) null)
                 .sourceDatasets(linkedDataset)
-                .sourceQueries(sourceQueries)
                 .build());
   }
 
@@ -191,7 +176,6 @@ class VisualizationTest {
                 .multivalued(false)
                 .description("Field description")
                 .build());
-    List<QueryReference> sourceQueries = List.of(QueryReference.of("SELECT 1", SqlDialect.MYSQL));
     assertThrows(
         NullPointerException.class,
         () ->
@@ -201,43 +185,6 @@ class VisualizationTest {
                 .description("Description")
                 .fields(fields)
                 .sourceDatasets((List<ItemReference>) null)
-                .sourceQueries(sourceQueries)
-                .build());
-  }
-
-  @Test
-  @DisplayName("Visualization builder should fail with null source queries")
-  void builderShouldFailWithNullSourceQueries() {
-    List<Field> fields =
-        List.of(
-            Field.builder()
-                .id(ItemIdentifier.of(IdentificationProperty.of("key", "field")))
-                .name("field")
-                .dataType(DataType.String)
-                .nativeType("String")
-                .nativeIndex(1)
-                .nullable(true)
-                .multivalued(false)
-                .description("Field description")
-                .build());
-    List<ItemReference> linkedDataset =
-        List.of(
-            ItemReference.of(
-                ItemIdentifier.of(List.of(IdentificationProperty.of("name", "source"))),
-                DataSourceIdentifier.of(
-                    List.of(
-                        IdentificationProperty.of("host", "localhost"),
-                        IdentificationProperty.of("port", "1111")))));
-    assertThrows(
-        NullPointerException.class,
-        () ->
-            Visualization.builder()
-                .id(ItemIdentifier.of(List.of(IdentificationProperty.of("key", "visualization"))))
-                .name("Visualization")
-                .description("Description")
-                .fields(fields)
-                .sourceDatasets(linkedDataset)
-                .sourceQueries((List<QueryReference>) null)
                 .build());
   }
 }

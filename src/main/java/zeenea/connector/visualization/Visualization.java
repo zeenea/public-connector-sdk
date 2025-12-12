@@ -6,7 +6,6 @@ import java.util.Objects;
 import org.jetbrains.annotations.NotNull;
 import zeenea.connector.Item;
 import zeenea.connector.common.ItemReference;
-import zeenea.connector.common.QueryReference;
 import zeenea.connector.exception.ExceptionUtils;
 import zeenea.connector.field.Field;
 
@@ -24,14 +23,6 @@ public final class Visualization extends Item {
   @NotNull private final List<ItemReference> sourceDatasets;
 
   /**
-   * The list of source queries associated with the visualization.
-   *
-   * <p>Used to declare upstream dataset lineage by referencing SQL queries and DataSourceIdentifier
-   * of source datasets.
-   */
-  @NotNull private final List<QueryReference> sourceQueries;
-
-  /**
    * Constructs a Visualization instance using the builder.
    *
    * @param builder the builder to construct the Visualization instance
@@ -40,10 +31,8 @@ public final class Visualization extends Item {
     super(builder);
     ExceptionUtils.requireNonNull("fields", builder.fields);
     ExceptionUtils.requireNonNull("sourceDatasets", builder.sourceDatasets);
-    ExceptionUtils.requireNonNull("sourceQueries", builder.sourceQueries);
     this.fields = List.copyOf(builder.fields);
     this.sourceDatasets = List.copyOf(builder.sourceDatasets);
-    this.sourceQueries = List.copyOf(builder.sourceQueries);
   }
 
   /**
@@ -65,15 +54,6 @@ public final class Visualization extends Item {
   }
 
   /**
-   * Gets the list of source query references.
-   *
-   * @return the list of source query references
-   */
-  public @NotNull List<QueryReference> getSourceQueries() {
-    return sourceQueries;
-  }
-
-  /**
    * Checks if this Visualization is equal to another object.
    *
    * @param o the object to compare with
@@ -90,8 +70,7 @@ public final class Visualization extends Item {
         && Objects.equals(getContacts(), visualization.getContacts())
         && Objects.equals(getProperties(), visualization.getProperties())
         && Objects.equals(fields, visualization.fields)
-        && Objects.equals(sourceDatasets, visualization.sourceDatasets)
-        && Objects.equals(sourceQueries, visualization.sourceQueries);
+        && Objects.equals(sourceDatasets, visualization.sourceDatasets);
   }
 
   /**
@@ -108,8 +87,7 @@ public final class Visualization extends Item {
         getContacts(),
         getProperties(),
         fields,
-        sourceDatasets,
-        sourceQueries);
+        sourceDatasets);
   }
 
   /**
@@ -134,8 +112,6 @@ public final class Visualization extends Item {
         + fields
         + ", sourceDatasets="
         + sourceDatasets
-        + ", sourceQueries="
-        + sourceQueries
         + "}";
   }
 
@@ -156,9 +132,6 @@ public final class Visualization extends Item {
 
     /** The list of source dataset references of the visualization. */
     private List<ItemReference> sourceDatasets = new ArrayList<>();
-
-    /** The list of source query references of the visualization. */
-    private List<QueryReference> sourceQueries = new ArrayList<>();
 
     /**
      * Sets the fields of the visualization.
@@ -201,28 +174,6 @@ public final class Visualization extends Item {
      */
     public Builder sourceDatasets(ItemReference... sourceDatasets) {
       this.sourceDatasets = List.of(sourceDatasets);
-      return this;
-    }
-
-    /**
-     * Sets the list of source query references of the visualization.
-     *
-     * @param sourceQueries the list of source query references of the visualization
-     * @return the Builder instance
-     */
-    public Builder sourceQueries(@NotNull List<QueryReference> sourceQueries) {
-      this.sourceQueries = List.copyOf(sourceQueries);
-      return this;
-    }
-
-    /**
-     * Sets the list of source query references of the visualization.
-     *
-     * @param sourceQueries the list of source query references of the visualization
-     * @return the Builder instance
-     */
-    public Builder sourceQueries(QueryReference... sourceQueries) {
-      this.sourceQueries = List.of(sourceQueries);
       return this;
     }
 
