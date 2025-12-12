@@ -5,7 +5,11 @@ import java.util.Optional;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-/** Represents a SQL query linked to an {@link zeenea.connector.Item}. */
+/**
+ * Represents a SQL query linked to an {@link zeenea.connector.Item}, that will generate lineage
+ * reference based on the query. Multiple queries can be pushed with QueryReference by concatenating
+ * queries with a semi-colon.
+ */
 public final class QueryReference {
   /** The SQL query for the item. */
   @NotNull private final String sqlQuery;
@@ -57,6 +61,17 @@ public final class QueryReference {
    */
   public static QueryReference of(@NotNull String sqlQuery, @NotNull SqlDialect sqlDialect) {
     return of(sqlQuery, sqlDialect, null);
+  }
+
+  /**
+   * Creates a new QueryReference instance with the specified item SQL query with default SQL
+   * dialect and without any data source reference.
+   *
+   * @param sqlQuery the query for the item
+   * @return a new QueryReference instance
+   */
+  public static QueryReference of(@NotNull String sqlQuery) {
+    return of(sqlQuery, SqlDialect.getDefault(), null);
   }
 
   /**
@@ -180,7 +195,7 @@ public final class QueryReference {
      * @return the Builder instance
      */
     public QueryReference.Builder sqlDialect(@Nullable String sqlDialectName) {
-      this.sqlDialect = SqlDialect.fromCustomName(sqlDialectName);
+      this.sqlDialect = SqlDialect.fromName(sqlDialectName);
       return this;
     }
 

@@ -42,20 +42,27 @@ public enum SqlDialect {
   }
 
   /**
-   * Returns the SqlDialect associated with the given name. Returns ANSI if the name is null or not
-   * found.
+   * Returns the SqlDialect associated with the given name. Returns default value if the name is
+   * null or not found.
    *
    * @param name The name to look up
-   * @return The matching SqlDialect or ANSI
+   * @return The matching SqlDialect or the default one
    */
-  public static SqlDialect fromCustomName(String name) {
+  public static SqlDialect fromName(String name) {
     if (name == null) {
-      return ANSI;
+      return getDefault();
     }
 
     return Arrays.stream(values())
         .filter(dialect -> dialect.dialectName.equalsIgnoreCase(name))
         .findFirst()
-        .orElse(ANSI);
+        .orElse(getDefault());
+  }
+
+  /**
+   * @return the default SqlDialect for the lineage
+   */
+  public static SqlDialect getDefault() {
+    return SqlDialect.ANSI;
   }
 }
