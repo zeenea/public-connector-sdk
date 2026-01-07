@@ -1,7 +1,6 @@
 package zeenea.connector.datasampling;
 
 import com.fasterxml.jackson.annotation.JsonValue;
-
 import java.util.List;
 
 public class SampleRow {

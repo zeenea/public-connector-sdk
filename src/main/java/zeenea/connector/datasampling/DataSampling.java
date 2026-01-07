@@ -4,9 +4,8 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import zeenea.connector.common.ItemIdentifier;
-
 import java.util.List;
+import zeenea.connector.common.ItemIdentifier;
 
 public class DataSampling {
 

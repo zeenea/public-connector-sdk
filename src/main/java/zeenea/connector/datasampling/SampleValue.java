@@ -3,11 +3,10 @@ package zeenea.connector.datasampling;
 import com.fasterxml.jackson.annotation.JsonValue;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.locationtech.jts.geom.Geometry;
-
 import java.util.Arrays;
 import java.util.LinkedHashMap;
 import java.util.List;
+import org.locationtech.jts.geom.Geometry;
 
 public interface SampleValue {
   default String jsonify() throws JsonProcessingException {
@@ -18,21 +17,27 @@ public interface SampleValue {
   static StringSampleValue of(String value) {
     return new StringSampleValue(value);
   }
+
   static BooleanSampleValue of(Boolean value) {
     return new BooleanSampleValue(value);
   }
+
   static LongSampleValue of(Long value) {
     return new LongSampleValue(value);
   }
+
   static <T> MultiValuedSampleValue of(GenericSampleValue<T>... multiValues) {
     return new MultiValuedSampleValue(multiValues);
   }
+
   static StructEntrySampleValue of(String name, SampleValue value) {
     return new StructEntrySampleValue(name, value);
   }
+
   static StructSampleValue of(StructEntrySampleValue... structValues) {
     return new StructSampleValue(structValues);
   }
+
   static SampleValue of(Geometry geometry) {
     return new GeometrySampleValue(geometry);
   }
@@ -43,7 +48,7 @@ public interface SampleValue {
     private GenericSampleValue(T value) {
       this.value = value;
     }
-   }
+  }
 
   class StringSampleValue extends GenericSampleValue<String> {
     private StringSampleValue(String value) {
@@ -111,20 +116,17 @@ public interface SampleValue {
 
   class StructSampleValue extends LinkedHashMap<String, SampleValue> implements SampleValue {
     private StructSampleValue(StructEntrySampleValue... structEntries) {
-      Arrays.stream(structEntries).forEach(structEntry -> this.put(structEntry.getKey(), structEntry.getValue()));
+      Arrays.stream(structEntries)
+          .forEach(structEntry -> this.put(structEntry.getKey(), structEntry.getValue()));
     }
   }
 
   /**
-   * The Geometry is a JTS notion, from the Open GeoTools project https://locationtech.github.io/jts/
+   * The Geometry is a JTS notion, from the Open GeoTools project
+   * https://locationtech.github.io/jts/
    *
-   * Have been tested :
-   *  - Point
-   *  - Linestring
-   *  - Polygons
-   *  - MultiPoint
-   *  - MultiLinestring
-   *  - MultiPolygons
+   * <p>Have been tested : - Point - Linestring - Polygons - MultiPoint - MultiLinestring -
+   * MultiPolygons
    */
   class GeometrySampleValue extends GenericSampleValue<Geometry> {
     private GeometrySampleValue(Geometry value) {
