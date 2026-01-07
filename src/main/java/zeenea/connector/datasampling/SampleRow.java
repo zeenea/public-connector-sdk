@@ -1,17 +1,21 @@
 package zeenea.connector.datasampling;
 
+import com.fasterxml.jackson.annotation.JsonValue;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class SampleRow {
   List<SampleValue> samples;
 
-  String jsonify() {
-    StringBuilder json = new StringBuilder();
-    json.append(
-        samples.stream().map(SampleValue::jsonify)
-            .collect(Collectors.joining(",", "[", "]"))
-    );
-    return json.toString();
+  @JsonValue
+  public List<SampleValue> getSamples() {
+    return samples;
+  }
+
+  String jsonify() throws JsonProcessingException {
+    ObjectMapper mapper = new ObjectMapper();
+    return mapper.writeValueAsString(this);
   }
 }

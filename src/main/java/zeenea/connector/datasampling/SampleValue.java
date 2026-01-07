@@ -1,10 +1,18 @@
 package zeenea.connector.datasampling;
 
+import com.fasterxml.jackson.annotation.JsonValue;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+
 import java.util.List;
 import java.util.stream.Collectors;
 
 public interface SampleValue {
-  String jsonify();
+  default String jsonify() throws JsonProcessingException {
+    ObjectMapper mapper = new ObjectMapper();
+    return mapper.writeValueAsString(this);
+  }
 
   static StringSampleValue of(String value) {
     return new StringSampleValue(value);
@@ -34,51 +42,35 @@ public interface SampleValue {
    }
 
   class StringSampleValue extends GenericSampleValue<String> {
-
     private StringSampleValue(String value) {
       super(value);
     }
 
-    @Override
-    public String jsonify() {
-      if (value == null) {
-        return "null";
-      }
-      return "\"" + escapeJson(value) + "\"";
-    }
-
-    private String escapeJson(String str) {
-      return str.replace("\"", "\\\"");
+    @JsonValue
+    public String getValue() {
+      return value;
     }
   }
 
   class BooleanSampleValue extends GenericSampleValue<Boolean> {
-
     private BooleanSampleValue(Boolean value) {
       super(value);
     }
 
-    @Override
-    public String jsonify() {
-      if (value == null) {
-        return "null";
-      }
-      return value? "true": "false";
+    @JsonValue
+    public Boolean getValue() {
+      return value;
     }
   }
 
   class LongSampleValue extends GenericSampleValue<Long> {
-
     private LongSampleValue(Long value) {
       super(value);
     }
 
-    @Override
-    public String jsonify() {
-      if (value == null) {
-        return "null";
-      }
-      return value.toString();
+    @JsonValue
+    public Long getValue() {
+      return value;
     }
   }
 
@@ -89,14 +81,9 @@ public interface SampleValue {
       this.values = List.of(value);
     }
 
-    @Override
-    public String jsonify() {
-      StringBuilder json = new StringBuilder();
-      json.append(
-          values.stream().map(SampleValue::jsonify)
-              .collect(Collectors.joining(",", "[", "]"))
-      );
-      return json.toString();
+    @JsonValue
+    public List<SampleValue> getValues() {
+      return values;
     }
   }
 
@@ -109,14 +96,16 @@ public interface SampleValue {
       this.value = value;
     }
 
-    public String jsonify() {
-      StringBuilder json = new StringBuilder();
-      json.append("\"").append(key).append("\": ");
-      json.append(value.jsonify());
-      return json.toString();
+    public String getKey() {
+      return key;
+    }
+
+    public SampleValue getValue() {
+      return value;
     }
   }
 
+  @JsonSerialize(using = StructSampleValueSerializer.class)
   class StructSampleValue implements SampleValue {
     private final List<StructEntrySampleValue> values;
 
@@ -124,14 +113,8 @@ public interface SampleValue {
       this.values = List.of(value);
     }
 
-    @Override
-    public String jsonify() {
-      StringBuilder json = new StringBuilder();
-      json.append(
-          values.stream().map(StructEntrySampleValue::jsonify)
-              .collect(Collectors.joining(",", "{", "}"))
-      );
-      return json.toString();
+    public List<StructEntrySampleValue> getValues() {
+      return values;
     }
   }
 }

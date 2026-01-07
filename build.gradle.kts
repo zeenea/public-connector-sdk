@@ -92,6 +92,12 @@ dependencies {
     // Common properties are used to extract the associated UUIDs
     implementation(group = "zeenea", name = "common-properties", version = "4.4")
 
+    // Jackson dependencies for JSON serialization
+    val jacksonVersion = "2.15.2"
+    implementation(group = "com.fasterxml.jackson.core", name = "jackson-core", version = jacksonVersion)
+    implementation(group = "com.fasterxml.jackson.core", name = "jackson-databind", version = jacksonVersion)
+    implementation(group = "com.fasterxml.jackson.core", name = "jackson-annotations", version = jacksonVersion)
+
     val slf4jVersion: String by project
     testImplementation(group = "org.slf4j", name = "slf4j-api", version = slf4jVersion)
 
