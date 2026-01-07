@@ -3,6 +3,7 @@ package zeenea.connector.datasampling;
 import com.fasterxml.jackson.annotation.JsonValue;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.locationtech.jts.geom.Geometry;
 
 import java.util.Arrays;
 import java.util.LinkedHashMap;
@@ -31,6 +32,9 @@ public interface SampleValue {
   }
   static StructSampleValue of(StructEntrySampleValue... structValues) {
     return new StructSampleValue(structValues);
+  }
+  static SampleValue of(Geometry geometry) {
+    return new GeometrySampleValue(geometry);
   }
 
   abstract class GenericSampleValue<T> implements SampleValue {
@@ -108,6 +112,28 @@ public interface SampleValue {
   class StructSampleValue extends LinkedHashMap<String, SampleValue> implements SampleValue {
     private StructSampleValue(StructEntrySampleValue... structEntries) {
       Arrays.stream(structEntries).forEach(structEntry -> this.put(structEntry.getKey(), structEntry.getValue()));
+    }
+  }
+
+  /**
+   * The Geometry is a JTS notion, from the Open GeoTools project https://locationtech.github.io/jts/
+   *
+   * Have been tested :
+   *  - Point
+   *  - Linestring
+   *  - Polygons
+   *  - MultiPoint
+   *  - MultiLinestring
+   *  - MultiPolygons
+   */
+  class GeometrySampleValue extends GenericSampleValue<Geometry> {
+    private GeometrySampleValue(Geometry value) {
+      super(value);
+    }
+
+    @JsonValue
+    public String getValue() {
+      return value.toText();
     }
   }
 }
