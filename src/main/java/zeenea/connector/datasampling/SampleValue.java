@@ -6,16 +6,16 @@ import java.util.stream.Collectors;
 public interface SampleValue {
   String jsonify();
 
-  static SampleValue of(String value) {
+  static StringSampleValue of(String value) {
     return new StringSampleValue(value);
   }
-  static SampleValue of(Boolean value) {
+  static BooleanSampleValue of(Boolean value) {
     return new BooleanSampleValue(value);
   }
-  static SampleValue of(Long value) {
+  static LongSampleValue of(Long value) {
     return new LongSampleValue(value);
   }
-  static SampleValue of(SampleValue... multiValues) {
+  static <T> MultiValuedSampleValue of(GenericSampleValue<T>... multiValues) {
     return new MultiValuedSampleValue(multiValues);
   }
   static StructEntrySampleValue of(String name, SampleValue value) {

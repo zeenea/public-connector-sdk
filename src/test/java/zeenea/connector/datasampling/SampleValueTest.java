@@ -36,13 +36,12 @@ class SampleValueTest {
 
   @Test
   void ofBadMultiValue() {
-    // make it raise an exception ?
     SampleValue testSample = SampleValue.of(
         SampleValue.of("value1"),
-        SampleValue.of(true),
-        SampleValue.of(42L)
+        SampleValue.of("true"),
+        SampleValue.of("42L")
     );
-    assertThat(testSample.jsonify()).isEqualTo("[\"value1\",true,42]");
+    assertThat(testSample.jsonify()).isEqualTo("[\"value1\",\"true\",\"42L\"]");
   }
 
   @Test
