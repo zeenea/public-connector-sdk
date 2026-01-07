@@ -7,6 +7,9 @@ import zeenea.connector.common.ItemIdentifier;
 
 import java.io.IOException;
 
+/**
+ * removes boiler plates fields while serializing
+ */
 public class ItemIdentifierSerializer extends JsonSerializer<ItemIdentifier> {
     @Override
     public void serialize(ItemIdentifier itemIdentifier, JsonGenerator gen, SerializerProvider serializers) throws IOException {

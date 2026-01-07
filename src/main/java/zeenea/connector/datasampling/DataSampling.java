@@ -9,6 +9,9 @@ import zeenea.connector.common.ItemIdentifier;
 import java.util.List;
 
 public class DataSampling {
+
+  private static final ObjectMapper MAPPER = new ObjectMapper();
+
   @JsonProperty("fields")
   @JsonSerialize(contentUsing = ItemIdentifierSerializer.class)
   List<ItemIdentifier> fieldIdentifiers;
@@ -17,7 +20,6 @@ public class DataSampling {
   List<SampleRow> samples;
 
   public String jsonify() throws JsonProcessingException {
-    ObjectMapper mapper = new ObjectMapper();
-    return mapper.writeValueAsString(this);
+    return MAPPER.writeValueAsString(this);
   }
 }

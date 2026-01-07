@@ -3,10 +3,10 @@ package zeenea.connector.datasampling;
 import com.fasterxml.jackson.annotation.JsonValue;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
+import java.util.Arrays;
+import java.util.LinkedHashMap;
 import java.util.List;
-import java.util.stream.Collectors;
 
 public interface SampleValue {
   default String jsonify() throws JsonProcessingException {
@@ -105,16 +105,9 @@ public interface SampleValue {
     }
   }
 
-  @JsonSerialize(using = StructSampleValueSerializer.class)
-  class StructSampleValue implements SampleValue {
-    private final List<StructEntrySampleValue> values;
-
-    private StructSampleValue(StructEntrySampleValue... value) {
-      this.values = List.of(value);
-    }
-
-    public List<StructEntrySampleValue> getValues() {
-      return values;
+  class StructSampleValue extends LinkedHashMap<String, SampleValue> implements SampleValue {
+    private StructSampleValue(StructEntrySampleValue... structEntries) {
+      Arrays.stream(structEntries).forEach(structEntry -> this.put(structEntry.getKey(), structEntry.getValue()));
     }
   }
 }
