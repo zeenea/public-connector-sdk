@@ -1,10 +1,8 @@
 package zeenea.connector.datasampling;
 
-import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.*;
 
 class SampleValueTest {
 
@@ -55,5 +53,20 @@ class SampleValueTest {
         SampleValue.of("name3", SampleValue.of(42L))
     );
     assertThat(testSample.jsonify()).isEqualTo("{\"name1\": \"value1\",\"name2\": true,\"name3\": 42}");
+  }
+
+  @Test
+  void ofNestedStruct() {
+    SampleValue testSample = SampleValue.of(
+        SampleValue.of("name1", SampleValue.of("value1")),
+        SampleValue.of("name2", SampleValue.of(true)),
+        SampleValue.of("name3", SampleValue.of(42L)),
+        SampleValue.of("name4", SampleValue.of(
+                SampleValue.of("name1", SampleValue.of("value1")),
+                SampleValue.of("name2", SampleValue.of(true)),
+                SampleValue.of("name3", SampleValue.of(42L))
+        ))
+    );
+    assertThat(testSample.jsonify()).isEqualTo("{\"name1\": \"value1\",\"name2\": true,\"name3\": 42,\"name4\": {\"name1\": \"value1\",\"name2\": true,\"name3\": 42}}");
   }
 }

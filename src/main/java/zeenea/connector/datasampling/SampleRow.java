@@ -8,12 +8,10 @@ public class SampleRow {
 
   String jsonify() {
     StringBuilder json = new StringBuilder();
-    json.append("[");
     json.append(
         samples.stream().map(SampleValue::jsonify)
-            .collect(Collectors.joining(",", "", ""))
+            .collect(Collectors.joining(",", "[", "]"))
     );
-    json.append("]");
     return json.toString();
   }
 }

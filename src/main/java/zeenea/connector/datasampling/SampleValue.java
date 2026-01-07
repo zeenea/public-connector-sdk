@@ -18,10 +18,10 @@ public interface SampleValue {
   static SampleValue of(SampleValue... multiValues) {
     return new MultiValuedSampleValue(multiValues);
   }
-  static NamedSampleValue of(String name, SampleValue value) {
-    return new NamedSampleValue(name, value);
+  static StructEntrySampleValue of(String name, SampleValue value) {
+    return new StructEntrySampleValue(name, value);
   }
-  static StructSampleValue of(NamedSampleValue... structValues) {
+  static StructSampleValue of(StructEntrySampleValue... structValues) {
     return new StructSampleValue(structValues);
   }
 
@@ -92,49 +92,45 @@ public interface SampleValue {
     @Override
     public String jsonify() {
       StringBuilder json = new StringBuilder();
-      json.append("[");
       json.append(
           values.stream().map(SampleValue::jsonify)
-              .collect(Collectors.joining(",", "", ""))
+              .collect(Collectors.joining(",", "[", "]"))
       );
-      json.append("]");
       return json.toString();
     }
   }
 
-  class NamedSampleValue {
-    private final String name;
+  class StructEntrySampleValue {
+    private final String key;
     private final SampleValue value;
 
-    NamedSampleValue(String name, SampleValue value) {
-      this.name = name;
+    StructEntrySampleValue(String key, SampleValue value) {
+      this.key = key;
       this.value = value;
     }
 
     public String jsonify() {
       StringBuilder json = new StringBuilder();
-      json.append("\"").append(name).append("\": ");
+      json.append("\"").append(key).append("\": ");
       json.append(value.jsonify());
       return json.toString();
     }
   }
 
   class StructSampleValue implements SampleValue {
-    private final List<NamedSampleValue> values;
+    private final List<StructEntrySampleValue> values;
 
-    private StructSampleValue(NamedSampleValue... value) {
+    private StructSampleValue(StructEntrySampleValue... value) {
       this.values = List.of(value);
     }
 
     @Override
     public String jsonify() {
       StringBuilder json = new StringBuilder();
-      json.append("{");
       json.append(
-          values.stream().map(NamedSampleValue::jsonify)
-              .collect(Collectors.joining(",", "", ""))
+          values.stream().map(StructEntrySampleValue::jsonify)
+              .collect(Collectors.joining(",", "{", "}"))
       );
-      json.append("}");
       return json.toString();
     }
   }
