@@ -6,6 +6,7 @@ import java.time.Instant;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -67,11 +68,15 @@ public class PropertiesBuilder {
    * @param value the value of the string property
    * @return the builder instance
    */
+  @Deprecated(
+      since =
+          "Deprecated since version 2.13.0, use `PropertiesBuilder put(@NotNull StringPropertyDefinition propertyDefinition, @Nullable String value)` instead. Scheduled for removal in version 3.0.0.",
+      forRemoval = true)
   public PropertiesBuilder put(
       @NotNull StringPropertyDefinition propertyDefinition, @Nullable StringPropertyValue value) {
-    if (value != null) properties.put(propertyDefinition.getName(), value);
-    else properties.remove(propertyDefinition.getName());
-    return this;
+    return this.put(
+        propertyDefinition,
+        Optional.ofNullable(value).map(StringPropertyValue::getValue).orElse(null));
   }
 
   /**
@@ -158,11 +163,15 @@ public class PropertiesBuilder {
    * @param value the value of the number property
    * @return the builder instance
    */
+  @Deprecated(
+      since =
+          "Deprecated since version 2.13.0, use `PropertiesBuilder put(@NotNull NumberPropertyDefinition propertyDefinition, @Nullable BigDecimal value)` instead. Scheduled for removal in version 3.0.0.",
+      forRemoval = true)
   public PropertiesBuilder put(
       @NotNull NumberPropertyDefinition propertyDefinition, @Nullable NumberPropertyValue value) {
-    if (value != null) properties.put(propertyDefinition.getName(), value);
-    else properties.remove(propertyDefinition.getName());
-    return this;
+    return this.put(
+        propertyDefinition,
+        Optional.ofNullable(value).map(NumberPropertyValue::getValue).orElse(null));
   }
 
   /**
@@ -203,11 +212,16 @@ public class PropertiesBuilder {
    * @param value the value of the URL property
    * @return the builder instance
    */
+  @Deprecated(
+      since =
+          "Deprecated since version 2.13.0, use `PropertiesBuilder put(@NotNull UrlPropertyDefinition propertyDefinition, @Nullable URI uri, @Nullable String label)` instead. Scheduled for removal in version 3.0.0.",
+      forRemoval = true)
   public PropertiesBuilder put(
       @NotNull UrlPropertyDefinition propertyDefinition, @Nullable UrlPropertyValue value) {
-    if (value != null) properties.put(propertyDefinition.getName(), value);
-    else properties.remove(propertyDefinition.getName());
-    return this;
+    return this.put(
+        propertyDefinition,
+        Optional.ofNullable(value).map(UrlPropertyValue::getValue).orElse(null),
+        Optional.ofNullable(value).map(UrlPropertyValue::getLabel).flatMap(l -> l).orElse(null));
   }
 
   /**
@@ -232,11 +246,15 @@ public class PropertiesBuilder {
    * @param value the value of the instant property
    * @return the builder instance
    */
+  @Deprecated(
+      since =
+          "Deprecated since version 2.13.0, use `PropertiesBuilder put(@NotNull InstantPropertyDefinition propertyDefinition, @Nullable Instant value)` instead. Scheduled for removal in version 3.0.0.",
+      forRemoval = true)
   public PropertiesBuilder put(
       @NotNull InstantPropertyDefinition propertyDefinition, @Nullable InstantPropertyValue value) {
-    if (value != null) properties.put(propertyDefinition.getName(), value);
-    else properties.remove(propertyDefinition.getName());
-    return this;
+    return this.put(
+        propertyDefinition,
+        Optional.ofNullable(value).map(InstantPropertyValue::getValue).orElse(null));
   }
 
   /**
@@ -246,11 +264,15 @@ public class PropertiesBuilder {
    * @param value the value of the tag property
    * @return the builder instance
    */
+  @Deprecated(
+      since =
+          "Deprecated since version 2.13.0, use `PropertiesBuilder put(@NotNull TagPropertyDefinition propertyDefinition, @Nullable List<String> value)` instead. Scheduled for removal in version 3.0.0.",
+      forRemoval = true)
   public PropertiesBuilder put(
       @NotNull TagPropertyDefinition propertyDefinition, @Nullable TagPropertyValue value) {
-    if (value != null) properties.put(propertyDefinition.getName(), value);
-    else properties.remove(propertyDefinition.getName());
-    return this;
+    return this.put(
+        propertyDefinition,
+        Optional.ofNullable(value).map(TagPropertyValue::getValue).orElse(null));
   }
 
   /**

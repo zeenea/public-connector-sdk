@@ -6,4 +6,8 @@
     <Match>
         <Bug code="EI,EI2"/>
     </Match>
+    <Match>
+        <Class name="~zeenea\.connector\..*(Test|Mock|IT)"/>
+        <Bug pattern="NP_NONNULL_PARAM_VIOLATION"/>
+    </Match>
 </FindBugsFilter>
