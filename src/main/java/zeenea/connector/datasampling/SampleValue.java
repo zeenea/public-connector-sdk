@@ -4,6 +4,7 @@ import static zeenea.connector.datasampling.SampleValueTypes.*;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import java.math.BigDecimal;
 import org.locationtech.jts.geom.Geometry;
 
 public interface SampleValue {
@@ -43,6 +44,18 @@ public interface SampleValue {
 
   static LongSampleValue of(Long value) {
     return new LongSampleValue(value);
+  }
+
+  static FloatSampleValue of(Float value) {
+    return new FloatSampleValue(value);
+  }
+
+  static DoubleSampleValue of(Double value) {
+    return new DoubleSampleValue(value);
+  }
+
+  static BigDecimalSampleValue of(BigDecimal value) {
+    return new BigDecimalSampleValue(value);
   }
 
   static <T> MultiValuedSampleValue of(GenericSampleValue<T>... multiValues) {

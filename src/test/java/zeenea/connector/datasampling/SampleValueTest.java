@@ -3,6 +3,7 @@ package zeenea.connector.datasampling;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
+import java.math.BigDecimal;
 import org.junit.jupiter.api.Test;
 import org.locationtech.jts.geom.*;
 
@@ -42,6 +43,24 @@ class SampleValueTest {
   void ofLong() throws JsonProcessingException {
     SampleValue testSample = SampleValue.of(1234567890L);
     assertThat(testSample.jsonify()).isEqualTo("1234567890");
+  }
+
+  @Test
+  void ofFloat() throws JsonProcessingException {
+    SampleValue testSample = SampleValue.of(1.234567890f);
+    assertThat(testSample.jsonify()).isEqualTo("1.2345679");
+  }
+
+  @Test
+  void ofDouble() throws JsonProcessingException {
+    SampleValue testSample = SampleValue.of(1234567.123);
+    assertThat(testSample.jsonify()).isEqualTo("1234567.123");
+  }
+
+  @Test
+  void ofBigDecimal() throws JsonProcessingException {
+    SampleValue testSample = SampleValue.of(new BigDecimal("1.23456789"));
+    assertThat(testSample.jsonify()).isEqualTo("1.23456789");
   }
 
   @Test

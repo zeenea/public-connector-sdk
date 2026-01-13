@@ -1,6 +1,7 @@
 package zeenea.connector.datasampling;
 
 import com.fasterxml.jackson.annotation.JsonValue;
+import java.math.BigDecimal;
 import java.util.Arrays;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -94,6 +95,39 @@ public class SampleValueTypes {
 
     @JsonValue
     public Long getValue() {
+      return value;
+    }
+  }
+
+  public static class FloatSampleValue extends GenericSampleValue<Float> {
+    public FloatSampleValue(Float value) {
+      super(value);
+    }
+
+    @JsonValue
+    public Float getValue() {
+      return value;
+    }
+  }
+
+  public static class DoubleSampleValue extends GenericSampleValue<Double> {
+    public DoubleSampleValue(Double value) {
+      super(value);
+    }
+
+    @JsonValue
+    public Double getValue() {
+      return value;
+    }
+  }
+
+  public static class BigDecimalSampleValue extends GenericSampleValue<BigDecimal> {
+    public BigDecimalSampleValue(BigDecimal value) {
+      super(value);
+    }
+
+    @JsonValue
+    public BigDecimal getValue() {
       return value;
     }
   }
