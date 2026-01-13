@@ -1,12 +1,12 @@
 package zeenea.connector.datasampling;
 
+import static zeenea.connector.datasampling.SampleValueTypes.*;
+
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.locationtech.jts.geom.Geometry;
-import static zeenea.connector.datasampling.SampleValueTypes.*;
 
 public interface SampleValue {
-
 
   default String jsonify() throws JsonProcessingException {
     ObjectMapper mapper = new ObjectMapper();
@@ -29,6 +29,18 @@ public interface SampleValue {
     return new BooleanSampleValue(value);
   }
 
+  static ByteSampleValue of(Byte value) {
+    return new ByteSampleValue(value);
+  }
+
+  static ShortSampleValue of(Short value) {
+    return new ShortSampleValue(value);
+  }
+
+  static IntegerSampleValue of(Integer value) {
+    return new IntegerSampleValue(value);
+  }
+
   static LongSampleValue of(Long value) {
     return new LongSampleValue(value);
   }
@@ -48,5 +60,4 @@ public interface SampleValue {
   static SampleValue of(Geometry geometry) {
     return new GeometrySampleValue(geometry);
   }
-
 }

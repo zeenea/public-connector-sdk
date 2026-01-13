@@ -1,20 +1,16 @@
 package zeenea.connector.datasampling;
 
 import com.fasterxml.jackson.annotation.JsonValue;
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import org.locationtech.jts.geom.Geometry;
-
 import java.util.Arrays;
 import java.util.LinkedHashMap;
 import java.util.List;
+import org.locationtech.jts.geom.Geometry;
 
 public class SampleValueTypes {
 
-  private SampleValueTypes() {
-  }
+  private SampleValueTypes() {}
 
-  public static abstract class GenericSampleValue<T> implements SampleValue {
+  public abstract static class GenericSampleValue<T> implements SampleValue {
     protected final T value;
 
     private GenericSampleValue(T value) {
@@ -43,6 +39,39 @@ public class SampleValueTypes {
 
     @JsonValue
     public String getValue() {
+      return value;
+    }
+  }
+
+  public static class ByteSampleValue extends GenericSampleValue<Byte> {
+    public ByteSampleValue(Byte value) {
+      super(value);
+    }
+
+    @JsonValue
+    public Byte getValue() {
+      return value;
+    }
+  }
+
+  public static class ShortSampleValue extends GenericSampleValue<Short> {
+    public ShortSampleValue(Short value) {
+      super(value);
+    }
+
+    @JsonValue
+    public Short getValue() {
+      return value;
+    }
+  }
+
+  public static class IntegerSampleValue extends GenericSampleValue<Integer> {
+    public IntegerSampleValue(Integer value) {
+      super(value);
+    }
+
+    @JsonValue
+    public Integer getValue() {
       return value;
     }
   }
@@ -100,7 +129,8 @@ public class SampleValueTypes {
     }
   }
 
-  public static class StructSampleValue extends LinkedHashMap<String, SampleValue> implements SampleValue {
+  public static class StructSampleValue extends LinkedHashMap<String, SampleValue>
+      implements SampleValue {
     public StructSampleValue(StructEntrySampleValue... structEntries) {
       Arrays.stream(structEntries)
           .forEach(structEntry -> this.put(structEntry.getKey(), structEntry.getValue()));

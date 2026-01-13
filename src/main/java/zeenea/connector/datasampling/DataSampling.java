@@ -5,7 +5,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-
 import java.util.Arrays;
 import java.util.List;
 import zeenea.connector.common.ItemIdentifier;
@@ -18,8 +17,7 @@ public class DataSampling {
     DataSampling dataSampling = new DataSampling();
     dataSampling.fieldIdentifiers = identifiers;
     dataSampling.samples = samples != null ? Arrays.asList(samples) : List.of();
-    if (!dataSampling.isValid())
-      throw new IllegalArgumentException("Invalid data sampling");
+    if (!dataSampling.isValid()) throw new IllegalArgumentException("Invalid data sampling");
     return dataSampling;
   }
 
@@ -32,8 +30,10 @@ public class DataSampling {
 
   @JsonIgnore
   public boolean isValid() {
-    return fieldIdentifiers != null && !fieldIdentifiers.isEmpty()
-        && samples != null && !samples.isEmpty()
+    return fieldIdentifiers != null
+        && !fieldIdentifiers.isEmpty()
+        && samples != null
+        && !samples.isEmpty()
         && samples.stream().allMatch(sample -> sample.size() == fieldIdentifiers.size());
   }
 

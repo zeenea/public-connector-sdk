@@ -15,6 +15,24 @@ class SampleValueTest {
   }
 
   @Test
+  void ofByte() throws JsonProcessingException {
+    SampleValue testSample = SampleValue.of((byte) 123);
+    assertThat(testSample.jsonify()).isEqualTo("123");
+  }
+
+  @Test
+  void ofShort() throws JsonProcessingException {
+    SampleValue testSample = SampleValue.of((short) 12345);
+    assertThat(testSample.jsonify()).isEqualTo("12345");
+  }
+
+  @Test
+  void ofInteger() throws JsonProcessingException {
+    SampleValue testSample = SampleValue.of(12345678);
+    assertThat(testSample.jsonify()).isEqualTo("12345678");
+  }
+
+  @Test
   void ofBoolean() throws JsonProcessingException {
     SampleValue testSample = SampleValue.of(false);
     assertThat(testSample.jsonify()).isEqualTo("false");
@@ -179,17 +197,14 @@ class SampleValueTest {
   }
 
   /*
-   Missing types :
-   Byte
-   Short
-   Integer
-   Float
-   Double
-   Date
-   Time
-   Timestamp
-   Binary
-   BigDecimal
-   Map
-   */
+  Missing types :
+  Float
+  Double
+  Date
+  Time
+  Timestamp
+  Binary
+  BigDecimal
+  Map
+  */
 }
