@@ -165,4 +165,31 @@ class SampleValueTest {
         .isEqualTo(
             "\"MULTIPOLYGON (((10.2 30.8, 56.1 87.5, 75 10, 10.2 30.8)), ((1 2, 3 4, 5 6, 1 2)))\"");
   }
+
+  @Test
+  void ofNull() throws JsonProcessingException {
+    SampleValue testSample = SampleValue.nullValue();
+    assertThat(testSample.jsonify()).isEqualTo("\"NULL\"");
+  }
+
+  @Test
+  void ofUnknown() throws JsonProcessingException {
+    SampleValue testSample = SampleValue.unknowValue();
+    assertThat(testSample.jsonify()).isEqualTo("\"Unknown\"");
+  }
+
+  /*
+   Missing types :
+   Byte
+   Short
+   Integer
+   Float
+   Double
+   Date
+   Time
+   Timestamp
+   Binary
+   BigDecimal
+   Map
+   */
 }
