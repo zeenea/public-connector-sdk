@@ -101,6 +101,8 @@ dependencies {
     testRuntimeOnly(group = "org.junit.jupiter", name = "junit-jupiter-engine")
     val assertjVersion: String by project
     testImplementation(group = "org.assertj", name = "assertj-core", version = assertjVersion)
+    val equalsverifierVersion: String by project
+    testImplementation(group = "nl.jqno.equalsverifier", name = "equalsverifier", version = equalsverifierVersion)
 
     val jetbrainsAnnotationsVersion: String by project
     compileOnly(

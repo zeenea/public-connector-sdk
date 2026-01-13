@@ -156,8 +156,11 @@ public final class ForeignKey {
     if (o == null || getClass() != o.getClass()) return false;
     ForeignKey that = (ForeignKey) o;
     return Objects.equals(targetDataset, that.targetDataset)
+        && Objects.equals(targetDatasetIdentifier, that.targetDatasetIdentifier)
         && Objects.equals(sourceFields, that.sourceFields)
+        && Objects.equals(sourceFieldIdentifiers, that.sourceFieldIdentifiers)
         && Objects.equals(targetFields, that.targetFields)
+        && Objects.equals(targetFieldIdentifiers, that.targetFieldIdentifiers)
         && Objects.equals(name, that.name);
   }
 
@@ -168,7 +171,14 @@ public final class ForeignKey {
    */
   @Override
   public int hashCode() {
-    return Objects.hash(targetDataset, sourceFields, targetFields, name);
+    return Objects.hash(
+        targetDataset,
+        targetDatasetIdentifier,
+        sourceFields,
+        sourceFieldIdentifiers,
+        targetFields,
+        targetFieldIdentifiers,
+        name);
   }
 
   /**
@@ -181,12 +191,12 @@ public final class ForeignKey {
     return "ForeignKey{"
         + "name='"
         + name
-        + "', targetDataset='"
-        + targetDataset
-        + "', sourceFields="
-        + sourceFields
-        + ", targetFields="
-        + targetFields
+        + "', targetDatasetIdentifier='"
+        + targetDatasetIdentifier
+        + "', sourceFieldIdentifiers="
+        + sourceFieldIdentifiers
+        + ", targetFieldIdentifiers="
+        + targetFieldIdentifiers
         + "}";
   }
 
