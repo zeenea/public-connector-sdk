@@ -215,15 +215,23 @@ class SampleValueTest {
     assertThat(testSample.jsonify()).isEqualTo("\"Unknown\"");
   }
 
+  @Test
+  void ofBinary() throws JsonProcessingException {
+    SampleValue testSample = SampleValue.of(new byte[]{2, 12, 24, 64});
+    assertThat(testSample.jsonify()).isEqualTo("\"Binary [0x02, 0x0c, 0x18, 0x40]\"");
+  }
+
+  @Test
+  void ofBinaryTooLong() throws JsonProcessingException {
+    SampleValue testSample = SampleValue.of(new byte[]{2, 12, 24, 64, 64, 64, 64});
+    assertThat(testSample.jsonify()).isEqualTo("\"Binary [0x02, 0x0c, 0x18, 0x40, 0x40, ...]\"");
+  }
+
   /*
   Missing types :
-  Float
-  Double
   Date
   Time
   Timestamp
-  Binary
-  BigDecimal
   Map
   */
 }

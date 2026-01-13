@@ -22,6 +22,10 @@ public interface SampleValue {
     return new UnknownSampleValue();
   }
 
+  static SampleValue of(byte[] bytes) {
+    return new BinarySampleValue(bytes);
+  }
+
   static StringSampleValue of(String value) {
     return new StringSampleValue(value);
   }
