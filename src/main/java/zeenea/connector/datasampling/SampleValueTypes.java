@@ -7,6 +7,8 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
+import java.util.stream.Collectors;
+
 import org.locationtech.jts.geom.Geometry;
 
 public class SampleValueTypes {
@@ -234,6 +236,20 @@ public class SampleValueTypes {
     }
   }
 
+  public static class MapSampleValue<K, V> extends GenericSampleValue<Map<K,V>> {
+    public MapSampleValue(Map<K, V> value) {
+      super(value);
+    }
+
+    @JsonValue
+    public String getValue() {
+      return value.keySet().stream()
+              .sorted()
+              .map(key -> key + "=" + value.get(key))
+              .collect(Collectors.joining(", ", "{", "}"));
+    }
+  }
+
   /**
    * The Geometry is a JTS notion, from the Open GeoTools project
    * https://locationtech.github.io/jts/
@@ -251,4 +267,6 @@ public class SampleValueTypes {
       return value.toText();
     }
   }
+
+
 }

@@ -7,6 +7,8 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.util.Map;
+
 import org.junit.jupiter.api.Test;
 import org.locationtech.jts.geom.*;
 
@@ -79,6 +81,23 @@ class SampleValueTest {
     SampleValue testSample =
         SampleValue.of(SampleValue.of("value1"), SampleValue.of("true"), SampleValue.of("42L"));
     assertThat(testSample.jsonify()).isEqualTo("[\"value1\",\"true\",\"42L\"]");
+  }
+
+
+  @Test
+  void ofMap() throws JsonProcessingException {
+    SampleValue testSample =
+            SampleValue.of(Map.of("name1", "value1", "name2", true, "name3", 42L));
+    assertThat(testSample.jsonify())
+            .isEqualTo("\"{name1=value1, name2=true, name3=42}\"");
+  }
+
+  @Test
+  void ofMapOfMap() throws JsonProcessingException {
+    SampleValue testSample =
+            SampleValue.of(Map.of("name1", "value1", "name2", true, "name3", 42L, "name4", Map.of("sub", "toto")));
+    assertThat(testSample.jsonify())
+            .isEqualTo("\"{name1=value1, name2=true, name3=42, name4={sub=toto}}\"");
   }
 
   @Test
@@ -248,9 +267,4 @@ class SampleValueTest {
         SampleValue.of(LocalDateTime.of(2026, 1, 13, 14, 2).toInstant(java.time.ZoneOffset.UTC));
     assertThat(testSample.jsonify()).isEqualTo("\"2026-01-13T14:02:00Z\"");
   }
-
-  /*
-  Missing types :
-  Map
-  */
 }

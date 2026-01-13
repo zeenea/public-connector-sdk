@@ -8,6 +8,9 @@ import java.math.BigDecimal;
 import java.time.Instant;
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.Map;
+import java.util.stream.Collectors;
+
 import org.locationtech.jts.geom.Geometry;
 
 public interface SampleValue {
@@ -67,6 +70,10 @@ public interface SampleValue {
 
   static <T> MultiValuedSampleValue of(GenericSampleValue<T>... multiValues) {
     return new MultiValuedSampleValue(multiValues);
+  }
+
+  static <K, V> MapSampleValue<K, V> of(Map<K, V> value) {
+    return new MapSampleValue<>(value);
   }
 
   static StructEntrySampleValue of(String name, SampleValue value) {
