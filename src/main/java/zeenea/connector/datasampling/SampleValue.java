@@ -5,8 +5,9 @@ import static zeenea.connector.datasampling.SampleValueTypes.*;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.math.BigDecimal;
-import java.util.Date;
-
+import java.time.Instant;
+import java.time.LocalDate;
+import java.time.LocalTime;
 import org.locationtech.jts.geom.Geometry;
 
 public interface SampleValue {
@@ -80,7 +81,15 @@ public interface SampleValue {
     return new GeometrySampleValue(geometry);
   }
 
-  static DateSampleValue of(Date date){
+  static DateSampleValue of(LocalDate date) {
     return new DateSampleValue(date);
+  }
+
+  static TimeSampleValue of(LocalTime time) {
+    return new TimeSampleValue(time);
+  }
+
+  static InstantSampleValue of(Instant time) {
+    return new InstantSampleValue(time);
   }
 }

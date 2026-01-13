@@ -4,10 +4,9 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import java.math.BigDecimal;
-import java.sql.Date;
-import java.time.Instant;
 import java.time.LocalDate;
-
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 import org.junit.jupiter.api.Test;
 import org.locationtech.jts.geom.*;
 
@@ -221,27 +220,37 @@ class SampleValueTest {
 
   @Test
   void ofBinary() throws JsonProcessingException {
-    SampleValue testSample = SampleValue.of(new byte[]{2, 12, 24, 64});
+    SampleValue testSample = SampleValue.of(new byte[] {2, 12, 24, 64});
     assertThat(testSample.jsonify()).isEqualTo("\"Binary [0x02, 0x0c, 0x18, 0x40]\"");
   }
 
   @Test
   void ofBinaryTooLong() throws JsonProcessingException {
-    SampleValue testSample = SampleValue.of(new byte[]{2, 12, 24, 64, 64, 64, 64});
+    SampleValue testSample = SampleValue.of(new byte[] {2, 12, 24, 64, 64, 64, 64});
     assertThat(testSample.jsonify()).isEqualTo("\"Binary [0x02, 0x0c, 0x18, 0x40, 0x40, ...]\"");
   }
 
   @Test
   void ofDate() throws JsonProcessingException {
-    SampleValue testSample = SampleValue.of(Date.valueOf(LocalDate.of(2026, 1, 13)));
-    assertThat(testSample.jsonify()).isEqualTo("\"Binary [0x02, 0x0c, 0x18, 0x40, 0x40, ...]\"");
+    SampleValue testSample = SampleValue.of(LocalDate.of(2026, 1, 13));
+    assertThat(testSample.jsonify()).isEqualTo("\"2026-01-13\"");
+  }
+
+  @Test
+  void ofTime() throws JsonProcessingException {
+    SampleValue testSample = SampleValue.of(LocalTime.of(14, 2));
+    assertThat(testSample.jsonify()).isEqualTo("\"14:02:00\"");
+  }
+
+  @Test
+  void ofTimestamp() throws JsonProcessingException {
+    SampleValue testSample =
+        SampleValue.of(LocalDateTime.of(2026, 1, 13, 14, 2).toInstant(java.time.ZoneOffset.UTC));
+    assertThat(testSample.jsonify()).isEqualTo("\"2026-01-13T14:02:00Z\"");
   }
 
   /*
   Missing types :
-  Date
-  Time
-  Timestamp
   Map
   */
 }
