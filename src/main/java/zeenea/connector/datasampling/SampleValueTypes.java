@@ -3,10 +3,10 @@ package zeenea.connector.datasampling;
 import com.fasterxml.jackson.annotation.JsonValue;
 
 import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.LinkedHashMap;
-import java.util.List;
+import java.text.SimpleDateFormat;
+import java.text.spi.DateFormatProvider;
+import java.time.format.DateTimeFormatter;
+import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -203,6 +203,19 @@ public class SampleValueTypes {
         public StructSampleValue(StructEntrySampleValue... structEntries) {
             Arrays.stream(structEntries)
                     .forEach(structEntry -> this.put(structEntry.getKey(), structEntry.getValue()));
+        }
+    }
+
+    public static class DateSampleValue extends GenericSampleValue<Date> {
+        public DateSampleValue(Date value) {
+            super(value);
+        }
+
+        @JsonValue
+        public String getValue() {
+            // format Java Date to ISO String
+
+            return DateTimeFormatter.ISO_DATE_TIME.format(value.toInstant());
         }
     }
 
