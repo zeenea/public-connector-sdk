@@ -244,7 +244,7 @@ class SampleValueTest {
 
   @Test
   void ofUnknown() throws JsonProcessingException {
-    SampleValue testSample = SampleValue.unknowValue();
+    SampleValue testSample = SampleValue.unknownValue();
     assertThat(testSample.jsonify()).isEqualTo("\"Unknown\"");
   }
 

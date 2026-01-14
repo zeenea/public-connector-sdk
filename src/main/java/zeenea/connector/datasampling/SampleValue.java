@@ -22,7 +22,7 @@ public interface SampleValue {
     return new NullSampleValue();
   }
 
-  static SampleValue unknowValue() {
+  static SampleValue unknownValue() {
     return new UnknownSampleValue();
   }
 
