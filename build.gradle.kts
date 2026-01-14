@@ -19,6 +19,7 @@ java {
 spotless {
     java {
         googleJavaFormat()
+        cleanthat()
     }
 }
 

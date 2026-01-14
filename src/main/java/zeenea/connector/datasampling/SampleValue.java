@@ -9,8 +9,6 @@ import java.time.Instant;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.Map;
-import java.util.stream.Collectors;
-
 import org.locationtech.jts.geom.Geometry;
 
 public interface SampleValue {
