@@ -1,55 +1,70 @@
 package zeenea.connector.datasampling;
 
-import com.fasterxml.jackson.annotation.JsonValue;
+import com.fasterxml.jackson.annotation.*;
+
+import java.io.Serializable;
 import java.math.BigDecimal;
 import java.time.Instant;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
+import java.time.temporal.TemporalAccessor;
 import java.util.*;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
+
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import org.locationtech.jts.geom.Geometry;
+import zeenea.connector.datasampling.SampleValue.GenericSampleValue;
 
 public class SampleValueTypes {
 
   private SampleValueTypes() {}
 
-  public abstract static class GenericSampleValue<T> implements SampleValue {
-    protected final T value;
-
-    private GenericSampleValue(T value) {
-      this.value = value;
+  static final class StandardSampleValue<T> extends GenericSampleValue<T> {
+    public StandardSampleValue(T value) {
+      super(value);
     }
-  }
 
-  public static class NullSampleValue implements SampleValue {
     @JsonValue
-    public String getValue() {
-      return "NULL";
+    public T getValue() {
+      return value;
     }
   }
 
-  public static class UnknownSampleValue implements SampleValue {
+  static final class ConstSampleValue implements SampleValue, Serializable {
+
+    private final String constant;
+
+    public static final ConstSampleValue NULL = new ConstSampleValue(null);
+    public static final ConstSampleValue UNKNOWN = new ConstSampleValue("<Unknown>");
+
+    private ConstSampleValue(String constant) {
+      this.constant = constant;
+    }
+
     @JsonValue
-    public String getValue() {
-      return "Unknown";
+    public Object getValue() {
+      return constant;
     }
   }
 
-  public static class BinarySampleValue extends GenericSampleValue<byte[]> {
+  static final class BinarySampleValue extends GenericSampleValue<byte[]> {
 
     private static final int MAX_LENGTH = 5;
 
     private final long size;
 
-    public BinarySampleValue(byte[] bytes) {
-      super(Arrays.copyOf(bytes, Math.min(MAX_LENGTH, bytes.length)));
+    BinarySampleValue(byte[] bytes) {
+      super(bytes != null ? Arrays.copyOf(bytes, Math.min(MAX_LENGTH, bytes.length)): null);
 
-      size = bytes.length;
+      this.size = bytes != null ? bytes.length : -1;
     }
 
     @JsonValue
     public String getValue() {
+      if (value == null) return null;
+
       StringBuilder builder = new StringBuilder();
       builder.append("Binary (");
       builder.append(size);
@@ -70,179 +85,34 @@ public class SampleValueTypes {
     }
   }
 
-  public static class StringSampleValue extends GenericSampleValue<String> {
-    public StringSampleValue(String value) {
+  static final class TemporalSampleValue<T extends TemporalAccessor> extends GenericSampleValue<T> {
+
+    private final DateTimeFormatter dateTimeFormatter;
+
+    TemporalSampleValue(T value, DateTimeFormatter dateTimeFormatter) {
       super(value);
+
+      this.dateTimeFormatter = dateTimeFormatter;
     }
 
     @JsonValue
     public String getValue() {
-      return value;
+      if (value == null) return null;
+
+      return dateTimeFormatter.format(value);
     }
   }
 
-  public static class ByteSampleValue extends GenericSampleValue<Byte> {
-    public ByteSampleValue(Byte value) {
-      super(value);
-    }
-
-    @JsonValue
-    public Byte getValue() {
-      return value;
-    }
-  }
-
-  public static class ShortSampleValue extends GenericSampleValue<Short> {
-    public ShortSampleValue(Short value) {
-      super(value);
-    }
-
-    @JsonValue
-    public Short getValue() {
-      return value;
-    }
-  }
-
-  public static class IntegerSampleValue extends GenericSampleValue<Integer> {
-    public IntegerSampleValue(Integer value) {
-      super(value);
-    }
-
-    @JsonValue
-    public Integer getValue() {
-      return value;
-    }
-  }
-
-  public static class BooleanSampleValue extends GenericSampleValue<Boolean> {
-    public BooleanSampleValue(Boolean value) {
-      super(value);
-    }
-
-    @JsonValue
-    public Boolean getValue() {
-      return value;
-    }
-  }
-
-  public static class LongSampleValue extends GenericSampleValue<Long> {
-    public LongSampleValue(Long value) {
-      super(value);
-    }
-
-    @JsonValue
-    public Long getValue() {
-      return value;
-    }
-  }
-
-  public static class FloatSampleValue extends GenericSampleValue<Float> {
-    public FloatSampleValue(Float value) {
-      super(value);
-    }
-
-    @JsonValue
-    public Float getValue() {
-      return value;
-    }
-  }
-
-  public static class DoubleSampleValue extends GenericSampleValue<Double> {
-    public DoubleSampleValue(Double value) {
-      super(value);
-    }
-
-    @JsonValue
-    public Double getValue() {
-      return value;
-    }
-  }
-
-  public static class BigDecimalSampleValue extends GenericSampleValue<BigDecimal> {
-    public BigDecimalSampleValue(BigDecimal value) {
-      super(value);
-    }
-
-    @JsonValue
-    public BigDecimal getValue() {
-      return value;
-    }
-  }
-
-  public static class MultiValuedSampleValue implements SampleValue {
-    private final List<SampleValue> values;
-
-    public MultiValuedSampleValue(SampleValue... value) {
-      this.values = List.of(value);
-    }
-
-    @JsonValue
-    public List<SampleValue> getValues() {
-      return values;
-    }
-  }
-
-  public static class StructEntrySampleValue {
-    private final String key;
-    private final SampleValue value;
-
-    public StructEntrySampleValue(String key, SampleValue value) {
-      this.key = key;
-      this.value = value;
-    }
-
-    public String getKey() {
-      return key;
-    }
-
-    public SampleValue getValue() {
-      return value;
-    }
-  }
-
-  public static class StructSampleValue extends LinkedHashMap<String, SampleValue>
+  public static final class StructSampleValue extends LinkedHashMap<String, SampleValue>
       implements SampleValue {
-    public StructSampleValue(StructEntrySampleValue... structEntries) {
+    StructSampleValue(StructEntrySampleValue... structEntries) {
       Arrays.stream(structEntries)
           .forEach(structEntry -> this.put(structEntry.getKey(), structEntry.getValue()));
     }
   }
 
-  public static class DateSampleValue extends GenericSampleValue<LocalDate> {
-    public DateSampleValue(LocalDate value) {
-      super(value);
-    }
-
-    @JsonValue
-    public String getValue() {
-      return DateTimeFormatter.ISO_DATE.format(value);
-    }
-  }
-
-  public static class TimeSampleValue extends GenericSampleValue<LocalTime> {
-    public TimeSampleValue(LocalTime value) {
-      super(value);
-    }
-
-    @JsonValue
-    public String getValue() {
-      return DateTimeFormatter.ISO_TIME.format(value);
-    }
-  }
-
-  public static class InstantSampleValue extends GenericSampleValue<Instant> {
-    public InstantSampleValue(Instant value) {
-      super(value);
-    }
-
-    @JsonValue
-    public String getValue() {
-      return DateTimeFormatter.ISO_INSTANT.format(value);
-    }
-  }
-
-  public static class MapSampleValue<K, V> extends GenericSampleValue<Map<K, V>> {
-    public MapSampleValue(Map<K, V> value) {
+  public static final class MapSampleValue<K, V> extends GenericSampleValue<Map<K, V>> {
+    MapSampleValue(Map<K, V> value) {
       super(value);
     }
 
@@ -262,7 +132,7 @@ public class SampleValueTypes {
    * MultiPolygons
    */
   public static class GeometrySampleValue extends GenericSampleValue<Geometry> {
-    public GeometrySampleValue(Geometry value) {
+    GeometrySampleValue(Geometry value) {
       super(value);
     }
 

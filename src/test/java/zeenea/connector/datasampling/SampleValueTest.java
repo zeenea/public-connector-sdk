@@ -9,6 +9,8 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.LinkedHashMap;
 import java.util.Map;
+import java.util.ServiceLoader;
+
 import org.junit.jupiter.api.Test;
 import org.locationtech.jts.geom.*;
 
@@ -71,9 +73,17 @@ class SampleValueTest {
   @Test
   void ofMultiValue() throws JsonProcessingException {
     SampleValue testSample =
-        SampleValue.of(
-            SampleValue.of("Knatte"), SampleValue.of("Fnatte"), SampleValue.of("Tjatte"));
+            SampleValue.of(
+                    SampleValue.of("Knatte"), SampleValue.of("Fnatte"), SampleValue.of("Tjatte"));
     assertThat(testSample.jsonify()).isEqualTo("[\"Knatte\",\"Fnatte\",\"Tjatte\"]");
+  }
+
+  @Test
+  void ofMultiValueWithNull() throws JsonProcessingException {
+    SampleValue testSample =
+            SampleValue.of(
+                    SampleValue.of("Knatte"), SampleValue.of("Fnatte"), SampleValue.of("Tjatte"), null);
+    assertThat(testSample.jsonify()).isEqualTo("[\"Knatte\",\"Fnatte\",\"Tjatte\",null]");
   }
 
   @Test
@@ -114,12 +124,24 @@ class SampleValueTest {
   @Test
   void ofStruct() throws JsonProcessingException {
     SampleValue testSample =
-        SampleValue.of(
-            SampleValue.of("name1", SampleValue.of("value1")),
-            SampleValue.of("name2", SampleValue.of(true)),
-            SampleValue.of("name3", SampleValue.of(42L)));
+            SampleValue.of(
+                    SampleValue.of("name1", SampleValue.of("value1")),
+                    SampleValue.of("name2", SampleValue.of(true)),
+                    SampleValue.of("name3", SampleValue.of(42L)));
     assertThat(testSample.jsonify())
-        .isEqualTo("{\"name1\":\"value1\",\"name2\":true,\"name3\":42}");
+            .isEqualTo("{\"name1\":\"value1\",\"name2\":true,\"name3\":42}");
+  }
+
+  @Test
+  void ofStructWithNull() throws JsonProcessingException {
+    SampleValue testSample =
+            SampleValue.of(
+                    SampleValue.of("name1", SampleValue.of("value1")),
+                    SampleValue.of("name2", SampleValue.of(true)),
+                    SampleValue.of("name3", SampleValue.of(42L)),
+                    SampleValue.of("name4", null));
+    assertThat(testSample.jsonify())
+            .isEqualTo("{\"name1\":\"value1\",\"name2\":true,\"name3\":42,\"name4\":null}");
   }
 
   @Test
@@ -239,13 +261,13 @@ class SampleValueTest {
   @Test
   void ofNull() throws JsonProcessingException {
     SampleValue testSample = SampleValue.nullValue();
-    assertThat(testSample.jsonify()).isEqualTo("\"NULL\"");
+    assertThat(testSample.jsonify()).isEqualTo("null");
   }
 
   @Test
   void ofUnknown() throws JsonProcessingException {
     SampleValue testSample = SampleValue.unknownValue();
-    assertThat(testSample.jsonify()).isEqualTo("\"Unknown\"");
+    assertThat(testSample.jsonify()).isEqualTo("\"<Unknown>\"");
   }
 
   @Test
@@ -278,5 +300,11 @@ class SampleValueTest {
     SampleValue testSample =
         SampleValue.of(LocalDateTime.of(2026, 1, 13, 14, 2).toInstant(java.time.ZoneOffset.UTC));
     assertThat(testSample.jsonify()).isEqualTo("\"2026-01-13T14:02:00Z\"");
+  }
+
+  @Test
+  void ofBinaryNull() throws JsonProcessingException {
+    SampleValue testSample = SampleValue.of((byte[]) null);
+    assertThat(testSample.jsonify()).isEqualTo("null");
   }
 }
