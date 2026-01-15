@@ -5,14 +5,18 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import org.jetbrains.annotations.NotNull;
+import zeenea.connector.common.ItemIdentifier;
+
 import java.util.Arrays;
 import java.util.List;
-import zeenea.connector.common.ItemIdentifier;
 
 public class DataSample {
 
   private static final ObjectMapper MAPPER = new ObjectMapper();
 
+  @NotNull
+  @SafeVarargs
   public static DataSample of(List<ItemIdentifier> identifiers, List<SampleValue>... samples) {
     DataSample dataSample = new DataSample();
     dataSample.fieldIdentifiers = identifiers;
