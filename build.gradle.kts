@@ -71,6 +71,15 @@ tasks {
     }
 }
 
+tasks.jar {
+    manifest {
+        attributes(
+            mapOf("Sealed" to "true"),
+            "zeenea/connector/datasampling/"
+        )
+    }
+}
+
 repositories {
     mavenCentral()
     mavenLocal()
