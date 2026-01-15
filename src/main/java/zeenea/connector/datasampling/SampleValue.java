@@ -1,7 +1,8 @@
 package zeenea.connector.datasampling;
 
-import static zeenea.connector.datasampling.SampleValueTypes.*;
+import static zeenea.connector.datasampling.SpecificSampleValues.*;
 
+import com.fasterxml.jackson.annotation.JsonValue;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -23,11 +24,11 @@ public interface SampleValue {
     }
 
     static SampleValue nullValue() {
-        return ConstSampleValue.NULL;
+        return SpecificSampleValues.NULL;
     }
 
     static SampleValue unknownValue() {
-        return ConstSampleValue.UNKNOWN;
+        return SpecificSampleValues.UNKNOWN;
     }
 
     static SampleValue of(byte[] bytes) {
@@ -35,62 +36,65 @@ public interface SampleValue {
     }
 
     static GenericSampleValue<String> of(String value) {
-        return new StandardSampleValue<>(value);
+        return new GenericSampleValue<>(value);
     }
 
     static GenericSampleValue<Boolean> of(Boolean value) {
-        return new StandardSampleValue<>(value);
+        return new GenericSampleValue<>(value);
     }
 
     static GenericSampleValue<Byte> of(Byte value) {
-        return new StandardSampleValue<>(value);
+        return new GenericSampleValue<>(value);
     }
 
     static GenericSampleValue<Short> of(Short value) {
-        return new StandardSampleValue<>(value);
+        return new GenericSampleValue<>(value);
     }
 
     static GenericSampleValue<Integer> of(Integer value) {
-        return new StandardSampleValue<>(value);
+        return new GenericSampleValue<>(value);
     }
 
     static GenericSampleValue<Long> of(Long value) {
-        return new StandardSampleValue<>(value);
+        return new GenericSampleValue<>(value);
     }
 
     static GenericSampleValue<Float> of(Float value) {
-        return new StandardSampleValue<>(value);
+        return new GenericSampleValue<>(value);
     }
 
     static GenericSampleValue<Double> of(Double value) {
-        return new StandardSampleValue<>(value);
+        return new GenericSampleValue<>(value);
     }
 
     static GenericSampleValue<BigDecimal> of(BigDecimal value) {
-        return new StandardSampleValue<>(value);
+        return new GenericSampleValue<>(value);
     }
 
     @SafeVarargs
     static <T> GenericSampleValue<List<GenericSampleValue<T>>> of(GenericSampleValue<T>... multiValues) {
 
-        return new StandardSampleValue<>(
+        return new GenericSampleValue<>(
                 Arrays.stream(multiValues)
                         .map(Optional::ofNullable)
-                        .map(o -> o.orElse(new StandardSampleValue<>( null)))
+                        .map(o -> o.orElse(new GenericSampleValue<>(null)))
                         .collect(Collectors.toList())
         );
     }
 
-    static <K, V> MapSampleValue<K, V> of(Map<K, V> value) {
-        return new MapSampleValue<>(value);
+    static <K, V> GenericSampleValue<Map<K, V>> of(Map<K, V> value) {
+        return new GenericSampleValue<>(value);
     }
 
     static StructEntrySampleValue of(String name, SampleValue value) {
         return new StructEntrySampleValue(name, value);
     }
 
-    static StructSampleValue of(StructEntrySampleValue... structValues) {
-        return new StructSampleValue(structValues);
+    static GenericSampleValue<Map<String, SampleValue>> of(StructEntrySampleValue... structValues) {
+        Map<String,SampleValue> map = new LinkedHashMap<>();
+        Arrays.stream(structValues)
+                .forEach(structEntry -> map.put(structEntry.getKey(), structEntry.getValue()));
+        return new GenericSampleValue<>(map);
     }
 
     static SampleValue of(Geometry geometry) {
@@ -110,11 +114,16 @@ public interface SampleValue {
     }
 
 
-    abstract class GenericSampleValue<T> implements SampleValue {
+    class GenericSampleValue<T> implements SampleValue {
         protected final T value;
 
         GenericSampleValue(T value) {
             this.value = value;
+        }
+
+        @JsonValue
+        public Object getValue() {
+            return value;
         }
     }
 

@@ -100,7 +100,7 @@ class SampleValueTest {
     map.put("name2", true);
     map.put("name3", 42);
     SampleValue testSample = SampleValue.of(map);
-    assertThat(testSample.jsonify()).isEqualTo("\"{name1=value1, name2=true, name3=42}\"");
+    assertThat(testSample.jsonify()).isEqualTo("{\"name1\":\"value1\",\"name2\":true,\"name3\":42}");
   }
 
   @Test
@@ -118,7 +118,7 @@ class SampleValueTest {
 
     SampleValue testSample = SampleValue.of(map);
     assertThat(testSample.jsonify())
-        .isEqualTo("\"{name1=value1, name2=true, name3=42, name4={sub1=toto, sub2=tata}}\"");
+        .isEqualTo("{\"name1\":\"value1\",\"name2\":true,\"name3\":42,\"name4\":{\"sub1\":\"toto\",\"sub2\":\"tata\"}}");
   }
 
   @Test

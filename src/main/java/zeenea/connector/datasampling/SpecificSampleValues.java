@@ -3,51 +3,20 @@ package zeenea.connector.datasampling;
 import com.fasterxml.jackson.annotation.*;
 
 import java.io.Serializable;
-import java.math.BigDecimal;
-import java.time.Instant;
-import java.time.LocalDate;
-import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.TemporalAccessor;
 import java.util.*;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import org.locationtech.jts.geom.Geometry;
 import zeenea.connector.datasampling.SampleValue.GenericSampleValue;
 
-public class SampleValueTypes {
+public class SpecificSampleValues {
 
-  private SampleValueTypes() {}
 
-  static final class StandardSampleValue<T> extends GenericSampleValue<T> {
-    public StandardSampleValue(T value) {
-      super(value);
-    }
+  public static final GenericSampleValue<String> NULL = new GenericSampleValue<>(null);
+  public static final GenericSampleValue<String> UNKNOWN = new GenericSampleValue<>("<Unknown>");
 
-    @JsonValue
-    public T getValue() {
-      return value;
-    }
-  }
-
-  static final class ConstSampleValue implements SampleValue, Serializable {
-
-    private final String constant;
-
-    public static final ConstSampleValue NULL = new ConstSampleValue(null);
-    public static final ConstSampleValue UNKNOWN = new ConstSampleValue("<Unknown>");
-
-    private ConstSampleValue(String constant) {
-      this.constant = constant;
-    }
-
-    @JsonValue
-    public Object getValue() {
-      return constant;
-    }
-  }
+  private SpecificSampleValues() {}
 
   static final class BinarySampleValue extends GenericSampleValue<byte[]> {
 
@@ -100,27 +69,6 @@ public class SampleValueTypes {
       if (value == null) return null;
 
       return dateTimeFormatter.format(value);
-    }
-  }
-
-  public static final class StructSampleValue extends LinkedHashMap<String, SampleValue>
-      implements SampleValue {
-    StructSampleValue(StructEntrySampleValue... structEntries) {
-      Arrays.stream(structEntries)
-          .forEach(structEntry -> this.put(structEntry.getKey(), structEntry.getValue()));
-    }
-  }
-
-  public static final class MapSampleValue<K, V> extends GenericSampleValue<Map<K, V>> {
-    MapSampleValue(Map<K, V> value) {
-      super(value);
-    }
-
-    @JsonValue
-    public String getValue() {
-      return value.keySet().stream()
-          .map(key -> key + "=" + value.get(key))
-          .collect(Collectors.joining(", ", "{", "}"));
     }
   }
 
