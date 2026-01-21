@@ -36,9 +36,12 @@ class VisualizationTest {
                         IdentificationProperty.of("port", "1111")))));
     ItemIdentifier itemIdentifier =
         ItemIdentifier.of(List.of(IdentificationProperty.of("key", "visualization")));
+    DataSourceIdentifier dataSourceIdentifier =
+        DataSourceIdentifier.of(List.of(IdentificationProperty.of("alias", "mock-dataset")));
     Visualization visualization =
         Visualization.builder()
             .id(itemIdentifier)
+            .dataSourceIdentifier(dataSourceIdentifier)
             .name("Visualization")
             .description("Description")
             .fields(fields)
@@ -75,9 +78,12 @@ class VisualizationTest {
                         IdentificationProperty.of("port", "1111")))));
     ItemIdentifier itemIdentifier =
         ItemIdentifier.of(List.of(IdentificationProperty.of("key", "visualization")));
+    DataSourceIdentifier dataSourceIdentifier =
+        DataSourceIdentifier.of(List.of(IdentificationProperty.of("alias", "mock-dataset")));
     Visualization visualization1 =
         Visualization.builder()
             .id(itemIdentifier)
+            .dataSourceIdentifier(dataSourceIdentifier)
             .name("Visualization")
             .description("Description")
             .fields(fields)
@@ -86,6 +92,7 @@ class VisualizationTest {
     Visualization visualization2 =
         Visualization.builder()
             .id(itemIdentifier)
+            .dataSourceIdentifier(dataSourceIdentifier)
             .name("Visualization")
             .description("Description")
             .fields(fields)
@@ -122,6 +129,9 @@ class VisualizationTest {
     Visualization visualization1 =
         Visualization.builder()
             .id(ItemIdentifier.of(List.of(IdentificationProperty.of("key", "visualization1"))))
+            .dataSourceIdentifier(
+                DataSourceIdentifier.of(
+                    List.of(IdentificationProperty.of("alias", "mock-dataset"))))
             .name("Visualization1")
             .description("Description")
             .fields(fields)
@@ -130,6 +140,9 @@ class VisualizationTest {
     Visualization visualization2 =
         Visualization.builder()
             .id(ItemIdentifier.of(List.of(IdentificationProperty.of("key", "visualization2"))))
+            .dataSourceIdentifier(
+                DataSourceIdentifier.of(
+                    List.of(IdentificationProperty.of("alias", "mock-dataset"))))
             .name("Visualization2")
             .description("Description")
             .fields(List.of())

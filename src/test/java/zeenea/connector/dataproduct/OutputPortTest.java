@@ -7,6 +7,7 @@ import java.util.Map;
 import java.util.Optional;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import zeenea.connector.common.DataSourceIdentifier;
 import zeenea.connector.common.IdentificationProperty;
 import zeenea.connector.common.ItemIdentifier;
 import zeenea.connector.dataset.Dataset;
@@ -21,6 +22,9 @@ class OutputPortTest {
     Dataset dataset1 =
         Dataset.builder()
             .id(ItemIdentifier.of(List.of(IdentificationProperty.of("name", "dataset1"))))
+            .dataSourceIdentifier(
+                DataSourceIdentifier.of(
+                    List.of(IdentificationProperty.of("alias", "mock-dataset"))))
             .name("Dataset1")
             .build();
 
@@ -52,6 +56,9 @@ class OutputPortTest {
     Dataset dataset1 =
         Dataset.builder()
             .id(ItemIdentifier.of(List.of(IdentificationProperty.of("name", "dataset1"))))
+            .dataSourceIdentifier(
+                DataSourceIdentifier.of(
+                    List.of(IdentificationProperty.of("alias", "mock-dataset"))))
             .name("Dataset1")
             .build();
 
@@ -89,11 +96,17 @@ class OutputPortTest {
     Dataset dataset1 =
         Dataset.builder()
             .id(ItemIdentifier.of(List.of(IdentificationProperty.of("name", "dataset1"))))
+            .dataSourceIdentifier(
+                DataSourceIdentifier.of(
+                    List.of(IdentificationProperty.of("alias", "mock-dataset"))))
             .name("Dataset1")
             .build();
     Dataset dataset2 =
         Dataset.builder()
             .id(ItemIdentifier.of(List.of(IdentificationProperty.of("name", "dataset2"))))
+            .dataSourceIdentifier(
+                DataSourceIdentifier.of(
+                    List.of(IdentificationProperty.of("alias", "mock-dataset"))))
             .name("Dataset2")
             .build();
 
@@ -131,6 +144,9 @@ class OutputPortTest {
     Dataset dataset1 =
         Dataset.builder()
             .id(ItemIdentifier.of(List.of(IdentificationProperty.of("name", "dataset1"))))
+            .dataSourceIdentifier(
+                DataSourceIdentifier.of(
+                    List.of(IdentificationProperty.of("alias", "mock-dataset"))))
             .name("Dataset1")
             .build();
 
@@ -157,6 +173,9 @@ class OutputPortTest {
     Dataset dataset1 =
         Dataset.builder()
             .id(ItemIdentifier.of(List.of(IdentificationProperty.of("name", "dataset1"))))
+            .dataSourceIdentifier(
+                DataSourceIdentifier.of(
+                    List.of(IdentificationProperty.of("alias", "mock-dataset"))))
             .name("Dataset1")
             .build();
 
@@ -182,6 +201,9 @@ class OutputPortTest {
     Dataset dataset1 =
         Dataset.builder()
             .id(ItemIdentifier.of(List.of(IdentificationProperty.of("name", "dataset1"))))
+            .dataSourceIdentifier(
+                DataSourceIdentifier.of(
+                    List.of(IdentificationProperty.of("alias", "mock-dataset"))))
             .name("Dataset1")
             .build();
 
@@ -227,6 +249,9 @@ class OutputPortTest {
     Dataset dataset1 =
         Dataset.builder()
             .id(ItemIdentifier.of(List.of(IdentificationProperty.of("name", "dataset1"))))
+            .dataSourceIdentifier(
+                DataSourceIdentifier.of(
+                    List.of(IdentificationProperty.of("alias", "mock-dataset"))))
             .name("Dataset1")
             .build();
 

@@ -56,9 +56,12 @@ class DatasetTest {
                 DataSourceIdentifier.of(List.of(IdentificationProperty.of("host", "localhost")))));
     ItemIdentifier itemIdentifier =
         ItemIdentifier.of(List.of(IdentificationProperty.of("key", "dataset1")));
+    DataSourceIdentifier dataSourceIdentifier =
+        DataSourceIdentifier.of(List.of(IdentificationProperty.of("alias", "mock-dataset")));
     Dataset dataset =
         Dataset.builder()
             .id(itemIdentifier)
+            .dataSourceIdentifier(dataSourceIdentifier)
             .name("Dataset1")
             .description("Description")
             .fields(fields)
@@ -120,9 +123,12 @@ class DatasetTest {
     List<QueryReference> sourceQueries = List.of(QueryReference.of("SELECT 1", SqlDialect.MYSQL));
     ItemIdentifier itemIdentifier =
         ItemIdentifier.of(List.of(IdentificationProperty.of("key", "dataset1")));
+    DataSourceIdentifier dataSourceIdentifier =
+        DataSourceIdentifier.of(List.of(IdentificationProperty.of("alias", "mock-dataset")));
     Dataset dataset1 =
         Dataset.builder()
             .id(itemIdentifier)
+            .dataSourceIdentifier(dataSourceIdentifier)
             .name("Dataset1")
             .description("Description")
             .fields(fields)
@@ -134,6 +140,7 @@ class DatasetTest {
     Dataset dataset2 =
         Dataset.builder()
             .id(itemIdentifier)
+            .dataSourceIdentifier(dataSourceIdentifier)
             .name("Dataset1")
             .description("Description")
             .fields(fields)
@@ -152,6 +159,9 @@ class DatasetTest {
     Dataset dataset1 =
         Dataset.builder()
             .id(ItemIdentifier.of(List.of(IdentificationProperty.of("key", "dataset1"))))
+            .dataSourceIdentifier(
+                DataSourceIdentifier.of(
+                    List.of(IdentificationProperty.of("alias", "mock-dataset"))))
             .name("Dataset1")
             .description("Description")
             .fields(
@@ -198,6 +208,9 @@ class DatasetTest {
     Dataset dataset2 =
         Dataset.builder()
             .id(ItemIdentifier.of(List.of(IdentificationProperty.of("key", "dataset2"))))
+            .dataSourceIdentifier(
+                DataSourceIdentifier.of(
+                    List.of(IdentificationProperty.of("alias", "mock-dataset"))))
             .name("Dataset2")
             .description("Description")
             .fields(List.of())
