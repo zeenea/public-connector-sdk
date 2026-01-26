@@ -99,14 +99,14 @@ public interface SampleValue {
     return new GenericSampleValue<>(map);
   }
 
-  /**
+  /*
    * The Geometry is a JTS notion, from the <a href="https://locationtech.github.io/jts/">Open
    * GeoTools project</a>
    *
    * <p>Have been tested : - Point - Linestring - Polygons - MultiPoint - MultiLinestring -
    * MultiPolygons
    */
-  static SampleValue of(Geometry geometry) {
+  static GenericSampleValue<String> of(Geometry geometry) {
     return new GenericSampleValue<>(geometry != null ? geometry.toText() : null);
   }
 
