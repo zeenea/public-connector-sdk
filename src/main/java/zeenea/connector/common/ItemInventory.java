@@ -59,6 +59,20 @@ public final class ItemInventory {
    *
    * @param itemIdentifier the identifier for the item
    * @param labelIdentifier the label identifier associated with the item
+   * @return a new ItemInventory instance
+   * @deprecated remove this method when all connectors rely on 2.14.0
+   */
+  @Deprecated(since = "2.14.0", forRemoval = true)
+  public static ItemInventory of(
+      @NotNull ItemIdentifier itemIdentifier, @NotNull LabelIdentifier labelIdentifier) {
+    return builder().itemIdentifier(itemIdentifier).labelIdentifier(labelIdentifier).build();
+  }
+
+  /**
+   * Creates a new ItemInventory instance with the specified item and label identifiers.
+   *
+   * @param itemIdentifier the identifier for the item
+   * @param labelIdentifier the label identifier associated with the item
    * @param dataSourceIdentifier the datasource identifier associated with the item
    * @return a new ItemInventory instance
    */
