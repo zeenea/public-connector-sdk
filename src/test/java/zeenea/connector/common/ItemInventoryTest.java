@@ -27,6 +27,22 @@ class ItemInventoryTest {
   }
 
   @Test
+  @DisplayName("ItemInventory factory should create item inventory without data source")
+  @SuppressWarnings("DataFlowIssue")
+  void shouldCreateItemInventoryWithoutDataSource() {
+    ItemIdentifier identifier =
+        ItemIdentifier.of(List.of(IdentificationProperty.of("key", "value")));
+    LabelIdentifier labelIdentifier =
+        LabelIdentifier.of(
+            IdentificationProperty.of("label1", "value1"),
+            IdentificationProperty.of("label2", "value2"));
+
+    ItemInventory inventory = ItemInventory.of(identifier, labelIdentifier);
+
+    assertNull(inventory.getDataSourceIdentifier());
+  }
+
+  @Test
   @DisplayName("ItemInventory should be equal to another with same properties")
   void shouldBeEqualToAnotherWithSameProperties() {
     ItemIdentifier identifier =
