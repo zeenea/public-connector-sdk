@@ -5,7 +5,7 @@ import zeenea.connector.Connection;
 import zeenea.connector.Item;
 import zeenea.connector.common.ItemIdentifier;
 import zeenea.connector.common.ItemInventory;
-import zeenea.connector.common.ItemToExtract;
+import zeenea.connector.common.ItemReference;
 
 /**
  * Interface representing a connection capable of managing inventory. Extends the Connection
@@ -39,7 +39,7 @@ public interface InventoryConnection extends Connection {
       forRemoval = true)
   default Stream<Item> extractItems(Stream<ItemIdentifier> items) {
     throw new UnsupportedOperationException(
-        "extractItems(Stream<ItemIdentifier>) is deprecated, please use extractItemsWithDataSource(Stream<ItemToExtract>) instead.");
+        "extractItems(Stream<ItemIdentifier>) is deprecated, please use extractItemsWithDataSource(Stream<ItemReference>) instead.");
   }
 
   /**
@@ -52,5 +52,5 @@ public interface InventoryConnection extends Connection {
    *     representing the items to extract
    * @return a Stream of Item objects representing the extracted items
    */
-  Stream<Item> extractItemsWithDataSource(Stream<ItemToExtract> items);
+  Stream<Item> extractItemsWithDataSource(Stream<ItemReference> items);
 }
