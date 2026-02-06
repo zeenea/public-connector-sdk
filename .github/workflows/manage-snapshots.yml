@@ -1,0 +1,32 @@
+name: Cleanup Multiple SNAPSHOT Packages
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '0 18 * * FRI'
+
+jobs:
+  delete-snapshots:
+    runs-on: ubuntu-latest
+    permissions:
+      packages: write
+
+    strategy:
+      fail-fast: false # No fail
+      matrix:
+        include:
+          - name: 'zeenea.public-connector-sdk'
+            type: 'maven'
+
+    steps:
+      - name: Delete old SNAPSHOTs for ${{ matrix.name }}
+        uses: actions/delete-package-versions@v5
+        with:
+          package-name: ${{ matrix.name }}
+          package-type: ${{ matrix.type }}
+
+          # Option 1 : Garder uniquement les X dernières versions (Le plus sûr)
+          min-versions-to-keep: 5
+          # Targets only SNAPSHOT (regex)
+          ignore-versions: '^(?!.*SNAPSHOT).*'
+          token: ${{ secrets.GITHUB_TOKEN }}
