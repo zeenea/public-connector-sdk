@@ -6,7 +6,7 @@ on:
       - main
 
 permissions:
-  packages: read
+  packages: write
   contents: write
 
 jobs:
@@ -36,8 +36,8 @@ jobs:
             exit 1
           fi
 
-          echo "version=${VERSION^^}"
-          echo "version=${VERSION^^}" >> $GITHUB_OUTPUT
+          echo "version=${VERSION^^}-SNAPSHOT"
+          echo "version=${VERSION^^}-SNAPSHOT" >> $GITHUB_OUTPUT
 
         shell: bash
 
@@ -57,6 +57,14 @@ jobs:
 
       - name: Build with Gradle
         run: ./gradlew build
+        shell: bash
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_ACTOR: ${{ github.actor }}
+          VERSION: ${{ steps.info.outputs.version }}
+
+      - name: Publish with Gradle
+        run: ./gradlew publish
         shell: bash
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
