@@ -70,6 +70,7 @@ class DatasetTest {
             .foreignKeys(foreignKeys)
             .sourceDatasets(sourceDatasets)
             .sourceQueries(sourceQueries)
+            .nestedImport(true)
             .build();
     assertNotNull(dataset);
     assertEquals(itemIdentifier, dataset.getId());
@@ -78,6 +79,76 @@ class DatasetTest {
     assertEquals(foreignKeys, dataset.getForeignKeys());
     assertEquals(sourceDatasets, dataset.getSourceDatasets());
     assertEquals(sourceQueries, dataset.getSourceQueries());
+    assertTrue(dataset.getNestedImport());
+  }
+
+  @Test
+  @DisplayName("Dataset builder should create dataset with default value if not specified")
+  void shouldCreateDatasetWithBuilderDefaultValue() {
+    List<Field> fields =
+        List.of(
+            Field.builder()
+                .id(ItemIdentifier.of(IdentificationProperty.of(FIELD_KEY, "field")))
+                .name("FieldName")
+                .dataType(DataType.String)
+                .nativeType("String")
+                .nativeIndex(1)
+                .nullable(true)
+                .multivalued(false)
+                .description("Field description")
+                .build());
+    List<ItemIdentifier> primaryKeyIdentifiers =
+        List.of(ItemIdentifier.of(IdentificationProperty.of(FIELD_KEY, "primary_key")));
+    List<ForeignKey> foreignKeys =
+        List.of(
+            ForeignKey.builder()
+                .targetDatasetIdentifier(
+                    ItemIdentifier.of(IdentificationProperty.of("id", "dataset2")))
+                .sourceFieldIdentifiers(
+                    List.of(ItemIdentifier.of(IdentificationProperty.of(FIELD_KEY, "foreign_key"))))
+                .targetFieldIdentifiers(
+                    List.of(ItemIdentifier.of(IdentificationProperty.of(FIELD_KEY, "primary_key"))))
+                .name("foreignKey1")
+                .build());
+    List<ItemReference> sourceDatasets =
+        List.of(
+            ItemReference.of(
+                ItemIdentifier.of(List.of(IdentificationProperty.of("name", "source1"))),
+                DataSourceIdentifier.of(
+                    List.of(
+                        IdentificationProperty.of("host", "localhost"),
+                        IdentificationProperty.of("port", "1111")))));
+    List<QueryReference> sourceQueries =
+        List.of(
+            QueryReference.of(
+                "SELECT * FROM table",
+                SqlDialect.MYSQL,
+                DataSourceIdentifier.of(List.of(IdentificationProperty.of("host", "localhost")))));
+    ItemIdentifier itemIdentifier =
+        ItemIdentifier.of(List.of(IdentificationProperty.of("key", "dataset1")));
+    DataSourceIdentifier dataSourceIdentifier =
+        DataSourceIdentifier.of(List.of(IdentificationProperty.of("alias", "mock-dataset")));
+    Dataset dataset =
+        Dataset.builder()
+            .id(itemIdentifier)
+            .dataSourceIdentifier(dataSourceIdentifier)
+            .name("Dataset1")
+            .description("Description")
+            .fields(fields)
+            .primaryKeyIdentifiers(
+                List.of(ItemIdentifier.of(IdentificationProperty.of(FIELD_KEY, "primary_key"))))
+            .foreignKeys(foreignKeys)
+            .sourceDatasets(sourceDatasets)
+            .sourceQueries(sourceQueries)
+            .build();
+    assertNotNull(dataset);
+    assertEquals(itemIdentifier, dataset.getId());
+    assertEquals(fields, dataset.getFields());
+    assertEquals(primaryKeyIdentifiers, dataset.getPrimaryKeyIdentifiers());
+    assertEquals(foreignKeys, dataset.getForeignKeys());
+    assertEquals(sourceDatasets, dataset.getSourceDatasets());
+    assertEquals(sourceQueries, dataset.getSourceQueries());
+    assertFalse(dataset.getNestedImport());
   }
 
   @Test
@@ -136,6 +207,7 @@ class DatasetTest {
             .foreignKeys(foreignKeys)
             .sourceDatasets(sourceDatasets)
             .sourceQueries(sourceQueries)
+            .nestedImport(true)
             .build();
     Dataset dataset2 =
         Dataset.builder()
@@ -148,6 +220,7 @@ class DatasetTest {
             .foreignKeys(foreignKeys)
             .sourceDatasets(sourceDatasets)
             .sourceQueries(sourceQueries)
+            .nestedImport(true)
             .build();
     assertEquals(dataset1, dataset2);
     assertEquals(dataset1.hashCode(), dataset2.hashCode());

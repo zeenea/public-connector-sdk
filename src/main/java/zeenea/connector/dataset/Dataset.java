@@ -46,6 +46,14 @@ public final class Dataset extends Item {
   @NotNull private final List<QueryReference> sourceQueries;
 
   /**
+   * Indicates whether this dataset is being handled via the new inventory mode.
+   *
+   * <p>When {@code true}, it signifies that the data was imported from a visualization context
+   * rather than a standard import.
+   */
+  private final boolean nestedImport;
+
+  /**
    * Constructs a Dataset instance using the provided builder.
    *
    * @param builder the builder used to create the Dataset instance
@@ -64,6 +72,7 @@ public final class Dataset extends Item {
     this.foreignKeys = List.copyOf(builder.foreignKeys);
     this.sourceDatasets = List.copyOf(builder.sourceDatasets);
     this.sourceQueries = List.copyOf(builder.sourceQueries);
+    this.nestedImport = builder.nestedImport;
   }
 
   /**
@@ -125,6 +134,16 @@ public final class Dataset extends Item {
   }
 
   /**
+   * Returns whether the dataset is imported via the new inventory mode.
+   *
+   * @return {@code true} if the dataset is a nested import from a visualization; {@code false}
+   *     otherwise.
+   */
+  public boolean getNestedImport() {
+    return nestedImport;
+  }
+
+  /**
    * Checks if this Dataset is equal to another object.
    *
    * @param o the object to compare with
@@ -145,7 +164,8 @@ public final class Dataset extends Item {
         && Objects.equals(primaryKeyIdentifiers, dataset.primaryKeyIdentifiers)
         && Objects.equals(foreignKeys, dataset.foreignKeys)
         && Objects.equals(sourceDatasets, dataset.sourceDatasets)
-        && Objects.equals(sourceQueries, dataset.sourceQueries);
+        && Objects.equals(sourceQueries, dataset.sourceQueries)
+        && Objects.equals(nestedImport, dataset.nestedImport);
   }
 
   /**
@@ -166,7 +186,8 @@ public final class Dataset extends Item {
         primaryKeyIdentifiers,
         foreignKeys,
         sourceDatasets,
-        sourceQueries);
+        sourceQueries,
+        nestedImport);
   }
 
   /**
@@ -199,6 +220,8 @@ public final class Dataset extends Item {
         + sourceDatasets
         + ", sourceQueries="
         + sourceQueries
+        + ", nestedImport="
+        + nestedImport
         + '}';
   }
 
@@ -235,6 +258,9 @@ public final class Dataset extends Item {
 
     /** The list of source queries for the dataset. */
     private List<QueryReference> sourceQueries = new ArrayList<>();
+
+    /** Indicates whether this dataset is being handled via the new inventory mode. */
+    private boolean nestedImport = false;
 
     /**
      * Sets the list of fields in the dataset.
@@ -373,6 +399,20 @@ public final class Dataset extends Item {
      */
     public Builder sourceQueries(QueryReference... sourceQueries) {
       this.sourceQueries = List.of(sourceQueries);
+      return this;
+    }
+
+    /**
+     * Sets whether the dataset should be treated as a nested import from a visualization.
+     *
+     * <p>Enabling this will trigger the new inventory mode logic.
+     *
+     * @param nestedImport {@code true} to enable new inventory mode; {@code false} for standard
+     *     import.
+     * @return this Builder instance
+     */
+    public Builder nestedImport(boolean nestedImport) {
+      this.nestedImport = nestedImport;
       return this;
     }
 
