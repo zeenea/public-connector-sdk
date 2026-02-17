@@ -40,7 +40,7 @@ class DataSampleTest {
             .build();
 
     String expectedJson =
-        "{\"fields\":[{\"database\":\"zeenea_db\",\"schema\":\"music\",\"table\":\"artists\",\"field\":\"name\"},{\"database\":\"zeenea_db\",\"schema\":\"music\",\"table\":\"artists\",\"field\":\"age\"},{\"database\":\"zeenea_db\",\"schema\":\"music\",\"table\":\"artists\",\"field\":\"active\"}],\"samples\":[[\"Alice\",30,false],[\"Kalle\",92,true]]}";
+        "{\"fieldIdentifiers\":[{\"database\":\"zeenea_db\",\"schema\":\"music\",\"table\":\"artists\",\"field\":\"name\"},{\"database\":\"zeenea_db\",\"schema\":\"music\",\"table\":\"artists\",\"field\":\"age\"},{\"database\":\"zeenea_db\",\"schema\":\"music\",\"table\":\"artists\",\"field\":\"active\"}],\"data\":[[\"Alice\",30,false],[\"Kalle\",92,true]],\"version\":\"v2\"}";
     assertThat(dataSample.jsonify()).isEqualTo(expectedJson);
   }
 
@@ -49,7 +49,7 @@ class DataSampleTest {
     DataSample dataSample = DataSample.builder(NAME_IDENTIFIER).build();
 
     String expectedJson =
-        "{\"fields\":[{\"database\":\"zeenea_db\",\"schema\":\"music\",\"table\":\"artists\",\"field\":\"name\"}],\"samples\":[]}";
+        "{\"fieldIdentifiers\":[{\"database\":\"zeenea_db\",\"schema\":\"music\",\"table\":\"artists\",\"field\":\"name\"}],\"data\":[],\"version\":\"v2\"}";
     assertThat(dataSample.jsonify()).isEqualTo(expectedJson);
   }
 

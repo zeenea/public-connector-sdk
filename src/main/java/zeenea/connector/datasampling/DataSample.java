@@ -12,6 +12,7 @@ import zeenea.connector.common.ItemIdentifier;
 public class DataSample {
 
   private static final ObjectMapper MAPPER = new ObjectMapper();
+  private static final String VERSION = "v2";
 
   public static Builder builder(ItemIdentifier... fieldIdentifiers) {
     return builder(Arrays.asList(fieldIdentifiers));
@@ -28,24 +29,31 @@ public class DataSample {
     return new Builder(fieldIdentifiers);
   }
 
-  private DataSample(List<ItemIdentifier> fieldIdentifiers, List<List<SampleValue>> samples) {
+  private DataSample(List<ItemIdentifier> fieldIdentifiers, List<List<SampleValue>> data) {
     this.fieldIdentifiers = fieldIdentifiers;
-    this.samples = samples;
+    this.data = data;
   }
 
-  @JsonProperty("fields")
+  @JsonProperty("fieldIdentifiers")
   @JsonSerialize(contentUsing = ItemIdentifierSerializer.class)
   List<ItemIdentifier> fieldIdentifiers;
 
-  @JsonProperty("samples")
-  List<List<SampleValue>> samples;
+  @JsonProperty("data")
+  List<List<SampleValue>> data;
+
+  @JsonProperty("version")
+  String version = VERSION;
 
   public List<ItemIdentifier> getFieldIdentifiers() {
     return fieldIdentifiers;
   }
 
-  public List<List<SampleValue>> getSamples() {
-    return samples;
+  public List<List<SampleValue>> getData() {
+    return data;
+  }
+
+  public String getVersion() {
+    return version;
   }
 
   // TODO : Move this to scanner
@@ -57,12 +65,11 @@ public class DataSample {
 
     private final List<ItemIdentifier> fieldIdentifiers;
 
-    private final List<List<SampleValue>> samples;
+    private final List<List<SampleValue>> data;
 
     private Builder(List<ItemIdentifier> fieldIdentifiers) {
-
       this.fieldIdentifiers = fieldIdentifiers;
-      this.samples = new ArrayList<>();
+      this.data = new ArrayList<>();
     }
 
     public Builder addRow(SampleValue... row) {
@@ -75,13 +82,13 @@ public class DataSample {
         throw new IllegalArgumentException("Invalid samples: row count should equal header count");
       }
 
-      this.samples.add(row);
+      this.data.add(row);
 
       return this;
     }
 
     public DataSample build() {
-      return new DataSample(this.fieldIdentifiers, this.samples);
+      return new DataSample(this.fieldIdentifiers, this.data);
     }
   }
 }

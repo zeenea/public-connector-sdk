@@ -34,7 +34,7 @@ class CommonPropertyDefinitionsTest {
                     throw new RuntimeException(e);
                   }
                 })
-            .map(fielValue -> (PropertyDefinition) fielValue)
+            .map(fieldValue -> (PropertyDefinition) fieldValue)
             .map(PropertyDefinition::getUuid)
             .filter(Optional::isPresent)
             .map(Optional::get)
