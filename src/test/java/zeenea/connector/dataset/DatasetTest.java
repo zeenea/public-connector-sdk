@@ -79,7 +79,7 @@ class DatasetTest {
     assertEquals(foreignKeys, dataset.getForeignKeys());
     assertEquals(sourceDatasets, dataset.getSourceDatasets());
     assertEquals(sourceQueries, dataset.getSourceQueries());
-    assertTrue(dataset.getNestedImport());
+    assertTrue(dataset.isNestedImport());
   }
 
   @Test
@@ -148,7 +148,7 @@ class DatasetTest {
     assertEquals(foreignKeys, dataset.getForeignKeys());
     assertEquals(sourceDatasets, dataset.getSourceDatasets());
     assertEquals(sourceQueries, dataset.getSourceQueries());
-    assertFalse(dataset.getNestedImport());
+    assertFalse(dataset.isNestedImport());
   }
 
   @Test

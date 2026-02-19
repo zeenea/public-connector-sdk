@@ -48,7 +48,7 @@ public final class Dataset extends Item {
   /**
    * Indicates whether this dataset is being handled via the new inventory mode.
    *
-   * <p>When {@code true}, it signifies that the data was imported from a visualization context
+   * <p>When {@code true}, it signifies that the dataset was imported from a visualization context
    * rather than a standard import.
    */
   private final boolean nestedImport;
@@ -134,12 +134,12 @@ public final class Dataset extends Item {
   }
 
   /**
-   * Returns whether the dataset is imported via the new inventory mode.
+   * Checks if the dataset is imported via the new inventory mode.
    *
    * @return {@code true} if the dataset is a nested import from a visualization; {@code false}
    *     otherwise.
    */
-  public boolean getNestedImport() {
+  public boolean isNestedImport() {
     return nestedImport;
   }
 
