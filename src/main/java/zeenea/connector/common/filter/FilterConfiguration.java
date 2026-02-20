@@ -16,8 +16,9 @@ public interface FilterConfiguration {
    * <p>Use it for middle-filtering, to limit the number of queries/calls executed during
    * inventory/synchronization step.
    *
-   * @param filteredProperties the properties to check against the filter configuration
-   * @return true if the properties match the filter configuration, false otherwise
+   * @param filteredProperties the properties to check against the filter configuration. The key is
+   *     the name of the property, and the value is the property value presented as a string.
+   * @return true if the properties evaluate to ACCEPT with the universal filter rules
    */
   boolean accepts(Map<String, String> filteredProperties);
 
