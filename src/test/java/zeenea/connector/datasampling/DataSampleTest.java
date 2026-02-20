@@ -4,11 +4,14 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
 import zeenea.connector.common.IdentificationProperty;
 import zeenea.connector.common.ItemIdentifier;
 
 class DataSampleTest {
+
+  private static final ObjectMapper MAPPER = new ObjectMapper();
 
   private static final ItemIdentifier NAME_IDENTIFIER =
       ItemIdentifier.of(
@@ -31,6 +34,10 @@ class DataSampleTest {
           IdentificationProperty.of("table", "artists"),
           IdentificationProperty.of("field", "active"));
 
+  public String jsonify(DataSample value) throws JsonProcessingException {
+    return MAPPER.writeValueAsString(value);
+  }
+
   @Test
   void jsonify() throws JsonProcessingException {
     DataSample dataSample =
@@ -40,8 +47,8 @@ class DataSampleTest {
             .build();
 
     String expectedJson =
-        "{\"fieldIdentifiers\":[{\"database\":\"zeenea_db\",\"schema\":\"music\",\"table\":\"artists\",\"field\":\"name\"},{\"database\":\"zeenea_db\",\"schema\":\"music\",\"table\":\"artists\",\"field\":\"age\"},{\"database\":\"zeenea_db\",\"schema\":\"music\",\"table\":\"artists\",\"field\":\"active\"}],\"data\":[[\"Alice\",30,false],[\"Kalle\",92,true]],\"version\":\"v2\"}";
-    assertThat(dataSample.jsonify()).isEqualTo(expectedJson);
+        "{\"fieldIdentifiers\":[{\"database\":\"zeenea_db\",\"schema\":\"music\",\"table\":\"artists\",\"field\":\"name\"},{\"database\":\"zeenea_db\",\"schema\":\"music\",\"table\":\"artists\",\"field\":\"age\"},{\"database\":\"zeenea_db\",\"schema\":\"music\",\"table\":\"artists\",\"field\":\"active\"}],\"data\":[[\"Alice\",30,false],[\"Kalle\",92,true]],\"version\":\"2\"}";
+    assertThat(jsonify(dataSample)).isEqualTo(expectedJson);
   }
 
   @Test
@@ -49,8 +56,8 @@ class DataSampleTest {
     DataSample dataSample = DataSample.builder(NAME_IDENTIFIER).build();
 
     String expectedJson =
-        "{\"fieldIdentifiers\":[{\"database\":\"zeenea_db\",\"schema\":\"music\",\"table\":\"artists\",\"field\":\"name\"}],\"data\":[],\"version\":\"v2\"}";
-    assertThat(dataSample.jsonify()).isEqualTo(expectedJson);
+        "{\"fieldIdentifiers\":[{\"database\":\"zeenea_db\",\"schema\":\"music\",\"table\":\"artists\",\"field\":\"name\"}],\"data\":[],\"version\":\"2\"}";
+    assertThat(jsonify(dataSample)).isEqualTo(expectedJson);
   }
 
   @Test
