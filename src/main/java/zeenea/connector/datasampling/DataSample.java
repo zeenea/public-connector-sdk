@@ -1,8 +1,6 @@
 package zeenea.connector.datasampling;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -11,8 +9,7 @@ import zeenea.connector.common.ItemIdentifier;
 
 public class DataSample {
 
-  private static final ObjectMapper MAPPER = new ObjectMapper();
-  private static final String VERSION = "v2";
+  private static final String VERSION = "2";
 
   public static Builder builder(ItemIdentifier... fieldIdentifiers) {
     return builder(Arrays.asList(fieldIdentifiers));
@@ -54,11 +51,6 @@ public class DataSample {
 
   public String getVersion() {
     return version;
-  }
-
-  // TODO : Move this to scanner
-  public String jsonify() throws JsonProcessingException {
-    return MAPPER.writeValueAsString(this);
   }
 
   public static class Builder {
