@@ -20,11 +20,6 @@ public interface SampleValue {
   GenericSampleValue<String> UNKNOWN = new GenericSampleValue<>("<Unknown>");
   GenericSampleValue<String> INVALID_JSON = new GenericSampleValue<>("<Invalid JSON>");
 
-  default String jsonify() throws JsonProcessingException {
-    ObjectMapper mapper = new ObjectMapper();
-    return mapper.writeValueAsString(this);
-  }
-
   static SampleValue nullValue() {
     return NULL;
   }
