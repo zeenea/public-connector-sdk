@@ -305,37 +305,4 @@ class SampleValueTest {
     SampleValue testSample = SampleValue.of((byte[]) null);
     assertThat(jsonify(testSample)).isEqualTo("null");
   }
-
-  @Test
-  void ofJsonArray() throws JsonProcessingException {
-    SampleValue testSample =
-        SampleValue.ofJson(
-            "[\n" + "  1,\n" + "  2,\n" + "  3,\n" + "  \"test\",\n" + "  true\n" + "]");
-    assertThat(jsonify(testSample)).isEqualTo("[1,2,3,\"test\",true]");
-  }
-
-  @Test
-  void ofJsonNull() throws JsonProcessingException {
-    SampleValue testSample = SampleValue.ofJson(null);
-    assertThat(jsonify(testSample)).isEqualTo("null");
-  }
-
-  @Test
-  void ofJsonInvalid() throws JsonProcessingException {
-    SampleValue testSample = SampleValue.ofJson("jsonInvalid");
-    assertThat(jsonify(testSample)).isEqualTo("\"<Invalid JSON>\"");
-  }
-
-  @Test
-  void ofJson() throws JsonProcessingException {
-    SampleValue testSample =
-        SampleValue.ofJson(
-            "{\n"
-                + "  \"age\": 30,\n"
-                + "  \"city\": \"New York\",\n"
-                + "  \"name\": \"John\"\n"
-                + "}");
-    assertThat(jsonify(testSample))
-        .isEqualTo("{\"age\":30,\"city\":\"New York\",\"name\":\"John\"}");
-  }
 }

@@ -1,8 +1,6 @@
 package zeenea.connector.datasampling;
 
 import com.fasterxml.jackson.annotation.JsonValue;
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import java.math.BigDecimal;
 import java.time.Instant;
 import java.time.LocalDate;
@@ -115,17 +113,6 @@ public interface SampleValue {
 
   static GenericSampleValue<Instant> of(Instant timestamp) {
     return new TemporalSampleValue<>(timestamp, DateTimeFormatter.ISO_INSTANT);
-  }
-
-  static SampleValue ofJson(String jsonString) {
-    if (jsonString == null) return NULL;
-
-    ObjectMapper mapper = new ObjectMapper();
-    try {
-      return new GenericSampleValue<>(mapper.readTree(jsonString));
-    } catch (JsonProcessingException e) {
-      return INVALID_JSON;
-    }
   }
 
   class GenericSampleValue<T> implements SampleValue {
