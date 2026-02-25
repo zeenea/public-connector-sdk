@@ -1,7 +1,5 @@
 package zeenea.connector.datasampling;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -31,14 +29,10 @@ public class DataSample {
     this.data = data;
   }
 
-  @JsonProperty("fieldIdentifiers")
-  @JsonSerialize(contentUsing = ItemIdentifierSerializer.class)
   List<ItemIdentifier> fieldIdentifiers;
 
-  @JsonProperty("data")
   List<List<SampleValue>> data;
 
-  @JsonProperty("version")
   String version = VERSION;
 
   public List<ItemIdentifier> getFieldIdentifiers() {

@@ -34,30 +34,26 @@ class DataSampleTest {
           IdentificationProperty.of("table", "artists"),
           IdentificationProperty.of("field", "active"));
 
-  public String jsonify(DataSample value) throws JsonProcessingException {
-    return MAPPER.writeValueAsString(value);
-  }
-
   @Test
-  void jsonify() throws JsonProcessingException {
+  void allowDataSampling_DefaultSample() {
     DataSample dataSample =
         DataSample.builder(NAME_IDENTIFIER, AGE_IDENTIFIER, ACTIVE_IDENTIFIER)
             .addRow(SampleValue.of("Alice"), SampleValue.of(30L), SampleValue.of(false))
             .addRow(SampleValue.of("Kalle"), SampleValue.of(92L), SampleValue.of(true))
             .build();
 
-    String expectedJson =
-        "{\"fieldIdentifiers\":[{\"database\":\"zeenea_db\",\"schema\":\"music\",\"table\":\"artists\",\"field\":\"name\"},{\"database\":\"zeenea_db\",\"schema\":\"music\",\"table\":\"artists\",\"field\":\"age\"},{\"database\":\"zeenea_db\",\"schema\":\"music\",\"table\":\"artists\",\"field\":\"active\"}],\"data\":[[\"Alice\",30,false],[\"Kalle\",92,true]],\"version\":\"2\"}";
-    assertThat(jsonify(dataSample)).isEqualTo(expectedJson);
+    assertThat(dataSample.getFieldIdentifiers())
+        .hasSize(3)
+        .containsExactly(NAME_IDENTIFIER, AGE_IDENTIFIER, ACTIVE_IDENTIFIER);
+    assertThat(dataSample.getData()).hasSize(2).allMatch(line -> line.size() == 3);
   }
 
   @Test
   void allowDataSampling_EmptySamples() throws JsonProcessingException {
     DataSample dataSample = DataSample.builder(NAME_IDENTIFIER).build();
 
-    String expectedJson =
-        "{\"fieldIdentifiers\":[{\"database\":\"zeenea_db\",\"schema\":\"music\",\"table\":\"artists\",\"field\":\"name\"}],\"data\":[],\"version\":\"2\"}";
-    assertThat(jsonify(dataSample)).isEqualTo(expectedJson);
+    assertThat(dataSample.getFieldIdentifiers()).hasSize(1).containsExactly(NAME_IDENTIFIER);
+    assertThat(dataSample.getData()).isEmpty();
   }
 
   @Test
