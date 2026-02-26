@@ -1,5 +1,8 @@
 package zeenea.connector.property;
 
+import java.math.BigDecimal;
+import java.net.URI;
+import java.time.Instant;
 import java.util.List;
 import java.util.Map;
 import org.assertj.core.api.Assertions;
@@ -11,11 +14,10 @@ public class PropertiesBuilderTest {
   public void shouldExcludeNullValueInsideStringPropertyValue() {
     // Given
     StringPropertyDefinition propertyDefinition = new StringPropertyDefinition("Test Property");
-    StringPropertyValue propertyValue = new StringPropertyValue(null);
 
     // When
     Map<String, PropertyValue> builder =
-        PropertiesBuilder.create().put(propertyDefinition, propertyValue).build();
+        PropertiesBuilder.create().put(propertyDefinition, (String) null).build();
 
     // Then
     Assertions.assertThat(builder).hasSize(0);
@@ -25,11 +27,10 @@ public class PropertiesBuilderTest {
   public void shouldExcludeNullValueInsideNumberPropertyValue() {
     // Given
     NumberPropertyDefinition propertyDefinition = new NumberPropertyDefinition("Test Property");
-    NumberPropertyValue propertyValue = new NumberPropertyValue(null);
 
     // When
     Map<String, PropertyValue> builder =
-        PropertiesBuilder.create().put(propertyDefinition, propertyValue).build();
+        PropertiesBuilder.create().put(propertyDefinition, (BigDecimal) null).build();
 
     // Then
     Assertions.assertThat(builder).hasSize(0);
@@ -39,11 +40,10 @@ public class PropertiesBuilderTest {
   public void shouldExcludeNullValueInsideUrlPropertyValue() {
     // Given
     UrlPropertyDefinition propertyDefinition = new UrlPropertyDefinition("Test Property");
-    UrlPropertyValue propertyValue = new UrlPropertyValue(null);
 
     // When
     Map<String, PropertyValue> builder =
-        PropertiesBuilder.create().put(propertyDefinition, propertyValue).build();
+        PropertiesBuilder.create().put(propertyDefinition, (URI) null).build();
 
     // Then
     Assertions.assertThat(builder).hasSize(0);
@@ -53,11 +53,10 @@ public class PropertiesBuilderTest {
   public void shouldExcludeNullValueInsideInstantPropertyValue() {
     // Given
     InstantPropertyDefinition propertyDefinition = new InstantPropertyDefinition("Test Property");
-    InstantPropertyValue propertyValue = new InstantPropertyValue(null);
 
     // When
     Map<String, PropertyValue> builder =
-        PropertiesBuilder.create().put(propertyDefinition, propertyValue).build();
+        PropertiesBuilder.create().put(propertyDefinition, (Instant) null).build();
 
     // Then
     Assertions.assertThat(builder).hasSize(0);
@@ -67,11 +66,10 @@ public class PropertiesBuilderTest {
   public void shouldExcludeNullValueInsideTagPropertyValue() {
     // Given
     TagPropertyDefinition propertyDefinition = new TagPropertyDefinition("Test Property");
-    TagPropertyValue propertyValue = new TagPropertyValue(null);
 
     // When
     Map<String, PropertyValue> builder =
-        PropertiesBuilder.create().put(propertyDefinition, propertyValue).build();
+        PropertiesBuilder.create().put(propertyDefinition, (List<String>) null).build();
 
     // Then
     Assertions.assertThat(builder).hasSize(0);
@@ -81,11 +79,10 @@ public class PropertiesBuilderTest {
   public void shouldExcludeEmptyValueInsideTagPropertyValue() {
     // Given
     TagPropertyDefinition propertyDefinition = new TagPropertyDefinition("Test Property");
-    TagPropertyValue propertyValue = new TagPropertyValue(List.of());
 
     // When
     Map<String, PropertyValue> builder =
-        PropertiesBuilder.create().put(propertyDefinition, propertyValue).build();
+        PropertiesBuilder.create().put(propertyDefinition, List.of()).build();
 
     // Then
     Assertions.assertThat(builder).hasSize(0);
