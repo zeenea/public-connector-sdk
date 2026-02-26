@@ -1,6 +1,5 @@
 package zeenea.connector.datasampling;
 
-import com.fasterxml.jackson.annotation.JsonValue;
 import java.math.BigDecimal;
 import java.time.Instant;
 import java.time.LocalDate;
@@ -16,7 +15,6 @@ public interface SampleValue {
 
   GenericSampleValue<String> NULL = new GenericSampleValue<>(null);
   GenericSampleValue<String> UNKNOWN = new GenericSampleValue<>("<Unknown>");
-  GenericSampleValue<String> INVALID_JSON = new GenericSampleValue<>("<Invalid JSON>");
 
   static SampleValue nullValue() {
     return NULL;
@@ -122,7 +120,6 @@ public interface SampleValue {
       this.value = value;
     }
 
-    @JsonValue
     public Object getValue() {
       return value;
     }
@@ -158,7 +155,6 @@ public interface SampleValue {
       this.size = bytes != null ? bytes.length : -1;
     }
 
-    @JsonValue
     public String getValue() {
       if (value == null) return null;
 
@@ -183,7 +179,6 @@ public interface SampleValue {
       this.dateTimeFormatter = dateTimeFormatter;
     }
 
-    @JsonValue
     public String getValue() {
       if (value == null) return null;
 

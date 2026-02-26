@@ -2,6 +2,7 @@ package zeenea.connector.datasampling;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+import com.fasterxml.jackson.annotation.JsonValue;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.math.BigDecimal;
@@ -15,7 +16,13 @@ import org.locationtech.jts.geom.*;
 
 class SampleValueTest {
 
-  private static final ObjectMapper MAPPER = new ObjectMapper();
+  abstract static class ValueMixin {
+    @JsonValue
+    abstract Object getValue();
+  }
+
+  private static final ObjectMapper MAPPER =
+      new ObjectMapper().addMixIn(SampleValue.GenericSampleValue.class, ValueMixin.class);
 
   public String jsonify(SampleValue value) throws JsonProcessingException {
     return MAPPER.writeValueAsString(value);

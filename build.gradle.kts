@@ -94,7 +94,7 @@ dependencies {
 
     // Jackson dependencies for JSON serialization
     val jacksonVersion: String by project
-    implementation(group = "com.fasterxml.jackson.core", name = "jackson-annotations", version = jacksonVersion)
+    testImplementation(group = "com.fasterxml.jackson.core", name = "jackson-annotations", version = jacksonVersion)
     testImplementation(group = "com.fasterxml.jackson.core", name = "jackson-core", version = jacksonVersion)
     testImplementation(group = "com.fasterxml.jackson.core", name = "jackson-databind", version = jacksonVersion)
 
