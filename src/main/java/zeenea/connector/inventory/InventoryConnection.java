@@ -52,5 +52,21 @@ public interface InventoryConnection extends Connection {
    *     representing the items to extract
    * @return a Stream of Item objects representing the extracted items
    */
+  @Deprecated(
+          since =
+                  "Deprecated since version 2.??.0, use extractItems with a request instead. Scheduled for removal in version 3.0.0",
+          forRemoval = true)
   Stream<Item> extractItemsWithDataSource(Stream<ItemToExtract> items);
+
+
+  /**
+   * Extracts items based on the provided stream of item and datasource identifiers.
+   *
+   * <p>Sequence diagram for inventory integration: <img alt="Extract items connection sequence
+   * diagram" src="/doc-files/extract-items-connection-sequence-diagram.png">
+   *
+   * @param request wrap ItemIdentifier and DatasSourceIdentifier representing the items to extract
+   * @return a Result containing a collection of Item objects representing the extracted items
+   */
+  ItemsExtraction extractItems(ItemsExtractionRequest request);
 }

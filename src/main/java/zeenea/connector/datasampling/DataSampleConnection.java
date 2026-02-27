@@ -8,11 +8,8 @@ public interface DataSampleConnection extends Connection {
 
   /**
    * Collects a data sample for a given item identifier.
-   *
-   * @param itemReference the item reference to sample data from
-   * @param sampleSize the number of samples to collect
-   * @return DataSampling object containing the collected samples with corresponding field
-   *     identifiers
+   * @param request the request to proceed Data Sampling
+   * @return DataSamplingResult containing the collected samples with corresponding field
    */
-  DataSample collectDataSample(ItemReference itemReference, int sampleSize);
+   DataSampleResult collectDataSample(DataSampleRequest request);
 }
