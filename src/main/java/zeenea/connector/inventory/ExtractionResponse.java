@@ -4,7 +4,6 @@ import java.util.stream.Stream;
 import org.jetbrains.annotations.NotNull;
 import zeenea.connector.Item;
 
-/** Extraction Response */
 public class ExtractionResponse {
 
   /** Item that have been extracted */

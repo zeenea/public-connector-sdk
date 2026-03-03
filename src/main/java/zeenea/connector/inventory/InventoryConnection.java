@@ -3,7 +3,6 @@ package zeenea.connector.inventory;
 import java.util.stream.Stream;
 import zeenea.connector.Connection;
 import zeenea.connector.Item;
-import zeenea.connector.common.ItemDesignator;
 import zeenea.connector.common.ItemIdentifier;
 import zeenea.connector.common.ItemInventory;
 
@@ -52,12 +51,5 @@ public interface InventoryConnection extends Connection {
    *     DatasSourceIdentifier representing the items to extract
    * @return a Response Wrapper containing Stream of Item objects representing the extracted items
    */
-  default ExtractionResponse extractItems(ExtractionRequest request) {
-    return new ExtractionResponse(
-        extractItems(request.getItemsToExtract().map(ItemDesignator::getItemIdentifier))
-        // TODO : Good Idea ? Keeps the backward compatibility ?
-        // Gemini says it's the bridge pattern, but does not encourage the usage of throwing
-        // exceptions
-        );
-  }
+  ExtractionResponse extractItems(ExtractionRequest request);
 }

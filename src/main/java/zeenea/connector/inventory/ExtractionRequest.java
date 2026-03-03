@@ -7,7 +7,7 @@ import zeenea.connector.common.ItemDesignator;
 /** A request to extract items, from the connector */
 public class ExtractionRequest {
 
-  /** Items designation (Item Identifier + Datasource Identifier) to be extracted */
+  /** ItemsDesignator is used to designate a unique item (Item Identifier + Datasource Identifier) to be extracted */
   @NotNull private final Stream<ItemDesignator> itemsToExtract;
 
   public ExtractionRequest(@NotNull Stream<ItemDesignator> itemsToExtract) {
