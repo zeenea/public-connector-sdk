@@ -160,12 +160,9 @@ public interface SampleValue {
 
       String prefix = "Binary (" + size + " bytes) [";
       String suffix = size <= MAX_LENGTH ? "]" : ", ...]";
-      String strValue =
-          IntStream.range(0, value.length)
-              .mapToObj(b -> String.format("0x%02x", value[b]))
-              .collect(Collectors.joining(", ", prefix, suffix));
-
-      return strValue;
+      return IntStream.range(0, value.length)
+          .mapToObj(b -> String.format("0x%02x", value[b]))
+          .collect(Collectors.joining(", ", prefix, suffix));
     }
   }
 
