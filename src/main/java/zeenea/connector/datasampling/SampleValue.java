@@ -10,11 +10,14 @@ import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 import org.locationtech.jts.geom.Geometry;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public interface SampleValue {
 
   GenericSampleValue<String> NULL = new GenericSampleValue<>(null);
   GenericSampleValue<String> UNKNOWN = new GenericSampleValue<>("<Unknown>");
+  static Logger log = LoggerFactory.getLogger(SampleValue.class);
 
   static SampleValue nullValue() {
     return NULL;
@@ -86,7 +89,16 @@ public interface SampleValue {
   static GenericSampleValue<Map<String, SampleValue>> of(StructEntrySampleValue... structValues) {
     Map<String, SampleValue> map = new LinkedHashMap<>();
     Arrays.stream(structValues)
-        .forEach(structEntry -> map.put(structEntry.getKey(), structEntry.getValue()));
+        .forEach(
+            structEntry -> {
+              Object previousValue = map.put(structEntry.getKey(), structEntry.getValue());
+
+              if (previousValue != null) {
+                log.warn(
+                    "Multiple identical keys detected for {}: only the last value has been collected",
+                    structEntry.getKey());
+              }
+            });
     return new GenericSampleValue<>(map);
   }
 
