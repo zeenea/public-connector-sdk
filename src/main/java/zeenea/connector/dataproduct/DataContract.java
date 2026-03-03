@@ -12,6 +12,9 @@ public final class DataContract {
    *
    * @deprecated since 2.9.0
    */
+  @Deprecated(
+      since = "Deprecated since version 2.9.0. Scheduled for removal in version 3.0.0.",
+      forRemoval = true)
   public enum Type {
     Custom,
     DataContractDotCom
