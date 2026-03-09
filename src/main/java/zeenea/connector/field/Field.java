@@ -60,7 +60,7 @@ public class Field {
    *
    * @param builder the builder used to create the Field instance
    */
-  public Field(Field.Builder<?, ?> builder) {
+  public Field(Builder builder) {
     this.id = Objects.requireNonNull(builder.id, "id");
     this.name = Objects.requireNonNull(builder.name, "name");
     this.dataType = builder.dataType;
@@ -260,20 +260,14 @@ public class Field {
   /**
    * Creates a new builder for the Field class.
    *
-   * @param <T> the type of the builder
    * @return a new Builder instance
    */
-  public static <T> Builder<T, ? extends Builder<T, ?>> builder() {
-    return new Builder<>();
+  public static Builder builder() {
+    return new Builder();
   }
 
-  /**
-   * Builder class for creating instances of Field.
-   *
-   * @param <T> the type of the field
-   * @param <THIS> the type of the builder itself
-   */
-  public static class Builder<T, THIS extends Builder<T, ?>> {
+  /** Builder class for creating instances of Field. */
+  public static class Builder {
 
     /** The item identifier associated with the field. */
     private ItemIdentifier id;
@@ -320,9 +314,9 @@ public class Field {
      * @param name the name of the field
      * @return the builder instance
      */
-    public THIS name(@NotNull String name) {
+    public Builder name(@NotNull String name) {
       this.name = name;
-      return self();
+      return this;
     }
 
     /**
@@ -331,9 +325,9 @@ public class Field {
      * @param dataType the data type of the field
      * @return the builder instance
      */
-    public THIS dataType(@NotNull DataType dataType) {
+    public Builder dataType(@NotNull DataType dataType) {
       this.dataType = dataType;
-      return self();
+      return this;
     }
 
     /**
@@ -342,9 +336,9 @@ public class Field {
      * @param nativeType the native type of the field
      * @return the builder instance
      */
-    public THIS nativeType(@NotNull String nativeType) {
+    public Builder nativeType(@NotNull String nativeType) {
       this.nativeType = nativeType;
-      return self();
+      return this;
     }
 
     /**
@@ -353,9 +347,9 @@ public class Field {
      * @param nativeIndex the native index of the field
      * @return the builder instance
      */
-    public THIS nativeIndex(int nativeIndex) {
+    public Builder nativeIndex(int nativeIndex) {
       this.nativeIndex = nativeIndex;
-      return self();
+      return this;
     }
 
     /**
@@ -364,9 +358,9 @@ public class Field {
      * @param id the item identifier
      * @return the builder instance
      */
-    public THIS id(@NotNull ItemIdentifier id) {
+    public Builder id(@NotNull ItemIdentifier id) {
       this.id = id;
-      return self();
+      return this;
     }
 
     /**
@@ -375,9 +369,9 @@ public class Field {
      * @param nullable true if the field is nullable, otherwise false
      * @return the builder instance
      */
-    public THIS nullable(boolean nullable) {
+    public Builder nullable(boolean nullable) {
       this.nullable = nullable;
-      return self();
+      return this;
     }
 
     /**
@@ -386,9 +380,9 @@ public class Field {
      * @param multivalued true if the field is multivalued, otherwise false
      * @return the builder instance
      */
-    public THIS multivalued(boolean multivalued) {
+    public Builder multivalued(boolean multivalued) {
       this.multivalued = multivalued;
-      return self();
+      return this;
     }
 
     /**
@@ -397,9 +391,9 @@ public class Field {
      * @param description the description of the field
      * @return the builder instance
      */
-    public THIS description(@Nullable String description) {
+    public Builder description(@Nullable String description) {
       this.description = description;
-      return self();
+      return this;
     }
 
     /**
@@ -408,9 +402,9 @@ public class Field {
      * @param metadata the properties of the field
      * @return the builder instance
      */
-    public THIS properties(@NotNull Map<String, PropertyValue> metadata) {
+    public Builder properties(@NotNull Map<String, PropertyValue> metadata) {
       this.properties = Map.copyOf(metadata);
-      return self();
+      return this;
     }
 
     /**
@@ -419,9 +413,9 @@ public class Field {
      * @param sourceFields the list of source fields associated with the field
      * @return the Builder instance
      */
-    public THIS sourceFields(@NotNull List<ItemReference> sourceFields) {
+    public Builder sourceFields(@NotNull List<ItemReference> sourceFields) {
       this.sourceFields = List.copyOf(sourceFields);
-      return self();
+      return this;
     }
 
     /**
@@ -430,9 +424,9 @@ public class Field {
      * @param sourceFields the list of source fields associated with the field
      * @return the Builder instance
      */
-    public THIS sourceFields(ItemReference... sourceFields) {
+    public Builder sourceFields(ItemReference... sourceFields) {
       this.sourceFields = List.of(sourceFields);
-      return self();
+      return this;
     }
 
     /**
@@ -441,9 +435,9 @@ public class Field {
      * @param glossaryRefs the list of glossary refs associated with the field
      * @return the Builder instance
      */
-    public THIS glossaryRefs(@NotNull Collection<String> glossaryRefs) {
+    public Builder glossaryRefs(@NotNull Collection<String> glossaryRefs) {
       this.glossaryRefs = List.copyOf(glossaryRefs);
-      return self();
+      return this;
     }
 
     /**
@@ -452,9 +446,9 @@ public class Field {
      * @param glossaryRefs the list of glossary refs associated with the field
      * @return the Builder instance
      */
-    public THIS glossaryRefs(String... glossaryRefs) {
+    public Builder glossaryRefs(String... glossaryRefs) {
       this.glossaryRefs = List.of(glossaryRefs);
-      return self();
+      return this;
     }
 
     /**
@@ -463,9 +457,9 @@ public class Field {
      * @param customItemRefs the list of custom item refs associated with the field
      * @return the Builder instance
      */
-    public THIS customItemRefs(@NotNull Collection<String> customItemRefs) {
+    public Builder customItemRefs(@NotNull Collection<String> customItemRefs) {
       this.customItemRefs = List.copyOf(customItemRefs);
-      return self();
+      return this;
     }
 
     /**
@@ -474,9 +468,9 @@ public class Field {
      * @param customItemRefs the list of custom item refs associated with the field
      * @return the Builder instance
      */
-    public THIS customItemRefs(String... customItemRefs) {
+    public Builder customItemRefs(String... customItemRefs) {
       this.customItemRefs = List.of(customItemRefs);
-      return self();
+      return this;
     }
 
     /**
@@ -486,16 +480,6 @@ public class Field {
      */
     public Field build() {
       return new Field(this);
-    }
-
-    /**
-     * Returns the builder instance.
-     *
-     * @return the builder instance
-     */
-    @SuppressWarnings("unchecked")
-    private THIS self() {
-      return (THIS) this;
     }
   }
 }
