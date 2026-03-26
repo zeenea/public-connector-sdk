@@ -8,6 +8,7 @@ import zeenea.connector.Item;
 import zeenea.connector.common.ItemIdentifier;
 import zeenea.connector.common.ItemReference;
 import zeenea.connector.common.QueryReference;
+import zeenea.connector.common.powerquery.PowerQueryReference;
 import zeenea.connector.exception.ExceptionUtils;
 import zeenea.connector.field.Field;
 
@@ -46,6 +47,14 @@ public final class Dataset extends Item {
   @NotNull private final List<QueryReference> sourceQueries;
 
   /**
+   * The list of source Power Queries associated with the dataset.
+   *
+   * <p>Used to declare upstream dataset lineage by referencing PowerQueryReference of source
+   * datasets.
+   */
+  @NotNull private final List<PowerQueryReference> sourcePowerQueries;
+
+  /**
    * Indicates whether this dataset is being handled via the new inventory mode.
    *
    * <p>When {@code true}, it signifies that the dataset was imported from a visualization context
@@ -66,12 +75,14 @@ public final class Dataset extends Item {
     ExceptionUtils.requireNonNull("foreignKeys", builder.foreignKeys);
     ExceptionUtils.requireNonNull("sourceDatasets", builder.sourceDatasets);
     ExceptionUtils.requireNonNull("sourceQueries", builder.sourceQueries);
+    ExceptionUtils.requireNonNull("powerQueries", builder.sourcePowerQueries);
     this.fields = List.copyOf(builder.fields);
     this.primaryKeys = List.copyOf(builder.primaryKeys);
     this.primaryKeyIdentifiers = List.copyOf(builder.primaryKeyIdentifiers);
     this.foreignKeys = List.copyOf(builder.foreignKeys);
     this.sourceDatasets = List.copyOf(builder.sourceDatasets);
     this.sourceQueries = List.copyOf(builder.sourceQueries);
+    this.sourcePowerQueries = List.copyOf(builder.sourcePowerQueries);
     this.nestedImport = builder.nestedImport;
   }
 
@@ -134,6 +145,15 @@ public final class Dataset extends Item {
   }
 
   /**
+   * Gets the list of source Power Query references.
+   *
+   * @return the list of source Power Query references
+   */
+  public @NotNull List<PowerQueryReference> getSourcePowerQueries() {
+    return sourcePowerQueries;
+  }
+
+  /**
    * Checks if the dataset is imported via the new inventory mode.
    *
    * @return {@code true} if the dataset is a nested import from a visualization; {@code false}
@@ -165,6 +185,7 @@ public final class Dataset extends Item {
         && Objects.equals(foreignKeys, dataset.foreignKeys)
         && Objects.equals(sourceDatasets, dataset.sourceDatasets)
         && Objects.equals(sourceQueries, dataset.sourceQueries)
+        && Objects.equals(sourcePowerQueries, dataset.sourcePowerQueries)
         && Objects.equals(nestedImport, dataset.nestedImport);
   }
 
@@ -187,6 +208,7 @@ public final class Dataset extends Item {
         foreignKeys,
         sourceDatasets,
         sourceQueries,
+        sourcePowerQueries,
         nestedImport);
   }
 
@@ -220,6 +242,8 @@ public final class Dataset extends Item {
         + sourceDatasets
         + ", sourceQueries="
         + sourceQueries
+        + ", sourcePowerQueries="
+        + sourcePowerQueries
         + ", nestedImport="
         + nestedImport
         + '}';
@@ -258,6 +282,9 @@ public final class Dataset extends Item {
 
     /** The list of source queries for the dataset. */
     private List<QueryReference> sourceQueries = new ArrayList<>();
+
+    /** The list of source Power Queries for the dataset. */
+    private List<PowerQueryReference> sourcePowerQueries = new ArrayList<>();
 
     /** Indicates whether this dataset is being handled via the new inventory mode. */
     private boolean nestedImport = false;
@@ -392,13 +419,35 @@ public final class Dataset extends Item {
     }
 
     /**
-     * Sets the source query references for the DataProcess.
+     * Sets the source query references for the dataset.
      *
      * @param sourceQueries the source query references
      * @return this Builder instance
      */
     public Builder sourceQueries(QueryReference... sourceQueries) {
       this.sourceQueries = List.of(sourceQueries);
+      return this;
+    }
+
+    /**
+     * Sets the list of source Power Queries for the dataset.
+     *
+     * @param sourcePowerQueries the list of source Power Queries
+     * @return the builder instance
+     */
+    public Builder sourcePowerQueries(@NotNull List<PowerQueryReference> sourcePowerQueries) {
+      this.sourcePowerQueries = List.copyOf(sourcePowerQueries);
+      return this;
+    }
+
+    /**
+     * Sets the source Power Query references for the dataset.
+     *
+     * @param sourcePowerQueries the source Power Query references
+     * @return this Builder instance
+     */
+    public Builder sourcePowerQueries(PowerQueryReference... sourcePowerQueries) {
+      this.sourcePowerQueries = List.of(sourcePowerQueries);
       return this;
     }
 
