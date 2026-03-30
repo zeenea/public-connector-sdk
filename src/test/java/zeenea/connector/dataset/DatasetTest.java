@@ -58,16 +58,7 @@ class DatasetTest {
                 "SELECT * FROM table",
                 SqlDialect.MYSQL,
                 DataSourceIdentifier.of(List.of(IdentificationProperty.of("host", "localhost")))));
-    List<PowerQueryReference> sourcePowerQueries =
-        List.of(
-            PowerQueryReference.of(
-                "let source = Odbc.Query(\"dsn=testDSN\", \"SELECT * FROM table\") in source",
-                List.of(
-                    OdbcDsn.of(
-                        "testDSN",
-                        OdbcEngine.SQLSERVER,
-                        List.of(
-                            Attribute.of("host", "localhost"), Attribute.of("port", "1433"))))));
+    List<PowerQueryReference> sourcePowerQueries = List.of(createPowerQueryReference());
     ItemIdentifier itemIdentifier =
         ItemIdentifier.of(List.of(IdentificationProperty.of("key", "dataset1")));
     DataSourceIdentifier dataSourceIdentifier =
@@ -208,16 +199,7 @@ class DatasetTest {
                         IdentificationProperty.of("host", "localhost"),
                         IdentificationProperty.of("port", "1111")))));
     List<QueryReference> sourceQueries = List.of(QueryReference.of("SELECT 1", SqlDialect.MYSQL));
-    List<PowerQueryReference> sourcePowerQueries =
-        List.of(
-            PowerQueryReference.of(
-                "let source = Odbc.Query(\"dsn=testDSN\", \"SELECT * FROM table\") in source",
-                List.of(
-                    OdbcDsn.of(
-                        "testDSN",
-                        OdbcEngine.SQLSERVER,
-                        List.of(
-                            Attribute.of("host", "localhost"), Attribute.of("port", "1433"))))));
+    List<PowerQueryReference> sourcePowerQueries = List.of(createPowerQueryReference());
     ItemIdentifier itemIdentifier =
         ItemIdentifier.of(List.of(IdentificationProperty.of("key", "dataset1")));
     DataSourceIdentifier dataSourceIdentifier =
@@ -305,17 +287,7 @@ class DatasetTest {
                                 IdentificationProperty.of("host", "localhost"),
                                 IdentificationProperty.of("port", "1111"))))))
             .sourceQueries(List.of(QueryReference.of("SELECT * FROM t1", SqlDialect.DB2)))
-            .sourcePowerQueries(
-                List.of(
-                    PowerQueryReference.of(
-                        "let source = Odbc.Query(\"dsn=testDSN\", \"SELECT * FROM table\") in source",
-                        List.of(
-                            OdbcDsn.of(
-                                "testDSN",
-                                OdbcEngine.SQLSERVER,
-                                List.of(
-                                    Attribute.of("host", "localhost"),
-                                    Attribute.of("port", "1433")))))))
+            .sourcePowerQueries(List.of(createPowerQueryReference()))
             .build();
     Dataset dataset2 =
         Dataset.builder()
@@ -364,16 +336,7 @@ class DatasetTest {
                         IdentificationProperty.of("host", "localhost"),
                         IdentificationProperty.of("port", "1111")))));
     List<QueryReference> sourceQueries = List.of(QueryReference.of("SELECT 1", SqlDialect.MYSQL));
-    List<PowerQueryReference> sourcePowerQueries =
-        List.of(
-            PowerQueryReference.of(
-                "let source = Odbc.Query(\"dsn=testDSN\", \"SELECT * FROM table\") in source",
-                List.of(
-                    OdbcDsn.of(
-                        "testDSN",
-                        OdbcEngine.SQLSERVER,
-                        List.of(
-                            Attribute.of("host", "localhost"), Attribute.of("port", "1433"))))));
+    List<PowerQueryReference> sourcePowerQueries = List.of(createPowerQueryReference());
     assertThrows(
         NullPointerException.class,
         () ->
@@ -388,5 +351,15 @@ class DatasetTest {
                 .sourceQueries(sourceQueries)
                 .sourcePowerQueries(sourcePowerQueries)
                 .build());
+  }
+
+  private static PowerQueryReference createPowerQueryReference() {
+    return PowerQueryReference.of(
+        "let source = Odbc.Query(\"dsn=testDSN\", \"SELECT * FROM table\") in source",
+        List.of(
+            OdbcDsn.of(
+                "testDSN",
+                OdbcEngine.SQLSERVER,
+                List.of(Attribute.of("host", "localhost"), Attribute.of("port", "1433")))));
   }
 }

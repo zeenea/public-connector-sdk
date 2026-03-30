@@ -3,8 +3,8 @@ package zeenea.connector.common.powerquery;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
 import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 
 /**
  * Represents an ODBC DSN definition. This is used to obtain the details of an ODBC data source when
@@ -41,7 +41,7 @@ public class OdbcDsn {
    * @return a new OdbcDsn instance
    */
   public static OdbcDsn of(
-      @NotNull String name, @NotNull OdbcEngine engine, @Nullable List<Attribute> attributes) {
+      @NotNull String name, @NotNull OdbcEngine engine, @NotNull List<Attribute> attributes) {
     return builder().name(name).engine(engine).attributes(attributes).build();
   }
 
@@ -53,7 +53,7 @@ public class OdbcDsn {
    * @return a new OdbcDsn instance
    */
   public static OdbcDsn of(@NotNull String name, @NotNull OdbcEngine engine) {
-    return of(name, engine, null);
+    return of(name, engine, List.of());
   }
 
   /**
@@ -81,6 +81,19 @@ public class OdbcDsn {
    */
   public @NotNull List<Attribute> getAttributes() {
     return attributes;
+  }
+
+  /**
+   * Gets a specific attribute
+   *
+   * @param name the name of the attribute
+   * @return the value of the attribute
+   */
+  public Optional<String> getAttribute(String name) {
+    return attributes.stream()
+        .filter(attribute -> attribute.getName().equals(name))
+        .map(Attribute::getValue)
+        .findFirst();
   }
 
   /**
@@ -146,7 +159,7 @@ public class OdbcDsn {
      * @param name the name of the data source
      * @return the Builder instance
      */
-    public OdbcDsn.Builder name(@Nullable String name) {
+    public OdbcDsn.Builder name(@NotNull String name) {
       this.name = name;
       return this;
     }
@@ -157,7 +170,7 @@ public class OdbcDsn {
      * @param engine the engine type for the data source
      * @return the Builder instance
      */
-    public OdbcDsn.Builder engine(@Nullable OdbcEngine engine) {
+    public OdbcDsn.Builder engine(@NotNull OdbcEngine engine) {
       this.engine = engine;
       return this;
     }
@@ -168,7 +181,7 @@ public class OdbcDsn {
      * @param attributes the list of attributes associated with the data source
      * @return the Builder instance
      */
-    public OdbcDsn.Builder attributes(@Nullable List<Attribute> attributes) {
+    public OdbcDsn.Builder attributes(@NotNull List<Attribute> attributes) {
       this.attributes = attributes;
       return this;
     }
