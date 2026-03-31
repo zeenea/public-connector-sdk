@@ -17,7 +17,7 @@ public interface SampleValue {
 
   GenericSampleValue<String> NULL = new GenericSampleValue<>(null);
   GenericSampleValue<String> UNKNOWN = new GenericSampleValue<>("<Unknown>");
-  static Logger log = LoggerFactory.getLogger(SampleValue.class);
+  Logger log = LoggerFactory.getLogger(SampleValue.class);
 
   static SampleValue nullValue() {
     return NULL;
@@ -135,6 +135,23 @@ public interface SampleValue {
     public Object getValue() {
       return value;
     }
+
+    @Override
+    public boolean equals(Object o) {
+      if (o == null || getClass() != o.getClass()) return false;
+      GenericSampleValue<?> that = (GenericSampleValue<?>) o;
+      return Objects.equals(value, that.value);
+    }
+
+    @Override
+    public int hashCode() {
+      return Objects.hashCode(value);
+    }
+
+    @Override
+    public String toString() {
+      return "GenericSampleValue{" + "value=" + value + '}';
+    }
   }
 
   final class StructEntrySampleValue {
@@ -176,6 +193,24 @@ public interface SampleValue {
           .mapToObj(b -> String.format("0x%02x", value[b]))
           .collect(Collectors.joining(", ", prefix, suffix));
     }
+
+    @Override
+    public boolean equals(Object o) {
+      if (o == null || getClass() != o.getClass()) return false;
+      if (!super.equals(o)) return false;
+      BinarySampleValue that = (BinarySampleValue) o;
+      return size == that.size;
+    }
+
+    @Override
+    public int hashCode() {
+      return Objects.hash(super.hashCode(), size);
+    }
+
+    @Override
+    public String toString() {
+      return "BinarySampleValue{" + "size=" + size + '}';
+    }
   }
 
   final class TemporalSampleValue<T extends TemporalAccessor> extends GenericSampleValue<T> {
@@ -192,6 +227,29 @@ public interface SampleValue {
       if (value == null) return null;
 
       return dateTimeFormatter.format(value);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+      if (o == null || getClass() != o.getClass()) return false;
+      if (!super.equals(o)) return false;
+      TemporalSampleValue<?> that = (TemporalSampleValue<?>) o;
+      return Objects.equals(dateTimeFormatter, that.dateTimeFormatter);
+    }
+
+    @Override
+    public int hashCode() {
+      return Objects.hash(super.hashCode(), dateTimeFormatter);
+    }
+
+    @Override
+    public String toString() {
+      return "TemporalSampleValue{"
+          + "value="
+          + value
+          + ", dateTimeFormatter="
+          + dateTimeFormatter
+          + '}';
     }
   }
 }
