@@ -84,41 +84,22 @@ repositories {
         }
     }
 }
-
 dependencies {
-    val pf4jVersion: String by project
-    api(group = "org.pf4j", name = "pf4j", version = pf4jVersion)
-
+    api(libs.pf4j)
     // Common properties are used to extract the associated UUIDs
-    implementation(group = "zeenea", name = "common-properties", version = "4.4")
-
-    // Jackson dependencies for JSON serialization
-    val jacksonVersion: String by project
-    testImplementation(group = "com.fasterxml.jackson.core", name = "jackson-annotations", version = jacksonVersion)
-    testImplementation(group = "com.fasterxml.jackson.core", name = "jackson-core", version = jacksonVersion)
-    testImplementation(group = "com.fasterxml.jackson.core", name = "jackson-databind", version = jacksonVersion)
-
-    val jtsGeoJsonVersion: String by project
-    api(group = "org.locationtech.jts", name = "jts-core", version = jtsGeoJsonVersion)
-
-    val slf4jVersion: String by project
-    testImplementation(group = "org.slf4j", name = "slf4j-api", version = slf4jVersion)
-
-    val junitVersion: String by project
-    testImplementation(platform("org.junit:junit-bom:${junitVersion}"))
+    implementation(libs.common.properties)
+    testImplementation(libs.jackson.annotations)
+    testImplementation(libs.jackson.core)
+    testImplementation(libs.jackson.databind)
+    api(libs.jts.core)
+    testImplementation(libs.slf4j.api)
+    testImplementation(platform(libs.junit.bom))
+    testRuntimeOnly(libs.junit.platform.launcher)
     testImplementation(group = "org.junit.jupiter", name = "junit-jupiter-api")
     testRuntimeOnly(group = "org.junit.jupiter", name = "junit-jupiter-engine")
-    val assertjVersion: String by project
-    testImplementation(group = "org.assertj", name = "assertj-core", version = assertjVersion)
-    val equalsverifierVersion: String by project
-    testImplementation(group = "nl.jqno.equalsverifier", name = "equalsverifier", version = equalsverifierVersion)
-
-    val jetbrainsAnnotationsVersion: String by project
-    compileOnly(
-        group = "org.jetbrains",
-        name = "annotations",
-        version = jetbrainsAnnotationsVersion
-    )
+    testImplementation(libs.assertj.core)
+    testImplementation(libs.equalsverifier)
+    compileOnly(libs.annotations)
 }
 
 publishing {

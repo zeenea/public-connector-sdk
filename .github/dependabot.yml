@@ -1,0 +1,38 @@
+version: 2
+
+registries:
+  private-github-actions:
+    type: git
+    url: https://github.com/
+    username: x-access-token
+    password: ${{secrets.ACTION_READ_PACKAGE}}
+
+  private-github-maven:
+    type: maven-repository
+    url: "https://maven.pkg.github.com/zeenea/*"
+    username: x-access-token
+    password: ${{ secrets.ACTION_READ_PACKAGE }}
+    replaces-base: false
+
+updates:
+  # Enable version updates for daily
+  - package-ecosystem: "gradle"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+    registries:
+      - private-github-maven
+    labels:
+      - connectivity
+      - dependencies
+
+  # Enable version updates for GitHub Actions weekly
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+    registries:
+      - private-github-actions
+    labels:
+      - connectivity
+      - dependencies

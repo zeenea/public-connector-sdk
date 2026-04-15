@@ -1,0 +1,26 @@
+[versions]
+pf4j = "3.15.0"
+common-properties = "4.4"
+jackson = "2.21.2"
+jackson-annotations = "2.21"
+jts-core = "1.20.0"
+slf4j-api = "2.0.17"
+junit-bom = "5.14.3"
+assertj-core = "3.27.7"
+equalsverifier = "3.19.4"
+annotations = "26.1.0"
+junit-platform-launcher = "1.14.3"
+
+[libraries]
+pf4j = { group = "org.pf4j", name = "pf4j", version.ref = "pf4j" }
+common-properties = { group = "zeenea", name = "common-properties", version.ref = "common-properties" }
+jackson-annotations = { group = "com.fasterxml.jackson.core", name = "jackson-annotations", version.ref = "jackson-annotations" }
+jackson-core = { group = "com.fasterxml.jackson.core", name = "jackson-core", version.ref = "jackson" }
+jackson-databind = { group = "com.fasterxml.jackson.core", name = "jackson-databind", version.ref = "jackson" }
+jts-core = { group = "org.locationtech.jts", name = "jts-core", version.ref = "jts-core" }
+slf4j-api = { group = "org.slf4j", name = "slf4j-api", version.ref = "slf4j-api" }
+junit-bom = { group = "org.junit", name = "junit-bom", version.ref = "junit-bom" }
+junit-platform-launcher = { group = "org.junit.platform", name = "junit-platform-launcher", version.ref = "junit-platform-launcher" }
+assertj-core = { group = "org.assertj", name = "assertj-core", version.ref = "assertj-core" }
+equalsverifier = { group = "nl.jqno.equalsverifier", name = "equalsverifier", version.ref = "equalsverifier" }
+annotations = { group = "org.jetbrains", name = "annotations", version.ref = "annotations" }
