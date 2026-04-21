@@ -6,6 +6,10 @@ import java.util.List;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import zeenea.connector.common.*;
+import zeenea.connector.common.powerquery.Attribute;
+import zeenea.connector.common.powerquery.OdbcDsn;
+import zeenea.connector.common.powerquery.OdbcEngine;
+import zeenea.connector.common.powerquery.PowerQueryReference;
 import zeenea.connector.field.Field;
 
 class DatasetTest {
@@ -54,6 +58,7 @@ class DatasetTest {
                 "SELECT * FROM table",
                 SqlDialect.MYSQL,
                 DataSourceIdentifier.of(List.of(IdentificationProperty.of("host", "localhost")))));
+    List<PowerQueryReference> sourcePowerQueries = List.of(createPowerQueryReference());
     ItemIdentifier itemIdentifier =
         ItemIdentifier.of(List.of(IdentificationProperty.of("key", "dataset1")));
     DataSourceIdentifier dataSourceIdentifier =
@@ -70,6 +75,7 @@ class DatasetTest {
             .foreignKeys(foreignKeys)
             .sourceDatasets(sourceDatasets)
             .sourceQueries(sourceQueries)
+            .sourcePowerQueries(sourcePowerQueries)
             .nestedImport(true)
             .build();
     assertNotNull(dataset);
@@ -79,6 +85,7 @@ class DatasetTest {
     assertEquals(foreignKeys, dataset.getForeignKeys());
     assertEquals(sourceDatasets, dataset.getSourceDatasets());
     assertEquals(sourceQueries, dataset.getSourceQueries());
+    assertEquals(sourcePowerQueries, dataset.getSourcePowerQueries());
     assertTrue(dataset.isNestedImport());
   }
 
@@ -192,6 +199,7 @@ class DatasetTest {
                         IdentificationProperty.of("host", "localhost"),
                         IdentificationProperty.of("port", "1111")))));
     List<QueryReference> sourceQueries = List.of(QueryReference.of("SELECT 1", SqlDialect.MYSQL));
+    List<PowerQueryReference> sourcePowerQueries = List.of(createPowerQueryReference());
     ItemIdentifier itemIdentifier =
         ItemIdentifier.of(List.of(IdentificationProperty.of("key", "dataset1")));
     DataSourceIdentifier dataSourceIdentifier =
@@ -207,6 +215,7 @@ class DatasetTest {
             .foreignKeys(foreignKeys)
             .sourceDatasets(sourceDatasets)
             .sourceQueries(sourceQueries)
+            .sourcePowerQueries(sourcePowerQueries)
             .nestedImport(true)
             .build();
     Dataset dataset2 =
@@ -220,6 +229,7 @@ class DatasetTest {
             .foreignKeys(foreignKeys)
             .sourceDatasets(sourceDatasets)
             .sourceQueries(sourceQueries)
+            .sourcePowerQueries(sourcePowerQueries)
             .nestedImport(true)
             .build();
     assertEquals(dataset1, dataset2);
@@ -277,6 +287,7 @@ class DatasetTest {
                                 IdentificationProperty.of("host", "localhost"),
                                 IdentificationProperty.of("port", "1111"))))))
             .sourceQueries(List.of(QueryReference.of("SELECT * FROM t1", SqlDialect.DB2)))
+            .sourcePowerQueries(List.of(createPowerQueryReference()))
             .build();
     Dataset dataset2 =
         Dataset.builder()
@@ -291,6 +302,7 @@ class DatasetTest {
             .foreignKeys(List.of())
             .sourceDatasets(List.of())
             .sourceQueries(List.of())
+            .sourcePowerQueries(List.of())
             .build();
     assertNotEquals(dataset1, dataset2);
   }
@@ -324,6 +336,7 @@ class DatasetTest {
                         IdentificationProperty.of("host", "localhost"),
                         IdentificationProperty.of("port", "1111")))));
     List<QueryReference> sourceQueries = List.of(QueryReference.of("SELECT 1", SqlDialect.MYSQL));
+    List<PowerQueryReference> sourcePowerQueries = List.of(createPowerQueryReference());
     assertThrows(
         NullPointerException.class,
         () ->
@@ -336,6 +349,17 @@ class DatasetTest {
                 .foreignKeys(foreignKeys)
                 .sourceDatasets(sourceDatasets)
                 .sourceQueries(sourceQueries)
+                .sourcePowerQueries(sourcePowerQueries)
                 .build());
+  }
+
+  private static PowerQueryReference createPowerQueryReference() {
+    return PowerQueryReference.of(
+        "let source = Odbc.Query(\"dsn=testDSN\", \"SELECT * FROM table\") in source",
+        List.of(
+            OdbcDsn.of(
+                "testDSN",
+                OdbcEngine.SQLSERVER,
+                List.of(Attribute.of("host", "localhost"), Attribute.of("port", "1433")))));
   }
 }
