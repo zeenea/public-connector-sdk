@@ -19,7 +19,7 @@ import zeenea.connector.exception.ExceptionUtils;
  * }
  * </pre>
  */
-public final class DataSourceIdentifier {
+public class DataSourceIdentifier {
 
   /** The list of identification properties. */
   @NotNull private final List<IdentificationProperty> identificationProperties;
@@ -33,6 +33,10 @@ public final class DataSourceIdentifier {
     ExceptionUtils.requireNonNullOrEmpty(
         "identificationProperties", builder.identificationProperties);
     this.identificationProperties = List.copyOf(builder.identificationProperties);
+  }
+
+  protected DataSourceIdentifier(@NotNull List<IdentificationProperty> identificationProperties) {
+    this.identificationProperties = List.copyOf(identificationProperties);
   }
 
   /**
@@ -112,7 +116,7 @@ public final class DataSourceIdentifier {
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;
-    if (o == null || getClass() != o.getClass()) return false;
+    if (!(o instanceof DataSourceIdentifier)) return false;
     DataSourceIdentifier that = (DataSourceIdentifier) o;
     return Objects.equals(identificationProperties, that.identificationProperties);
   }
