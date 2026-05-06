@@ -21,7 +21,7 @@ import zeenea.connector.exception.ExceptionUtils;
  * }
  * </pre>
  */
-public final class LabelIdentifier {
+public class LabelIdentifier {
 
   /** The list of label identification properties. */
   @NotNull private final List<IdentificationProperty> identificationProperties;
@@ -34,6 +34,10 @@ public final class LabelIdentifier {
   private LabelIdentifier(Builder builder) {
     ExceptionUtils.requireNonNull("identificationProperties", builder.identificationProperties);
     this.identificationProperties = List.copyOf(builder.identificationProperties);
+  }
+
+  protected LabelIdentifier(@NotNull List<IdentificationProperty> identificationProperties) {
+    this.identificationProperties = List.copyOf(identificationProperties);
   }
 
   /**
@@ -129,7 +133,7 @@ public final class LabelIdentifier {
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;
-    if (o == null || getClass() != o.getClass()) return false;
+    if (!(o instanceof LabelIdentifier)) return false;
     LabelIdentifier that = (LabelIdentifier) o;
     return Objects.equals(identificationProperties, that.identificationProperties);
   }
