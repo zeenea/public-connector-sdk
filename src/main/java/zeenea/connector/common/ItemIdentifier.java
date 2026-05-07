@@ -20,7 +20,7 @@ import zeenea.connector.exception.ExceptionUtils;
  * }
  * </pre>
  */
-public final class ItemIdentifier {
+public class ItemIdentifier {
 
   /** The list of identification properties. */
   @NotNull private final List<IdentificationProperty> identificationProperties;
@@ -34,6 +34,10 @@ public final class ItemIdentifier {
     ExceptionUtils.requireNonNullOrEmpty(
         "identificationProperties", builder.identificationProperties);
     this.identificationProperties = List.copyOf(builder.identificationProperties);
+  }
+
+  protected ItemIdentifier(@NotNull List<IdentificationProperty> identificationProperties) {
+    this.identificationProperties = List.copyOf(identificationProperties);
   }
 
   /**
@@ -156,7 +160,7 @@ public final class ItemIdentifier {
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;
-    if (o == null || getClass() != o.getClass()) return false;
+    if (!(o instanceof ItemIdentifier)) return false;
     ItemIdentifier that = (ItemIdentifier) o;
     return Objects.equals(identificationProperties, that.identificationProperties);
   }
