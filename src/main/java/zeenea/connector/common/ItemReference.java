@@ -6,7 +6,7 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 /** Represents a reference to an item in the Zeenea Data Catalog. */
-public final class ItemReference {
+public class ItemReference {
   /** The identifier for the item. */
   @NotNull private final ItemIdentifier itemIdentifier;
 
@@ -19,8 +19,13 @@ public final class ItemReference {
    * @param builder the builder used to create the ItemReference instance
    */
   private ItemReference(Builder builder) {
-    this.itemIdentifier = Objects.requireNonNull(builder.itemIdentifier, "itemIdentifier");
-    this.dataSourceIdentifier = builder.dataSourceIdentifier;
+    this(builder.itemIdentifier, builder.dataSourceIdentifier);
+  }
+
+  protected ItemReference(
+      ItemIdentifier itemIdentifier, @Nullable DataSourceIdentifier dataSourceIdentifier) {
+    this.itemIdentifier = Objects.requireNonNull(itemIdentifier, "itemIdentifier");
+    this.dataSourceIdentifier = dataSourceIdentifier;
   }
 
   /**
