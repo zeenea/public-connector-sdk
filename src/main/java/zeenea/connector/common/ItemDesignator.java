@@ -7,14 +7,15 @@ import org.jetbrains.annotations.NotNull;
  * Immutable value object representing an item to extract, combining its identifier and the
  * mandatory data source identifier.
  */
-public final class ItemDesignator {
+public class ItemDesignator {
 
   // Unique identifier for the item
   @NotNull private final ItemIdentifier itemIdentifier;
   // Identifier for the data source context
   @NotNull private final DataSourceIdentifier dataSourceIdentifier;
 
-  private ItemDesignator(ItemIdentifier itemIdentifier, DataSourceIdentifier dataSourceIdentifier) {
+  protected ItemDesignator(
+      ItemIdentifier itemIdentifier, DataSourceIdentifier dataSourceIdentifier) {
     this.itemIdentifier = Objects.requireNonNull(itemIdentifier, "itemIdentifier");
     this.dataSourceIdentifier =
         Objects.requireNonNull(dataSourceIdentifier, "dataSourceIdentifier must not be null");

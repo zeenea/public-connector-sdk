@@ -8,6 +8,7 @@ public interface DataSampleConnection extends Connection {
   /**
    * Collects a data sample for a given item identifier.
    *
+   * @param request the request
    * @return DataSampling object containing the collected samples with corresponding field
    *     identifiers
    */
