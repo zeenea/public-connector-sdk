@@ -2,15 +2,14 @@ package zeenea.connector.dataprofiling;
 
 import java.util.List;
 import zeenea.connector.common.ItemDesignator;
-import zeenea.connector.common.ItemIdentifier;
 
 public class DataProfilingRequest {
   private final long rowCount;
   private final ItemDesignator itemToProfile;
-  private final List<ItemIdentifier> selectedFields;
+  private final List<FieldToProfile> selectedFields;
 
   public DataProfilingRequest(
-      long rowCount, ItemDesignator itemToProfile, List<ItemIdentifier> selectedFields) {
+      long rowCount, ItemDesignator itemToProfile, List<FieldToProfile> selectedFields) {
     this.rowCount = rowCount;
     this.itemToProfile = itemToProfile;
     this.selectedFields = selectedFields;
@@ -24,7 +23,7 @@ public class DataProfilingRequest {
     return itemToProfile;
   }
 
-  public List<ItemIdentifier> getSelectedFields() {
+  public List<FieldToProfile> getSelectedFields() {
     return selectedFields;
   }
 }
