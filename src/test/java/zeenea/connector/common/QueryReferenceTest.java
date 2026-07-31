@@ -145,4 +145,110 @@ class QueryReferenceTest {
     assertEquals("SELECT * FROM table", queryReference.getSqlQuery());
     assertEquals(SqlDialect.ANSI, queryReference.getSqlDialect());
   }
+
+  @Test
+  @DisplayName("QueryReference builder should set defaultSchema and defaultCatalog")
+  void shouldCreateQueryReferenceWithDefaultSchemaAndCatalog() {
+    QueryReference queryReference =
+        QueryReference.builder()
+            .sqlQuery("SELECT * FROM table")
+            .sqlDialect(SqlDialect.MYSQL)
+            .defaultCatalog("my_catalog")
+            .defaultSchema("my_schema")
+            .build();
+    assertNotNull(queryReference);
+    assertEquals(Optional.of("my_catalog"), queryReference.getDefaultCatalog());
+    assertEquals(Optional.of("my_schema"), queryReference.getDefaultSchema());
+  }
+
+  @Test
+  @DisplayName(
+      "QueryReference should return empty Optional for absent defaultSchema and defaultCatalog")
+  void shouldReturnEmptyOptionalForAbsentDefaultSchemaAndCatalog() {
+    QueryReference queryReference =
+        QueryReference.builder()
+            .sqlQuery("SELECT * FROM table")
+            .sqlDialect(SqlDialect.MYSQL)
+            .build();
+    assertEquals(Optional.empty(), queryReference.getDefaultCatalog());
+    assertEquals(Optional.empty(), queryReference.getDefaultSchema());
+  }
+
+  @Test
+  @DisplayName(
+      "QueryReference builder should treat null defaultSchema and defaultCatalog as absent")
+  void shouldTreatNullDefaultSchemaAndCatalogAsAbsent() {
+    QueryReference queryReference =
+        QueryReference.builder()
+            .sqlQuery("SELECT * FROM table")
+            .sqlDialect(SqlDialect.MYSQL)
+            .defaultCatalog(null)
+            .defaultSchema(null)
+            .build();
+    assertEquals(Optional.empty(), queryReference.getDefaultCatalog());
+    assertEquals(Optional.empty(), queryReference.getDefaultSchema());
+  }
+
+  @Test
+  @DisplayName("QueryReference builder should allow setting only defaultCatalog")
+  void shouldCreateQueryReferenceWithOnlyDefaultCatalog() {
+    QueryReference queryReference =
+        QueryReference.builder()
+            .sqlQuery("SELECT * FROM table")
+            .sqlDialect(SqlDialect.MYSQL)
+            .defaultCatalog("my_catalog")
+            .build();
+    assertEquals(Optional.of("my_catalog"), queryReference.getDefaultCatalog());
+    assertEquals(Optional.empty(), queryReference.getDefaultSchema());
+  }
+
+  @Test
+  @DisplayName("QueryReference builder should allow setting only defaultSchema")
+  void shouldCreateQueryReferenceWithOnlyDefaultSchema() {
+    QueryReference queryReference =
+        QueryReference.builder()
+            .sqlQuery("SELECT * FROM table")
+            .sqlDialect(SqlDialect.MYSQL)
+            .defaultSchema("my_schema")
+            .build();
+    assertEquals(Optional.empty(), queryReference.getDefaultCatalog());
+    assertEquals(Optional.of("my_schema"), queryReference.getDefaultSchema());
+  }
+
+  @Test
+  @DisplayName("QueryReference equality should account for defaultSchema and defaultCatalog")
+  void shouldNotBeEqualWhenDefaultSchemaOrCatalogDiffer() {
+    QueryReference base =
+        QueryReference.builder()
+            .sqlQuery("SELECT * FROM table")
+            .sqlDialect(SqlDialect.MYSQL)
+            .defaultCatalog("cat1")
+            .defaultSchema("schema1")
+            .build();
+    QueryReference differentCatalog =
+        QueryReference.builder()
+            .sqlQuery("SELECT * FROM table")
+            .sqlDialect(SqlDialect.MYSQL)
+            .defaultCatalog("cat2")
+            .defaultSchema("schema1")
+            .build();
+    QueryReference differentSchema =
+        QueryReference.builder()
+            .sqlQuery("SELECT * FROM table")
+            .sqlDialect(SqlDialect.MYSQL)
+            .defaultCatalog("cat1")
+            .defaultSchema("schema2")
+            .build();
+    QueryReference same =
+        QueryReference.builder()
+            .sqlQuery("SELECT * FROM table")
+            .sqlDialect(SqlDialect.MYSQL)
+            .defaultCatalog("cat1")
+            .defaultSchema("schema1")
+            .build();
+    assertNotEquals(base, differentCatalog);
+    assertNotEquals(base, differentSchema);
+    assertEquals(base, same);
+    assertEquals(base.hashCode(), same.hashCode());
+  }
 }

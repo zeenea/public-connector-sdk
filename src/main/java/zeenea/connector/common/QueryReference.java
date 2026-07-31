@@ -20,6 +20,12 @@ public final class QueryReference {
   /** The data source identifier associated with the query */
   @Nullable private final DataSourceIdentifier dataSourceIdentifier;
 
+  /** The default catalog associated with the query */
+  @Nullable private final String defaultCatalog;
+
+  /** The default schema associated with the query */
+  @Nullable private final String defaultSchema;
+
   /**
    * Constructs an QueryReference instance using the provided builder.
    *
@@ -29,6 +35,8 @@ public final class QueryReference {
     this.sqlQuery = Objects.requireNonNull(builder.sqlQuery, "sqlQuery");
     this.sqlDialect = Objects.requireNonNull(builder.sqlDialect, "sqlDialect");
     this.dataSourceIdentifier = builder.dataSourceIdentifier;
+    this.defaultCatalog = builder.defaultCatalog;
+    this.defaultSchema = builder.defaultSchema;
   }
 
   /**
@@ -103,6 +111,26 @@ public final class QueryReference {
   }
 
   /**
+   * Gets the default catalog associated with the query, if any
+   *
+   * @return an Optional containing the default catalog associated with the query if present,
+   *     otherwise an empty Optional
+   */
+  public Optional<String> getDefaultCatalog() {
+    return Optional.ofNullable(defaultCatalog);
+  }
+
+  /**
+   * Gets the default schema associated with the query, if any
+   *
+   * @return an Optional containing the default schema associated with the query if present,
+   *     otherwise an empty Optional
+   */
+  public Optional<String> getDefaultSchema() {
+    return Optional.ofNullable(defaultSchema);
+  }
+
+  /**
    * Creates a new builder for the QueryReference class.
    *
    * @return a new Builder instance
@@ -124,7 +152,9 @@ public final class QueryReference {
     QueryReference that = (QueryReference) o;
     return Objects.equals(sqlQuery, that.sqlQuery)
         && Objects.equals(sqlDialect, that.sqlDialect)
-        && Objects.equals(dataSourceIdentifier, that.dataSourceIdentifier);
+        && Objects.equals(dataSourceIdentifier, that.dataSourceIdentifier)
+        && Objects.equals(defaultCatalog, that.defaultCatalog)
+        && Objects.equals(defaultSchema, that.defaultSchema);
   }
 
   /**
@@ -134,7 +164,7 @@ public final class QueryReference {
    */
   @Override
   public int hashCode() {
-    return Objects.hash(sqlQuery, sqlDialect, dataSourceIdentifier);
+    return Objects.hash(sqlQuery, sqlDialect, dataSourceIdentifier, defaultCatalog, defaultSchema);
   }
 
   /**
@@ -151,6 +181,10 @@ public final class QueryReference {
         + sqlDialect
         + ", dataSourceIdentifier="
         + dataSourceIdentifier
+        + ", defaultCatalog="
+        + defaultCatalog
+        + ", defaultSchema="
+        + defaultSchema
         + "}";
   }
 
@@ -165,6 +199,12 @@ public final class QueryReference {
 
     /** The data source identifier associated with the query, if any. */
     private DataSourceIdentifier dataSourceIdentifier;
+
+    /** The default catalog associated with the query, if any. */
+    private String defaultCatalog;
+
+    /** The default schema associated with the query, if any. */
+    private String defaultSchema;
 
     /**
      * Sets the query for the item.
@@ -208,6 +248,28 @@ public final class QueryReference {
     public QueryReference.Builder dataSourceIdentifier(
         @Nullable DataSourceIdentifier dataSourceIdentifier) {
       this.dataSourceIdentifier = dataSourceIdentifier;
+      return this;
+    }
+
+    /**
+     * Sets the default catalog for the query.
+     *
+     * @param defaultCatalog the default schema to set
+     * @return the builder instance
+     */
+    public QueryReference.Builder defaultCatalog(@Nullable String defaultCatalog) {
+      this.defaultCatalog = defaultCatalog;
+      return this;
+    }
+
+    /**
+     * Sets the default schema for the query.
+     *
+     * @param defaultSchema the default schema to set
+     * @return the builder instance
+     */
+    public QueryReference.Builder defaultSchema(@Nullable String defaultSchema) {
+      this.defaultSchema = defaultSchema;
       return this;
     }
 
