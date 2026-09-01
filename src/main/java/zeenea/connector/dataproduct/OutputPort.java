@@ -3,6 +3,7 @@ package zeenea.connector.dataproduct;
 import java.util.*;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import zeenea.connector.common.DescriptionFormat;
 import zeenea.connector.common.ItemIdentifier;
 import zeenea.connector.common.ItemReference;
 import zeenea.connector.contact.Contact;
@@ -21,6 +22,9 @@ public final class OutputPort {
 
   /** The description of the output port. */
   @Nullable private final String description;
+
+  /** The format of the output port's description. */
+  @NotNull private final DescriptionFormat descriptionFormat;
 
   /** The data contract associated with the output port. */
   @NotNull private final DataContract dataContract;
@@ -57,6 +61,7 @@ public final class OutputPort {
     this.id = builder.id;
     this.name = builder.name;
     this.description = builder.description;
+    this.descriptionFormat = builder.descriptionFormat;
     this.dataContract = builder.dataContract;
     this.datasets = builder.datasets;
     this.properties = builder.properties;
@@ -92,6 +97,15 @@ public final class OutputPort {
    */
   public Optional<String> getDescription() {
     return Optional.ofNullable(description);
+  }
+
+  /**
+   * Gets the format of the output port's description.
+   *
+   * @return the format of the output port's description
+   */
+  public @NotNull DescriptionFormat getDescriptionFormat() {
+    return descriptionFormat;
   }
 
   /**
@@ -172,6 +186,7 @@ public final class OutputPort {
     return Objects.equals(getId(), that.getId())
         && Objects.equals(getName(), that.getName())
         && Objects.equals(getDescription(), that.getDescription())
+        && Objects.equals(getDescriptionFormat(), that.getDescriptionFormat())
         && Objects.equals(getDataContract(), that.getDataContract())
         && Objects.equals(getDatasets(), that.getDatasets())
         && Objects.equals(getProperties(), that.getProperties());
@@ -185,7 +200,13 @@ public final class OutputPort {
   @Override
   public int hashCode() {
     return Objects.hash(
-        getId(), getName(), getDescription(), getDataContract(), getDatasets(), getProperties());
+        getId(),
+        getName(),
+        getDescription(),
+        getDescriptionFormat(),
+        getDataContract(),
+        getDatasets(),
+        getProperties());
   }
 
   /**
@@ -204,7 +225,9 @@ public final class OutputPort {
         + name
         + "', description='"
         + description
-        + "', datasets="
+        + "', descriptionFormat="
+        + descriptionFormat
+        + ", datasets="
         + datasets
         + ", properties="
         + properties
@@ -228,6 +251,8 @@ public final class OutputPort {
     private String name;
 
     private String description = null;
+
+    private DescriptionFormat descriptionFormat = DescriptionFormat.Plain;
 
     private DataContract dataContract;
 
@@ -291,6 +316,29 @@ public final class OutputPort {
     public Builder description(@Nullable String description) {
       this.description = description;
       return this;
+    }
+
+    /**
+     * Sets the description of the output port, along with the format it is written in.
+     *
+     * @param description the description of the output port
+     * @param format the format of the description
+     * @return the builder instance
+     */
+    public Builder description(@Nullable String description, @NotNull DescriptionFormat format) {
+      this.description = description;
+      this.descriptionFormat = format;
+      return this;
+    }
+
+    /**
+     * Sets the description of the output port as Markdown.
+     *
+     * @param description the Markdown-formatted description of the output port
+     * @return the builder instance
+     */
+    public Builder markdownDescription(@Nullable String description) {
+      return description(description, DescriptionFormat.Markdown);
     }
 
     /**

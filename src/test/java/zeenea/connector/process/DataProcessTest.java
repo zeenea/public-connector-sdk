@@ -4,6 +4,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.List;
+import java.util.Optional;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import zeenea.connector.common.*;
@@ -56,6 +57,22 @@ class DataProcessTest {
     assertEquals(source, dataProcess.getSources());
     assertEquals(target, dataProcess.getTargets());
     assertEquals(queries, dataProcess.getQueries());
+    assertEquals(DescriptionFormat.Plain, dataProcess.getDescriptionFormat());
+  }
+
+  @Test
+  @DisplayName("DataProcess builder should support a Markdown description")
+  void shouldSupportMarkdownDescription() {
+    ItemIdentifier itemIdentifier =
+        ItemIdentifier.of(List.of(IdentificationProperty.of("key", "dataprocess")));
+    DataProcess dataProcess =
+        DataProcess.builder()
+            .id(itemIdentifier)
+            .name("DataProcess")
+            .markdownDescription("# Description")
+            .build();
+    assertEquals(Optional.of("# Description"), dataProcess.getDescription());
+    assertEquals(DescriptionFormat.Markdown, dataProcess.getDescriptionFormat());
   }
 
   @Test

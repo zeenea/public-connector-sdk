@@ -177,6 +177,7 @@ public final class Dataset extends Item {
     return Objects.equals(getId(), dataset.getId())
         && Objects.equals(getName(), dataset.getName())
         && Objects.equals(getDescription(), dataset.getDescription())
+        && Objects.equals(getDescriptionFormat(), dataset.getDescriptionFormat())
         && Objects.equals(getContacts(), dataset.getContacts())
         && Objects.equals(getProperties(), dataset.getProperties())
         && Objects.equals(fields, dataset.fields)
@@ -200,6 +201,7 @@ public final class Dataset extends Item {
         getId(),
         getName(),
         getDescription(),
+        getDescriptionFormat(),
         getContacts(),
         getProperties(),
         fields,
@@ -226,6 +228,8 @@ public final class Dataset extends Item {
         + getName()
         + "', description="
         + getDescription()
+        + ", descriptionFormat="
+        + getDescriptionFormat()
         + ", contactRelations="
         + getContacts()
         + ", properties="

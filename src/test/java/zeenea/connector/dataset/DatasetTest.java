@@ -3,6 +3,7 @@ package zeenea.connector.dataset;
 import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.List;
+import java.util.Optional;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import zeenea.connector.common.*;
@@ -156,6 +157,22 @@ class DatasetTest {
     assertEquals(sourceDatasets, dataset.getSourceDatasets());
     assertEquals(sourceQueries, dataset.getSourceQueries());
     assertFalse(dataset.isNestedImport());
+    assertEquals(DescriptionFormat.Plain, dataset.getDescriptionFormat());
+  }
+
+  @Test
+  @DisplayName("Dataset builder should support a Markdown description")
+  void shouldSupportMarkdownDescription() {
+    ItemIdentifier itemIdentifier =
+        ItemIdentifier.of(List.of(IdentificationProperty.of("key", "dataset1")));
+    Dataset dataset =
+        Dataset.builder()
+            .id(itemIdentifier)
+            .name("Dataset1")
+            .markdownDescription("# Description")
+            .build();
+    assertEquals(Optional.of("# Description"), dataset.getDescription());
+    assertEquals(DescriptionFormat.Markdown, dataset.getDescriptionFormat());
   }
 
   @Test

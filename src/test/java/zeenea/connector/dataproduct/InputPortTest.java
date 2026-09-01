@@ -45,6 +45,24 @@ class InputPortTest {
     assertEquals(Optional.of("Description1"), inputPort.getDescription());
     assertEquals(inputs, inputPort.getInputs());
     assertEquals(outputs, inputPort.getOutputs());
+    assertEquals(DescriptionFormat.Plain, inputPort.getDescriptionFormat());
+  }
+
+  @Test
+  @DisplayName("InputPort builder should support a Markdown description")
+  void shouldSupportMarkdownDescription() {
+    ItemIdentifier inputPortIdentifier =
+        ItemIdentifier.of(List.of(IdentificationProperty.of("id", "input-port-1")));
+    InputPort inputPort =
+        InputPort.builder()
+            .id(inputPortIdentifier)
+            .name("InputPort1")
+            .markdownDescription("# Description")
+            .inputs(List.of())
+            .outputs(List.of())
+            .build();
+    assertEquals(Optional.of("# Description"), inputPort.getDescription());
+    assertEquals(DescriptionFormat.Markdown, inputPort.getDescriptionFormat());
   }
 
   @Test

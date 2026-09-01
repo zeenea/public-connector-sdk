@@ -4,6 +4,7 @@ import java.util.*;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import zeenea.connector.common.DataSourceIdentifier;
+import zeenea.connector.common.DescriptionFormat;
 import zeenea.connector.common.IdentificationProperty;
 import zeenea.connector.common.ItemIdentifier;
 import zeenea.connector.contact.Contact;
@@ -29,6 +30,9 @@ public abstract class Item {
   /** The description of the item. */
   private final String description;
 
+  /** The format of the item's description. */
+  private final DescriptionFormat descriptionFormat;
+
   /** The properties of the item. */
   private final Map<String, PropertyValue> properties;
 
@@ -53,6 +57,7 @@ public abstract class Item {
     this.name = Objects.requireNonNull(builder.name, "name");
     this.id = Objects.requireNonNull(builder.id, "id");
     this.description = builder.description;
+    this.descriptionFormat = builder.descriptionFormat;
     this.properties = new HashMap<>(builder.properties);
     this.contacts = List.copyOf(builder.contacts);
     this.glossaryRefs = List.copyOf(builder.glossaryRefs);
@@ -86,6 +91,15 @@ public abstract class Item {
    */
   public Optional<String> getDescription() {
     return Optional.ofNullable(description);
+  }
+
+  /**
+   * Gets the format of the item's description.
+   *
+   * @return the format of the item's description
+   */
+  public DescriptionFormat getDescriptionFormat() {
+    return descriptionFormat;
   }
 
   /**
@@ -150,6 +164,9 @@ public abstract class Item {
     /** The description of the item. */
     private String description;
 
+    /** The format of the item's description. */
+    private DescriptionFormat descriptionFormat = DescriptionFormat.Plain;
+
     /** The properties of the item. */
     private Map<String, PropertyValue> properties = Map.of();
 
@@ -206,6 +223,29 @@ public abstract class Item {
     public THIS description(@Nullable String description) {
       this.description = description;
       return self();
+    }
+
+    /**
+     * Sets the description of the item, along with the format it is written in.
+     *
+     * @param description the description of the item
+     * @param format the format of the description
+     * @return the builder instance
+     */
+    public THIS description(@Nullable String description, @NotNull DescriptionFormat format) {
+      this.description = description;
+      this.descriptionFormat = format;
+      return self();
+    }
+
+    /**
+     * Sets the description of the item as Markdown.
+     *
+     * @param description the Markdown-formatted description of the item
+     * @return the builder instance
+     */
+    public THIS markdownDescription(@Nullable String description) {
+      return description(description, DescriptionFormat.Markdown);
     }
 
     /**
