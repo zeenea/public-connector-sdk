@@ -3,6 +3,7 @@ package zeenea.connector.dataproduct;
 import java.util.*;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import zeenea.connector.common.DescriptionFormat;
 import zeenea.connector.common.ItemIdentifier;
 import zeenea.connector.common.ItemReference;
 import zeenea.connector.exception.ExceptionUtils;
@@ -18,6 +19,9 @@ public final class InputPort {
 
   /** The description of the input port. */
   @Nullable private final String description;
+
+  /** The format of the input port's description. */
+  @NotNull private final DescriptionFormat descriptionFormat;
 
   /** The list of input references for the input port. */
   @NotNull private final List<ItemReference> inputs;
@@ -43,6 +47,7 @@ public final class InputPort {
     this.id = builder.id;
     this.name = builder.name;
     this.description = builder.description;
+    this.descriptionFormat = builder.descriptionFormat;
     this.inputs = List.copyOf(builder.inputs);
     this.outputs = List.copyOf(builder.outputs);
     this.glossaryRefs = List.copyOf(builder.glossaryRefs);
@@ -75,6 +80,15 @@ public final class InputPort {
    */
   public Optional<String> getDescription() {
     return Optional.ofNullable(description);
+  }
+
+  /**
+   * Gets the format of the input port's description.
+   *
+   * @return the format of the input port's description
+   */
+  public @NotNull DescriptionFormat getDescriptionFormat() {
+    return descriptionFormat;
   }
 
   /**
@@ -127,6 +141,7 @@ public final class InputPort {
     return Objects.equals(id, inputPort.id)
         && Objects.equals(name, inputPort.name)
         && Objects.equals(description, inputPort.description)
+        && Objects.equals(descriptionFormat, inputPort.descriptionFormat)
         && Objects.equals(inputs, inputPort.inputs)
         && Objects.equals(outputs, inputPort.outputs);
   }
@@ -138,7 +153,7 @@ public final class InputPort {
    */
   @Override
   public int hashCode() {
-    return Objects.hash(id, name, description, inputs, outputs);
+    return Objects.hash(id, name, description, descriptionFormat, inputs, outputs);
   }
 
   /**
@@ -153,7 +168,9 @@ public final class InputPort {
         + id
         + "', description='"
         + description
-        + "', name='"
+        + "', descriptionFormat="
+        + descriptionFormat
+        + ", name='"
         + name
         + "', inputs="
         + inputs
@@ -179,6 +196,8 @@ public final class InputPort {
     private String name;
 
     private String description = null;
+
+    private DescriptionFormat descriptionFormat = DescriptionFormat.Plain;
 
     private List<ItemReference> inputs = Collections.emptyList();
 
@@ -221,6 +240,29 @@ public final class InputPort {
     public Builder description(@Nullable String description) {
       this.description = description;
       return this;
+    }
+
+    /**
+     * Sets the description of the input port, along with the format it is written in.
+     *
+     * @param description the description of the input port
+     * @param format the format of the description
+     * @return the builder instance
+     */
+    public Builder description(@Nullable String description, @NotNull DescriptionFormat format) {
+      this.description = description;
+      this.descriptionFormat = format;
+      return this;
+    }
+
+    /**
+     * Sets the description of the input port as Markdown.
+     *
+     * @param description the Markdown-formatted description of the input port
+     * @return the builder instance
+     */
+    public Builder markdownDescription(@Nullable String description) {
+      return description(description, DescriptionFormat.Markdown);
     }
 
     /**

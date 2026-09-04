@@ -89,6 +89,7 @@ public final class DataProduct extends Item {
     return Objects.equals(getId(), that.getId())
         && Objects.equals(getName(), that.getName())
         && Objects.equals(getDescription(), that.getDescription())
+        && Objects.equals(getDescriptionFormat(), that.getDescriptionFormat())
         && Objects.equals(getContacts(), that.getContacts())
         && Objects.equals(getProperties(), that.getProperties())
         && Objects.equals(inputPorts, that.inputPorts)
@@ -108,6 +109,7 @@ public final class DataProduct extends Item {
         getId(),
         getName(),
         getDescription(),
+        getDescriptionFormat(),
         getContacts(),
         getProperties(),
         inputPorts,
@@ -130,6 +132,8 @@ public final class DataProduct extends Item {
         + getName()
         + "', description="
         + getDescription()
+        + ", descriptionFormat="
+        + getDescriptionFormat()
         + ", contactRelations="
         + getContacts()
         + ", properties="

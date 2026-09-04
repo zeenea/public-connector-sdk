@@ -3,6 +3,7 @@ package zeenea.connector.field;
 import java.util.*;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import zeenea.connector.common.DescriptionFormat;
 import zeenea.connector.common.ItemIdentifier;
 import zeenea.connector.common.ItemReference;
 import zeenea.connector.dataset.DataType;
@@ -34,6 +35,9 @@ public class Field {
 
   /** The description of the field. */
   @Nullable private final String description;
+
+  /** The format of the field's description. */
+  @NotNull private final DescriptionFormat descriptionFormat;
 
   /** The properties of the field. */
   @NotNull private final Map<String, PropertyValue> properties;
@@ -69,6 +73,7 @@ public class Field {
     this.nullable = builder.nullable;
     this.multivalued = builder.multivalued;
     this.description = builder.description;
+    this.descriptionFormat = builder.descriptionFormat;
     this.properties = new HashMap<>(builder.properties);
     this.sourceFields = builder.sourceFields;
     this.glossaryRefs = List.copyOf(builder.glossaryRefs);
@@ -91,6 +96,15 @@ public class Field {
    */
   public @NotNull Optional<String> getDescription() {
     return Optional.ofNullable(description);
+  }
+
+  /**
+   * Gets the format of the field's description.
+   *
+   * @return the format of the field's description
+   */
+  public @NotNull DescriptionFormat getDescriptionFormat() {
+    return descriptionFormat;
   }
 
   /**
@@ -202,6 +216,7 @@ public class Field {
         && dataType == that.dataType
         && Objects.equals(nativeType, that.nativeType)
         && Objects.equals(description, that.description)
+        && Objects.equals(descriptionFormat, that.descriptionFormat)
         && Objects.equals(properties, that.properties)
         && Objects.equals(sourceFields, that.sourceFields);
   }
@@ -222,6 +237,7 @@ public class Field {
         nullable,
         multivalued,
         description,
+        descriptionFormat,
         properties,
         sourceFields);
   }
@@ -250,7 +266,9 @@ public class Field {
         + multivalued
         + ", description='"
         + description
-        + "', properties="
+        + "', descriptionFormat="
+        + descriptionFormat
+        + ", properties="
         + properties
         + ", sourceFields="
         + sourceFields
@@ -292,6 +310,9 @@ public class Field {
 
     /** The description of the field. */
     private String description;
+
+    /** The format of the field's description. */
+    private DescriptionFormat descriptionFormat = DescriptionFormat.Plain;
 
     /** The properties of the field. */
     private Map<String, PropertyValue> properties = Map.of();
@@ -394,6 +415,29 @@ public class Field {
     public Builder description(@Nullable String description) {
       this.description = description;
       return this;
+    }
+
+    /**
+     * Sets the description of the field, along with the format it is written in.
+     *
+     * @param description the description of the field
+     * @param format the format of the description
+     * @return the builder instance
+     */
+    public Builder description(@Nullable String description, @NotNull DescriptionFormat format) {
+      this.description = description;
+      this.descriptionFormat = format;
+      return this;
+    }
+
+    /**
+     * Sets the description of the field as Markdown.
+     *
+     * @param description the Markdown-formatted description of the field
+     * @return the builder instance
+     */
+    public Builder markdownDescription(@Nullable String description) {
+      return description(description, DescriptionFormat.Markdown);
     }
 
     /**

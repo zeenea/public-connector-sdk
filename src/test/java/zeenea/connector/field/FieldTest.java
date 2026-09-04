@@ -6,6 +6,7 @@ import java.util.Map;
 import java.util.Optional;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import zeenea.connector.common.DescriptionFormat;
 import zeenea.connector.common.IdentificationProperty;
 import zeenea.connector.common.ItemIdentifier;
 import zeenea.connector.dataset.DataType;
@@ -43,7 +44,55 @@ class FieldTest {
     assertTrue(field.isNullable());
     assertFalse(field.isMultivalued());
     assertEquals(Optional.of("Field description"), field.getDescription());
+    assertEquals(DescriptionFormat.Plain, field.getDescriptionFormat());
     assertEquals(properties, field.getProperties());
+  }
+
+  @Test
+  @DisplayName("Field builder should default description format to Plain")
+  void shouldDefaultDescriptionFormatToPlain() {
+    Field field =
+        Field.builder()
+            .id(ItemIdentifier.of(IdentificationProperty.of("key", "value")))
+            .name("FieldName")
+            .dataType(DataType.String)
+            .nativeType("String")
+            .nativeIndex(1)
+            .description("Field description")
+            .build();
+    assertEquals(DescriptionFormat.Plain, field.getDescriptionFormat());
+  }
+
+  @Test
+  @DisplayName("Field builder should support a Markdown description")
+  void shouldSupportMarkdownDescription() {
+    Field field =
+        Field.builder()
+            .id(ItemIdentifier.of(IdentificationProperty.of("key", "value")))
+            .name("FieldName")
+            .dataType(DataType.String)
+            .nativeType("String")
+            .nativeIndex(1)
+            .markdownDescription("# Field description")
+            .build();
+    assertEquals(Optional.of("# Field description"), field.getDescription());
+    assertEquals(DescriptionFormat.Markdown, field.getDescriptionFormat());
+  }
+
+  @Test
+  @DisplayName("Field builder should support an explicit description format")
+  void shouldSupportExplicitDescriptionFormat() {
+    Field field =
+        Field.builder()
+            .id(ItemIdentifier.of(IdentificationProperty.of("key", "value")))
+            .name("FieldName")
+            .dataType(DataType.String)
+            .nativeType("String")
+            .nativeIndex(1)
+            .description("# Field description", DescriptionFormat.Markdown)
+            .build();
+    assertEquals(Optional.of("# Field description"), field.getDescription());
+    assertEquals(DescriptionFormat.Markdown, field.getDescriptionFormat());
   }
 
   @Test

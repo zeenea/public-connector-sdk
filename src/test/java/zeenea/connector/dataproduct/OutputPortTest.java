@@ -8,6 +8,7 @@ import java.util.Optional;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import zeenea.connector.common.DataSourceIdentifier;
+import zeenea.connector.common.DescriptionFormat;
 import zeenea.connector.common.IdentificationProperty;
 import zeenea.connector.common.ItemIdentifier;
 import zeenea.connector.dataset.Dataset;
@@ -47,6 +48,24 @@ class OutputPortTest {
     assertEquals(dataContract, outputPort.getDataContract());
     assertEquals(datasets, outputPort.getDatasets());
     assertEquals(properties, outputPort.getProperties());
+    assertEquals(DescriptionFormat.Plain, outputPort.getDescriptionFormat());
+  }
+
+  @Test
+  @DisplayName("OutputPort builder should support a Markdown description")
+  void shouldSupportMarkdownDescription() {
+    DataContract dataContract = DataContract.of(DataContract.Type.Custom, "sourceValue");
+    OutputPort outputPort =
+        OutputPort.builder()
+            .id(ItemIdentifier.of(List.of(IdentificationProperty.of("id", "output-port-1"))))
+            .name("OutputPort1")
+            .markdownDescription("# Description")
+            .dataContract(dataContract)
+            .datasets(List.of())
+            .properties(Map.of())
+            .build();
+    assertEquals(Optional.of("# Description"), outputPort.getDescription());
+    assertEquals(DescriptionFormat.Markdown, outputPort.getDescriptionFormat());
   }
 
   @Test

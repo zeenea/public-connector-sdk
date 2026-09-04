@@ -3,6 +3,7 @@ package zeenea.connector.visualization;
 import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.List;
+import java.util.Optional;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import zeenea.connector.common.*;
@@ -51,6 +52,24 @@ class VisualizationTest {
     assertEquals(itemIdentifier, visualization.getId());
     assertEquals(fields, visualization.getFields());
     assertEquals(linkedDataset, visualization.getSourceDatasets());
+    assertEquals(DescriptionFormat.Plain, visualization.getDescriptionFormat());
+  }
+
+  @Test
+  @DisplayName("Visualization builder should support a Markdown description")
+  void shouldSupportMarkdownDescription() {
+    ItemIdentifier itemIdentifier =
+        ItemIdentifier.of(List.of(IdentificationProperty.of("key", "visualization")));
+    Visualization visualization =
+        Visualization.builder()
+            .id(itemIdentifier)
+            .name("Visualization")
+            .markdownDescription("# Description")
+            .fields(List.of())
+            .sourceDatasets(List.of())
+            .build();
+    assertEquals(Optional.of("# Description"), visualization.getDescription());
+    assertEquals(DescriptionFormat.Markdown, visualization.getDescriptionFormat());
   }
 
   @Test
