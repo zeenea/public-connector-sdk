@@ -81,11 +81,42 @@ public interface ConnectionConfiguration {
   Path getPath(String key) throws InvalidConfigurationException;
 
   /**
-   * Gets filters defined in connector configuration file.
+   * Gets the filters applied by the Scanner to the inventory, extract and synchronize processes.
    *
-   * @return Filters object representing filtering rules
+   * <p>The Scanner reads them from the {@code inventory_filters} key of the connection
+   * configuration file and falls back to the legacy {@code filters} key when {@code
+   * inventory_filters} is absent. This accessor is kept for compatibility with connectors written
+   * before filters were split per process; it returns the same value as {@link
+   * #getInventoryFilters()}, which should be preferred in new code.
+   *
+   * @return the inventory filter configuration (an empty configuration accepts every item)
    */
   FilterConfiguration getFilters();
+
+  /**
+   * Gets the filters applied by the Scanner to the inventory, extract and synchronize processes.
+   *
+   * <p>Read from the {@code inventory_filters} key, falling back to the legacy {@code filters} key.
+   * See {@link #getFilters()}.
+   *
+   * @return the inventory filter configuration (an empty configuration accepts every item)
+   */
+  default FilterConfiguration getInventoryFilters() {
+    return getFilters();
+  }
+
+  /**
+   * Gets the filters applied by the Scanner to the data sampling process.
+   *
+   * <p>Read from the {@code sampling_filters} key of the connection configuration file, falling
+   * back to the legacy {@code filters} key when absent. The default implementation returns {@link
+   * #getFilters()}, which reproduces that legacy behavior.
+   *
+   * @return the sampling filter configuration (an empty configuration accepts every item)
+   */
+  default FilterConfiguration getSamplingFilters() {
+    return getFilters();
+  }
 
   /**
    * Gets a Map associated with the specified key.
