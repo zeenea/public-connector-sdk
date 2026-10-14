@@ -193,17 +193,17 @@ class DataObservabilityConnectionTest {
   }
 
   @Test
-  void dataObservabilityIsEnabledByDefaultAndConnectorCanDisableIt() {
+  void dataObservabilityIsDisabledByDefaultAndConnectorCanDeclareItEnabled() {
     DataObservabilityConnection silent = new StubConnection(null);
-    DataObservabilityConnection disabled =
+    DataObservabilityConnection enabled =
         new StubConnection(null) {
           @Override
           public boolean isDataObservabilityEnabled() {
-            return false;
+            return true;
           }
         };
 
-    assertThat(silent.isDataObservabilityEnabled()).isTrue();
-    assertThat(disabled.isDataObservabilityEnabled()).isFalse();
+    assertThat(silent.isDataObservabilityEnabled()).isFalse();
+    assertThat(enabled.isDataObservabilityEnabled()).isTrue();
   }
 }

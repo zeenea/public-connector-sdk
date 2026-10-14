@@ -20,9 +20,13 @@ public interface DataObservabilityConnection extends Connection {
    *
    * <p>When disabled, the scanner issues no data observability command and deletes nothing.
    *
-   * @return true if enabled (default), false otherwise
+   * <p>Disabled by default: a connector must opt in by overriding this method to return true. A
+   * connector that implements the capability but does not opt in therefore sends no command and
+   * deletes nothing.
+   *
+   * @return true if enabled, false otherwise (default)
    */
   default boolean isDataObservabilityEnabled() {
-    return true;
+    return false;
   }
 }
