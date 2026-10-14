@@ -76,7 +76,7 @@ class DataObservabilityConnectionTest {
     DataObservabilityResponse response =
         connection.collectDataObservability(new DataObservabilityRequest(ITEM));
 
-    assertThat(response.getDqmToolName()).isEqualTo("Snowflake DMF");
+    assertThat(response.getToolName()).isEqualTo("Snowflake DMF");
     assertThat(response.getChecks()).hasSize(1);
     DataObservabilityCheck read = response.getChecks().get(0);
     assertThat(read.getName()).isEqualTo("not_null_name");
@@ -189,7 +189,7 @@ class DataObservabilityConnectionTest {
   void responseWithoutRequiredValuesIsRejected() {
     assertThatThrownBy(() -> new DataObservabilityResponse(null, List.of()))
         .isInstanceOf(NullPointerException.class)
-        .hasMessageContaining("dqmToolName");
+        .hasMessageContaining("toolName");
     assertThatThrownBy(() -> new DataObservabilityResponse("Snowflake DMF", null))
         .isInstanceOf(NullPointerException.class)
         .hasMessageContaining("checks");

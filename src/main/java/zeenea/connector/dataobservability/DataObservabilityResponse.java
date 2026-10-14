@@ -5,7 +5,7 @@ import java.util.Objects;
 
 /** Response of a Data Observability read: the statement of one dataset */
 public class DataObservabilityResponse {
-  private final String dqmToolName;
+  private final String toolName;
   private final List<DataObservabilityCheck> checks;
 
   /**
@@ -14,17 +14,17 @@ public class DataObservabilityResponse {
    * {@link zeenea.connector.exception.DataObservabilityException} instead, never return an empty
    * list.
    *
-   * @param dqmToolName the name of the data quality tool the checks come from
+   * @param toolName the name of the tool the checks come from
    * @param checks the checks of the dataset, empty if the item has no data observability; copied,
    *     the order is kept
    */
-  public DataObservabilityResponse(String dqmToolName, List<DataObservabilityCheck> checks) {
-    this.dqmToolName = Objects.requireNonNull(dqmToolName, "dqmToolName must not be null");
+  public DataObservabilityResponse(String toolName, List<DataObservabilityCheck> checks) {
+    this.toolName = Objects.requireNonNull(toolName, "toolName must not be null");
     this.checks = List.copyOf(Objects.requireNonNull(checks, "checks must not be null"));
   }
 
-  public String getDqmToolName() {
-    return dqmToolName;
+  public String getToolName() {
+    return toolName;
   }
 
   public List<DataObservabilityCheck> getChecks() {
