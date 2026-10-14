@@ -22,7 +22,7 @@ public class DataObservabilityCheck {
    * @param lastUpdate when the check result was last updated
    * @param description the check description
    * @param fields the identifiers of the fields targeted by the check, null or empty for a
-   *     table-level check
+   *     table-level check; copied, must not contain null elements
    */
   public DataObservabilityCheck(
       String name,
@@ -36,7 +36,7 @@ public class DataObservabilityCheck {
     this.status = Objects.requireNonNull(status, "status must not be null");
     this.lastUpdate = Objects.requireNonNull(lastUpdate, "lastUpdate must not be null");
     this.description = description;
-    this.fields = fields == null ? List.of() : fields;
+    this.fields = fields == null ? List.of() : List.copyOf(fields);
   }
 
   public String getName() {

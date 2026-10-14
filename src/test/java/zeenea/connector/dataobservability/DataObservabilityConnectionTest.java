@@ -193,6 +193,47 @@ class DataObservabilityConnectionTest {
   }
 
   @Test
+  void checkKeepsFieldOrderIndependentlyOfTheSourceList() {
+    ItemIdentifier otherField = TABLE.withSuffix(IdentificationProperty.of("field", "country"));
+    List<ItemIdentifier> source = new ArrayList<>(List.of(otherField, FIELD));
+    DataObservabilityCheck check =
+        new DataObservabilityCheck(
+            "not_null", null, DataObservabilityStatus.SUCCESS, LAST_UPDATE, null, source);
+
+    source.clear();
+
+    assertThat(check.getFields()).containsExactly(otherField, FIELD);
+  }
+
+  @Test
+  void checkExposesItsFieldsReadOnly() {
+    DataObservabilityCheck check =
+        new DataObservabilityCheck(
+            "not_null",
+            null,
+            DataObservabilityStatus.SUCCESS,
+            LAST_UPDATE,
+            null,
+            new ArrayList<>(List.of(FIELD)));
+
+    assertThatThrownBy(() -> check.getFields().remove(0))
+        .isInstanceOf(UnsupportedOperationException.class);
+  }
+
+  @Test
+  void checkRejectsANullField() {
+    List<ItemIdentifier> fields = new ArrayList<>();
+    fields.add(FIELD);
+    fields.add(null);
+
+    assertThatThrownBy(
+            () ->
+                new DataObservabilityCheck(
+                    "not_null", null, DataObservabilityStatus.SUCCESS, LAST_UPDATE, null, fields))
+        .isInstanceOf(NullPointerException.class);
+  }
+
+  @Test
   void dataObservabilityIsDisabledByDefaultAndConnectorCanDeclareItEnabled() {
     DataObservabilityConnection silent = new StubConnection(null);
     DataObservabilityConnection enabled =
