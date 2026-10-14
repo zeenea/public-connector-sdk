@@ -13,6 +13,7 @@ import zeenea.connector.common.IdentificationProperty;
 import zeenea.connector.common.ItemDesignator;
 import zeenea.connector.common.ItemIdentifier;
 import zeenea.connector.datasource.DataSource;
+import zeenea.connector.exception.DataObservabilityException;
 import zeenea.connector.property.PropertyDefinition;
 
 class DataObservabilityConnectionTest {
@@ -141,6 +142,43 @@ class DataObservabilityConnectionTest {
     assertThatThrownBy(() -> failing.collectDataObservability(new DataObservabilityRequest(ITEM)))
         .isInstanceOf(IllegalStateException.class)
         .hasMessage("read failed");
+  }
+
+  @Test
+  void failedReadThrowsDataObservabilityExceptionNamingTheCauseAndCarryingTheUnderlyingCause() {
+    RuntimeException underlying = new IllegalStateException("insufficient privileges");
+    DataObservabilityConnection failing =
+        new StubConnection(null) {
+          @Override
+          public DataObservabilityResponse collectDataObservability(
+              DataObservabilityRequest request) {
+            throw new DataObservabilityException(
+                "Role SNOWFLAKE.DATA_QUALITY_MONITORING_VIEWER is missing", underlying);
+          }
+        };
+
+    assertThatThrownBy(() -> failing.collectDataObservability(new DataObservabilityRequest(ITEM)))
+        .isInstanceOf(DataObservabilityException.class)
+        .isInstanceOf(RuntimeException.class)
+        .hasMessageContaining("DATA_QUALITY_MONITORING_VIEWER is missing")
+        .hasCause(underlying);
+  }
+
+  @Test
+  void failedReadWithoutUnderlyingCauseStillNamesTheCause() {
+    DataObservabilityConnection failing =
+        new StubConnection(null) {
+          @Override
+          public DataObservabilityResponse collectDataObservability(
+              DataObservabilityRequest request) {
+            throw new DataObservabilityException("Role is missing");
+          }
+        };
+
+    assertThatThrownBy(() -> failing.collectDataObservability(new DataObservabilityRequest(ITEM)))
+        .isInstanceOf(DataObservabilityException.class)
+        .hasMessage("Role is missing")
+        .hasNoCause();
   }
 
   @Test
