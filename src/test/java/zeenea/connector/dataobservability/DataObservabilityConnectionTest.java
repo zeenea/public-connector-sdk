@@ -129,22 +129,6 @@ class DataObservabilityConnectionTest {
   }
 
   @Test
-  void failedReadIsSignalledByThrowingNotByAnEmptyResponse() {
-    DataObservabilityConnection failing =
-        new StubConnection(null) {
-          @Override
-          public DataObservabilityResponse collectDataObservability(
-              DataObservabilityRequest request) {
-            throw new IllegalStateException("read failed");
-          }
-        };
-
-    assertThatThrownBy(() -> failing.collectDataObservability(new DataObservabilityRequest(ITEM)))
-        .isInstanceOf(IllegalStateException.class)
-        .hasMessage("read failed");
-  }
-
-  @Test
   void failedReadThrowsDataObservabilityExceptionNamingTheCauseAndCarryingTheUnderlyingCause() {
     RuntimeException underlying = new IllegalStateException("insufficient privileges");
     DataObservabilityConnection failing =

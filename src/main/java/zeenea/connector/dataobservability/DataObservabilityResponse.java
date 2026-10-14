@@ -9,6 +9,11 @@ public class DataObservabilityResponse {
   private final List<DataObservabilityCheck> checks;
 
   /**
+   * An empty list of checks means the read succeeded and the item has no data observability: the
+   * scanner may then delete the item's existing statement. A failed or partial read must throw a
+   * {@link zeenea.connector.exception.DataObservabilityException} instead, never return an empty
+   * list.
+   *
    * @param dqmToolName the name of the data quality tool the checks come from
    * @param checks the checks of the dataset, empty if the item has no data observability; copied,
    *     the order is kept
