@@ -3,7 +3,7 @@ plugins {
     `java-library`
     `maven-publish`
     id("com.diffplug.spotless") version "6.25.0"
-    id("com.github.spotbugs") version "6.4.4"
+    id("com.github.spotbugs") version "6.5.4"
 }
 
 
@@ -95,8 +95,8 @@ dependencies {
     testImplementation(libs.slf4j.api)
     testImplementation(platform(libs.junit.bom))
     testRuntimeOnly(libs.junit.platform.launcher)
-    testImplementation(group = "org.junit.jupiter", name = "junit-jupiter-api")
-    testRuntimeOnly(group = "org.junit.jupiter", name = "junit-jupiter-engine")
+    testImplementation("org.junit.jupiter:junit-jupiter-api")
+    testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine")
     testImplementation(libs.assertj.core)
     testImplementation(libs.equalsverifier)
     compileOnly(libs.annotations)
