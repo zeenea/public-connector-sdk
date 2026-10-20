@@ -1,6 +1,7 @@
 package zeenea.connector.common;
 
 import java.util.*;
+import java.util.stream.Collectors;
 import org.jetbrains.annotations.NotNull;
 import zeenea.connector.exception.ExceptionUtils;
 
@@ -18,7 +19,7 @@ import zeenea.connector.exception.ExceptionUtils;
  * }
  * </pre>
  */
-public final class DataSourceIdentifier {
+public class DataSourceIdentifier {
 
   /** The list of identification properties. */
   @NotNull private final List<IdentificationProperty> identificationProperties;
@@ -32,6 +33,10 @@ public final class DataSourceIdentifier {
     ExceptionUtils.requireNonNullOrEmpty(
         "identificationProperties", builder.identificationProperties);
     this.identificationProperties = List.copyOf(builder.identificationProperties);
+  }
+
+  protected DataSourceIdentifier(@NotNull List<IdentificationProperty> identificationProperties) {
+    this.identificationProperties = List.copyOf(identificationProperties);
   }
 
   /**
@@ -67,6 +72,33 @@ public final class DataSourceIdentifier {
   }
 
   /**
+   * Gets an optional unique property value for the specified key.
+   *
+   * @param key the key of the identification property
+   * @return an Optional containing the unique property value if it exists, otherwise an empty
+   *     Optional
+   */
+  public @NotNull Optional<String> getUniquePropertyValue(String key) {
+    List<String> values = getPropertyValues(key);
+    if (values.size() > 1) throw new IllegalStateException("Multiple values found for key: " + key);
+    if (values.isEmpty()) return Optional.empty();
+    return Optional.of(values.get(0));
+  }
+
+  /**
+   * Gets a list of property values for the specified key.
+   *
+   * @param key the key of the identification property
+   * @return a list of property values for the specified key
+   */
+  public @NotNull List<String> getPropertyValues(String key) {
+    return identificationProperties.stream()
+        .filter(prop -> prop.getKey().equals(key))
+        .map(IdentificationProperty::getValue)
+        .collect(Collectors.toList());
+  }
+
+  /**
    * Creates a new builder for the DataSourceIdentifier class.
    *
    * @return a new Builder instance
@@ -84,7 +116,7 @@ public final class DataSourceIdentifier {
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;
-    if (o == null || getClass() != o.getClass()) return false;
+    if (!(o instanceof DataSourceIdentifier)) return false;
     DataSourceIdentifier that = (DataSourceIdentifier) o;
     return Objects.equals(identificationProperties, that.identificationProperties);
   }

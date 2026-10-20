@@ -98,4 +98,22 @@ class ItemIdentifierTest {
         () -> ItemIdentifier.of(List.of()),
         "identificationProperties cannot be null");
   }
+
+  private static final class CustomItemIdentifier extends ItemIdentifier {
+    CustomItemIdentifier(List<IdentificationProperty> identificationProperties) {
+      super(identificationProperties);
+    }
+  }
+
+  @Test
+  @DisplayName("ItemIdentifier subclass should be equal to a base instance with same properties")
+  void subclassShouldBeEqualToBaseInstance() {
+    List<IdentificationProperty> properties = List.of(IdentificationProperty.of("key", "value"));
+    ItemIdentifier base = ItemIdentifier.of(properties);
+    ItemIdentifier custom = new CustomItemIdentifier(properties);
+    assertEquals(base, custom);
+    assertEquals(custom, base);
+    assertEquals(base.hashCode(), custom.hashCode());
+    assertEquals(Optional.of("value"), custom.getUniquePropertyValue("key"));
+  }
 }

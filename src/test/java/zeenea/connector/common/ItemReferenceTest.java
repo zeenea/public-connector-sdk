@@ -73,4 +73,37 @@ class ItemReferenceTest {
                 IdentificationProperty.of("port", "1111")));
     assertThrows(NullPointerException.class, () -> ItemReference.of(null, dataSourceIdentifier));
   }
+
+  private static final class CustomItemReference extends ItemReference {
+    CustomItemReference(ItemIdentifier itemIdentifier, DataSourceIdentifier dataSourceIdentifier) {
+      super(itemIdentifier, dataSourceIdentifier);
+    }
+  }
+
+  @Test
+  @DisplayName("ItemReference subclass should expose identifiers and accept null data source")
+  void subclassShouldExposeIdentifiers() {
+    ItemIdentifier identifier = ItemIdentifier.of(IdentificationProperty.of("key", "value"));
+    DataSourceIdentifier dataSourceIdentifier =
+        DataSourceIdentifier.of(IdentificationProperty.of("host", "localhost"));
+
+    ItemReference custom = new CustomItemReference(identifier, dataSourceIdentifier);
+    assertEquals(identifier, custom.getItemIdentifier());
+    assertEquals(Optional.of(dataSourceIdentifier), custom.getDataSourceIdentifier());
+
+    ItemReference withoutDataSource = new CustomItemReference(identifier, null);
+    assertEquals(Optional.empty(), withoutDataSource.getDataSourceIdentifier());
+    assertThrows(NullPointerException.class, () -> new CustomItemReference(null, null));
+  }
+
+  @Test
+  @DisplayName("ItemReference subclass should not be equal to a base instance (getClass semantics)")
+  void subclassShouldNotBeEqualToBaseInstance() {
+    ItemIdentifier identifier = ItemIdentifier.of(IdentificationProperty.of("key", "value"));
+    ItemReference base = ItemReference.of(identifier);
+    ItemReference custom = new CustomItemReference(identifier, null);
+    assertNotEquals(base, custom);
+    assertNotEquals(custom, base);
+    assertEquals(custom, new CustomItemReference(identifier, null));
+  }
 }
