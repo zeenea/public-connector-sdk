@@ -32,3 +32,6 @@ gradle-app.setting
 
 /.idea/
 /target/
+
+# Workflow telemetry (phase cost reports), not for the public repo
+*.perf.md
